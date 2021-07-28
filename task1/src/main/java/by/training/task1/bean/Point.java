@@ -1,10 +1,10 @@
-package by.training.task1.entities;
+package by.training.task1.bean;
 
 import java.util.Objects;
 
 public class Point {
-    private int x,y;
-    public Point(int x, int y)
+    private double x,y;
+    public Point(double x, double y)
     {
         this.x=x;
         this.y=y;
@@ -14,19 +14,19 @@ public class Point {
         super();
     }
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 
-    public void setX(int x) {
+    public void setX(double x) {
         this.x = x;
     }
 
-    public void setY(int y) {
+    public void setY(double y) {
         this.y = y;
     }
 
