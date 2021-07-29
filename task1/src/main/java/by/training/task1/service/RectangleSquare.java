@@ -4,6 +4,11 @@ public class RectangleSquare {
     private RectangleSquare(){}
     public static double square(double width)
     {
-        return 2 * width * width;
+        if(width > 0) {
+            return 2 * width * width;
+        }
+        else {
+            return 0;
+        }
     }
 }

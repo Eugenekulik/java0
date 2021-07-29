@@ -1,0 +1,11 @@
+<suite name="Suite1" verbose="1" >
+    <test name="Test" >
+        <classes>
+            <class name="by.training.task1.service.CalculateDistanceTest" />
+            <class name="by.training.task1.service.TimeConverterTest" />
+            <class name="by.training.task1.service.ElapcedTimeTest" />
+            <class name="by.training.task1.service.RectangleSquare" />
+        </classes>
+    </test>
+</suite>
+
