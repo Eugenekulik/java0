@@ -3,11 +3,8 @@ package by.training.task2.controller;
 import by.training.task2.command.*;
 
 public class CurrentData {
-    private String[] args;
-    public CurrentData(String[] args){
-        this.args=args;
-    }
-    public boolean exam(CommandType cmd){
+    public CurrentData(){ }
+    public boolean exam(CommandType cmd,String[]args){
         switch(cmd) {
             case CALCEXPR:
                 if(args.length!=4){
