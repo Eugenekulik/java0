@@ -1,6 +1,6 @@
-package by.training.task1.service;
+package by.training.task1.view;
 
-import by.training.task1.view.Interaction;
+import by.training.task1.service.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

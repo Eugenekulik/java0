@@ -22,7 +22,7 @@ public class CalculateDistanceTest {
     public void testbetweenPoint(Point a, Point b,double c) {
         double actual = CalculateDistance.betweenPoints(a,b);
         double expected = c;
-        assertEquals(actual,expected);
+        assertEquals(actual,expected,0.0001);
 
     }
 

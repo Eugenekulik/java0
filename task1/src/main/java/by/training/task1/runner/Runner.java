@@ -1,6 +1,6 @@
 package by.training.task1.runner;
 
-import by.training.task1.service.Menu;
+import by.training.task1.view.Menu;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
