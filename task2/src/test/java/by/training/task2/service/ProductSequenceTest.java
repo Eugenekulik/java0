@@ -1,28 +1,15 @@
 package by.training.task2.service;
 
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
 
 public class ProductSequenceTest {
-    @DataProvider(name = "input_data")
-    public Object[][] createData() {
-        return
-                new Object[][]{
-                        {new String[]{"5","2"},new double[]{5,2}},
-                        {new String[]{"0","0"},new double[]{0,0}},
-                        {new String[]{"2.5","2.7"},new double[]{2.7,2.5}},
-                        {new String[]{"-5","-2"},new double[]{-2,-5}}
-                };
-    }
-
-    @Test(description = "Execute test",dataProvider = "input_data")
-    public void testExecute(String[]a, double []c) {
+    @Test(description = "Execute test")
+    public void testExecute() {
         ProductSequence test= new ProductSequence();
-        double []actual = test.execute(a);
-        double []expected = c;
+        double actual = test.execute();
+        double expected = 5.745471106375E12;
         assertEquals(actual,expected,0.0001);
-
     }
 }

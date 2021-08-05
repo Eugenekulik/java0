@@ -2,14 +2,14 @@ package by.training.task2.service;
 
 public class ProductSequence {
     public ProductSequence(){};
-    public double[] execute(String []args){
-        double x=Double.parseDouble(args[0]);
-        double y=Double.parseDouble(args[1]);
-        if(x<y){
-            double temp = x;
-            x=y;
-            y=temp;
+    public double execute(){
+        double[]a=new double[10];
+        a[0]=1;
+        double result=a[0];
+        for(int i=1;i<10;i++){
+            a[i]=6+a[i-1];
+            result*=a[i];
         }
-        return new double[]{x,y};
+        return result;
     }
 }

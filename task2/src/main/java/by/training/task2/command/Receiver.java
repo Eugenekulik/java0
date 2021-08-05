@@ -18,14 +18,23 @@ public class Receiver {
                 result= "result: " + String.valueOf(new CalculateFunction().execute(args));
                 break;
             case CALCFUNCSEGM:
+                double []r1 = new CalculateFunctionSegment().execute(args);
+                result ="result: " + r1.toString();
                 break;
             case CALCFUNCTABLE:
+                CalculateFunctionTable c= new CalculateFunctionTable();
+                double []r2=c.execute(args);
+                String s1="";
+                for(int i=0;i<r2.length;i+=2){
+                    s1+="\t"+r2[i] + "\t\t" + r2[i+1] + "\n\t";
+                }
+                result ="result:\tx\t\tf(x)\n\t" + s1 ;
                 break;
             case CURRSTR:
                 break;
             case DEGREEACT:
-                double[] r1 = new DegreeAction().execute(args);
-                result = "result: " +r1[0]+"; "+r1[1]+"; "+r1[2]+";";
+                double[] r3 = new DegreeAction().execute(args);
+                result = "result: " +r3[0]+"; "+r3[1]+"; "+r3[2]+";";
                 break;
             case MATHTASK:
                 break;
@@ -33,8 +42,8 @@ public class Receiver {
                 result=new PositiveSum().execute(args);
                 break;
             case PRODSEQ:
-                double[] r2= new ProductSequence().execute(args);
-                result = "result: " +r2[0]+"; "+r2[1]+";";
+                double[] r4= new Redistribution().execute(args);
+                result = "result: " +r4[0]+"; "+r4[1]+";";
                 break;
             case REDISTR:
                 break;
