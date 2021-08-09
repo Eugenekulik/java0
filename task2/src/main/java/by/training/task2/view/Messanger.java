@@ -9,6 +9,6 @@ public class Messanger {
         this.locale=new Locale(lang,country);
     }
     public void print(String msg) {
-        System.out.println("MyProgramWork: " + msg);
+        System.out.println("TASK2: " + msg);
     }
 }

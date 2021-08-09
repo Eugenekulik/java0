@@ -7,6 +7,6 @@ public class Reader {
     public String getString(String msg)
     {
         System.out.println(msg);
-        return scanner.next();
+        return scanner.nextLine();
     }
 }

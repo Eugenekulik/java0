@@ -21,8 +21,9 @@ public class Runner {
         messanger.print("");
         TaskInfo information = new TaskInfo();
         CurrentData currentData= new CurrentData();
+        Locale locale = new Locale("en","GB");
         while(true) {
-            String l=reader.getString("");
+            String l=reader.getString(information.getInfo(locale));
             String []line = l.split(" ");
             String cmd = line[0];
             String[] argsProg=new String[line.length-1];

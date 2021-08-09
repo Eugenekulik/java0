@@ -7,7 +7,7 @@ public class TaskInfo{
     ResourceBundle rb;
     public TaskInfo(){};
     public String getInfo(Locale l){
-        rb=ResourceBundle.getBundle("TaskInfo.properties",l);
+        rb=ResourceBundle.getBundle("TasksInfo", l);
         return "CALCEXP: "+rb.getString("task1.description") +"\n"+
                 "CALCFUNC: "+rb.getString("task2.description") +"\n"+
                 "CALCFUNCSEGM: "+rb.getString("task3.description") +"\n"+
