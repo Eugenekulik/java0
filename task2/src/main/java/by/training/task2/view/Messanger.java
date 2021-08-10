@@ -4,11 +4,8 @@ import java.util.Locale;
 
 public class Messanger {
     Locale locale;
-    public Messanger(String lang, String country)
-    {
-        this.locale=new Locale(lang,country);
-    }
+    public Messanger(){};
     public void print(String msg) {
-        System.out.println("TASK2: " + msg);
+        System.out.println(msg);
     }
 }

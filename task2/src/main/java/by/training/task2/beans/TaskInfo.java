@@ -1,5 +1,6 @@
 package by.training.task2.beans;
 
+import java.util.Enumeration;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
