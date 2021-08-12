@@ -2,9 +2,19 @@ package by.training.task2.controller;
 
 import by.training.task2.controller.command.*;
 
+/**
+ * This class checks the validity of the arguments
+ */
 public class CurrentData {
     public CurrentData(){ }
-    public boolean exam(CommandType cmd,String[]args){
+
+    /**
+     * This method check arguments
+     * @param cmd what commaand is recieved
+     * @param args what arguments are recieved
+     * @return true if valid argument, else false
+     */
+    public boolean check(CommandType cmd, String[]args){
         switch(cmd) {
             case CALCEXPR:
                 if(args.length!=4){

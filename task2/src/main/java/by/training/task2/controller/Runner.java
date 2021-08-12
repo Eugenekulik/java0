@@ -60,7 +60,7 @@ public class Runner {
                 continue;
             }
 
-            if(!currentData.exam(CommandType.valueOf(cmd), argsProg)){
+            if(!currentData.check(CommandType.valueOf(cmd), argsProg)){
                 messanger.print("write current variables");
                 continue;
             }

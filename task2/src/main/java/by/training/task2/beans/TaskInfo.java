@@ -4,6 +4,9 @@ import java.util.Enumeration;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * This class print the information about tasks.
+ */
 public class TaskInfo{
     ResourceBundle rb;
     public TaskInfo(){};
