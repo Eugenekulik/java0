@@ -4,14 +4,28 @@ import java.util.ArrayList;
 
 import static java.lang.Math.sin;
 
+/**
+ * This class calculate function on line segment [a,b] with step h and print as table
+ */
+
 public class CalculateFunctionTable {
     public CalculateFunctionTable(){};
-    public double[] execute(String[] args) throws ArithmeticException{
+
+    /**
+     * This method do calculations.
+     * @param args must contains 3 numbers: a,b,h.
+     * @return array containing x,y.
+     * @throws ServiceException
+     */
+    public double[] execute(String[] args) throws ServiceException{
         double a = Double.parseDouble(args[0]);
         double b = Double.parseDouble(args[1]);
         double h = Double.parseDouble(args[2]);
-        if(h==0){
-            throw new ArithmeticException("h can't be 0");
+        if(h<=0){
+            throw new ServiceException("Step h can't be less than 0");
+        }
+        if(a>b){
+            throw new ServiceException("a can't be more than b");
         }
         ArrayList<Double> c=new ArrayList<>();
         for (double x = a; x <= b; x += h) {

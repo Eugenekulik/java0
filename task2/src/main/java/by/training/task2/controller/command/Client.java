@@ -1,6 +1,4 @@
-package by.training.task2.command;
-
-import by.training.task2.service.CalculateExpression;
+package by.training.task2.controller.command;
 
 public class Client {
     private Receiver cReceiver;

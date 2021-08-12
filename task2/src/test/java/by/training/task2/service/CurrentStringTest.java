@@ -18,7 +18,7 @@ public class CurrentStringTest {
     }
 
     @Test(description = "Execute test",dataProvider = "input_data")
-    public void testExecute(String a, boolean c) {
+    public void testExecute(String a, boolean c) throws ServiceException{
         CurrentString test= new CurrentString();
         boolean actual = test.execute(a);
         boolean expected = c;

@@ -4,8 +4,18 @@ import java.util.ArrayList;
 
 import static java.lang.Math.pow;
 
+/**
+ * This class getting 3 number and if number less by zero raise to the fourth degree, else third.
+ */
+
 public class DegreeAction {
     public DegreeAction(){};
+
+    /**
+     * This method is executable
+     * @param args must contains 3 number
+     * @return array with numbers
+     */
     public double[] execute(String[]args){
         double []a = new double[3];
         for (int i=0;i<3;i++) {

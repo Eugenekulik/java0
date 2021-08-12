@@ -18,7 +18,7 @@ public class CalculateFunctionSegmentTest {
     }
 
     @Test(description = "Execute test",dataProvider = "input_data")
-    public void testExecute(String []a, double[] c) {
+    public void testExecute(String []a, double[] c)throws ServiceException {
         CalculateFunctionSegment test= new CalculateFunctionSegment();
         double[] actual = test.execute(a);
         double[] expected = c;

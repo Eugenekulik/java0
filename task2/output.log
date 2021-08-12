@@ -1,0 +1,24 @@
+09:09:44.778 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - Program Start
+09:09:50.385 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - Locale: ru
+09:09:50.461 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - main loop
+09:10:31.247 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - Program Start
+09:10:33.309 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - Locale: ru
+09:10:33.386 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - main loop
+09:10:46.436 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - CALCEXPR is done
+09:10:46.436 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - main loop
+09:10:50.972 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - main loop
+09:10:53.036 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - end work
+12:40:14.007 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - Program Start
+12:40:17.274 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - Locale: ru
+12:40:17.362 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - main loop
+12:40:51.506 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - CALCFUNCSEGM is done
+12:40:51.506 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - main loop
+12:45:47.715 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - Program Start
+12:45:55.408 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - Locale: ru
+12:45:55.488 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - main loop
+12:46:01.118 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - main loop
+12:46:15.559 [by.training.task2.controller.Runner  -----+`  t] WARN  by.training.task2.controller.Runner - Step h can't be less than 0
+12:46:15.563 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - main loop
+12:46:39.070 [by.training.task2.controller.Runner  -----+`  t] WARN  by.training.task2.controller.Runner - a can't be more than b
+12:46:39.070 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - main loop
+12:46:50.101 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - end work

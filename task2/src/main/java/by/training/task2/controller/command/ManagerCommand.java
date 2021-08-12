@@ -1,6 +1,6 @@
-package by.training.task2.command;
+package by.training.task2.controller.command;
 
-import java.util.HashMap;
+import by.training.task2.service.ServiceException;
 
 public class ManagerCommand {
 
@@ -9,8 +9,7 @@ public class ManagerCommand {
     public ManagerCommand(Command command) {
         mCommand = command;
     }
-    public void invokeCommand() {
-        System.out.println("Refer to command for execution");
+    public void invokeCommand() throws ServiceException {
         mCommand.execute();
     }
 }

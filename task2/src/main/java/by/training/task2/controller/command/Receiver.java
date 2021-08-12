@@ -1,4 +1,4 @@
-package by.training.task2.command;
+package by.training.task2.controller.command;
 
 import by.training.task2.service.*;
 
@@ -8,7 +8,7 @@ public class Receiver {
     public Receiver(String []args){
         this.args=args;
     }
-    public void action(CommandType cmd) {
+    public void action (CommandType cmd)throws ServiceException {
         switch (cmd) {
 
             case CALCEXPR:
@@ -26,7 +26,7 @@ public class Receiver {
                 double []r2=c.execute(args);
                 String s1="";
                 for(int i=0;i<r2.length;i+=2){
-                    s1+="\t"+r2[i] + "\t\t" + r2[i+1] + "\n\t";
+                    s1+="\t\t"+r2[i] + "\t\t" + r2[i+1] + "\n\t";
                 }
                 result ="result:\tx\t\tf(x)\n\t" + s1 ;
                 break;

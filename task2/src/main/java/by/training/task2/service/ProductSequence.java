@@ -1,7 +1,15 @@
 package by.training.task2.service;
 
+/**
+ * This class calculate product sequence.
+ */
 public class ProductSequence {
     public ProductSequence(){};
+
+    /**
+     * This method do calculations.
+     * @return product
+     */
     public double execute(){
         double[]a=new double[10];
         a[0]=1;

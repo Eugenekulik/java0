@@ -1,7 +1,17 @@
 package by.training.task2.service;
 
+/**
+ * This class is servece class which calculate expression a*x*x+b*x+c
+ */
 public class CalculateExpression {
     public CalculateExpression(){}
+
+    /**
+     * This method do calculations.
+     * String []args must contain 4 numbers corresponding a,b,c,x.
+     * @param args
+     * @return
+     */
     public double execute(String  []args)
     {
         double []a = new double[4];

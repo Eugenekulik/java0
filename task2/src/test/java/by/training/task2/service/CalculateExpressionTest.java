@@ -19,7 +19,7 @@ public class CalculateExpressionTest {
     }
 
     @Test(description = "Execute test",dataProvider = "input_data")
-    public void testExecute(String[]a, double c) {
+    public void testExecute(String[]a, double c) throws ServiceException{
         CalculateExpression test= new CalculateExpression();
         double actual = test.execute(a);
         double expected = c;

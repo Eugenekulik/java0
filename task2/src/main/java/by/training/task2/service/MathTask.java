@@ -1,7 +1,15 @@
 package by.training.task2.service;
 
+/**
+ * This class execute math task to find numbers.
+ */
 public class MathTask {
     public MathTask(){};
+
+    /**
+     * It's executable method.
+     * @return two numbers
+     */
     public int[] execute(){
         int a = 10;
         int b = 10;

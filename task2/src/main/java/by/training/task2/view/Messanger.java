@@ -6,6 +6,6 @@ public class Messanger {
     Locale locale;
     public Messanger(){};
     public void print(String msg) {
-        System.out.println(msg);
+        System.out.print("Task2:"+msg);
     }
 }

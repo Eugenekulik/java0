@@ -18,7 +18,7 @@ public class DegreeActionTest {
     }
 
     @Test(description = "Execute test",dataProvider = "input_data")
-    public void testExecute(String[]a, double []c) {
+    public void testExecute(String[]a, double []c) throws ServiceException{
         DegreeAction test= new DegreeAction();
         double []actual = test.execute(a);
         double []expected = c;

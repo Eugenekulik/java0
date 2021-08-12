@@ -23,7 +23,7 @@ public class CalculateFunctionTableTest {
     }
 
     @Test(description = "Execute test data",dataProvider = "input_data")
-    public void testExecute(String[]a, double []c) {
+    public void testExecute(String[]a, double []c) throws ServiceException {
         CalculateFunctionTable test= new CalculateFunctionTable();
         double []actual = test.execute(a);
         double []expected = c;
@@ -32,7 +32,7 @@ public class CalculateFunctionTableTest {
     }
     @Test(enabled = true, expectedExceptions = ArithmeticException.class,
             expectedExceptionsMessageRegExp = "h can't be 0")
-    public void testConvertCelsiusToFahrenheitException() {
+    public void testConvertCelsiusToFahrenheitException() throws ServiceException{
         CalculateFunctionTable c= new CalculateFunctionTable();
         c.execute(new String[]{"0","0","0"});
     }

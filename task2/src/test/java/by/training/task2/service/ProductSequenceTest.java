@@ -6,7 +6,7 @@ import static org.testng.Assert.assertEquals;
 
 public class ProductSequenceTest {
     @Test(description = "Execute test")
-    public void testExecute() {
+    public void testExecute() throws ServiceException{
         ProductSequence test= new ProductSequence();
         double actual = test.execute();
         double expected = 5.745471106375E12;

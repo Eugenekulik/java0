@@ -1,4 +1,4 @@
-package by.training.task2.command;
+package by.training.task2.controller.command;
 
 public enum CommandType {
     CALCEXPR, CALCFUNC,

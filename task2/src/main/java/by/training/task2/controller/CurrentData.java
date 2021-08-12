@@ -1,6 +1,6 @@
 package by.training.task2.controller;
 
-import by.training.task2.command.*;
+import by.training.task2.controller.command.*;
 
 public class CurrentData {
     public CurrentData(){ }

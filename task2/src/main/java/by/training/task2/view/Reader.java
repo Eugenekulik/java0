@@ -6,7 +6,7 @@ public class Reader {
     private Scanner scanner= new Scanner(System.in);
     public String getString(String msg)
     {
-        System.out.println(msg);
+        System.out.print(msg+"\nTask2: ");
         return scanner.nextLine();
     }
 }

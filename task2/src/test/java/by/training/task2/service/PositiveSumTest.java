@@ -18,7 +18,7 @@ public class PositiveSumTest {
     }
 
     @Test(description = "Execute test",dataProvider = "input_data")
-    public void testExecute(String[]a, String c) {
+    public void testExecute(String[]a, String c) throws ServiceException{
         PositiveSum test= new PositiveSum();
         String actual = test.execute(a);
         String expected = c;

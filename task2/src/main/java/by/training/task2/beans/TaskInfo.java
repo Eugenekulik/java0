@@ -19,6 +19,6 @@ public class TaskInfo{
                 "POSSUM: "+rb.getString("task8.description") +"\n"+
                 "PRODSEQ: "+rb.getString("task9.description") +"\n"+
                 "REDISTR: "+rb.getString("task10.description")+"\n"+
-                "Exit";
+                "exit" + "\n" +  "info";
     }
 }

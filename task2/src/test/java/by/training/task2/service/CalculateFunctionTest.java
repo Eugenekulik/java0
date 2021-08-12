@@ -18,7 +18,7 @@ public class CalculateFunctionTest {
     }
 
     @Test(description = "Execute test",dataProvider = "input_data")
-    public void testExecute(String []a, double c) {
+    public void testExecute(String []a, double c) throws ServiceException{
         CalculateFunction test= new CalculateFunction();
         double actual = test.execute(a);
         double expected = c;

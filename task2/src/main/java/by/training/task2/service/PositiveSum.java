@@ -1,7 +1,16 @@
 package by.training.task2.service;
 
+/**
+ * This class answer the question, it's possible to get positive sum of two numbers
+ */
 public class PositiveSum {
     public PositiveSum(){};
+
+    /**
+     * It's is executable method
+     * @param args must contains 3 numbers
+     * @return Statement can or can't.
+     */
     public String execute(String []args){
         double []a=new double[3];
         for (int i=0;i<3;i++){
