@@ -22,3 +22,65 @@
 12:46:39.070 [by.training.task2.controller.Runner  -----+`  t] WARN  by.training.task2.controller.Runner - a can't be more than b
 12:46:39.070 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - main loop
 12:46:50.101 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - end work
+15:28:16.244 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - Program Start
+15:28:21.915 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - Locale: ru
+15:28:22.096 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - main loop
+15:29:20.486 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - Program Start
+15:30:01.470 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - Program Start
+15:30:05.987 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - Locale: ru
+15:30:06.091 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - main loop
+15:31:05.269 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - Program Start
+15:31:07.006 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - Locale: ru
+15:31:22.600 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - main loop
+15:34:12.120 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - Program Start
+15:34:17.746 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - Locale: ru
+15:34:19.889 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - main loop
+15:39:59.479 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - Program Start
+15:40:03.312 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - Locale: ru
+15:40:03.360 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - main loop
+15:40:09.448 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - MATHTASK is done
+15:40:09.448 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - main loop
+15:40:33.473 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - Program Start
+15:40:35.757 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - Locale: ru
+15:40:38.083 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - main loop
+15:41:26.116 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - MATHTASK is done
+15:41:28.831 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - main loop
+15:42:18.951 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - MATHTASK is done
+15:42:18.955 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - main loop
+15:43:04.489 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - Program Start
+15:43:17.496 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - Locale: ru
+15:43:17.572 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - main loop
+15:43:23.101 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - MATHTASK is done
+15:43:23.101 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - main loop
+15:45:32.493 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - Program Start
+15:45:34.321 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - Locale: ru
+15:45:34.397 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - main loop
+15:45:39.773 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - MATHTASK is done
+15:45:39.773 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - main loop
+15:53:14.386 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - Program Start
+15:53:15.907 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - Locale: ru
+15:53:15.971 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - main loop
+15:53:28.168 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - main loop
+15:54:52.292 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - Program Start
+15:54:54.018 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - Locale: ru
+15:54:59.652 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - main loop
+15:56:11.875 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - main loop
+15:56:18.772 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - Program Start
+15:56:20.035 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - Locale: ru
+15:56:20.111 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - main loop
+15:56:26.561 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - main loop
+15:56:37.863 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - Program Start
+15:56:39.422 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - Locale: ru
+15:56:40.949 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - main loop
+15:57:14.314 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - main loop
+15:57:42.280 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - Program Start
+15:57:46.585 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - Locale: ru
+15:57:46.661 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - main loop
+15:58:01.180 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - Program Start
+15:58:06.228 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - Locale: ru
+15:58:10.779 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - main loop
+15:59:07.344 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - Program Start
+15:59:08.586 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - Locale: ru
+15:59:08.662 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - main loop
+15:59:12.970 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - CURRSTR is done
+15:59:12.970 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - main loop

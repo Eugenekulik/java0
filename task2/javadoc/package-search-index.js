@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"by.training.task2.beans"},{"l":"by.training.task2.controller"},{"l":"by.training.task2.controller.command"},{"l":"by.training.task2.service"},{"l":"by.training.task2.view"}]

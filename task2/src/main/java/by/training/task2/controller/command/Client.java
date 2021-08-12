@@ -24,19 +24,19 @@ public class Client {
                 command = new CurrentStringCommand(cReceiver);
                 break;
             case DEGREEACT:
-                command = new CalculateFunctionCommand(cReceiver);
+                command = new DegreeActionCommand(cReceiver);
                 break;
             case MATHTASK:
-                command = new CalculateFunctionCommand(cReceiver);
+                command = new MathTaskCommand(cReceiver);
                 break;
             case POSSUM:
-                command = new CalculateFunctionCommand(cReceiver);
+                command = new PositiveSumCommand(cReceiver);
                 break;
             case PRODSEQ:
-                command = new CalculateFunctionCommand(cReceiver);
+                command = new ProductSequenceCommand(cReceiver);
                 break;
             case REDISTR:
-                command = new CalculateFunctionCommand(cReceiver);
+                command = new RedistributionCommand(cReceiver);
                 break;
         }
         return command;
