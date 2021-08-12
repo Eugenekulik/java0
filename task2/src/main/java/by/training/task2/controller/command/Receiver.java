@@ -31,12 +31,15 @@ public class Receiver {
                 result ="result:\tx\t\tf(x)\n\t" + s1 ;
                 break;
             case CURRSTR:
+                result=String.valueOf(new CurrentString().execute(args[0]));
                 break;
             case DEGREEACT:
                 double[] r3 = new DegreeAction().execute(args);
                 result = "result: " +r3[0]+"; "+r3[1]+"; "+r3[2]+";";
                 break;
             case MATHTASK:
+                int[] r=new MathTask().execute();
+                result= "result: " + r[0] + "; "+ r[1];
                 break;
             case POSSUM:
                 result=new PositiveSum().execute(args);
