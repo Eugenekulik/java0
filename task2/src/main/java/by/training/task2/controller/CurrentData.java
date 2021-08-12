@@ -63,7 +63,7 @@ public class CurrentData {
                     return false;
                 }
                 else {
-                    return true;
+                    return false;
                 }
             case DEGREEACT:
                 if(args.length!=3){
