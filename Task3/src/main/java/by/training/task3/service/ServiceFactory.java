@@ -4,6 +4,9 @@ import by.training.task3.service.matrixOperation.MatrixProduct;
 import by.training.task3.service.matrixOperation.MatrixSub;
 import by.training.task3.service.matrixOperation.MatrixSum;
 
+/**
+ * It's factory for service layer
+ */
 public class ServiceFactory {
     private final static ServiceFactory instance = new ServiceFactory();
     private MatrixSum matrixSum=new MatrixSum();

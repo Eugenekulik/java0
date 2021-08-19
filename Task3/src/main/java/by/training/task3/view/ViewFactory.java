@@ -1,7 +1,9 @@
 package by.training.task3.view;
 
 
-
+/**
+ * It's factory for view layer
+ */
 
 public class ViewFactory {
     private final static ViewFactory instance = new ViewFactory();

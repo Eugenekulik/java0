@@ -2,6 +2,11 @@ package by.training.task3.bean;
 
 import java.lang.reflect.Array;
 
+/**
+ * This class is wrapper of array
+ * @param <T> it's a comparable class
+ */
+
 public class MyArray<T extends Comparable> {
     private T[] array=null;
     private int size;

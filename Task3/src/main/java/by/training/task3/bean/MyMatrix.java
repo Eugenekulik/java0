@@ -1,9 +1,12 @@
 package by.training.task3.bean;
 
-import javax.management.MBeanException;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * This class realize matrix
+ * @param <T> any comparable class
+ */
 public class MyMatrix<T extends Number>  {
     private ArrayList<T> matrixValue = new ArrayList<T>();
     private  int verticalSize;

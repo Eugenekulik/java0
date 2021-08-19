@@ -2,6 +2,10 @@ package by.training.task3.service.arraySort;
 
 import by.training.task3.bean.MyArray;
 
+/**
+ * This class realize bubble sort
+ * @param <T> any comparable class
+ */
 public class BubbleSort<T extends Comparable> {
     public BubbleSort(){};
     public void sort(MyArray array){

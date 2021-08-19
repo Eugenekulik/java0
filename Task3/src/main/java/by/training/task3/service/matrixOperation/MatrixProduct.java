@@ -3,8 +3,20 @@ package by.training.task3.service.matrixOperation;
 import by.training.task3.bean.IntegerMatrix;
 import by.training.task3.service.ServiceException;
 
+/**
+ * Class multiply two matrix
+ */
 public class MatrixProduct {
     public MatrixProduct(){};
+
+    /**
+     * This method multiply two IntegerMatrix
+     * @param a first matrix
+     * @param b second matrix
+     * @return IntegerMatrix
+     * @throws ServiceException
+     * @see IntegerMatrix
+     */
     public IntegerMatrix result(IntegerMatrix a, IntegerMatrix b) throws ServiceException {
         if(a.getHorizontalSize()==b.getVerticalSize()){
             Integer temp = 0;
