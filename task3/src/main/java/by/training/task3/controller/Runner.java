@@ -15,7 +15,7 @@ public class Runner {
         }
         BubbleSort bubbleSort = new BubbleSort();
         System.out.println(array.toString());
-        
+
         bubbleSort.sort(array);
         System.out.println(array.toString());
     }
