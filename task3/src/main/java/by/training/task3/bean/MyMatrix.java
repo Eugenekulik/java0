@@ -5,7 +5,7 @@ import java.util.Objects;
 
 /**
  * This class realize matrix
- * @param <T> any comparable class
+ * @param <T> any number class
  */
 public class MyMatrix<T extends Number>  {
     private ArrayList<T> matrixValue = new ArrayList<T>();

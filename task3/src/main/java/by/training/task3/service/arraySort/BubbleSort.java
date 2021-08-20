@@ -6,7 +6,7 @@ import by.training.task3.bean.MyArray;
  * This class realize bubble sort
  * @param <T> any comparable class
  */
-public class BubbleSort<T extends Comparable> {
+public class BubbleSort<T extends Comparable> implements Sort{
     public BubbleSort(){};
     public void sort(MyArray array){
         for(int i=0;i<array.getSize()-1;i++){

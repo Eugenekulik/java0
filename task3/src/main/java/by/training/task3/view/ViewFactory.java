@@ -13,10 +13,10 @@ public class ViewFactory {
     public static  ViewFactory getInstance(){
         return instance;
     }
-    public Reader getReader(String readerChoose){
+    public Reader getReader(){
         return reader;
     }
-    public Messenger getMessenger(String messengerChoose) {
+    public Messenger getMessenger() {
         return messenger;
     }
 }

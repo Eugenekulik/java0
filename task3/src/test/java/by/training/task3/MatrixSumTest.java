@@ -1,7 +1,7 @@
 package by.training.task3;
 
 import by.training.task3.bean.IntegerMatrix;
-import by.training.task3.service.matrixOperation.MatrixManager;
+import by.training.task3.service.MatrixManager;
 import by.training.task3.service.matrixOperation.MatrixSum;
 import by.training.task3.service.ServiceException;
 import org.testng.annotations.DataProvider;

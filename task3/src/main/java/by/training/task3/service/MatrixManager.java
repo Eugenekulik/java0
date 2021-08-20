@@ -1,7 +1,6 @@
-package by.training.task3.service.matrixOperation;
+package by.training.task3.service;
 
 import by.training.task3.bean.IntegerMatrix;
-import by.training.task3.service.ServiceException;
 
 import java.util.ArrayList;
 
