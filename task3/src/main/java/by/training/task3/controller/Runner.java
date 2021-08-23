@@ -5,40 +5,68 @@ import by.training.task3.bean.*;
 import by.training.task3.controller.command.Client;
 import by.training.task3.controller.command.Command;
 import by.training.task3.controller.command.ManagerCommand;
-import by.training.task3.dao.DaoFactory;
-import by.training.task3.service.GetArrayFromFile;
-import by.training.task3.service.GetMatrixFromFile;
 import by.training.task3.service.ServiceException;
-import by.training.task3.service.arraySort.BubbleSort;
-import by.training.task3.service.arraySort.HashTableSort;
-import by.training.task3.service.arraySort.ShekerSort;
-import by.training.task3.service.arraySort.SimpleChoiceSort;
 import by.training.task3.view.Messenger;
 import by.training.task3.view.Reader;
 import by.training.task3.view.ViewFactory;
+import com.beust.jcommander.IDefaultProvider;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import java.io.File;
-import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.Scanner;
+import java.lang.module.ResolutionException;
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 
 public class Runner {
+    public static final Logger logger = LogManager.getLogger(Runner.class);
+
+    private Runner(){}
+
     public static void main(String []args) {
-       Reader reader = ViewFactory.getInstance().getReader();
+        logger.info("Start program");
+        Reader reader = ViewFactory.getInstance().getReader();
         Messenger messenger = ViewFactory.getInstance().getMessenger();
+        messenger.print("Choice language: 1 - Russian, 2 - English:");
+        String lang = reader.getString();
+        if(lang=="1"){
+            Locale locale = new Locale("ru","RU");
+            ResourceBundle resourceBundle = ResourceBundle.getBundle("text",locale);
+            messenger.resourceBundleInit(resourceBundle);
+        }
+        else if(lang=="2"){
+            Locale locale = new Locale("en","US");
+            ResourceBundle resourceBundle = ResourceBundle.getBundle("text",locale);
+            messenger.resourceBundleInit(resourceBundle);
+        }
+        else{
+            ResourceBundle resourceBundle = ResourceBundle.getBundle("text");
+            messenger.resourceBundleInit(resourceBundle);
+        }
        while(RuntimeInformation.getIsWork()){
-            messenger.print("Write command");
+           logger.info("Main loop");
+            messenger.printProperty("simple.write_command");
             String cmd = reader.getString();
             CommandData commandData = new CommandData();
             Client client = new Client(commandData);
-            Command command = client.initCommand(CommandType.valueOf(cmd));
+            Command command;
+            try {
+                command = client.initCommand(CommandType.valueOf(cmd));
+            }
+            catch (IllegalArgumentException e){
+                messenger.print(e.getMessage());
+                messenger.printProperty("simple.try_again");
+                continue;
+            }
             ManagerCommand managerCommand = new ManagerCommand(command);
             try{
                 managerCommand.invokeCommand();
+                logger.info("command execute correctly");
             }
             catch (ServiceException e){
-                messenger.print(e.getMessage());
+                messenger.printProperty(e.getMessage());
+                logger.info(e.getMessage());
+                messenger.printProperty("simple.try_again");
             }
         }
     }

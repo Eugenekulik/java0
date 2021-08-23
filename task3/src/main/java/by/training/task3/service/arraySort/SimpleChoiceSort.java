@@ -1,6 +1,8 @@
 package by.training.task3.service.arraySort;
 
 import by.training.task3.bean.MyArray;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * This class realize  simple choice sort
@@ -8,8 +10,10 @@ import by.training.task3.bean.MyArray;
  */
 
 public class SimpleChoiceSort<T extends Comparable> implements Sort{
+    private static final Logger logger = LogManager.getLogger(SimpleChoiceSort.class);
     public SimpleChoiceSort(){}
     public void sort(MyArray array) {
+        logger.info("Simple choice sort run");
         int exchange;
         int c;
         Object temp = null;
@@ -29,5 +33,6 @@ public class SimpleChoiceSort<T extends Comparable> implements Sort{
                 array.set(i, (T) temp);
             }
         }
+        logger.info("Simple choice sort completed");
     }
 }

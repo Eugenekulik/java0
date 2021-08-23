@@ -1,12 +1,16 @@
 package by.training.task3.service.arraySort;
 
 import by.training.task3.bean.MyArray;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.lang.reflect.Array;
 
 public class HashTableSort<T extends Comparable> implements Sort {
+    private static final Logger logger = LogManager.getLogger(HashTableSort.class);
     public HashTableSort(){};
     public void sort(MyArray array){
+        logger.info("Hash table sort run");
         T maxValue = (T)array.get(0);
         int k=3;
         T[] temp = (T[]) Array.newInstance(array.type,array.getSize()*k);
@@ -48,7 +52,7 @@ public class HashTableSort<T extends Comparable> implements Sort {
                 j++;
             }
         }
-
+        logger.info("Hash table sort completed");
     }
 
 

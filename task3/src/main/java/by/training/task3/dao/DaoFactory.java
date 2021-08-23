@@ -18,7 +18,7 @@ public class DaoFactory {
             return scanner;
         }
         catch(FileNotFoundException e){
-            throw new DaoException("File not found",e);
+            throw new DaoException("simple.file_notfound",e);
         }
     }
 

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <File name="LogToFile" fileName="output.log">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%C  -----+`  t] %-5level %logger{36} - %msg%n"/>
+        </File>
+    </Appenders>
+    <Loggers>
+        <Logger name="by.training.task2" level="info" additivity="false">
+            <AppenderRef ref="LogToFile"/>
+        </Logger>
+        <Root level="debug">
+            <AppenderRef ref="LogToFile"  />
+        </Root>
+    </Loggers>
+</Configuration>

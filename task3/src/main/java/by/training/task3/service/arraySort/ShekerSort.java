@@ -1,14 +1,18 @@
 package by.training.task3.service.arraySort;
 
 import by.training.task3.bean.MyArray;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * This class realize sheker sort
  * @param <T> any comparable class
  */
 public class ShekerSort <T extends Comparable> implements Sort{
+    private static final Logger logger = LogManager.getLogger(ShekerSort.class);
     public ShekerSort(){}
     public void sort(MyArray array){
+        logger.info("Sheker sort run");
         int left = 0;
         int right = array.getSize()-1;
         int flag = 1;
@@ -38,5 +42,6 @@ public class ShekerSort <T extends Comparable> implements Sort{
             }
             left++;
         }
+        logger.info("Sheker sort completed");
     }
 }

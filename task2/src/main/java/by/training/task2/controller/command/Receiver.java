@@ -45,10 +45,12 @@ public class Receiver {
                 result=new PositiveSum().execute(args);
                 break;
             case PRODSEQ:
-                double[] r4= new Redistribution().execute(args);
-                result = "result: " +r4[0]+"; "+r4[1]+";";
+                double d = new ProductSequence().execute();
+                result = "" + d;
                 break;
             case REDISTR:
+                double[] r4= new Redistribution().execute(args);
+                result = "result: " +r4[0]+"; "+r4[1]+";";
                 break;
         }
     }

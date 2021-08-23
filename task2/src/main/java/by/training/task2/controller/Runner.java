@@ -2,7 +2,6 @@ package by.training.task2.controller;
 
 import by.training.task2.beans.TaskInfo;
 import by.training.task2.controller.command.*;
-
 import by.training.task2.service.ServiceException;
 import by.training.task2.view.Messanger;
 import by.training.task2.view.Reader;

@@ -84,3 +84,14 @@
 15:59:08.662 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - main loop
 15:59:12.970 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - CURRSTR is done
 15:59:12.970 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - main loop
+18:16:44.626 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - Program Start
+18:16:48.311 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - Locale: ru
+18:16:48.364 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - main loop
+18:17:26.777 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - Program Start
+18:17:32.395 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - Locale: ru
+18:17:32.426 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - main loop
+18:19:44.975 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - Program Start
+18:19:49.541 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - Locale: ru
+18:19:49.572 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - main loop
+18:19:53.518 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - PRODSEQ is done
+18:19:53.518 [by.training.task2.controller.Runner  -----+`  t] INFO  by.training.task2.controller.Runner - main loop

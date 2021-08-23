@@ -18,9 +18,9 @@ public class MatrixSubCommand implements Command {
         Messenger messenger = ViewFactory.getInstance().getMessenger();
         Reader reader = ViewFactory.getInstance().getReader();
         try {
-            messenger.print("write file path with first matrix");
+            messenger.printProperty("command.matrix.file_path");
             commandData.setMatrix1(new GetMatrixFromFile<Integer>(reader.getString()).createInteger());
-            messenger.print("write file path with second matrix");
+            messenger.printProperty("command.matrix.file_path");
             commandData.setMatrix2(new GetMatrixFromFile<Integer>(reader.getString()).createInteger());
             commandData.setMatrixResult(ServiceFactory.getInstance().getMatrixSub().
                     result((IntegerMatrix) commandData.getMatrix1(), (IntegerMatrix) commandData.getMatrix2()));

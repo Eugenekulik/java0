@@ -22,12 +22,14 @@ public class SortCommand implements Command{
     public void execute(){
         Messenger messenger = ViewFactory.getInstance().getMessenger();
         Reader reader = ViewFactory.getInstance().getReader();
-        messenger.print("write variation of sort");
+        messenger.printProperty("command.sort.variation");
         commandData.setVariation(SortVariation.valueOf(reader.getString()));
-        messenger.print("write file path with array");
-        MyArray<Integer> array=null;
+        messenger.printProperty("command.sort.file_path");
+
         try {
-            commandData.setArray(new GetArrayFromFile(reader.getString()).create(Integer.class));
+            GetArrayFromFile getArrayFromFile = new GetArrayFromFile(reader.getString());
+            MyArray<Integer> array = getArrayFromFile.create(Integer.class);
+            commandData.setArray(array);
         }
         catch (ServiceException e){
             messenger.print(e.getMessage());
@@ -51,7 +53,8 @@ public class SortCommand implements Command{
                     HashTableSort hashTableSort = ServiceFactory.getInstance().getSortImplementation().getHashTableSort();
                     hashTableSort.sort(commandData.getArray());
             }
+            messenger.print(commandData.getArray().toString());
         }
-        messenger.print(commandData.getArray().toString());
+
     }
 }
