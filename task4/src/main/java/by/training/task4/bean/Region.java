@@ -1,26 +1,33 @@
 package by.training.task4.bean;
 
-import by.training.task4.view.Reader;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
-import java.util.ArrayList;
+/**
+ * Class Region extands AdministrativeUnit and realize entity - region
+ * It have all atributes of AdministrativeUnit and also set of districts
+ */
 
-public class Region {
-    private ArrayList<District> districts = new ArrayList<>();
-    private String name;
+public class Region extends  AdministrativeUnit{
+    private Set<District> districts = new HashSet<>();
     private District regionCenter;
-    public String getName() {
-        return name;
+
+    public Region(String name){
+        this.name = name;
+
+    }
+
+    public boolean setRegionCenter(String name) {
+        District district = getDistrict(name);
+        if(district!=null){
+            regionCenter = district;
+            return true;
+        }
+        return false;
     }
     public District getRegionCenter() {
         return regionCenter;
-    }
-    public Region(String name,District regionCenter){
-        this.name = name;
-        this.regionCenter = regionCenter;
-        districts.add(regionCenter);
-    }
-    public void addDistrict(District district){
-        districts.add(district);
     }
     public int getPopulation(String key){
         if(regionCenter.getName()==key){
@@ -38,44 +45,69 @@ public class Region {
         for (District d:districts) {
             tempPopulation+=d.getPopulation();
         }
-        tempPopulation+= regionCenter.getPopulation();
         return tempPopulation;
     }
-    public double getSquare(String key){
+    public double getArea(String key){
         if(regionCenter.getName()==key){
-            return regionCenter.getSquare();
+            return regionCenter.getArea();
         }
         for (District d:districts) {
             if(d.getName()==key){
-                return d.getSquare();
+                return d.getArea();
             }
         }
         return 0;
     }
-    public double getSquare(){
+    public double getArea(){
         double tempPopulation=0;
         for (District d:districts) {
-            tempPopulation+=d.getSquare();
+            tempPopulation+=d.getArea();
         }
-        tempPopulation+= regionCenter.getSquare();
         return tempPopulation;
     }
-    public ArrayList<District> getDistricts(){
+    public District getDistrict(String name){
+        for (District district:districts) {
+            if(district.getName().equals(name)){
+                return district;
+            }
+        }
+        return null;
+    }
+    public Set<District> getDistricts(){
         return districts;
+    }
+    public City getCity(String name){
+        City city = null;
+        for(District district:districts){
+            city = district.getCity(name);
+            if(city!=null){
+                break;
+            }
+        }
+        return city;
+    }
+
+    public void addDistrict(District district){
+        districts.add(district);
     }
 
     @Override
     public int hashCode() {
         return super.hashCode();
     }
-
     @Override
     public boolean equals(Object obj) {
         return super.equals(obj);
     }
-
     @Override
     public String toString() {
-        return name;
+        return "Region" +
+                "\nName: " + name +
+                "\nRegion center: " + (regionCenter!=null? regionCenter.name:"") +
+                "\nArea: " + getArea() +
+                "\nPopulation: " + getPopulation() +
+                districts.toString();
     }
+
+
 }

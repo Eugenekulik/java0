@@ -5,6 +5,6 @@ import java.util.Scanner;
 public class Reader {
     Scanner scanner = new Scanner(System.in);
     public String getString(){
-        return scanner.next();
+        return scanner.nextLine();
     }
 }

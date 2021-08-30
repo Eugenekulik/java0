@@ -1,22 +1,22 @@
 package by.training.task3.bean;
 
+import by.training.task3.controller.command.CommandType;
+import by.training.task3.controller.command.SortVariation;
+
 public class CommandData {
     public CommandData() { };
     private MyArray array;
     private MyMatrix matrix1;
     private MyMatrix matrix2;
-
-    public MyMatrix getMatrixResult() {
-        return matrixResult;
-    }
-
-    public void setMatrixResult(MyMatrix matrixResult) {
-        this.matrixResult = matrixResult;
-    }
-
     private MyMatrix matrixResult;
     private SortVariation variation;
     private CommandType commandType;
+    public MyMatrix getMatrixResult() {
+        return matrixResult;
+    }
+    public void setMatrixResult(MyMatrix matrixResult) {
+        this.matrixResult = matrixResult;
+    }
     public MyMatrix getMatrix2() {
         return matrix2;
     }

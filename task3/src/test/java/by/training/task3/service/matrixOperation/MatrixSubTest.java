@@ -1,10 +1,8 @@
-package by.training.task3;
+package by.training.task3.service.matrixOperation;
 
 import by.training.task3.bean.IntegerMatrix;
 import by.training.task3.service.MatrixManager;
 import by.training.task3.service.ServiceException;
-import by.training.task3.service.matrixOperation.MatrixProduct;
-import by.training.task3.service.matrixOperation.MatrixSub;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -12,15 +10,15 @@ import java.util.ArrayList;
 
 import static org.testng.Assert.assertEquals;
 
-public class MatrixProductTest {
+public class MatrixSubTest {
     @DataProvider(name = "input_matrix")
     public Object[][] createCorrectData() {
         return
                 new Object[][]{
                         {new int[]{0,0,0,0,0,0,0,0,0},3,3,new int[]{0,0,0,0,0,0,0,0,0},3,3,new int[]{0,0,0,0,0,0,0,0,0},3,3},
-                        {new int[]{5,5,5,5,5,5,5,5,5},3,3,new int[]{2,2,2,2,2,2,2,2,2},3,3,new int[]{30,30,30,30,30,30,30,30,30},3,3},
+                        {new int[]{5,5,5,5,5,5,5,5,5},3,3,new int[]{2,2,2,2,2,2,2,2,2},3,3,new int[]{3,3,3,3,3,3,3,3,3},3,3},
                         {new int[]{-5,-5,-5,-5,-5,-5,-5,-5,-5},3,3,new int[]{-3,-3,-3,-3,-3,-3,-3,-3,-3},3,3,
-                                new int[]{45,45,45,45,45,45,45,45,45},3,3},
+                                new int[]{-2,-2,-2,-2,-2,-2,-2,-2,-2},3,3},
                 };
     }
 
@@ -41,8 +39,8 @@ public class MatrixProductTest {
         IntegerMatrix matrix1 = new IntegerMatrix(array1,i1,j1);
         IntegerMatrix matrix2 = new IntegerMatrix(array2,i2,j2);
         IntegerMatrix expected = new IntegerMatrix(array3,i3,j3);
-        MatrixProduct matrixProduct = new MatrixProduct();
-        IntegerMatrix actual = matrixProduct.result(matrix1,matrix2);
+        MatrixSub matrixSub = new MatrixSub();
+        IntegerMatrix actual = matrixSub.result(matrix1,matrix2);
         assertEquals(actual,expected);
     }
     @DataProvider(name = "input_matrix_exception")
@@ -50,8 +48,8 @@ public class MatrixProductTest {
         return
                 new Object[][]{
                         {new int[]{0,0,0,0,0,0,0,0},3,3,new int[]{0,0,0,0,0,0,0,0,0},3,3,new int[]{0,0,0,0,0,0,0,0,0},3,3},
-                        {new int[]{1,1,1,1,1,1},3,2,new int[]{2,2,2,2},4,1,new int[]{2,2,2,2,2,2,2,2,2},3,3},
-                        {new int[]{-5,-5,-5,-5},2,2,new int[]{-3,-3,-3,-3,-3,-3,-3,-3,-3},3,3,
+                        {new int[]{1,1,1,1,1,1,1,1,1},3,2,new int[]{2,2,2,2,2,2,2,2,2},3,3,new int[]{3,3,3,3,3,3,3,3,3},3,3},
+                        {new int[]{-5,-5,-5,-5,-5,-5,-5,-5,-5},2,3,new int[]{-3,-3,-3,-3,-3,-3,-3,-3,-3},3,3,
                                 new int[]{-8,-8,-8,-8,-8,-8,-8,-8,-8},3,3},
                 };
     }
@@ -75,7 +73,7 @@ public class MatrixProductTest {
         IntegerMatrix matrix1 = matrixManager.createIntegerMatrix(array1,i1,j1);
         IntegerMatrix matrix2 = matrixManager.createIntegerMatrix(array2,i2,j2);
         IntegerMatrix expected = matrixManager.createIntegerMatrix(array3,i3,j3);
-        MatrixProduct matrixProduct = new MatrixProduct();
-        IntegerMatrix actual = matrixProduct.result(matrix1,matrix2);
+        MatrixSub matrixSub = new MatrixSub();
+        IntegerMatrix actual = matrixSub.result(matrix1,matrix2);
     }
 }

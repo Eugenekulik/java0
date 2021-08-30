@@ -2,16 +2,16 @@ package by.training.task3.controller.command;
 
 import by.training.task3.bean.CommandData;
 import by.training.task3.bean.MyArray;
-import by.training.task3.bean.SortVariation;
 import by.training.task3.service.GetArrayFromFile;
 import by.training.task3.service.ServiceException;
 import by.training.task3.service.ServiceFactory;
-import by.training.task3.service.arraySort.*;
+import by.training.task3.service.arraySort.BubbleSort;
+import by.training.task3.service.arraySort.HashTableSort;
+import by.training.task3.service.arraySort.ShekerSort;
+import by.training.task3.service.arraySort.SimpleChoiceSort;
 import by.training.task3.view.Messenger;
 import by.training.task3.view.Reader;
 import by.training.task3.view.ViewFactory;
-
-import java.util.ArrayList;
 
 public class SortCommand implements Command{
     CommandData commandData;

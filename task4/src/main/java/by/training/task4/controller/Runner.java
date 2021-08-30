@@ -1,9 +1,9 @@
 package by.training.task4.controller;
 
-
 import by.training.task4.bean.*;
 import by.training.task4.controller.command.Client;
 import by.training.task4.controller.command.Command;
+import by.training.task4.controller.command.CommandType;
 import by.training.task4.controller.command.ManagerCommand;
 import by.training.task4.service.ServiceException;
 import by.training.task4.view.Messenger;
@@ -28,25 +28,31 @@ public class Runner {
             Locale locale = new Locale("ru","RU");
             messenger.initBundle("text",locale);
         }
+        if(lang.equals("2")){
+            Locale locale = new Locale("en","US");
+            messenger.initBundle("text",locale);
+        }
         logger.info("Main loop");
-        while(RunTimeInfo.isWork()){
+        ProgramData programData = new ProgramData();
+        while(ProgramData.isWork()){
             messenger.printProperty("simple.write_command");
             String cmd = reader.getString();
-            CommandData commandData = new CommandData();
-            Client client = new Client(commandData);
+
+            Client client = new Client(programData.getCountry());
             Command command=null;
             try {
                 command = client.initCommand(CommandType.valueOf(cmd));
             }
             catch (Exception e){
                 messenger.printProperty("simple.try_again");
+                continue;
             }
             ManagerCommand managerCommand = new ManagerCommand(command);
             try{
                 managerCommand.invokeCommand();
             }
             catch (ServiceException e){
-                messenger.printProperty(e.getMessage());
+                messenger.print(e.getMessage());
                 logger.warn(e.getMessage());
             }
         }

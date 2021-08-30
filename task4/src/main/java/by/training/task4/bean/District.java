@@ -1,46 +1,47 @@
 package by.training.task4.bean;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.io.Serializable;
 
-public class District {
-    private String name;
+import java.util.HashSet;
+import java.util.Set;
 
-    public double getSquare() {
-        return square;
+/**
+ * Class District extands AdministrativeUnit and realize entity - district
+ * It have all atributes of AdministrativeUnit and also area, and set of cities
+ */
+
+
+
+
+public class District extends AdministrativeUnit{
+    private City districtCenter;
+    private double area;
+    private Set<City> cites = new HashSet<>();
+
+    public District(String name){
+        this.name = name;
     }
 
-    public void setSquare(double square) {
-        this.square = square;
+    public double getArea() {
+        return area;
     }
-
-    private double square;
-    private ArrayList<City> cites = new ArrayList<>();
-    public String getName() {
-        return name;
+    public void setArea(double area) {
+        this.area = area;
     }
     public City getDistrictCenter() {
         return districtCenter;
     }
-
-    private City districtCenter;
-    public District(String name, City districtCenter){
-        this.districtCenter = districtCenter;
-        cites.add(districtCenter);
-        this.name = name;
-        this.square = 100;
-    }
-    public District(String name, City districtCenter,double square){
-        this.districtCenter = districtCenter;
-        this.name = name;
-        this.square = square;
-    }
-    public void addCity(City city){
-        cites.add(city);
+    public boolean setDistrictCenter(String name) {
+        City city = getCity(name);
+        if(city!=null){
+            districtCenter = city;
+            return true;
+        }
+        return false;
     }
     public City getCity(String name){
         for (City c:cites){
-            if(c.getName()==name){
+            if(c.getName().equals(name)){
                 return c;
             }
         }
@@ -51,22 +52,30 @@ public class District {
         for (City c:cites) {
             tempPopulation+=c.getPopulation();
         }
-        tempPopulation+=districtCenter.getPopulation();
         return tempPopulation;
+    }
+
+    public void addCity(City city){
+        cites.add(city);
     }
 
     @Override
     public int hashCode() {
         return super.hashCode();
     }
-
     @Override
     public boolean equals(Object obj) {
         return super.equals(obj);
     }
-
     @Override
     public String toString() {
-        return name;
+        return "District" +
+                "\nName: " + name +
+                "\nDistrict center: " + (districtCenter!=null? districtCenter.name:"") +
+                "\nArea: " + area +
+                "\nPopulation: " + getPopulation() +
+                "\n" + cites.toString();
     }
+
+
 }

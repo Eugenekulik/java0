@@ -8,7 +8,7 @@ import java.util.Objects;
  * @param <T> any number class
  */
 public class MyMatrix<T extends Number>  {
-    private ArrayList<T> matrixValue = new ArrayList<T>();
+    private ArrayList<T> matrixValue = new ArrayList<T>();//TODO blinov decomposition
     private  int verticalSize;
     private  int horizontalSize;
     public  MyMatrix(int n,int m){

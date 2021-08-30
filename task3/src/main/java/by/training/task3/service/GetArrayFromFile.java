@@ -3,11 +3,9 @@ package by.training.task3.service;
 import by.training.task3.bean.MyArray;
 import by.training.task3.dao.DaoException;
 import by.training.task3.dao.DaoFactory;
-import by.training.task3.service.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.lang.reflect.Array;
 import java.util.Scanner;
 
 public class GetArrayFromFile<T extends Comparable>{
@@ -67,7 +65,7 @@ public class GetArrayFromFile<T extends Comparable>{
             logger.info("Get array from file completed");
             return array;
         }
-        catch (DaoException|NumberFormatException e){
+        catch (DaoException |NumberFormatException e){
             throw new ServiceException(e.getMessage(),e);
         }
     }

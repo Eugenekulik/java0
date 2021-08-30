@@ -1,149 +1,149 @@
-19:18:03.673 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Start program
-19:18:03.683 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Main loop
-19:18:48.948 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - command execute correctly
-19:18:48.949 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Main loop
-19:18:54.935 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - command execute correctly
-19:23:31.221 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Start program
-19:23:31.238 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Main loop
-19:25:41.021 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Start program
-19:25:41.029 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Main loop
-19:25:48.342 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Main loop
-19:26:15.745 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Start program
-19:26:15.753 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Main loop
-19:26:41.310 [by.training.task3.service.matrixOperation.MatrixProduct  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixProduct - Matrix product run
-19:26:41.310 [by.training.task3.service.matrixOperation.MatrixProduct  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixProduct - Matrix product completed
-19:26:41.311 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - command execute correctly
-19:26:41.311 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Main loop
-19:26:51.987 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Main loop
-19:26:55.024 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - command execute correctly
-11:05:07.302 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Start program
-11:05:09.130 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Main loop
-11:05:53.719 [by.training.task3.service.GetArrayFromFile  -----+`  t] INFO  by.training.task3.service.GetArrayFromFile - Get array from file run
-11:08:14.144 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Start program
-11:08:16.218 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Main loop
-11:08:56.456 [by.training.task3.service.GetArrayFromFile  -----+`  t] INFO  by.training.task3.service.GetArrayFromFile - Get array from file run
-11:10:20.800 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Start program
-11:10:21.994 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Main loop
-11:11:00.165 [by.training.task3.service.GetArrayFromFile  -----+`  t] INFO  by.training.task3.service.GetArrayFromFile - Get array from file run
-11:12:48.204 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Start program
-11:12:49.855 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Main loop
-11:13:08.099 [by.training.task3.service.GetArrayFromFile  -----+`  t] INFO  by.training.task3.service.GetArrayFromFile - Get array from file run
-11:13:15.679 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Start program
-11:13:17.972 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Main loop
-11:14:52.586 [by.training.task3.service.GetArrayFromFile  -----+`  t] INFO  by.training.task3.service.GetArrayFromFile - Get array from file run
-11:17:19.297 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Start program
-11:17:20.897 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Main loop
-11:17:35.697 [by.training.task3.service.GetArrayFromFile  -----+`  t] INFO  by.training.task3.service.GetArrayFromFile - Get array from file run
-11:17:56.598 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Start program
-11:17:57.740 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Main loop
-11:18:08.946 [by.training.task3.service.GetArrayFromFile  -----+`  t] INFO  by.training.task3.service.GetArrayFromFile - Get array from file run
-11:19:34.283 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Start program
-11:19:37.841 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Main loop
-11:19:58.494 [by.training.task3.service.GetArrayFromFile  -----+`  t] INFO  by.training.task3.service.GetArrayFromFile - Get array from file run
-11:22:56.093 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Start program
-11:22:57.564 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Main loop
-11:23:15.278 [by.training.task3.service.GetArrayFromFile  -----+`  t] INFO  by.training.task3.service.GetArrayFromFile - Get array from file run
-11:23:41.344 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Start program
-11:23:43.625 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Main loop
-11:23:55.155 [by.training.task3.service.GetArrayFromFile  -----+`  t] INFO  by.training.task3.service.GetArrayFromFile - Get array from file run
-11:30:31.889 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Start program
-11:30:33.665 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Start program
-11:30:37.195 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Start program
-11:30:39.905 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Main loop
-11:31:04.539 [by.training.task3.service.GetArrayFromFile  -----+`  t] INFO  by.training.task3.service.GetArrayFromFile - Get array from file run
-11:32:57.604 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Start program
-11:32:59.780 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Main loop
-11:33:22.592 [by.training.task3.service.GetArrayFromFile  -----+`  t] INFO  by.training.task3.service.GetArrayFromFile - Get array from file run
-11:34:31.468 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Start program
-11:34:32.907 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Main loop
-11:34:46.978 [by.training.task3.service.GetArrayFromFile  -----+`  t] INFO  by.training.task3.service.GetArrayFromFile - Get array from file run
-11:35:37.271 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - command execute correctly
-11:35:37.272 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Main loop
-11:36:25.996 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Start program
-11:36:29.352 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Main loop
-11:36:41.595 [by.training.task3.service.GetArrayFromFile  -----+`  t] INFO  by.training.task3.service.GetArrayFromFile - Get array from file run
-11:36:56.040 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - command execute correctly
-11:37:02.323 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Main loop
-11:37:54.621 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Start program
-11:37:58.085 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Start program
-11:37:59.537 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Main loop
-11:38:27.260 [by.training.task3.service.GetArrayFromFile  -----+`  t] INFO  by.training.task3.service.GetArrayFromFile - Get array from file run
-11:38:27.263 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - command execute correctly
-11:38:27.263 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Main loop
-13:25:13.105 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Start program
-13:25:15.969 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Main loop
-13:25:39.118 [by.training.task3.service.matrixOperation.MatrixSum  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSum - Matrix sum run
-13:25:39.119 [by.training.task3.service.matrixOperation.MatrixSum  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSum - Matrix sum completed
-13:25:39.119 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - command execute correctly
-13:25:39.120 [by.training.task3.controller.Runner  -----+`  t] INFO  by.training.task3.controller.Runner - Main loop
-13:29:56.634 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Matrix substract run
-13:29:56.645 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Martix substract completed
-13:29:56.652 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Matrix substract run
-13:29:56.653 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Martix substract completed
-13:29:56.663 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Matrix substract run
-13:29:56.663 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Martix substract completed
-13:29:56.666 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Matrix substract run
-13:29:56.668 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Matrix substract run
-13:33:35.042 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Matrix substract run
-13:33:35.048 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Martix substract completed
-13:33:35.055 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Matrix substract run
-13:33:35.056 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Martix substract completed
-13:33:35.068 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Matrix substract run
-13:33:35.069 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Martix substract completed
-13:34:14.545 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Matrix substract run
-13:34:14.546 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Matrix substract run
-13:34:31.159 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Matrix substract run
-13:34:31.165 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Martix substract completed
-13:35:49.018 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Matrix substract run
-13:36:20.980 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Martix substract completed
-13:36:20.988 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Matrix substract run
-13:36:20.989 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Martix substract completed
-13:36:20.993 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Matrix substract run
-13:36:20.994 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Matrix substract run
-13:36:25.960 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Matrix substract run
-13:36:25.973 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Martix substract completed
-13:36:25.981 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Matrix substract run
-13:36:25.981 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Martix substract completed
-13:36:25.982 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Matrix substract run
-13:36:25.982 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Martix substract completed
-13:36:25.987 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Matrix substract run
-13:36:25.987 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Matrix substract run
-13:37:26.162 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Matrix substract run
-13:37:26.174 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Martix substract completed
-13:37:26.182 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Matrix substract run
-13:37:26.182 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Martix substract completed
-13:37:26.183 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Matrix substract run
-13:37:26.183 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Martix substract completed
-13:37:26.186 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Matrix substract run
-13:37:26.187 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Matrix substract run
-13:37:42.252 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Matrix substract run
-13:37:42.265 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Martix substract completed
-13:37:42.277 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Matrix substract run
-13:37:42.277 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Martix substract completed
-13:37:42.279 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Matrix substract run
-13:37:42.279 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Martix substract completed
-13:37:42.282 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Matrix substract run
-13:37:42.283 [by.training.task3.service.matrixOperation.MatrixSub  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixSub - Matrix substract run
-13:43:40.786 [by.training.task3.service.matrixOperation.MatrixProduct  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixProduct - Matrix product run
-13:43:40.792 [by.training.task3.service.matrixOperation.MatrixProduct  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixProduct - Matrix product run
-13:43:40.801 [by.training.task3.service.matrixOperation.MatrixProduct  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixProduct - Matrix product run
-13:43:40.805 [by.training.task3.service.matrixOperation.MatrixProduct  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixProduct - Matrix product run
-13:43:40.807 [by.training.task3.service.matrixOperation.MatrixProduct  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixProduct - Matrix product run
-13:43:40.807 [by.training.task3.service.matrixOperation.MatrixProduct  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixProduct - Matrix product completed
-13:45:30.252 [by.training.task3.service.matrixOperation.MatrixProduct  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixProduct - Matrix product run
-13:45:30.271 [by.training.task3.service.matrixOperation.MatrixProduct  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixProduct - Matrix product run
-13:45:30.278 [by.training.task3.service.matrixOperation.MatrixProduct  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixProduct - Matrix product run
-13:45:30.283 [by.training.task3.service.matrixOperation.MatrixProduct  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixProduct - Matrix product run
-13:45:30.285 [by.training.task3.service.matrixOperation.MatrixProduct  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixProduct - Matrix product run
-13:45:30.285 [by.training.task3.service.matrixOperation.MatrixProduct  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixProduct - Matrix product completed
-13:46:33.075 [by.training.task3.service.matrixOperation.MatrixProduct  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixProduct - Matrix product run
-13:46:33.095 [by.training.task3.service.matrixOperation.MatrixProduct  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixProduct - Matrix product run
-13:46:33.096 [by.training.task3.service.matrixOperation.MatrixProduct  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixProduct - Matrix product run
-13:46:33.103 [by.training.task3.service.matrixOperation.MatrixProduct  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixProduct - Matrix product run
-13:46:33.112 [by.training.task3.service.matrixOperation.MatrixProduct  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixProduct - Matrix product run
-13:46:33.112 [by.training.task3.service.matrixOperation.MatrixProduct  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixProduct - Matrix product completed
-13:48:09.652 [by.training.task3.service.matrixOperation.MatrixProduct  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixProduct - Matrix product run
-13:48:09.676 [by.training.task3.service.matrixOperation.MatrixProduct  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixProduct - Matrix product run
-13:48:09.678 [by.training.task3.service.matrixOperation.MatrixProduct  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixProduct - Matrix product run
-13:48:09.682 [by.training.task3.service.matrixOperation.MatrixProduct  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixProduct - Matrix product run
-13:48:09.684 [by.training.task3.service.matrixOperation.MatrixProduct  -----+`  t] INFO  by.training.task3.service.matrixOperation.MatrixProduct - Matrix product run
+19:18:03.673 [Runner  -----+`  t] INFO  Runner - Start program
+19:18:03.683 [Runner  -----+`  t] INFO  Runner - Main loop
+19:18:48.948 [Runner  -----+`  t] INFO  Runner - command execute correctly
+19:18:48.949 [Runner  -----+`  t] INFO  Runner - Main loop
+19:18:54.935 [Runner  -----+`  t] INFO  Runner - command execute correctly
+19:23:31.221 [Runner  -----+`  t] INFO  Runner - Start program
+19:23:31.238 [Runner  -----+`  t] INFO  Runner - Main loop
+19:25:41.021 [Runner  -----+`  t] INFO  Runner - Start program
+19:25:41.029 [Runner  -----+`  t] INFO  Runner - Main loop
+19:25:48.342 [Runner  -----+`  t] INFO  Runner - Main loop
+19:26:15.745 [Runner  -----+`  t] INFO  Runner - Start program
+19:26:15.753 [Runner  -----+`  t] INFO  Runner - Main loop
+19:26:41.310 [MatrixProduct  -----+`  t] INFO  MatrixProduct - Matrix product run
+19:26:41.310 [MatrixProduct  -----+`  t] INFO  MatrixProduct - Matrix product completed
+19:26:41.311 [Runner  -----+`  t] INFO  Runner - command execute correctly
+19:26:41.311 [Runner  -----+`  t] INFO  Runner - Main loop
+19:26:51.987 [Runner  -----+`  t] INFO  Runner - Main loop
+19:26:55.024 [Runner  -----+`  t] INFO  Runner - command execute correctly
+11:05:07.302 [Runner  -----+`  t] INFO  Runner - Start program
+11:05:09.130 [Runner  -----+`  t] INFO  Runner - Main loop
+11:05:53.719 [GetArrayFromFile  -----+`  t] INFO  GetArrayFromFile - Get array from file run
+11:08:14.144 [Runner  -----+`  t] INFO  Runner - Start program
+11:08:16.218 [Runner  -----+`  t] INFO  Runner - Main loop
+11:08:56.456 [GetArrayFromFile  -----+`  t] INFO  GetArrayFromFile - Get array from file run
+11:10:20.800 [Runner  -----+`  t] INFO  Runner - Start program
+11:10:21.994 [Runner  -----+`  t] INFO  Runner - Main loop
+11:11:00.165 [GetArrayFromFile  -----+`  t] INFO  GetArrayFromFile - Get array from file run
+11:12:48.204 [Runner  -----+`  t] INFO  Runner - Start program
+11:12:49.855 [Runner  -----+`  t] INFO  Runner - Main loop
+11:13:08.099 [GetArrayFromFile  -----+`  t] INFO  GetArrayFromFile - Get array from file run
+11:13:15.679 [Runner  -----+`  t] INFO  Runner - Start program
+11:13:17.972 [Runner  -----+`  t] INFO  Runner - Main loop
+11:14:52.586 [GetArrayFromFile  -----+`  t] INFO  GetArrayFromFile - Get array from file run
+11:17:19.297 [Runner  -----+`  t] INFO  Runner - Start program
+11:17:20.897 [Runner  -----+`  t] INFO  Runner - Main loop
+11:17:35.697 [GetArrayFromFile  -----+`  t] INFO  GetArrayFromFile - Get array from file run
+11:17:56.598 [Runner  -----+`  t] INFO  Runner - Start program
+11:17:57.740 [Runner  -----+`  t] INFO  Runner - Main loop
+11:18:08.946 [GetArrayFromFile  -----+`  t] INFO  GetArrayFromFile - Get array from file run
+11:19:34.283 [Runner  -----+`  t] INFO  Runner - Start program
+11:19:37.841 [Runner  -----+`  t] INFO  Runner - Main loop
+11:19:58.494 [GetArrayFromFile  -----+`  t] INFO  GetArrayFromFile - Get array from file run
+11:22:56.093 [Runner  -----+`  t] INFO  Runner - Start program
+11:22:57.564 [Runner  -----+`  t] INFO  Runner - Main loop
+11:23:15.278 [GetArrayFromFile  -----+`  t] INFO  GetArrayFromFile - Get array from file run
+11:23:41.344 [Runner  -----+`  t] INFO  Runner - Start program
+11:23:43.625 [Runner  -----+`  t] INFO  Runner - Main loop
+11:23:55.155 [GetArrayFromFile  -----+`  t] INFO  GetArrayFromFile - Get array from file run
+11:30:31.889 [Runner  -----+`  t] INFO  Runner - Start program
+11:30:33.665 [Runner  -----+`  t] INFO  Runner - Start program
+11:30:37.195 [Runner  -----+`  t] INFO  Runner - Start program
+11:30:39.905 [Runner  -----+`  t] INFO  Runner - Main loop
+11:31:04.539 [GetArrayFromFile  -----+`  t] INFO  GetArrayFromFile - Get array from file run
+11:32:57.604 [Runner  -----+`  t] INFO  Runner - Start program
+11:32:59.780 [Runner  -----+`  t] INFO  Runner - Main loop
+11:33:22.592 [GetArrayFromFile  -----+`  t] INFO  GetArrayFromFile - Get array from file run
+11:34:31.468 [Runner  -----+`  t] INFO  Runner - Start program
+11:34:32.907 [Runner  -----+`  t] INFO  Runner - Main loop
+11:34:46.978 [GetArrayFromFile  -----+`  t] INFO  GetArrayFromFile - Get array from file run
+11:35:37.271 [Runner  -----+`  t] INFO  Runner - command execute correctly
+11:35:37.272 [Runner  -----+`  t] INFO  Runner - Main loop
+11:36:25.996 [Runner  -----+`  t] INFO  Runner - Start program
+11:36:29.352 [Runner  -----+`  t] INFO  Runner - Main loop
+11:36:41.595 [GetArrayFromFile  -----+`  t] INFO  GetArrayFromFile - Get array from file run
+11:36:56.040 [Runner  -----+`  t] INFO  Runner - command execute correctly
+11:37:02.323 [Runner  -----+`  t] INFO  Runner - Main loop
+11:37:54.621 [Runner  -----+`  t] INFO  Runner - Start program
+11:37:58.085 [Runner  -----+`  t] INFO  Runner - Start program
+11:37:59.537 [Runner  -----+`  t] INFO  Runner - Main loop
+11:38:27.260 [GetArrayFromFile  -----+`  t] INFO  GetArrayFromFile - Get array from file run
+11:38:27.263 [Runner  -----+`  t] INFO  Runner - command execute correctly
+11:38:27.263 [Runner  -----+`  t] INFO  Runner - Main loop
+13:25:13.105 [Runner  -----+`  t] INFO  Runner - Start program
+13:25:15.969 [Runner  -----+`  t] INFO  Runner - Main loop
+13:25:39.118 [MatrixSum  -----+`  t] INFO  MatrixSum - Matrix sum run
+13:25:39.119 [MatrixSum  -----+`  t] INFO  MatrixSum - Matrix sum completed
+13:25:39.119 [Runner  -----+`  t] INFO  Runner - command execute correctly
+13:25:39.120 [Runner  -----+`  t] INFO  Runner - Main loop
+13:29:56.634 [MatrixSub  -----+`  t] INFO  MatrixSub - Matrix substract run
+13:29:56.645 [MatrixSub  -----+`  t] INFO  MatrixSub - Martix substract completed
+13:29:56.652 [MatrixSub  -----+`  t] INFO  MatrixSub - Matrix substract run
+13:29:56.653 [MatrixSub  -----+`  t] INFO  MatrixSub - Martix substract completed
+13:29:56.663 [MatrixSub  -----+`  t] INFO  MatrixSub - Matrix substract run
+13:29:56.663 [MatrixSub  -----+`  t] INFO  MatrixSub - Martix substract completed
+13:29:56.666 [MatrixSub  -----+`  t] INFO  MatrixSub - Matrix substract run
+13:29:56.668 [MatrixSub  -----+`  t] INFO  MatrixSub - Matrix substract run
+13:33:35.042 [MatrixSub  -----+`  t] INFO  MatrixSub - Matrix substract run
+13:33:35.048 [MatrixSub  -----+`  t] INFO  MatrixSub - Martix substract completed
+13:33:35.055 [MatrixSub  -----+`  t] INFO  MatrixSub - Matrix substract run
+13:33:35.056 [MatrixSub  -----+`  t] INFO  MatrixSub - Martix substract completed
+13:33:35.068 [MatrixSub  -----+`  t] INFO  MatrixSub - Matrix substract run
+13:33:35.069 [MatrixSub  -----+`  t] INFO  MatrixSub - Martix substract completed
+13:34:14.545 [MatrixSub  -----+`  t] INFO  MatrixSub - Matrix substract run
+13:34:14.546 [MatrixSub  -----+`  t] INFO  MatrixSub - Matrix substract run
+13:34:31.159 [MatrixSub  -----+`  t] INFO  MatrixSub - Matrix substract run
+13:34:31.165 [MatrixSub  -----+`  t] INFO  MatrixSub - Martix substract completed
+13:35:49.018 [MatrixSub  -----+`  t] INFO  MatrixSub - Matrix substract run
+13:36:20.980 [MatrixSub  -----+`  t] INFO  MatrixSub - Martix substract completed
+13:36:20.988 [MatrixSub  -----+`  t] INFO  MatrixSub - Matrix substract run
+13:36:20.989 [MatrixSub  -----+`  t] INFO  MatrixSub - Martix substract completed
+13:36:20.993 [MatrixSub  -----+`  t] INFO  MatrixSub - Matrix substract run
+13:36:20.994 [MatrixSub  -----+`  t] INFO  MatrixSub - Matrix substract run
+13:36:25.960 [MatrixSub  -----+`  t] INFO  MatrixSub - Matrix substract run
+13:36:25.973 [MatrixSub  -----+`  t] INFO  MatrixSub - Martix substract completed
+13:36:25.981 [MatrixSub  -----+`  t] INFO  MatrixSub - Matrix substract run
+13:36:25.981 [MatrixSub  -----+`  t] INFO  MatrixSub - Martix substract completed
+13:36:25.982 [MatrixSub  -----+`  t] INFO  MatrixSub - Matrix substract run
+13:36:25.982 [MatrixSub  -----+`  t] INFO  MatrixSub - Martix substract completed
+13:36:25.987 [MatrixSub  -----+`  t] INFO  MatrixSub - Matrix substract run
+13:36:25.987 [MatrixSub  -----+`  t] INFO  MatrixSub - Matrix substract run
+13:37:26.162 [MatrixSub  -----+`  t] INFO  MatrixSub - Matrix substract run
+13:37:26.174 [MatrixSub  -----+`  t] INFO  MatrixSub - Martix substract completed
+13:37:26.182 [MatrixSub  -----+`  t] INFO  MatrixSub - Matrix substract run
+13:37:26.182 [MatrixSub  -----+`  t] INFO  MatrixSub - Martix substract completed
+13:37:26.183 [MatrixSub  -----+`  t] INFO  MatrixSub - Matrix substract run
+13:37:26.183 [MatrixSub  -----+`  t] INFO  MatrixSub - Martix substract completed
+13:37:26.186 [MatrixSub  -----+`  t] INFO  MatrixSub - Matrix substract run
+13:37:26.187 [MatrixSub  -----+`  t] INFO  MatrixSub - Matrix substract run
+13:37:42.252 [MatrixSub  -----+`  t] INFO  MatrixSub - Matrix substract run
+13:37:42.265 [MatrixSub  -----+`  t] INFO  MatrixSub - Martix substract completed
+13:37:42.277 [MatrixSub  -----+`  t] INFO  MatrixSub - Matrix substract run
+13:37:42.277 [MatrixSub  -----+`  t] INFO  MatrixSub - Martix substract completed
+13:37:42.279 [MatrixSub  -----+`  t] INFO  MatrixSub - Matrix substract run
+13:37:42.279 [MatrixSub  -----+`  t] INFO  MatrixSub - Martix substract completed
+13:37:42.282 [MatrixSub  -----+`  t] INFO  MatrixSub - Matrix substract run
+13:37:42.283 [MatrixSub  -----+`  t] INFO  MatrixSub - Matrix substract run
+13:43:40.786 [MatrixProduct  -----+`  t] INFO  MatrixProduct - Matrix product run
+13:43:40.792 [MatrixProduct  -----+`  t] INFO  MatrixProduct - Matrix product run
+13:43:40.801 [MatrixProduct  -----+`  t] INFO  MatrixProduct - Matrix product run
+13:43:40.805 [MatrixProduct  -----+`  t] INFO  MatrixProduct - Matrix product run
+13:43:40.807 [MatrixProduct  -----+`  t] INFO  MatrixProduct - Matrix product run
+13:43:40.807 [MatrixProduct  -----+`  t] INFO  MatrixProduct - Matrix product completed
+13:45:30.252 [MatrixProduct  -----+`  t] INFO  MatrixProduct - Matrix product run
+13:45:30.271 [MatrixProduct  -----+`  t] INFO  MatrixProduct - Matrix product run
+13:45:30.278 [MatrixProduct  -----+`  t] INFO  MatrixProduct - Matrix product run
+13:45:30.283 [MatrixProduct  -----+`  t] INFO  MatrixProduct - Matrix product run
+13:45:30.285 [MatrixProduct  -----+`  t] INFO  MatrixProduct - Matrix product run
+13:45:30.285 [MatrixProduct  -----+`  t] INFO  MatrixProduct - Matrix product completed
+13:46:33.075 [MatrixProduct  -----+`  t] INFO  MatrixProduct - Matrix product run
+13:46:33.095 [MatrixProduct  -----+`  t] INFO  MatrixProduct - Matrix product run
+13:46:33.096 [MatrixProduct  -----+`  t] INFO  MatrixProduct - Matrix product run
+13:46:33.103 [MatrixProduct  -----+`  t] INFO  MatrixProduct - Matrix product run
+13:46:33.112 [MatrixProduct  -----+`  t] INFO  MatrixProduct - Matrix product run
+13:46:33.112 [MatrixProduct  -----+`  t] INFO  MatrixProduct - Matrix product completed
+13:48:09.652 [MatrixProduct  -----+`  t] INFO  MatrixProduct - Matrix product run
+13:48:09.676 [MatrixProduct  -----+`  t] INFO  MatrixProduct - Matrix product run
+13:48:09.678 [MatrixProduct  -----+`  t] INFO  MatrixProduct - Matrix product run
+13:48:09.682 [MatrixProduct  -----+`  t] INFO  MatrixProduct - Matrix product run
+13:48:09.684 [MatrixProduct  -----+`  t] INFO  MatrixProduct - Matrix product run

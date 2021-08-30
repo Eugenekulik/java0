@@ -1,4 +1,4 @@
-package by.training.task3.bean;
+package by.training.task3.controller.command;
 
 public enum SortVariation {
     BUBBLESORT, SIMPLECHOICESORT,SHEKERSORT, HASHTABLESORT

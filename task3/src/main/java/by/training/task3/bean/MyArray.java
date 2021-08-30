@@ -30,7 +30,7 @@ public class MyArray<T extends Comparable> {
     @Override
     public String toString(){
         StringBuilder stringBuilder = new StringBuilder();
-        for(int i=0;i<size;i++){
+        for (int i = 0; i < size; i++) {
             stringBuilder.append(array[i]);
             stringBuilder.append(", ");
         }

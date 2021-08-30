@@ -1,11 +1,17 @@
 package by.training.task4.bean;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class City {
-    private String name;
+/**
+ * Class City extands AdministrativeUnit and realize entity - city
+ * It have all atributes of AdministrativeUnit and also population
+ */
+
+public class City extends AdministrativeUnit {
     private int population;
+
     public int getPopulation() {
         return population;
     }
@@ -20,23 +26,20 @@ public class City {
         this.name = name;
         this.population = population;
     }
-    public String getName() {
-        return name;
-    }
 
     @Override
     public int hashCode() {
         return super.hashCode();
     }
-
     @Override
     public boolean equals(Object obj) {
         return super.equals(obj);
     }
-
     @Override
     public String toString() {
-        return name;
+        return "City" +
+                "\nName: " + name +
+                "\nPopulation: " + population;
     }
 }
 

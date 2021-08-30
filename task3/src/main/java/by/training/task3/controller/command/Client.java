@@ -1,7 +1,6 @@
 package by.training.task3.controller.command;
 
 import by.training.task3.bean.CommandData;
-import by.training.task3.bean.CommandType;
 
 public class Client {
     private CommandData cCommandData;

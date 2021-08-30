@@ -13,7 +13,7 @@ public class GetMatrixFromFile<T extends Number> {
     public GetMatrixFromFile(String filePath){
         this.filePath = filePath;
     }
-    public IntegerMatrix createInteger() throws ServiceException {
+    public IntegerMatrix createIntegerMatrix() throws ServiceException {
         try {
             Scanner scanner = DaoFactory.getInstance().getScanner(filePath);
             int n = Integer.parseInt(scanner.next());
