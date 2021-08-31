@@ -1,6 +1,5 @@
-package by.training.task4.service.Change;
+package by.training.task4.service.change;
 
-import by.training.task4.bean.City;
 import by.training.task4.bean.Country;
 
 public class ChangeCountry {

@@ -3,7 +3,7 @@ package by.training.task4.controller.command.country;
 import by.training.task4.bean.City;
 import by.training.task4.bean.Country;
 import by.training.task4.controller.command.Command;
-import by.training.task4.service.Change.ChangeCity;
+import by.training.task4.service.change.ChangeCity;
 import by.training.task4.service.ServiceException;
 import by.training.task4.view.Messenger;
 import by.training.task4.view.Reader;
