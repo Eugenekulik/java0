@@ -5,7 +5,7 @@ import by.training.task4.service.ServiceException;
 
 public class ChangeCity {
     public ChangeCity(){};
-    public void name(City city, String name) throws ServiceException {
+    public void name(City city, String name){
         city.setName(name);
     }
     public void population(City city, String population) throws ServiceException {

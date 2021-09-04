@@ -16,7 +16,9 @@ public class City extends AdministrativeUnit {
         return population;
     }
     public void setPopulation(int population) {
-        this.population = population;
+        if(population>0) {
+            this.population = population;
+        }
     }
     public City(String name) {
         this.name = name;
