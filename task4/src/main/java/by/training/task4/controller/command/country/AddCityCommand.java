@@ -4,7 +4,6 @@ import by.training.task4.bean.City;
 import by.training.task4.bean.Country;
 import by.training.task4.bean.District;
 import by.training.task4.controller.command.Command;
-import by.training.task4.controller.command.main.OpenCountryCommand;
 import by.training.task4.service.ServiceException;
 import by.training.task4.view.Messenger;
 import by.training.task4.view.Reader;

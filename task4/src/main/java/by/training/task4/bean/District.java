@@ -20,13 +20,16 @@ public class District extends AdministrativeUnit{
 
     public District(String name){
         this.name = name;
+        this.area = 100;
     }
 
     public double getArea() {
         return area;
     }
     public void setArea(double area) {
-        this.area = area;
+        if(area>0) {
+            this.area = area;
+        }
     }
     public City getDistrictCenter() {
         return districtCenter;

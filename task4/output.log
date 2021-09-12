@@ -1,0 +1,3 @@
+16:21:43.734 [by.training.task4.controller.Runner  -----+`  t] INFO  by.training.task4.controller.Runner - Start program
+16:21:46.725 [by.training.task4.controller.Runner  -----+`  t] INFO  by.training.task4.controller.Runner - Main loop
+16:21:50.551 [by.training.task4.controller.Runner  -----+`  t] INFO  by.training.task4.controller.Runner - End program

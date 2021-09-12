@@ -8,9 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.function.Function;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class ChangeCityTest {
 
@@ -31,9 +29,11 @@ public class ChangeCityTest {
         for(int i=0;i<4;i++){
             changeCity.population(cities.get(i),population.get(i));
         }
-        List<Integer> i = List.of(10,10000,1,0);
+        Function<City, Integer> function = city -> {
+            return city.getPopulation();
+        };
         Assertions.assertArrayEquals(new Integer[]{10,100000,1,0}, cities.stream()
-                .map(City::getPopulation).collect(Collectors.toList()).toArray());
+                .map(function).collect(Collectors.toList()).toArray());
 
     }
     @Test

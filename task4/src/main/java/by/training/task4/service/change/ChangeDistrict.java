@@ -5,7 +5,7 @@ import by.training.task4.service.ServiceException;
 
 public class ChangeDistrict {
     public ChangeDistrict(){}
-    public void name(District district, String name) throws ServiceException {
+    public void name(District district, String name){
             district.setName(name);
     }
     public void area(District district, String area) throws ServiceException {
