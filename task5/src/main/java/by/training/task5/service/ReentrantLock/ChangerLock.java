@@ -9,7 +9,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.concurrent.locks.Lock;
 
 public class ChangerLock implements Runnable{
-    private static final Logger logger = LogManager.getLogger(Runner.class);
+    private static final Logger logger = LogManager.getLogger(ChangerLock.class);
     private Iterate actual;
     Matrix matrix;
     Lock locker;

@@ -11,7 +11,7 @@ import java.util.concurrent.Semaphore;
 import java.util.concurrent.locks.Lock;
 
 public class ChangerSem implements Runnable{
-    private static final Logger logger = LogManager.getLogger(Runner.class);
+    private static final Logger logger = LogManager.getLogger(ChangerSem.class);
     private Iterate actual;
     Matrix matrix;
     Semaphore sem;

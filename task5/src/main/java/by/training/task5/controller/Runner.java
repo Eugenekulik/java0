@@ -1,10 +1,13 @@
 package by.training.task5.controller;
 
 import by.training.task5.bean.Matrix;
-import by.training.task5.service.Phaser.MatrixChangePhaser;
-import by.training.task5.service.ReentrantLock.MatrixChangeLock;
+import by.training.task5.controller.command.Client;
+import by.training.task5.controller.command.CommandType;
+import by.training.task5.controller.command.ManagerCommand;
+import by.training.task5.controller.command.MatrixChangeCommand;
 import by.training.task5.service.MatrixCreator;
 import by.training.task5.service.ServiceException;
+import by.training.task5.service.ThreadGetter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,9 +18,12 @@ public class Runner {
         logger.info("Program start");
         try {
             Matrix m = new MatrixCreator("src/main/resources/matrix.txt").create();
-            int[] values = {4,7,2,75,7,3,8,3,79,5};
-            MatrixChangePhaser matrixChangePhaser = new MatrixChangePhaser(m,3,values);
-            matrixChangePhaser.change();
+            ThreadGetter threadGetter = new ThreadGetter("src/main/resources/threads.txt");
+            Client client = new Client(m,threadGetter.get());
+            client.initCommand(CommandType.valueOf("MATRIXCHANGE"));
+            ManagerCommand managerCommand = new ManagerCommand(client.
+                    initCommand(CommandType.valueOf("MATRIXCHANGE")));
+            managerCommand.invokeCommand();
             System.out.println(m.toString());
             logger.info("End program");
         }
