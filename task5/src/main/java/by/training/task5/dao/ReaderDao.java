@@ -16,10 +16,10 @@ public class ReaderDao {
         }
     }
     public String read(){
-        StringBuffer stringBuffer = new StringBuffer();
+        StringBuilder stringBuilder = new StringBuilder();
         while(scanner.hasNext()) {
-            stringBuffer.append(scanner.nextLine()+" ");
+            stringBuilder.append(scanner.nextLine() + " ");
         }
-        return stringBuffer.toString();
+        return stringBuilder.toString();
     }
 }

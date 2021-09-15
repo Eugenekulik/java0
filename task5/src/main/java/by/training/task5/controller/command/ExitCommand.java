@@ -1,13 +1,18 @@
 package by.training.task5.controller.command;
 
 import by.training.task5.bean.RuntimeInfo;
-import by.training.task5.controller.Runner;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
+/**
+ * Class implement interface Command end realize exit the program.
+ * @see Command
+ * @see RuntimeInfo
+ */
 public class ExitCommand implements Command {
-    private static final Logger logger = LogManager.getLogger(Runner.class);
-    public void execute(){
+    /**
+     * Method change  field isWork of RuntimeInfo
+     * by using which main loop continue work.
+     */
+    public void execute() {
         RuntimeInfo.setIsWork(false);
     }
 }

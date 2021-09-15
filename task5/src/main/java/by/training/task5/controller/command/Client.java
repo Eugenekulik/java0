@@ -2,7 +2,6 @@ package by.training.task5.controller.command;
 
 import by.training.task5.bean.Matrix;
 
-import java.util.Optional;
 
 public class Client {
     private Matrix matrix;
@@ -16,9 +15,12 @@ public class Client {
         switch (cmd){
             case EXIT:
                 command = new ExitCommand();
+                break;
             case MATRIXCHANGE:
                 command = new MatrixChangeCommand(matrix,threadInfo);
+                break;
             default:
+                break;
         }
         return command;
     }

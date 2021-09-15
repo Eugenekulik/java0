@@ -1,6 +1,5 @@
 package by.training.task5.bean;
 
-import java.util.Arrays;
 
 public class Matrix {
     private int vertical;
@@ -11,11 +10,6 @@ public class Matrix {
         vertical = n;
         horizontal = m;
         value = new int[vertical][horizontal];
-        for (int []i:value) {
-            for (int j:i) {
-                j = 0;
-            }
-        }
     }
 
     public int getVertical() {
@@ -38,8 +32,10 @@ public class Matrix {
             for (int j:i) {
                 stringBuilder.append(j+" ");
             }
+            stringBuilder.deleteCharAt(stringBuilder.length() - 1);
             stringBuilder.append("\n");
         }
+        stringBuilder.deleteCharAt(stringBuilder.length() - 1);
         return stringBuilder.toString();
     }
 }

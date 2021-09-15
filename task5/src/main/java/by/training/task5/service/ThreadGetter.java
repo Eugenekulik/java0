@@ -12,9 +12,9 @@ public class ThreadGetter {
     }
     public int[] get() throws ServiceException  {
         try{
-            String []data = DaoFactory.getInstance().getReaderDao(file).read().split(" ");
-            int[] array = Arrays.stream(data).mapToInt(Integer::parseInt).toArray();
-            return array;
+            String[] data = DaoFactory.getInstance().getReaderDao(file).read().split(" ");
+            return Arrays.stream(data).mapToInt(Integer::parseInt).toArray();
+
         }
         catch (NumberFormatException|DaoException e){
             throw new ServiceException(e);

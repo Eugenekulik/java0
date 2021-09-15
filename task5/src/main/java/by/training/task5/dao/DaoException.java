@@ -1,6 +1,5 @@
 package by.training.task5.dao;
 
-import java.io.FileNotFoundException;
 
 public class DaoException extends Exception {
     public DaoException(){

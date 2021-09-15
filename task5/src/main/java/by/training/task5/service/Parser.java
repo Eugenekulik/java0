@@ -1,6 +1,5 @@
 package by.training.task5.service;
 
-import java.util.Arrays;
 import java.util.stream.Stream;
 
 public class Parser {
@@ -11,8 +10,7 @@ public class Parser {
     public int[] parse() throws ServiceException {
         try {
             String[] data = nums.split(" ");
-            int[] a = Stream.of(data).mapToInt(Integer::parseInt).toArray();
-            return a;
+            return Stream.of(data).mapToInt(Integer::parseInt).toArray();
         }
         catch (NumberFormatException|ClassCastException e){
             throw new ServiceException(e);

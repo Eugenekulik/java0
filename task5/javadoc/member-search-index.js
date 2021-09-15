@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"by.training.task5.controller.command","c":"ExitCommand","l":"execute()"},{"p":"by.training.task5.controller.command","c":"ExitCommand","l":"ExitCommand()"}]
