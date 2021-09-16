@@ -15,14 +15,19 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * Class realize interface MatrixChange and do dioganal's changes
  * with matrix in some threads and synchronized
- * threads by using ReentrantLock
+ * threads by using ReentrantLock.
  */
 public class MatrixChangeLock implements MatrixChange {
-    private Matrix matrix;
-    private final int[] values;
-
     /**
-     * Constructor
+     * Matrix reference which will be changed.
+     */
+    private Matrix matrix;
+    /**
+     * The value which will be written to the matrix.
+     */
+    private final int[] values;
+    /**
+     * Constructor.
      *
      * @param matrix to be changed
      * @param values array with numbers for threads
@@ -31,11 +36,10 @@ public class MatrixChangeLock implements MatrixChange {
         this.matrix = matrix;
         this.values = values;
     }
-
     /**
-     * Method start  threads, which do changes
+     * Method start  threads, which do changes.
      *
-     * @throws ServiceException
+     * @throws ServiceException Exception for service layer
      */
     public void change() throws ServiceException {
         Iterate actual = new Iterate();
@@ -44,7 +48,11 @@ public class MatrixChangeLock implements MatrixChange {
         Random random = ServiceFactory.getInstance().getRandom();
         int countThread = random.nextInt(values[1] - values[0]) + values[0];
         for (int i = 0; i < countThread; i++) {
-            threads.add(new Thread(new ChangerLock(matrix, actual, values[i + 2], locker)));
+            threads.add(new Thread(
+                    new ChangerLock(matrix,
+                            actual,
+                            values[i + 2],
+                            locker)));
         }
         threads.stream().forEach(Thread::start);
         for (Thread thread : threads) {

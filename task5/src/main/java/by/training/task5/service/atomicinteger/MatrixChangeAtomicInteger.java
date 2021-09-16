@@ -13,15 +13,20 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * Class realize interface MatrixChange and do dioganal's changes
  * with matrix in some threads and synchronized
- * threads by using AtomicInteger
+ * threads by using AtomicInteger.
  */
 
 public class MatrixChangeAtomicInteger implements MatrixChange {
-    private Matrix matrix;
-    private int[] values;
-
     /**
-     * Constructor
+     * Matrix reference which will be changed.
+     */
+    private Matrix matrix;
+    /**
+     * The value which will be write to the matrix.
+     */
+    private int[] values;
+    /**
+     * Constructor.
      *
      * @param matrix to be changed
      * @param values array with numbers for threads
@@ -32,7 +37,7 @@ public class MatrixChangeAtomicInteger implements MatrixChange {
     }
 
     /**
-     * Method start  threads, which do changes
+     * Method start  threads, which do changes.
      *
      * @throws ServiceException
      */
@@ -42,7 +47,10 @@ public class MatrixChangeAtomicInteger implements MatrixChange {
         int countThread = random.nextInt(values[1] - values[0]) + values[0];
         AtomicInteger atomicInteger = new AtomicInteger(0);
         for (int i = 0; i < countThread; i++) {
-            threads.add(new Thread(new ChangerAtomicInteger(matrix, values[i + 2], atomicInteger)));
+            threads.add(new Thread(
+                    new ChangerAtomicInteger(matrix,
+                            values[i + 2],
+                            atomicInteger)));
         }
         threads.stream().forEach(Thread::start);
         try {

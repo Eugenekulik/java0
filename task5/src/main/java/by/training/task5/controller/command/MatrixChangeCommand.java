@@ -7,21 +7,44 @@ import by.training.task5.service.ServiceFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-
-
-public class MatrixChangeCommand implements Command{
-    public static final Logger logger = LogManager.getLogger(MatrixChangeCommand.class);
+/**
+ * This class implements interface Command and realize command
+ * which call the Service class which change matrix.
+ */
+public class MatrixChangeCommand implements Command {
+    /**
+     * Logger.
+     */
+    public static final Logger LOGGER =
+            LogManager.getLogger(MatrixChangeCommand.class);
+    /**
+     * Matrix reference which will be changed.
+     */
     private Matrix matrix;
+    /**
+     * This array keep information about threads.
+     */
     private int[] threadinfo;
-    public MatrixChangeCommand(Matrix matrix, int []threadinfo){
+
+    /**
+     * Constructor.
+     * @param matrix Matrix class which be changed
+     * @param threadinfo int[] information about threads
+     */
+    public MatrixChangeCommand(Matrix matrix, int[] threadinfo) {
         this.matrix = matrix;
         this.threadinfo = threadinfo;
     }
+
+    /**
+     * Main method which execute command.
+     * @throws ServiceException Exception for service layer
+     */
     public void execute() throws ServiceException {
-        logger.info("Matrix change command start");
+        LOGGER.info("Matrix change command start");
         MatrixChange matrixChange = ServiceFactory.getInstance()
-                .getMatrixChange(matrix,threadinfo);
+                .getMatrixChange(matrix, threadinfo);
         matrixChange.change();
-        logger.info("Matrix change command start");
+        LOGGER.info("Matrix change command start");
     }
 }

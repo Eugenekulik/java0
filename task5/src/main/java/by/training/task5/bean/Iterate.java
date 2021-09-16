@@ -1,15 +1,30 @@
 package by.training.task5.bean;
 
+/**
+ * Class Iterate give oppotunite to follow the actual iterate.
+ */
 public class Iterate {
+    /**
+     * Varialble keep the number of actual itarete.
+     */
+    private Integer actual;
+    /**
+     * getter for actual.
+     * @return Integer
+     */
     public Integer getActual() {
         return actual;
     }
-
-    private Integer actual;
-    public Iterate(){
+    /**
+     * Constructor.
+     */
+    public Iterate() {
         actual = 0;
     }
-    public void plus(){
+    /**
+     * Increment actual.
+     */
+    public void plus() {
         actual++;
     }
 }

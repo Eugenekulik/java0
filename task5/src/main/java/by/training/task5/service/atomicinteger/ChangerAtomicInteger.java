@@ -3,21 +3,30 @@ package by.training.task5.service.atomicinteger;
 import by.training.task5.bean.Matrix;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import java.util.concurrent.atomic.AtomicInteger;
-
 /**
  * This class implement Functional Interface Runnable and should
  * be passed as an argument in new thread. It fills the diagonal
  * of the matrix with a specific number passed as an argument.
  */
 public class ChangerAtomicInteger implements Runnable {
+    /**
+     * Logger.
+     */
     private static final Logger LOGGER = LogManager
             .getLogger(ChangerAtomicInteger.class);
+    /**
+     * matrix reference , which will be changed.
+     */
     private Matrix matrix;
+    /**
+     * value which will be write in matrix.
+     */
     private int value;
+    /**
+     * AtomicInteger for synchronized with other threads.
+     */
     private AtomicInteger atomicInteger;
-
     /**
      * Constructor.
      *
@@ -33,14 +42,15 @@ public class ChangerAtomicInteger implements Runnable {
     }
 
     /**
-     * main method of class which do changes
+     * main method of class which do changes.
      */
     public void run() {
         LOGGER.info(() -> Thread.currentThread() + " start");
         while (atomicInteger.get() < matrix.getVertical()) {
             int actual = atomicInteger.getAndIncrement();
             matrix.set(actual, actual, value);
-            LOGGER.info(() -> Thread.currentThread() + " change iterate = " + actual);
+            LOGGER.info(() -> Thread.currentThread()
+                    + " change iterate = " + actual);
         }
         LOGGER.info(() -> Thread.currentThread() + "end work");
     }

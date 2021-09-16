@@ -13,14 +13,28 @@ import java.util.concurrent.Semaphore;
  * of the matrix with a specific number passed as an argument.
  */
 public class ChangerSem implements Runnable {
-    private static final Logger logger = LogManager.getLogger(ChangerSem.class);
-    private Iterate actual;
-    Matrix matrix;
-    Semaphore sem;
-    int value;
-
     /**
-     * Constructor
+     * Logger.
+     */
+    private static final Logger LOGGER = LogManager.getLogger(ChangerSem.class);
+    /**
+     * Class Iterate give oppotunity to figure out actual itarate.
+     */
+    private Iterate actual;
+    /**
+     * Matrix reference which to be changed.
+     */
+    private Matrix matrix;
+    /**
+     * Class Semafore for sinhronization with other threads.
+     */
+    private Semaphore sem;
+    /**
+     * The value which to be written to the matrix.
+     */
+    private int value;
+    /**
+     * Constructor.
      *
      * @param matrix Matrix class which will be changed
      * @param value  integer number used to fill
@@ -35,10 +49,10 @@ public class ChangerSem implements Runnable {
     }
 
     /**
-     * main method of class which do changes
+     * main method of class which do changes.
      */
     public void run() {
-        logger.info(() -> Thread.currentThread() + " start");
+        LOGGER.info(() -> Thread.currentThread() + " start");
         try {
             while (true) {
                 sem.acquire();
@@ -50,12 +64,13 @@ public class ChangerSem implements Runnable {
                 actual.plus();
                 sem.release();
                 matrix.set(iterate, iterate, value);
-                logger.info(() -> Thread.currentThread() + " change iterate = " + iterate);
+                LOGGER.info(() -> Thread.currentThread()
+                        + " change iterate = " + iterate);
             }
         } catch (InterruptedException e) {
-            logger.warn(() -> "warning: can't change " + actual.getActual());
+            LOGGER.warn(() -> "warning: can't change " + actual.getActual());
             Thread.currentThread().interrupt();
         }
-        logger.info(() -> Thread.currentThread() + "end work");
+        LOGGER.info(() -> Thread.currentThread() + "end work");
     }
 }

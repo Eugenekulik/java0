@@ -1,1 +1,1 @@
-memberSearchIndex = [{"p":"by.training.task5.controller.command","c":"ExitCommand","l":"execute()"},{"p":"by.training.task5.controller.command","c":"ExitCommand","l":"ExitCommand()"}]
+memberSearchIndex = [{"p":"by.training.task5.view","c":"ViewFactory","l":"getInstance()"},{"p":"by.training.task5.view","c":"ViewFactory","l":"getMessenger()"},{"p":"by.training.task5.view","c":"ViewFactory","l":"ViewFactory()"}]

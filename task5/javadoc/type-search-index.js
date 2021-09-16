@@ -1,1 +1,1 @@
-typeSearchIndex = [{"p":"by.training.task5.controller.command","l":"ExitCommand"}]
+typeSearchIndex = [{"p":"by.training.task5.view","l":"ViewFactory"}]

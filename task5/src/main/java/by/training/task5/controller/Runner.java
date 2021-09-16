@@ -11,25 +11,36 @@ import by.training.task5.view.ViewFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Runner {
-    private static final Logger logger = LogManager.getLogger(Runner.class);
+public final class Runner {
+    /**
+     * Logger.
+     */
+    private static final Logger LOGGER = LogManager.getLogger(Runner.class);
+    private Runner() {
+        super();
+    }
 
-    public static void main(String []args){
-        logger.info("Program start");
+    /**
+     * Main method of program.
+     * @param args Arguments which program takes if run in terminal.
+     */
+    public static void main(final String[] args) {
+        LOGGER.info("Program start");
         try {
-            Matrix m = new MatrixCreator("src/main/resources/matrix.txt").create();
-            ThreadGetter threadGetter = new ThreadGetter("src/main/resources/threads.txt");
+            Matrix m =
+                    new MatrixCreator("src/main/resources/matrix.txt").create();
+            ThreadGetter threadGetter =
+                    new ThreadGetter("src/main/resources/threads.txt");
             Client client = new Client(m, threadGetter.get());
             client.initCommand(CommandType.valueOf("MATRIXCHANGE"));
             ManagerCommand managerCommand = new ManagerCommand(client.
                     initCommand(CommandType.valueOf("MATRIXCHANGE")));
             managerCommand.invokeCommand();
-            ViewFactory.getInstance().getMessanger()
+            ViewFactory.getInstance().getMessenger()
                     .print(m.toString());
-            logger.info("End program");
-        }
-        catch (ServiceException e){
-            ViewFactory.getInstance().getMessanger().print(e.getMessage());
+            LOGGER.info("End program");
+        } catch (ServiceException e) {
+            ViewFactory.getInstance().getMessenger().print(e.getMessage());
         }
 
     }

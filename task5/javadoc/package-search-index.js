@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"by.training.task5.controller.command"}]
+packageSearchIndex = [{"l":"by.training.task5.view"}]

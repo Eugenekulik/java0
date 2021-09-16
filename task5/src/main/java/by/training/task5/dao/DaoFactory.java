@@ -11,14 +11,16 @@ public class DaoFactory {
 
     /**
      * Method return single instance of the DaoFactory.
+     *
      * @return DaoFactory
      */
-    public static DaoFactory getInstance() {
+    public static by.training.task5.dao.DaoFactory getInstance() {
         return INSTANCE;
     }
 
     /**
      * Return new instance of the ReaderDao.
+     *
      * @param file filepath for read
      * @return ReaderDao
      * @throws DaoException

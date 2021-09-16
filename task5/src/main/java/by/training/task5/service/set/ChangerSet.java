@@ -11,35 +11,52 @@ import java.util.concurrent.ConcurrentSkipListSet;
  * of the matrix with a specific number passed as an argument.
  */
 public class ChangerSet implements Runnable {
-    public static final Logger logger = LogManager.getLogger(ChangerSet.class);
-    Matrix matrix;
-    ConcurrentSkipListSet<Integer> act;
-    int value;
     /**
-     * Constructor
+     * Logger.
+     */
+    public static final Logger LOGGER = LogManager.getLogger(ChangerSet.class);
+    /**
+     * Matrix reference which to be changed.
+     */
+    private Matrix matrix;
+    /**
+     * Class ConcurrentSkipListSet for synchronization with other threads.
+     */
+    private ConcurrentSkipListSet<Integer> act;
+    /**
+     * The value which to be written to the matrix.
+     */
+    private int value;
+    /**
+     * Constructor.
      *
      * @param matrix Matrix class which will be changed
      * @param value  integer number used to fill
-     * @param act ConcurrentSkipListSet used for synchronization with other threads
-     *            and figure out actual iterate
+     * @param act ConcurrentSkipListSet used for synchronization with
+     *            other threads and figure out actual iterate
      */
-    public ChangerSet(Matrix matrix, ConcurrentSkipListSet<Integer> act, int value) {
+    public ChangerSet(Matrix matrix,
+                      ConcurrentSkipListSet<Integer> act,
+                      int value) {
         this.act = act;
         this.matrix = matrix;
         this.value = value;
     }
 
-    @Override
+    /**
+     * main method of class which do changes.
+     */
     public void run() {
-        logger.info(() -> Thread.currentThread() + " start");
+        LOGGER.info(() -> Thread.currentThread() + " start");
         while (true) {
             Integer actual = act.pollFirst();
             if (actual == null) {
                 break;
             }
             matrix.set(actual, actual, value);
-            logger.info(() -> Thread.currentThread() + " change iterate = " + actual);
+            LOGGER.info(() -> Thread.currentThread()
+                    + " change iterate = " + actual);
         }
-        logger.info(() -> Thread.currentThread() + "end work");
+        LOGGER.info(() -> Thread.currentThread() + "end work");
     }
 }

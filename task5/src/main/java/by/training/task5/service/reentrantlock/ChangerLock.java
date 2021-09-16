@@ -14,14 +14,29 @@ import java.util.concurrent.locks.Lock;
  * of the matrix with a specific number passed as an argument.
  */
 public class ChangerLock implements Runnable {
-    private static final Logger logger = LogManager.getLogger(ChangerLock.class);
-    private Iterate actual;
-    Matrix matrix;
-    Lock locker;
-    int value;
-
     /**
-     * Constructor
+     * Logger.
+     */
+    private static final Logger LOGGER = LogManager
+            .getLogger(ChangerLock.class);
+    /**
+     * Class Iterate give oppotunity to figure out actual iterate.
+     */
+    private Iterate actual;
+    /**
+     * Matrix reference which will be changed.
+     */
+    private Matrix matrix;
+    /**
+     * Locker for synchronization with other threads.
+     */
+    private Lock locker;
+    /**
+     * The value which to be written to the matrix.
+     */
+    private int value;
+    /**
+     * Constructor.
      *
      * @param matrix Matrix class which will be changed
      * @param value  integer number used to fill
@@ -36,11 +51,11 @@ public class ChangerLock implements Runnable {
     }
 
     /**
-     * main method of class which do changes
+     * main method of class which do changes.
      */
     @Override
     public void run() {
-        logger.info(() -> Thread.currentThread() + " start");
+        LOGGER.info(() -> Thread.currentThread() + " start");
         while (true) {
             locker.lock();
             if (actual.getActual() >= matrix.getVertical()) {
@@ -51,8 +66,9 @@ public class ChangerLock implements Runnable {
             actual.plus();
             locker.unlock();
             matrix.set(iterate, iterate, value);
-            logger.info(() -> Thread.currentThread() + " change iterate = " + iterate);
+            LOGGER.info(() -> Thread.currentThread()
+                    + " change iterate = " + iterate);
         }
-        logger.info(() -> Thread.currentThread() + "end work");
+        LOGGER.info(() -> Thread.currentThread() + "end work");
     }
 }
