@@ -8,14 +8,4 @@ public class DaoFactory {
     public DaoFactory getInstance(){
         return instance;
     }
-
-    public DaoReader getReader(String file)throws DaoException{
-        try {
-            return new DaoReader(file);
-        }
-        catch (FileNotFoundException e){
-            throw new DaoException(e);
-        }
-    }
-
 }
