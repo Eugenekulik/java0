@@ -1,6 +1,7 @@
 package by.training.task5.service.set;
 
 import by.training.task5.bean.Matrix;
+import by.training.task5.bean.MatrixException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -53,7 +54,12 @@ public class ChangerSet implements Runnable {
             if (actual == null) {
                 break;
             }
-            matrix.set(actual, actual, value);
+            try {
+                matrix.set(actual, actual, value);
+            } catch (MatrixException e){
+                LOGGER.info(e);
+                Thread.currentThread().interrupt();
+            }
             LOGGER.info(() -> Thread.currentThread()
                     + " change iterate = " + actual);
         }

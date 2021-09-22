@@ -2,6 +2,7 @@ package by.training.task5.service.semaphor;
 
 import by.training.task5.bean.Iterate;
 import by.training.task5.bean.Matrix;
+import by.training.task5.bean.MatrixException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -63,7 +64,12 @@ public class ChangerSem implements Runnable {
                 int iterate = actual.getActual();
                 actual.plus();
                 sem.release();
-                matrix.set(iterate, iterate, value);
+                try {
+                    matrix.set(iterate, iterate, value);
+                } catch (MatrixException e){
+                    LOGGER.info(e);
+                    Thread.currentThread().interrupt();
+                }
                 LOGGER.info(() -> Thread.currentThread()
                         + " change iterate = " + iterate);
             }

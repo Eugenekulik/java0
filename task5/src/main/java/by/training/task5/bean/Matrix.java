@@ -19,8 +19,12 @@ public class Matrix {
      * Constructor which takes the sizes of matrix.
      * @param n vertical size
      * @param m horizontal size
+     * @throws MatrixException Exception which informate about problems with Matrix
      */
-    public Matrix(int n, int m) {
+    public Matrix(int n, int m) throws MatrixException {
+        if(n <= 0 || m <= 0){
+            throw new MatrixException("sizes can's be negative or 0");
+        }
         vertical = n;
         horizontal = m;
         value = new int[vertical][horizontal];
@@ -45,8 +49,12 @@ public class Matrix {
      * @param i vertical
      * @param j horizontal
      * @return value by this index
+     * @throws MatrixException Exception which informate about problems with Matrix
      */
-    public int get(int i, int j) {
+    public int get(int i, int j) throws MatrixException {
+        if(i < 0 || i > getVertical() || j < 0 || j > getHorizontal()){
+            throw new MatrixException("index out of bound");
+        }
         return value[i][j];
     }
     /**
@@ -54,13 +62,17 @@ public class Matrix {
      * @param i vertical
      * @param j horizontal
      * @param val new value
+     * @throws MatrixException Exception which informate about problems with Matrix
      */
-    public void set(int i, int j, int val) {
+    public void set(int i, int j, int val) throws MatrixException {
+        if(i < 0 || i > getVertical() || j < 0 || j > getHorizontal()){
+            throw new MatrixException("index out of bound");
+        }
         value[i][j] = val;
     }
 
     /**
-     * Override Object's method which generate hashCode.
+     * This method generate hashCode.
      * @return hashCode
      */
     @Override
@@ -68,7 +80,7 @@ public class Matrix {
         return super.hashCode();
     }
     /**
-     * Override Object's method which equels two objects.
+     * This method equels two objects.
      * @param obj object with which to compare
      * @return true if objects are equals
      */
@@ -77,7 +89,7 @@ public class Matrix {
         return super.equals(obj);
     }
     /**
-     * Generate String's perfomance of class's object.
+     * Generate String perfomance of class's object.
      * @return String
      */
     @Override

@@ -9,7 +9,7 @@ public class Cube {
      */
     private Rotate rotate;
 
-
+    private int id;
 
     private double edge;
     /**
@@ -34,6 +34,13 @@ public class Cube {
         coordinate.y = pointCoordinate[1];
         coordinate.z = pointCoordinate[2];
         rotate = new Rotate(0,0,0);
+    }
+
+    public int getId(){
+        return id;
+    }
+    public void setId(int newId){
+        id = newId;
     }
     /**
      * Getter for cube side.

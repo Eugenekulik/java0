@@ -1,6 +1,8 @@
 package by.training.task5.service.atomicinteger;
 
 import by.training.task5.bean.Matrix;
+import by.training.task5.bean.MatrixException;
+import by.training.task5.service.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -48,9 +50,14 @@ public class ChangerAtomicInteger implements Runnable {
         LOGGER.info(() -> Thread.currentThread() + " start");
         while (atomicInteger.get() < matrix.getVertical()) {
             int actual = atomicInteger.getAndIncrement();
-            matrix.set(actual, actual, value);
+            try {
+                matrix.set(actual, actual, value);
+            }catch (MatrixException e){
+                LOGGER.info(e);
+                Thread.currentThread().interrupt();
+            }
             LOGGER.info(() -> Thread.currentThread()
-                    + " change iterate = " + actual);
+                        + " change iterate = " + actual);
         }
         LOGGER.info(() -> Thread.currentThread() + "end work");
     }

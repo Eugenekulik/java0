@@ -2,6 +2,7 @@ package by.training.task5.service.reentrantlock;
 
 import by.training.task5.bean.Iterate;
 import by.training.task5.bean.Matrix;
+import by.training.task5.bean.MatrixException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -65,7 +66,13 @@ public class ChangerLock implements Runnable {
             int iterate = actual.getActual();
             actual.plus();
             locker.unlock();
-            matrix.set(iterate, iterate, value);
+            try {
+                matrix.set(iterate, iterate, value);
+            }
+            catch (MatrixException e){
+                LOGGER.info(e);
+                Thread.currentThread().interrupt();
+            }
             LOGGER.info(() -> Thread.currentThread()
                     + " change iterate = " + iterate);
         }

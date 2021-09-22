@@ -1,6 +1,7 @@
 package by.training.task5.service;
 
 import by.training.task5.bean.Matrix;
+import by.training.task5.bean.MatrixException;
 
 /**
  * This class checks the matrix for some
@@ -21,15 +22,20 @@ public class MatrixCheck {
     /**
      * This method check the Matrix.
      * @return true if matrix satisfy conditions
+     * @throws ServiceException Exception for service layer
      */
-    public boolean check() {
+    public boolean check() throws ServiceException {
         if (matrix.getHorizontal() != matrix.getVertical()) {
             return false;
         }
-        for (int i = 0; i < matrix.getVertical(); i++) {
-            if (matrix.get(i, i) == 0) {
-                return false;
+        try {
+            for (int i = 0; i < matrix.getVertical(); i++) {
+                if (matrix.get(i, i) == 0) {
+                    return false;
+                }
             }
+        }catch (MatrixException e){
+            throw new ServiceException(e);
         }
         return true;
     }

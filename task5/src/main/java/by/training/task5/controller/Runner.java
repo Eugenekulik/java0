@@ -19,18 +19,17 @@ public final class Runner {
     private Runner() {
         super();
     }
-
     /**
      * Main method of program.
-     * @param args Arguments which program takes if run in terminal.
+     * @param args External parameters
      */
     public static void main(final String[] args) {
         LOGGER.info("Program start");
         try {
             Matrix m =
-                    new MatrixCreator("src/main/resources/matrix.txt").create();
+                    new MatrixCreator("matrix.txt").create();
             ThreadGetter threadGetter =
-                    new ThreadGetter("src/main/resources/threads.txt");
+                    new ThreadGetter("threads.txt");
             Client client = new Client(m, threadGetter.get());
             client.initCommand(CommandType.valueOf("MATRIXCHANGE"));
             ManagerCommand managerCommand = new ManagerCommand(client.
