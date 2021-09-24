@@ -10,10 +10,11 @@ import java.util.function.Function;
 public class CalculateCubeVolume implements Function<Cube, Double> {
     /**
      * This method calculates the volume of the passed cube.
+     *
      * @param cube
      * @return double value of the cube volume.
      */
-    public Double apply(Cube cube){
-        return Math.pow(cube.getEdge(),3);
+    public Double apply(Cube cube) {
+        return Math.pow(cube.getEdge(), 3);
     }
 }

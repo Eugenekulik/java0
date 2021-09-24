@@ -20,7 +20,7 @@ public class MatrixTest {
     }
 
     @Test(description = "testCorrectData",dataProvider = "correctInput")
-    public void MatrixTest(int[] size,String martixString) throws ServiceException {
+    public void MatrixTest(int[] size,String martixString) throws MatrixException {
         String expected = martixString;
         String actual = new Matrix(size[0],size[1]).toString();
         assertEquals(actual,expected);

@@ -1,11 +1,13 @@
 package by.training.task5.bean;
 
 
+import java.util.Arrays;
+
 public class Matrix {
     /**
      * Variable keep the vertical size of matrix.
      */
-    private int vertical;
+    private int vertical; //TODO 106 page decompositioin 2020
     /**
      * Variable keep the horizontal size of matrix.
      */
@@ -78,7 +80,7 @@ public class Matrix {
     @Override
     public int hashCode() {
         return super.hashCode();
-    }
+    } //TODO hashcode
     /**
      * This method equels two objects.
      * @param obj object with which to compare
@@ -86,7 +88,8 @@ public class Matrix {
      */
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj);
+        return super.equals(obj); //TODO equels realiation Arrays.deepEquals()
+
     }
     /**
      * Generate String perfomance of class's object.

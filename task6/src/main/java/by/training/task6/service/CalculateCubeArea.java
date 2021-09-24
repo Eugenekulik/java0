@@ -11,10 +11,11 @@ import java.util.function.Function;
 public class CalculateCubeArea implements Function<Cube, Double> {
     /**
      * This method calculates the area of the passed cube.
+     *
      * @param cube Cube
      * @return double value of the cube area
      */
-    public Double apply(Cube cube){
-        return 6 * cube.getEdge()*cube.getEdge();
+    public Double apply(Cube cube) {
+        return 6 * cube.getEdge() * cube.getEdge();
     }
 }

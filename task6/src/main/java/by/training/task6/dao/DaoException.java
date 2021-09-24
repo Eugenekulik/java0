@@ -1,6 +1,6 @@
 package by.training.task6.dao;
 
-public class DaoException extends Exception{
+public class DaoException extends Exception {
 
     public DaoException() {
         super();

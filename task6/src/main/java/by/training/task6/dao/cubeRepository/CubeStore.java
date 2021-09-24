@@ -2,24 +2,24 @@ package by.training.task6.dao.cubeRepository;
 
 import by.training.task6.bean.Cube;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Stream;
 
 public class CubeStore {
     private static int id = 1;
-    private Map<Integer,Cube> cubes = new HashMap<>();
-    public void addCube(Cube cube){
+    private final List<Cube> cubes = new ArrayList<>();
+
+    public void addCube(Cube cube) {
         cube.setId(id);
-        cubes.put(id,cube);
+        cubes.add(cube);
         id++;
     }
-    public void removeCube(int id) {
-        if (cubes.containsKey(id)) {
-            cubes.remove(id);
-        }
+
+    public void removeCube(Cube cube) {
+        cubes.remove(cube);
     }
-    public Collection<Cube> getAll(){
-        return cubes.values();
+
+    public Stream<Cube> getAll() {
+        return cubes.stream();
     }
 }

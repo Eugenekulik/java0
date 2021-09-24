@@ -1,6 +1,6 @@
 package by.training.task6.bean;
 
-public class CubeException extends Exception{
+public class CubeException extends Exception {
     public CubeException() {
         super();
     }

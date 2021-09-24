@@ -1,11 +1,9 @@
 package by.training.task6.dao;
 
-import java.io.FileNotFoundException;
-
 public class DaoFactory {
     private static final DaoFactory instance = new DaoFactory();
 
-    public DaoFactory getInstance(){
+    public DaoFactory getInstance() {
         return instance;
     }
 }

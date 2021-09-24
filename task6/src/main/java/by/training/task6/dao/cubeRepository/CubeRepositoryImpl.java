@@ -9,33 +9,32 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class CubeRepositoryImpl implements CubeRepository {
-    private CubeStore cubeStore;
+    private final CubeStore cubeStore;
 
-    public  CubeRepositoryImpl(){
+    public CubeRepositoryImpl(Cube... cubes) {
         cubeStore = new CubeStore();
+        for (Cube c :cubes) {
+            cubeStore.addCube(c);
+        };
     }
+
     @Override
     public void addCube(Cube cube) {
         cubeStore.addCube(cube);
     }
 
     @Override
-    public Collection<Cube> getAll() {
-        return cubeStore.getAll();
-    }
-
-    @Override
-    public void removeCube(int id) {
-        cubeStore.removeCube(id);
+    public void removeCube(Cube cube) {
+        cubeStore.removeCube(cube);
     }
 
     @Override
     public List quary(CubeSpecification cubeSpecification) {
-        if(cubeSpecification instanceof CubeSpecificationByMinVolume){
-            return getAll().stream()
-                    .filter(cube -> {return cubeSpecification.specified(cube);})
-                    .collect(Collectors.toList());
+        if(cubeSpecification == null) {
+            return null;
         }
-        return null;
+        return cubeStore.getAll()
+                .filter(cubeSpecification::specified)
+                .collect(Collectors.toList());
     }
 }

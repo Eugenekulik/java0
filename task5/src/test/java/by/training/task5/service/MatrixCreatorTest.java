@@ -11,7 +11,7 @@ public class MatrixCreatorTest {
     public Object[][] createCorrectData() {
         return
                 new Object[][]{
-                        {"src/test/resources/matrix.txt","0 5 4 3\n" +
+                        {"matrix.txt","0 5 4 3\n" +
                                 "4 0 5 7\n" +
                                 "1 9 0 1\n" +
                                 "2 5 8 0"}
