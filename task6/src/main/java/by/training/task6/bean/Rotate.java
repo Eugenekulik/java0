@@ -1,21 +1,21 @@
 package by.training.task6.bean;
 
 import java.util.Objects;
-import java.util.function.UnaryOperator;
+import java.util.function.DoubleUnaryOperator;
 
 public class Rotate {
     private double x;
     private double y;
     private double z;
-    private final UnaryOperator<Double> checkRotate = (anyRotate) -> {
-        return anyRotate >= 0 && anyRotate <= Math.PI ? anyRotate
+    private final DoubleUnaryOperator checkRotate = anyRotate ->
+            anyRotate >= 0 && anyRotate <= Math.PI ? anyRotate
                 : Math.abs(anyRotate % Math.PI);
-    };
+
 
     public Rotate(double newX, double newY, double newZ) {
-        x = checkRotate.apply(newX);
-        y = checkRotate.apply(newY);
-        z = checkRotate.apply(newZ);
+        x = checkRotate.applyAsDouble(newX);
+        y = checkRotate.applyAsDouble(newY);
+        z = checkRotate.applyAsDouble(newZ);
     }
 
     public double getX() {
@@ -23,7 +23,7 @@ public class Rotate {
     }
 
     public void setX(double newX) {
-        x = checkRotate.apply(newX);
+        x = checkRotate.applyAsDouble(newX);
     }
 
     public double getY() {
@@ -31,7 +31,7 @@ public class Rotate {
     }
 
     public void setY(double newY) {
-        y = checkRotate.apply(newY);
+        y = checkRotate.applyAsDouble(newY);
     }
 
     public double getZ() {
@@ -39,7 +39,7 @@ public class Rotate {
     }
 
     public void setZ(double newZ) {
-        z = checkRotate.apply(newZ);
+        z = checkRotate.applyAsDouble(newZ);
     }
     @Override
     public boolean equals(Object o) {

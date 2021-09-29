@@ -1,8 +1,8 @@
 package by.training.task6.service;
 
-import by.training.task6.service.cubePlaneRatio.CubePlaneRatioXOY;
-import by.training.task6.service.cubePlaneRatio.CubePlaneRatioXOZ;
-import by.training.task6.service.cubePlaneRatio.CubePlaneRatioYOZ;
+import by.training.task6.service.cubeplaneratio.CubePlaneRatioXOY;
+import by.training.task6.service.cubeplaneratio.CubePlaneRatioXOZ;
+import by.training.task6.service.cubeplaneratio.CubePlaneRatioYOZ;
 
 public class ServiceFactory {
     private static final ServiceFactory instance = new ServiceFactory();
