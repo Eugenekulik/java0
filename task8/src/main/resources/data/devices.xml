@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<devices>
+    <device>
+        <name>Monitor</name>
+        <price>200</price>
+        <origin>UK</origin>
+        <type>
+            <periferail>true</periferail>
+            <electric>400</electric>
+            <cooler>no</cooler>
+            <complect_group>multimedia</complect_group>
+            <port>usb</port>
+        </type>
+
+    </device>
+</devices>
