@@ -1,10 +1,9 @@
 package by.training.task7.bean;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class TextComposite implements TextComponent {
     protected ArrayList<TextComponent> components = new ArrayList<>();
@@ -17,7 +16,13 @@ public class TextComposite implements TextComponent {
             components.add(tc);
         }
     }
-
+    @Override
+    public List<TextComponent> getChildren(){
+        return components;
+    }
+    public int size(){
+        return components.size();
+    }
     @Override
     public void remove(TextComponent textComponent) throws TextComponentException {
         components.remove(textComponent);

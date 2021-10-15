@@ -3,6 +3,8 @@ package by.training.task7.bean;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.List;
+
 public class Leaf implements TextComponent{
     private static final Logger logger = LogManager.getLogger(Leaf.class);
     private final char symbol;
@@ -25,6 +27,17 @@ public class Leaf implements TextComponent{
     public Object getChild(int index) {
         return symbol;
     }
+
+    @Override
+    public int size() {
+        return 1;
+    }
+
+    @Override
+    public List<TextComponent> getChildren() {
+        throw new UnsupportedOperationException();
+    }
+
     @Override
     public String toString(){
         return "" + symbol;

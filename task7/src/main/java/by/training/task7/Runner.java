@@ -26,6 +26,11 @@ public class Runner {
         ParagraphParser paragraphParser = new ParagraphParser(sentenceParser);
         Text text1 = new Text();
         text1.addAll(paragraphParser.handleParser(text));
+        LexemSort lexemSort = new LexemSort();
+        lexemSort.setSymbol('a');
+        lexemSort.accept(text1);
+        new SentenceSort().accept(text1);
+        new ParagraphSort().accept(text1);
         System.out.println(text1.toString());
     }
 }

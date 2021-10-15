@@ -17,4 +17,13 @@ public class Lexem extends TextComposite{
         stringBuilder.append(delimiter);
         return stringBuilder.toString();
     }
+    @Override
+    public int size(){
+        int size = 0;
+        for (TextComponent tc:components) {
+            size+=tc.size();
+        }
+        size+=delimiter.length();
+        return size;
+    }
 }

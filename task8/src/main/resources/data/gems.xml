@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone = "no"?>
+<gems xmlns:xsi="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://www.training.by/stones"
+        xsi:schemaLocation="http://www.training.by/stones stones.xsd">
+    <processedGem id="1">
+        <name>Emerald</name>
+        <origin>Columbia</origin>
+        <processingPlace>Columbia</processingPlace>
+        <visual>
+            <color>Green</color>
+            <facetedness>8</facetedness>
+            <transparency>10</transparency>
+        </visual>
+        <value>4</value>
+        <date>2015-07-11</date>
+    </processedGem>
+    <naturalGem id="2">
+        <name>Aquamarine</name>
+        <origin>Australia</origin>
+        <visual>
+            <color>aqua</color>
+            <facetedness>12</facetedness>
+            <transparency>40</transparency>
+        </visual>
+        <value>9</value>
+        <date>2018-12-15</date>
+        <preciousness>precious</preciousness>
+    </naturalGem>
+</gems>
