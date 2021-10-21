@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-public class GemStaxBuilder {
+public class GemStaxBuilder extends XMLGemBuilder{
     private static final Logger LOGGER = LogManager.getLogger(GemStaxBuilder.class);
     private Set<Gem> gems;
     private Gem gem = null;

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://www.training.by/stones"
+        xmlns:tns="http://www.training.by/stones"
+        elementFormDefault="qualified">
+    <element name="gem" type="tns:Gem" abstract="true"/>
+    <element name="processedGem" type="tns:ProcessedStone" substitutionGroup="tns:gem"/>
+    <element name="naturalGem" type="tns:NaturalGem" substitutionGroup="tns:gem"/>
+    <element name="artificialGem" type="tns:ArtificialGem" substitutionGroup="tns:gem"/>
+    <element name="gems" abstract="true">
+        <complexType>
+            <sequence>
+                <element ref="tns:gem" minOccurs="2" maxOccurs="16"/>
+            </sequence>
+        </complexType>
+    </element>
+    <complexType name="Gem">
+        <all>
+            <element name="name">
+                <simpleType>
+                    <restriction base="string">
+                        <pattern value="[A-z][a-z0-9]+"/>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="visual">
+                <complexType>
+                    <attribute name="color" type="string" use="required"/>
+                    <attribute name="facetedness" use="optional">
+                        <simpleType>
+                            <restriction base="int">
+                                <minInclusive value="4"/>
+                                <maxInclusive value="15"/>
+                            </restriction>
+                        </simpleType>
+                    </attribute>
+                    <attribute name="transparency" use="optional">
+                        <simpleType>
+                            <restriction base="int">
+                                <minInclusive value="0"/>
+                                <maxInclusive value="100"/>
+                            </restriction>
+                        </simpleType>
+                    </attribute>
+                </complexType>
+            </element><!-->visual properties</!-->
+            <element name="value">
+                <simpleType>
+                    <restriction base="int">
+                        <minInclusive value="0"/>
+                        <maxInclusive value="3500"/>
+                    </restriction>
+                </simpleType>
+            </element> <!-->сarat weight</!-->
+            <element name="date">
+                <simpleType>
+                    <restriction base="date">
+                        <minInclusive value="1900-01-01"/>
+                        <maxInclusive value="2021-11-01"/>
+                    </restriction>
+                </simpleType>
+            </element><!-->date of registration</!-->
+            <element name="preciousness">
+                <simpleType>
+                    <restriction base="string">
+                        <enumeration value="precious"/>
+                        <enumeration value="semiprecious"/>
+                    </restriction>
+                </simpleType>
+            </element>
+        </all>
+        <attribute name="id" use="required">
+            <simpleType>
+                <restriction base="ID"/>
+            </simpleType>
+        </attribute>
+    </complexType>
+    <complexType name="ProcessedStone">
+        <complexContent>
+            <extension base="tns:NaturalGem">
+                <attribute name="processingPlace" use="optional">
+                    <simpleType>
+                        <restriction base="string">
+                            <maxInclusive value="50"/>
+                        </restriction>
+                    </simpleType>
+                </attribute>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="NaturalGem">
+        <complexContent>
+            <extension base="tns:Gem">
+                <attribute name="origin" use="optional">
+                    <simpleType>
+                        <restriction base="string">
+                            <minLength value="3"/>
+                            <maxLength value="30"/>
+                            <pattern value="[A-z][a-z]+"/>
+                        </restriction>
+                    </simpleType>
+                </attribute>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="ArtificialGem">
+        <complexContent>
+            <extension base="tns:Gem">
+                <attribute name="creationPlace" use="optional">
+                    <simpleType>
+                        <restriction base="string">
+                            <minLength value="3"/>
+                            <maxLength value="30"/>
+                            <pattern value="[A-z][a-z]+"/>
+                        </restriction>
+                    </simpleType>
+                </attribute>
+            </extension>
+        </complexContent>
+    </complexType>
+</schema>

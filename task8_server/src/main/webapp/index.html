@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>XMLParser</title>
+</head>
+<body>
+    <h1>Gems</h1>
+    <form action="XMLServlet" method="post" enctype="multipart/form-data">
+        Choose a file: <input type="file" name="file" required="required">
+        <select name="parserType" title="Parser type">
+            <option value="dom" selected="selected">DOM</option>
+            <option value="sax">SAX</option>
+            <option value="stax">STAX</option>
+        </select>
+        <input type="submit" name="Parse">
+    </form>
+</body>
+</html>
