@@ -1,65 +1,77 @@
-<%@ page import="java.util.ResourceBundle" %>
 <%@ page contentType="text/html; charset=UTF-8" language="java" pageEncoding="utf-8" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>header</title>
     <meta charset="UTF-8">
-</head>
-<body>
-<c:if test="${text == null}">
-    <% ResourceBundle resourceBundle = ResourceBundle.getBundle("text_en_US");
-    request.setAttribute("text",resourceBundle);%>
-</c:if>
-<nav class="navbar navbar-expand-sm bg-dark">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <c:url value="/index.html" var="main"/>
-            <a href="<c:out value="${main}"/>" class="navbar-brand text-info">Beauty Parlor</a>
-        </div>
-        <div class="btn-group btn-group-lg col-sm-8">
+    <meta name="viewport=" content="width-device-width, initial-scale = 1.0">
+    <title>header</title>
 
-            <a class="btn btn-dark" href="<c:out value="${main}"/>" role="button">${text["header.main"]}</a>
-            <c:url value="/procedure.html" var="procedure"/>
-            <a class="btn btn-dark" href="<c:out value="${procedure}"/>" role="button">${text["header.procedure"]}</a>
-            <c:url value="/index.html" var="reception"/>
-            <a class="btn btn-dark" href="<c:out value="${reception}"/>" role="button">${text["header.reception"]}</a>
-            <c:url value="/index.html" var="about"/>
-            <a class="btn btn-dark" href="<c:out value="${about}"/>" role="button">${text["header.about"]}</a>
-        </div>
-        <div>
-            <c:url value="/login.html" var="login"/>
-            <c:url value="/logout.html" var="logout"/>
-            <c:choose>
-                <c:when test="${pageContext.session.getAttribute('user') == null}">
-                    <a href="<c:out value="${login}"/>" class="btn btn-info">${text['login.login']}</a>
-                </c:when>
-                <c:when test="${pageContext.session.getAttribute('user') != null}">
-                    <a href='<c:out value="${ logout }"/>' class="btn btn-info">${text["header.logout"]}</a>
-                </c:when>
-            </c:choose>
-        </div>
-        <div>
-            <c:if test="${pageContext.session.getAttribute('action') == null}">
-                <c:set value="/index" scope="session" var="action"/>
-            </c:if>
-            <c:url value="${pageContext.session.getAttribute('action')}.html" var="thisPage"/>
-            <form action="${thisPage}" method="post">
-                <select id="language" onchange="this.form.submit()"
-                        class="form-control bg-dark text-info" name="language">
-                    <option value="en_US" <c:if test="${selectedLang == text['language.english']}">selected</c:if>
-                            role="option">${text["language.english"]}</option>
-                    <option value="ru_Ru" <c:if test="${selectedLang == text['language.russian']}">selected</c:if>
-                            role="option">${text["language.russian"]}</option>
-                    <option value="pl_PL" <c:if test="${selectedLang == text['language.polski']}">selected</c:if>
-                            role="option">${text["language.polski"]}</option>
-                </select>
-            </form>
+</head>
+<body style="background: url('<c:url value="/img/fon.jpg"/>')">
+<nav class="navbar navbar-expand-lg navbar-inverse navbar-fixed-top">
+    <div class="container">
+            <a href="<c:url value="/main.html"/>" class="navbar-brand main-color-t">Beauty Parlor</a>
+            <button class="navbar-toggler" data-toggle="collapse" aria-controls="nv-menu"
+                    data-target="#nv-menu" aria-expanded="false" aria-label="Toggle Navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        <div class="collapse navbar-collapse" id="nv-menu">
+            <ul class="nav navbar-nav mr-auto navbar-right">
+                <li class="nav-item active">
+                    <a class="nav-link main-color-t" href="<c:url value="/main.html" />"
+                       role="button">${text["header.main"]}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link main-color-t" href="<c:url value="/procedure.html"/>"
+                       role="button">${text["header.procedure"]}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link main-color-t" href="<c:url value="/appointment.html"/>"
+                       role="button">${text["header.appointment"]}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link main-color-t" href="<c:url value="/about.html"/>"
+                       role="button">${text["header.about"]}</a>
+                </li>
+                <li class="nav-item log">
+                    <c:choose>
+                        <c:when test="${pageContext.session.getAttribute('user') == null}">
+                            <a href="<c:url value="/login.html"/>"
+                               class="nav-link main-color-t">${text['login.login']}</a>
+                        </c:when>
+                        <c:when test="${pageContext.session.getAttribute('user') != null}">
+                            <a href='<c:url value="/logout.html"/>'
+                               class="nav-link main-color-t">${text['header.logout']}</a>
+                        </c:when>
+                    </c:choose>
+                </li>
+                <li>
+                    <c:if test="${pageContext.session.getAttribute('action') == null}">
+                        <c:set value="/main" scope="session" var="action"/>
+                    </c:if>
+                    <c:url value="${pageContext.session.getAttribute('action')}.html" var="thisPage"/>
+                    <form action="${thisPage}" method="${pageContext.request.method}">
+                        <select id="language" onchange="this.form.submit()"
+                                class="main-color-t select" name="language">
+                            <option value="en_US"
+                                    <c:if test="${selectedLang == text['language.english']}">selected</c:if>
+                                    role="option">${text["language.english"]}</option>
+                            <option value="ru_Ru"
+                                    <c:if test="${selectedLang == text['language.russian']}">selected</c:if>
+                                    role="option">${text["language.russian"]}</option>
+                            <option value="pl_PL"
+                                    <c:if test="${selectedLang == text['language.polski']}">selected</c:if>
+                                    role="option">${text["language.polski"]}</option>
+                        </select>
+                    </form>
+                </li>
+                </ul>
         </div>
     </div>
 </nav>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>

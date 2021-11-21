@@ -16,42 +16,66 @@ public class SecurityFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        Filter.super.init(filterConfig);
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        if (request instanceof HttpServletRequest && response instanceof HttpServletResponse) {
-            HttpServletRequest request1 = (HttpServletRequest) request;
-            HttpServletResponse response1 = (HttpServletResponse) response;
-            Action command = new ActionFactory(request1).initCommand();
-            HttpSession session = request1.getSession(false);
-            String userName = "unknown";
-            String role = "unknown";
-            if (session != null) {
-                userName = (String) session.getAttribute("user");
-                role = (String) session.getAttribute("role");
-                String errorMessage = (String) session.getAttribute("securityFilterMessage");
-                if (errorMessage != null) {
-                    request1.setAttribute("message",errorMessage);
-                    session.removeAttribute("securityFilterMessage");
-                }
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain) throws IOException, ServletException {
+        if (servletRequest instanceof HttpServletRequest && servletResponse instanceof HttpServletResponse) {
+            HttpServletRequest request = (HttpServletRequest) servletRequest;
+            HttpServletResponse response = (HttpServletResponse) servletResponse;
+            Action action = new ActionFactory(request).initCommand();
+            if(checkRole(request, action) && checkMethod(request, action)) {
+                chain.doFilter(servletRequest,servletResponse);
             }
-            if (command.getRoles().contains(role)) {
-                chain.doFilter(request, response);
-            } else {
-                LOGGER.info(String.format("Trying of %s to forbidden to resource", userName));
-                if (session != null) {
-                    session.getAttribute("securityFilterMessage");
-                }
+            else {
             }
-
-
         }
     }
 
     @Override
     public void destroy() {
         Filter.super.destroy();
+    }
+
+    private boolean checkRole(HttpServletRequest request, Action action){
+        HttpSession session = request.getSession(false);
+        String userName = "unknown";
+        String role = null;
+        if (session != null) {
+            userName = (String) session.getAttribute("user");
+            role = (String) session.getAttribute("role");
+            if(role == null) {
+                role = "unknown";
+            }
+            String errorMessage = (String) session.getAttribute("securityFilterMessage");
+            if (errorMessage != null) {
+                request.setAttribute("message",errorMessage);
+                session.removeAttribute("securityFilterMessage");
+            }
+        }
+        if (action.getRoles().contains(role)) {
+            return true;
+        } else {
+            LOGGER.info(String.format("Trying of %s to forbidden to resource", userName));
+            if (session != null) {
+                session.getAttribute("securityFilterMessage");
+            }
+            return false;
+        }
+
+    }
+
+    private boolean checkMethod(HttpServletRequest request, Action action){
+        String method = request.getMethod();
+        if(request.getMethod().equals(action.getMethod())) {
+            return true;
+        } else {
+            LOGGER.info(String.format("An attempt to send a request using the wrong method"));
+            HttpSession session = request.getSession();
+            if (session != null) {
+                session.getAttribute("securityFilterMessage");
+            }
+            return false;
+        }
     }
 }

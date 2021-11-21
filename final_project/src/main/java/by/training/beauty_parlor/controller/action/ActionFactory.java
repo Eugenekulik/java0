@@ -1,5 +1,11 @@
 package by.training.beauty_parlor.controller.action;
 
+import by.training.beauty_parlor.controller.action.actionImpl.get.EmptyAction;
+import by.training.beauty_parlor.controller.action.actionImpl.get.LogoutAction;
+import by.training.beauty_parlor.controller.action.actionImpl.get.ProcedureAction;
+import by.training.beauty_parlor.controller.action.actionImpl.post.LoginAction;
+import by.training.beauty_parlor.controller.action.actionImpl.post.RegistrationAction;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.Set;
 
@@ -33,6 +39,11 @@ public class ActionFactory {
                     public String execute(HttpServletRequest request) {
                         return PageEnum.LOGIN.getPage();
                     }
+
+                    @Override
+                    public String getMethod() {
+                        return "GET";
+                    }
                 };
                 break;
             case "/registration":
@@ -51,9 +62,14 @@ public class ActionFactory {
                     public String execute(HttpServletRequest request) {
                         return PageEnum.REGISTRATION.getPage();
                     }
+
+                    @Override
+                    public String getMethod() {
+                        return "GET";
+                    }
                 };
                 break;
-            case "/index":
+            case "/main":
                 action = new Action() {
                     @Override
                     public boolean isRedirect() {
@@ -67,7 +83,12 @@ public class ActionFactory {
 
                     @Override
                     public String execute(HttpServletRequest request) {
-                        return "/";
+                        return PageEnum.MAIN.getPage();
+                    }
+
+                    @Override
+                    public String getMethod() {
+                        return "GET";
                     }
                 };
                 break;

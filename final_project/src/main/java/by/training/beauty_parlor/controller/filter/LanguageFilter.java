@@ -5,6 +5,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -17,28 +18,31 @@ public class LanguageFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
-        HttpServletResponse responce =(HttpServletResponse) servletResponse;
+        HttpServletResponse responce = (HttpServletResponse) servletResponse;
         String select = request.getParameter("language");
         Cookie lang = null;
-        if(select ==null) {
-            for (Cookie c:request.getCookies()) {
-            if(c.getName().equals("language")){
-                lang = c;
+        if (select == null) {
+            Cookie[] cookies = request.getCookies();
+            if (!(cookies == null)) {
+                for (Cookie c : request.getCookies()) {
+                    if (c.getName().equals("language")) {
+                        lang = c;
+                    }
+                }
             }
-        }
-            if(lang == null) {
+            if (lang == null) {
                 lang = new Cookie("language", "en_US");
             }
 
         } else {
-            lang = new Cookie("language",select);
+            lang = new Cookie("language", select);
         }
         String[] localeArray = lang.getValue().split("_");
-        Locale locale = new Locale(localeArray[0],localeArray[1]);
-        ResourceBundle bundle = ResourceBundle.getBundle("text",locale);
+        Locale locale = new Locale(localeArray[0], localeArray[1]);
+        ResourceBundle bundle = ResourceBundle.getBundle("text", locale);
         responce.addCookie(lang);
         request.setAttribute("text", bundle);
-        switch(localeArray[0]){
+        switch (localeArray[0]) {
             case "en":
                 request.setAttribute("selectedLang", bundle.getString("language.english"));
                 break;
@@ -49,7 +53,7 @@ public class LanguageFilter implements Filter {
                 request.setAttribute("selectedLang", bundle.getString("language.polski"));
                 break;
         }
-        filterChain.doFilter(servletRequest,servletResponse);
+        filterChain.doFilter(servletRequest, servletResponse);
     }
 
     @Override

@@ -2,32 +2,52 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <html>
-<head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <c:url value="/main.css" var="path"/>
-    <link href="${path}" rel="stylesheet">
-    <title>procedure</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<c:url value="/main.css" var="path"/>
+<link href="${path}" rel="stylesheet">
+<title>procedure</title>
 </head>
 <body>
 <c:import url="fragment/header.jsp"/>
-<div class="container-fluid">
-    <div class="col-sm-2">
+<div class="nav">
+    <div class="menu col-sm-3">
         <div>
-            <c:forEach var="elem" items="${procedureList}">
-                <div>
-                    <c:url value="/procedure.html?current=${elem}" var="element"/>
-                    <a href="<c:out value="${element}"/>" class="main-color">${elem}</a>
+            <div>
+                <div class="h2 main-color-s">${text['procedure.title']}</div>
+            </div>
+            <br/>
+            <c:forEach var="category" items="${categoryList}" varStatus="status">
+                <div class="category">
+                    <c:out value="${category}"/>
                 </div>
+                <c:forEach var="elem" items="${procedureList}">
+                    <c:if test="${status.count == elem.categoryId}">
+                        <li>
+                            <a href="<c:url value="/procedure.html?current=${elem.name}"/>"
+                               class="main-color-s">${elem.name}</a>
+                        </li>
+                    </c:if>
+                </c:forEach>
             </c:forEach>
         </div>
     </div>
-    <div class="col-sm-10">
-        <div>
+    <div class="col-sm-9 bord">
+        <div class="h2 main-color-s">
+            <c:out value="${procedure.name}"/>
+        </div>
+        <p class="description">
             <c:out value="${procedure.description}"/>
+        </p>
+        <div>
+            <form action="<c:url value="/appointment_add.html?/procedure=${procedure.name}>"/>">
+                <input type="submit"class="btn btn-success btn-lg" value="${text['procedure.add']}"/>
+            </form>
+
         </div>
     </div>
 </div>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>

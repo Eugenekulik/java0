@@ -11,8 +11,5 @@
 </head>
 <body>
 <c:import url="WEB-INF/jsp/fragment/header.jsp"/>
-<div>
-    <a href="<c:out value="${main}"/>" class="main-color">Hello</a>
-</div>
 </body>
 </html>

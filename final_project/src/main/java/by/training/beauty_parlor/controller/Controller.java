@@ -2,8 +2,10 @@ package by.training.beauty_parlor.controller;
 
 import by.training.beauty_parlor.controller.action.ActionFactory;
 import by.training.beauty_parlor.controller.action.Action;
+import by.training.beauty_parlor.controller.action.PageEnum;
 import by.training.beauty_parlor.dao.pool.ConnectionPool;
 import by.training.beauty_parlor.exception.DaoException;
+import by.training.beauty_parlor.service.ConnectionPoolInitService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -40,7 +42,7 @@ public class Controller extends HttpServlet {
         if (action != null) {
             page = action.execute(req);
         } else {
-            page = "/";
+            page = PageEnum.MAIN.getPage();
         }
 
         try {
@@ -68,17 +70,7 @@ public class Controller extends HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init();
-        Properties properties = new Properties();
-        try {
-            URL resource = getClass().getClassLoader().getResource("connection.properties");
-            properties.load(new FileReader(new File(resource.toURI())));
-            ConnectionPool.getInstance().init(properties.getProperty("db.driver"), properties.getProperty("db.url"),
-                    properties.getProperty("user"), properties.getProperty("password"), 4, 32, 30);
-        } catch (IOException | URISyntaxException e) {
-            LOGGER.error("It is impossible to load properties", e);
-        } catch (DaoException e) {
-            LOGGER.error("It is impossible to init connection pool to database", e);
-        }
-
+        ConnectionPoolInitService connectionPoolInitService = new ConnectionPoolInitService();
+        connectionPoolInitService.init();
     }
 }

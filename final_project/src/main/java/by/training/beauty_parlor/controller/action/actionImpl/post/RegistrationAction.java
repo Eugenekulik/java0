@@ -1,5 +1,6 @@
-package by.training.beauty_parlor.controller.action;
+package by.training.beauty_parlor.controller.action.actionImpl.post;
 
+import by.training.beauty_parlor.controller.action.Action;
 import by.training.beauty_parlor.domain.User;
 import by.training.beauty_parlor.exception.ServiceException;
 import by.training.beauty_parlor.service.UserService;
@@ -36,7 +37,7 @@ public class RegistrationAction implements Action {
                 HttpSession session = request.getSession();
                 session.setAttribute("user", user.getName());
                 session.setAttribute("role", user.getRole());
-                page = "/";
+                page = "/main.html";
             }
             else {
                 request.getSession().setAttribute("userExist","User with this login exists");
@@ -47,5 +48,10 @@ public class RegistrationAction implements Action {
             page = "/registration.html";
         }
         return page;
+    }
+
+    @Override
+    public String getMethod() {
+        return "POST";
     }
 }

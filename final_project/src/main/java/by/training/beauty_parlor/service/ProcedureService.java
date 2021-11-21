@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class ProcedureService {
     private static final Logger LOGGER = LogManager.getLogger(ProcedureService.class);
 
-    public List<String> getProceduresName() throws ServiceException {
+    public List<Procedure> getProceduresName() throws ServiceException {
         List<Procedure> procedures;
         TransactionFactory transactionFactory = new TransactionFactoryImpl();
         Transaction transaction = null;
@@ -28,11 +28,10 @@ public class ProcedureService {
             ProcedureDao procedureDao = transaction.createDao("procedureDao");
             procedures = procedureDao.findall();
             transaction.commit();
-            if(procedures.isEmpty()){
+            if (procedures.isEmpty()) {
                 return null;
             }
-            return procedures.stream().map(procedure -> {return procedure.getName();})
-                    .collect(Collectors.toCollection(ArrayList::new));
+            return procedures;
         } catch (DaoException e) {
             try {
                 transaction.rollback();
@@ -42,6 +41,7 @@ public class ProcedureService {
             throw new ServiceException();
         }
     }
+
     public Procedure getProcedureByName(String name) throws ServiceException {
         Procedure procedure;
         TransactionFactory transactionFactory = new TransactionFactoryImpl();
@@ -61,6 +61,7 @@ public class ProcedureService {
         }
         return procedure;
     }
+
     public List<String> getCategoriesName() throws ServiceException {
         List<Category> categories;
         TransactionFactory transactionFactory = new TransactionFactoryImpl();
@@ -70,11 +71,13 @@ public class ProcedureService {
             CategoryDao categoryDao = transaction.createDao("categoryDao");
             categories = categoryDao.findall();
             transaction.commit();
-            if(categories.isEmpty()){
+            if (categories.isEmpty()) {
                 return null;
             }
-            return categories.stream().map(category -> {return category.getName();})
-                    .collect(Collectors.toCollection(ArrayList::new));;
+            return categories.stream().map(category -> {
+                        return category.getName();
+                    })
+                    .collect(Collectors.toCollection(ArrayList::new));
         } catch (DaoException e) {
             try {
                 transaction.rollback();
@@ -83,6 +86,5 @@ public class ProcedureService {
             }
             throw new ServiceException();
         }
-    }
     }
 }

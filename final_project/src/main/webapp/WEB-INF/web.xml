@@ -5,7 +5,7 @@
          version="4.0">
     <display-name>Косметологический кабинет</display-name>
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>/main.html</welcome-file>
     </welcome-file-list>
     <servlet>
         <servlet-name>controller</servlet-name>
@@ -37,6 +37,14 @@
     </filter>
     <filter-mapping>
         <filter-name>LanguageFilter</filter-name>
+        <url-pattern>*.html</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>SecurityFilter</filter-name>
+        <filter-class>by.training.beauty_parlor.controller.filter.SecurityFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>SecurityFilter</filter-name>
         <url-pattern>*.html</url-pattern>
     </filter-mapping>
 </web-app>

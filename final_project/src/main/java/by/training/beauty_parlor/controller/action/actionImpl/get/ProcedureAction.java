@@ -1,5 +1,7 @@
-package by.training.beauty_parlor.controller.action;
+package by.training.beauty_parlor.controller.action.actionImpl.get;
 
+import by.training.beauty_parlor.controller.action.Action;
+import by.training.beauty_parlor.controller.action.PageEnum;
 import by.training.beauty_parlor.exception.ServiceException;
 import by.training.beauty_parlor.domain.Procedure;
 import by.training.beauty_parlor.service.ProcedureService;
@@ -10,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Set;
 
-public class ProcedureAction implements Action{
+public class ProcedureAction implements Action {
     private static final Logger LOGGER = LogManager.getLogger(ProcedureAction.class);
     @Override
     public boolean isRedirect() {
@@ -28,12 +30,12 @@ public class ProcedureAction implements Action{
         String current = request.getParameter("current");
         try {
             ProcedureService procedureService = new ProcedureService();
-            List<String> procedureList = procedureService.getProceduresName();
+            List<Procedure> procedureList = procedureService.getProceduresName();
             if(procedureList == null) {
-                return "/";
+                return PageEnum.MAIN.getPage();
             }
             if(current == null) {
-                current = procedureList.get(0);
+                current = procedureList.get(0).getName();
             }
             Procedure procedure = procedureService.getProcedureByName(current);
             List<String> categories = procedureService.getCategoriesName();
@@ -43,8 +45,13 @@ public class ProcedureAction implements Action{
             page = PageEnum.PROCEDURE.getPage();
         } catch (ServiceException e) {
             LOGGER.error("it is impossible to autorizate");
-            page ="/";
+            page = PageEnum.MAIN.getPage();
         }
         return page;
+    }
+
+    @Override
+    public String getMethod() {
+        return "GET";
     }
 }

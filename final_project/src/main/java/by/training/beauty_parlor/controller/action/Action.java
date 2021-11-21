@@ -7,4 +7,5 @@ public interface Action {
     boolean isRedirect();
     Set<String> getRoles();
     String execute(HttpServletRequest request);
+    String getMethod();
 }

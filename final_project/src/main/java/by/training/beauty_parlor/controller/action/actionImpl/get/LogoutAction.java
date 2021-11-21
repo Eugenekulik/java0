@@ -1,4 +1,6 @@
-package by.training.beauty_parlor.controller.action;
+package by.training.beauty_parlor.controller.action.actionImpl.get;
+
+import by.training.beauty_parlor.controller.action.Action;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -22,6 +24,11 @@ public class LogoutAction implements Action {
             session.removeAttribute("role");
             session.removeAttribute("user");
         }
-        return "/";
+        return "/main.html";
+    }
+
+    @Override
+    public String getMethod() {
+        return "GET";
     }
 }

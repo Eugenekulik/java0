@@ -1,9 +1,11 @@
-package by.training.beauty_parlor.controller.action;
+package by.training.beauty_parlor.controller.action.actionImpl.get;
+
+import by.training.beauty_parlor.controller.action.Action;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Set;
 
-public class EmptyAction implements Action{
+public class EmptyAction implements Action {
 
     @Override
     public boolean isRedirect() {
@@ -17,6 +19,11 @@ public class EmptyAction implements Action{
 
     @Override
     public String execute(HttpServletRequest request) {
-        return "/index.html";
+        return "/main.html";
+    }
+
+    @Override
+    public String getMethod() {
+        return "GET";
     }
 }
