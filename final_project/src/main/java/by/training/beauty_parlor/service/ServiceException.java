@@ -1,4 +1,4 @@
-package by.training.beauty_parlor.exception;
+package by.training.beauty_parlor.service;
 
 public class ServiceException extends Exception{
     public ServiceException() {

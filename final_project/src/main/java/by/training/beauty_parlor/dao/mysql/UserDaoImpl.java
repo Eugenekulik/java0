@@ -1,6 +1,6 @@
 package by.training.beauty_parlor.dao.mysql;
 
-import by.training.beauty_parlor.exception.DaoException;
+import by.training.beauty_parlor.dao.DaoException;
 import by.training.beauty_parlor.dao.UserDao;
 import by.training.beauty_parlor.domain.User;
 import org.apache.logging.log4j.LogManager;
@@ -16,18 +16,24 @@ public class UserDaoImpl implements UserDao {
     private static final Logger LOGGER = LogManager.getLogger(UserDaoImpl.class);
     private Connection connection;
     private static final String SQL_CREATE = "INSERT INTO user(user.login, user.password, " +
-            "user.name, user.role) VALUES(?,?,?,?);";
+            "user.name, user.phone, user.role) VALUES(?,?,?,?,?);";
     private static final String SQL_FIND_ALL = "SELECT user.id, user.login, user.password, " +
-            "user.name, user.role FROM user";
+            "user.name, user.phone, user.role FROM user";
+    private static final String SQL_FIND_INTERVAL = "SELECT user.id, user.login, user.password, " +
+            "user.name, user.phone, user.role FROM user WHERE user.id>0 LIMIT ?, ?";
     private static final String SQL_FIND_BY_ID = "SELECT user.id, user.login, user.password, " +
-            "user.name, user.role FROM user WHERE user.id = ?;";
+            "user.name, user.phone, user.role FROM user WHERE user.id = ?;";
     private static final String SQL_DELETE = "DELETE FROM user WHERE user.id = ?;";
     private static final String SQL_UPDATE = "UPDATE user SET user.login = ?, user.password = ?, " +
-            "user.name = ?, user.role = ? WHERE user.id = ?;";
+            "user.name = ?, user.phone = ?, user.role = ? WHERE user.id = ?;";
     private static final String SQL_READ_BY_LOGIN_PASSWORD = "SELECT user.id, user.login, user.password, " +
-            "user.name, user.role FROM user WHERE user.login = ? AND user.password = ?;";
+            "user.name, user.phone, user.role FROM user WHERE user.login = ? AND user.password = ?;";
     private static final String SQL_READ_BY_LOGIN = "SELECT user.id, user.login, user.password, " +
-            "user.name, user.role FROM user WHERE user.login = ?;";
+            "user.name, user.phone, user.role FROM user WHERE user.login = ?;";
+    private static final String SQL_READ_BY_NAME = "SELECT user.id, user.login, user.password, " +
+            "user.name, user.phone, user.role FROM user WHERE user.name = ?;";
+    private static final String SQL_FIND_EMPLOYEES = "SELECT user.id, user.login, user.password, " +
+            "user.name, user.phone, user.role FROM user WHERE user.role = 'employee'";
     @Override
     public List<User> findall() throws DaoException {
         PreparedStatement statement = null;
@@ -43,11 +49,12 @@ public class UserDaoImpl implements UserDao {
                 user.setLogin(resultSet.getString("user.login"));
                 user.setPassword(resultSet.getString("user.password"));
                 user.setName(resultSet.getString("user.name"));
+                user.setPhone(resultSet.getString("user.phone"));
                 user.setRole(resultSet.getString("user.role"));
                 users.add(user);
             }
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.debug(e.getMessage());
             throw new DaoException();
         } finally {
             try {
@@ -55,7 +62,7 @@ public class UserDaoImpl implements UserDao {
                     resultSet.close();
                 }
             } catch (SQLException e) {
-                LOGGER.error(e.getMessage());
+                LOGGER.debug(e.getMessage());
                 throw new DaoException();
             }
             try {
@@ -63,7 +70,52 @@ public class UserDaoImpl implements UserDao {
                     statement.close();
                 }
             } catch (SQLException e) {
-                LOGGER.error(e.getMessage());
+                LOGGER.debug(e.getMessage());
+                throw new DaoException();
+            }
+        }
+        return users;
+    }
+
+    @Override
+    public List<User> findInterval(int begin, int count) throws DaoException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        List<User> users = new ArrayList<>();
+        try {
+            statement = connection.prepareStatement(SQL_FIND_INTERVAL);
+            statement.setInt(1,begin);
+            statement.setInt(2,count);
+            statement.execute();
+            resultSet = statement.getResultSet();
+            while (resultSet.next()){
+                User user = new User();
+                user.setId(resultSet.getInt("user.id"));
+                user.setLogin(resultSet.getString("user.login"));
+                user.setPassword(resultSet.getString("user.password"));
+                user.setName(resultSet.getString("user.name"));
+                user.setPhone(resultSet.getString("user.phone"));
+                user.setRole(resultSet.getString("user.role"));
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            LOGGER.debug(e.getMessage());
+            throw new DaoException();
+        } finally {
+            try {
+                if(resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (SQLException e) {
+                LOGGER.debug(e.getMessage());
+                throw new DaoException();
+            }
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                LOGGER.debug(e.getMessage());
                 throw new DaoException();
             }
         }
@@ -85,11 +137,12 @@ public class UserDaoImpl implements UserDao {
                 user.setLogin(resultSet.getString("user.login"));
                 user.setPassword(resultSet.getString("user.password"));
                 user.setName(resultSet.getString("user.name"));
+                user.setPhone(resultSet.getString("user.phone"));
                 user.setRole(resultSet.getString("user.role"));
             }
             return user;
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.debug(e.getMessage());
             throw new DaoException();
         } finally {
             try {
@@ -97,7 +150,7 @@ public class UserDaoImpl implements UserDao {
                     resultSet.close();
                 }
             } catch (SQLException e) {
-                LOGGER.error(e.getMessage());
+                LOGGER.debug(e.getMessage());
                 throw new DaoException();
             }
             try {
@@ -105,7 +158,7 @@ public class UserDaoImpl implements UserDao {
                     statement.close();
                 }
             } catch (SQLException e) {
-                LOGGER.error(e.getMessage());
+                LOGGER.debug(e.getMessage());
                 throw new DaoException();
             }
         }
@@ -119,7 +172,7 @@ public class UserDaoImpl implements UserDao {
             statement.setInt(1, id);
             return statement.executeUpdate() != 0;
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.debug(e.getMessage());
             throw new DaoException();
         } finally {
             try {
@@ -127,7 +180,7 @@ public class UserDaoImpl implements UserDao {
                     statement.close();
                 }
             } catch (SQLException e) {
-                LOGGER.error(e.getMessage());
+                LOGGER.debug(e.getMessage());
                 throw new DaoException();
             }
         }
@@ -141,10 +194,11 @@ public class UserDaoImpl implements UserDao {
             statement.setString(1, user.getLogin());
             statement.setString(2, user.getPassword());
             statement.setString(3, user.getName());
-            statement.setString(4, user.getRole());
+            statement.setString(4, user.getPhone());
+            statement.setString(5, user.getRole());
             return statement.executeUpdate() != 0;
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.debug(e.getMessage());
             throw new DaoException();
         } finally {
             try {
@@ -152,7 +206,7 @@ public class UserDaoImpl implements UserDao {
                     statement.close();
                 }
             } catch (SQLException e) {
-                LOGGER.error(e.getMessage());
+                LOGGER.debug(e.getMessage());
                 throw new DaoException();
             }
         }
@@ -166,11 +220,12 @@ public class UserDaoImpl implements UserDao {
             statement.setString(1, user.getLogin());
             statement.setString(2, user.getPassword());
             statement.setString(3, user.getName());
-            statement.setString(4, user.getRole());
-            statement.setInt(5,user.getId());
+            statement.setString(4, user.getPhone());
+            statement.setString(5, user.getRole());
+            statement.setInt(6,user.getId());
             return statement.executeUpdate() != 0;
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.debug(e.getMessage());
             throw new DaoException();
         } finally {
             try {
@@ -178,7 +233,7 @@ public class UserDaoImpl implements UserDao {
                     statement.close();
                 }
             } catch (SQLException e) {
-                LOGGER.error(e.getMessage());
+                LOGGER.debug(e.getMessage());
                 throw new DaoException();
             }
         }
@@ -201,11 +256,12 @@ public class UserDaoImpl implements UserDao {
                 user.setLogin(resultSet.getString("user.login"));
                 user.setPassword(resultSet.getString("user.password"));
                 user.setName(resultSet.getString("user.name"));
+                user.setPhone(resultSet.getString("user.phone"));
                 user.setRole(resultSet.getString("user.role"));
             }
             return user;
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.debug(e.getMessage());
             throw new DaoException();
         } finally {
             try {
@@ -213,7 +269,7 @@ public class UserDaoImpl implements UserDao {
                     resultSet.close();
                 }
             } catch (SQLException e) {
-                LOGGER.error(e.getMessage());
+                LOGGER.debug(e.getMessage());
                 throw new DaoException();
             }
             try {
@@ -221,7 +277,7 @@ public class UserDaoImpl implements UserDao {
                     statement.close();
                 }
             } catch (SQLException e) {
-                LOGGER.error(e.getMessage());
+                LOGGER.debug(e.getMessage());
                 throw new DaoException();
             }
         }
@@ -243,11 +299,12 @@ public class UserDaoImpl implements UserDao {
                 user.setLogin(resultSet.getString("user.login"));
                 user.setPassword(resultSet.getString("user.password"));
                 user.setName(resultSet.getString("user.name"));
+                user.setPhone(resultSet.getString("user.phone"));
                 user.setRole(resultSet.getString("user.role"));
             }
             return user;
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.debug(e.getMessage());
             throw new DaoException();
         } finally {
             try {
@@ -255,7 +312,7 @@ public class UserDaoImpl implements UserDao {
                     resultSet.close();
                 }
             } catch (SQLException e) {
-                LOGGER.error(e.getMessage());
+                LOGGER.debug(e.getMessage());
                 throw new DaoException();
             }
             try {
@@ -263,7 +320,92 @@ public class UserDaoImpl implements UserDao {
                     statement.close();
                 }
             } catch (SQLException e) {
-                LOGGER.error(e.getMessage());
+                LOGGER.debug(e.getMessage());
+                throw new DaoException();
+            }
+        }
+    }
+
+    @Override
+    public List<User> findEmployees() throws DaoException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        List<User> users = new ArrayList<>();
+        try {
+            statement = connection.prepareStatement(SQL_FIND_EMPLOYEES);
+            statement.execute();
+            resultSet = statement.getResultSet();
+            while (resultSet.next()){
+                User user = new User();
+                user.setId(resultSet.getInt("user.id"));
+                user.setLogin(resultSet.getString("user.login"));
+                user.setPassword(resultSet.getString("user.password"));
+                user.setName(resultSet.getString("user.name"));
+                user.setPhone(resultSet.getString("user.phone"));
+                user.setRole(resultSet.getString("user.role"));
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            LOGGER.debug(e.getMessage());
+            throw new DaoException();
+        } finally {
+            try {
+                if(resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (SQLException e) {
+                LOGGER.debug(e.getMessage());
+                throw new DaoException();
+            }
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                LOGGER.debug(e.getMessage());
+                throw new DaoException();
+            }
+        }
+        return users;
+    }
+
+    @Override
+    public User findByName(String name) throws DaoException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        User user = new User();
+        try {
+            statement = connection.prepareStatement(SQL_READ_BY_NAME);
+            statement.setString(1, name);
+            statement.execute();
+            resultSet = statement.getResultSet();
+            while(resultSet.next()){
+                user.setId(resultSet.getInt("user.id"));
+                user.setLogin(resultSet.getString("user.login"));
+                user.setPassword(resultSet.getString("user.password"));
+                user.setName(resultSet.getString("user.name"));
+                user.setPhone(resultSet.getString("user.phone"));
+                user.setRole(resultSet.getString("user.role"));
+            }
+            return user;
+        } catch (SQLException e) {
+            LOGGER.debug(e.getMessage());
+            throw new DaoException();
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (SQLException e) {
+                LOGGER.debug(e.getMessage());
+                throw new DaoException();
+            }
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                LOGGER.debug(e.getMessage());
                 throw new DaoException();
             }
         }

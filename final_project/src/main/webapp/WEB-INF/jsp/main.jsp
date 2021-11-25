@@ -11,5 +11,6 @@
 </head>
 <body>
 <c:import url="fragment/header.jsp"/>
+<c:import url="fragment/footer.jsp"/>
 </body>
 </html>

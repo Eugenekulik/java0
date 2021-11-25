@@ -1,8 +1,8 @@
-package by.training.beauty_parlor.controller.action.actionImpl.post;
+package by.training.beauty_parlor.controller.action.actionImpl;
 
 import by.training.beauty_parlor.controller.action.Action;
 import by.training.beauty_parlor.domain.User;
-import by.training.beauty_parlor.exception.ServiceException;
+import by.training.beauty_parlor.service.ServiceException;
 import by.training.beauty_parlor.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

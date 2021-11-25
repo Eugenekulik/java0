@@ -1,15 +1,12 @@
 package by.training.beauty_parlor.dao.mysql;
 
-import by.training.beauty_parlor.exception.DaoException;
+import by.training.beauty_parlor.dao.DaoException;
 import by.training.beauty_parlor.dao.ScoreDao;
 import by.training.beauty_parlor.domain.Score;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +16,9 @@ public class ScoreDaoImpl implements ScoreDao {
     private static final String SQL_CREATE = "INSERT INTO score(score.user_id, " +
             "score.value , score.appointment_id , score.comment, " +
             "appointment.date) VALUES(?,?,?,?,?);";
+    private static final String SQL_FIND_INTERVAL = "SELECT score.id, score.user_id, " +
+            "score.value, score.appointment_id, score.comment, " +
+            "score.date FROM score WHERE score.id>0 LIMIT ?, ?;";
     private static final String SQL_FIND_ALL = "SELECT score.id, score.user_id, " +
             "score.value, score.appointment_id, score.comment, " +
             "score.date FROM score;";
@@ -46,11 +46,11 @@ public class ScoreDaoImpl implements ScoreDao {
                 score.setValue(resultSet.getByte("score.value"));
                 score.setAppointmentId(resultSet.getInt("score.appointment_id"));
                 score.setComment(resultSet.getString("scpre.comment"));
-                score.setDate(resultSet.getDate("score.date"));
+                score.setDate(resultSet.getTimestamp("score.date").toLocalDateTime());
                 scores.add(score);
             }
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.debug(e.getMessage());
             throw new DaoException();
         } finally {
             try {
@@ -58,7 +58,7 @@ public class ScoreDaoImpl implements ScoreDao {
                     resultSet.close();
                 }
             } catch (SQLException e) {
-                LOGGER.error(e.getMessage());
+                LOGGER.debug(e.getMessage());
                 throw new DaoException();
             }
             try {
@@ -66,7 +66,52 @@ public class ScoreDaoImpl implements ScoreDao {
                     statement.close();
                 }
             } catch (SQLException e) {
-                LOGGER.error(e.getMessage());
+                LOGGER.debug(e.getMessage());
+                throw new DaoException();
+            }
+        }
+        return scores;
+    }
+
+    @Override
+    public List<Score> findInterval(int begin, int count) throws DaoException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        List<Score> scores = new ArrayList<>();
+        try {
+            statement = connection.prepareStatement(SQL_FIND_INTERVAL);
+            statement.setInt(1,begin);
+            statement.setInt(2, count);
+            statement.execute();
+            resultSet = statement.getResultSet();
+            while (resultSet.next()){
+                Score score = new Score();
+                score.setId(resultSet.getInt("score.id"));
+                score.setUserId(resultSet.getInt("score.user_id"));
+                score.setValue(resultSet.getByte("score.value"));
+                score.setAppointmentId(resultSet.getInt("score.appointment_id"));
+                score.setComment(resultSet.getString("scpre.comment"));
+                score.setDate(resultSet.getTimestamp("score.date").toLocalDateTime());
+                scores.add(score);
+            }
+        } catch (SQLException e) {
+            LOGGER.debug(e.getMessage());
+            throw new DaoException();
+        } finally {
+            try {
+                if(resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (SQLException e) {
+                LOGGER.debug(e.getMessage());
+                throw new DaoException();
+            }
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                LOGGER.debug(e.getMessage());
                 throw new DaoException();
             }
         }
@@ -89,11 +134,11 @@ public class ScoreDaoImpl implements ScoreDao {
                 score.setValue(resultSet.getByte("score.value"));
                 score.setAppointmentId(resultSet.getInt("score.appointment_id"));
                 score.setComment(resultSet.getString("scpre.comment"));
-                score.setDate(resultSet.getDate("score.date"));
+                score.setDate(resultSet.getTimestamp("score.date").toLocalDateTime());
             }
             return score;
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.debug(e.getMessage());
             throw new DaoException();
         } finally {
             try {
@@ -101,7 +146,7 @@ public class ScoreDaoImpl implements ScoreDao {
                     resultSet.close();
                 }
             } catch (SQLException e) {
-                LOGGER.error(e.getMessage());
+                LOGGER.debug(e.getMessage());
                 throw new DaoException();
             }
             try {
@@ -109,7 +154,7 @@ public class ScoreDaoImpl implements ScoreDao {
                     statement.close();
                 }
             } catch (SQLException e) {
-                LOGGER.error(e.getMessage());
+                LOGGER.debug(e.getMessage());
                 throw new DaoException();
             }
         }
@@ -123,7 +168,7 @@ public class ScoreDaoImpl implements ScoreDao {
             statement.setInt(1, id);
             return statement.executeUpdate() != 0;
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.debug(e.getMessage());
             throw new DaoException();
         } finally {
             try {
@@ -131,7 +176,7 @@ public class ScoreDaoImpl implements ScoreDao {
                     statement.close();
                 }
             } catch (SQLException e) {
-                LOGGER.error(e.getMessage());
+                LOGGER.debug(e.getMessage());
                 throw new DaoException();
             }
         }
@@ -146,10 +191,10 @@ public class ScoreDaoImpl implements ScoreDao {
             statement.setInt(2, score.getValue());
             statement.setInt(3, score.getAppointmentId());
             statement.setString(4, score.getComment());
-            statement.setDate(5, score.getDate());
+            statement.setTimestamp(5, Timestamp.valueOf(score.getDate()));
             return statement.executeUpdate() != 0;
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.debug(e.getMessage());
             throw new DaoException();
         } finally {
             try {
@@ -157,7 +202,7 @@ public class ScoreDaoImpl implements ScoreDao {
                     statement.close();
                 }
             } catch (SQLException e) {
-                LOGGER.error(e.getMessage());
+                LOGGER.debug(e.getMessage());
                 throw new DaoException();
             }
         }
@@ -172,11 +217,11 @@ public class ScoreDaoImpl implements ScoreDao {
             statement.setInt(2, score.getValue());
             statement.setInt(3, score.getAppointmentId());
             statement.setString(4, score.getComment());
-            statement.setDate(5,score.getDate());
+            statement.setTimestamp(5, Timestamp.valueOf(score.getDate()));
             statement.setInt(6, score.getId());
             return statement.executeUpdate() != 0;
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.debug(e.getMessage());
             throw new DaoException();
         } finally {
             try {
@@ -184,7 +229,7 @@ public class ScoreDaoImpl implements ScoreDao {
                     statement.close();
                 }
             } catch (SQLException e) {
-                LOGGER.error(e.getMessage());
+                LOGGER.debug(e.getMessage());
                 throw new DaoException();
             }
         }

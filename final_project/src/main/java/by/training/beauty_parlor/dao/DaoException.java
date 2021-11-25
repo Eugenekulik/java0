@@ -1,4 +1,4 @@
-package by.training.beauty_parlor.exception;
+package by.training.beauty_parlor.dao;
 
 public class DaoException extends Exception{
     public DaoException() {

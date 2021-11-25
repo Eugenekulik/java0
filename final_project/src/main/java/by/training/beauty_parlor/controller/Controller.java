@@ -3,24 +3,16 @@ package by.training.beauty_parlor.controller;
 import by.training.beauty_parlor.controller.action.ActionFactory;
 import by.training.beauty_parlor.controller.action.Action;
 import by.training.beauty_parlor.controller.action.PageEnum;
-import by.training.beauty_parlor.dao.pool.ConnectionPool;
-import by.training.beauty_parlor.exception.DaoException;
 import by.training.beauty_parlor.service.ConnectionPoolInitService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.Properties;
 
 public class Controller extends HttpServlet {
     private static final Logger LOGGER = LogManager.getLogger(Controller.class);
@@ -42,7 +34,7 @@ public class Controller extends HttpServlet {
         if (action != null) {
             page = action.execute(req);
         } else {
-            page = PageEnum.MAIN.getPage();
+            page = PageEnum.ERROR.getPage();
         }
 
         try {
@@ -59,7 +51,7 @@ public class Controller extends HttpServlet {
             }
         } catch (Exception e) {
             try {
-                resp.sendRedirect("/");
+                resp.sendRedirect("/main.html");
             } catch (IOException ioException) {
                 LOGGER.error("It is impossible to forward", e);
             }

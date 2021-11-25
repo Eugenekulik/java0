@@ -2,10 +2,9 @@ package by.training.beauty_parlor.service;
 
 
 import by.training.beauty_parlor.dao.pool.ConnectionPool;
-import by.training.beauty_parlor.exception.DaoException;
+import by.training.beauty_parlor.dao.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.MarkerManager;
 
 import java.io.File;
 import java.io.FileReader;

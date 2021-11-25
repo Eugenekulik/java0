@@ -28,6 +28,14 @@ public class SecurityFilter implements Filter {
                 chain.doFilter(servletRequest,servletResponse);
             }
             else {
+                if(request.getSession().getAttribute("user") == null) {
+                    response.sendRedirect(request.getContextPath() + "/login.html");
+                }
+                else {
+                    request.setAttribute("error", "Access error!");
+                    request.removeAttribute("action");
+                    chain.doFilter(servletRequest,servletResponse);
+                }
             }
         }
     }

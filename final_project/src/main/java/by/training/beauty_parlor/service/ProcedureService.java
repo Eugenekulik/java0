@@ -7,8 +7,7 @@ import by.training.beauty_parlor.dao.TransactionFactory;
 import by.training.beauty_parlor.dao.mysql.TransactionFactoryImpl;
 import by.training.beauty_parlor.domain.Category;
 import by.training.beauty_parlor.domain.Procedure;
-import by.training.beauty_parlor.exception.DaoException;
-import by.training.beauty_parlor.exception.ServiceException;
+import by.training.beauty_parlor.dao.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

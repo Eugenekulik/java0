@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport=" content="width-device-width, initial-scale = 1.0">
     <title>header</title>
-
 </head>
 <body style="background: url('<c:url value="/img/fon.jpg"/>')">
 <nav class="navbar navbar-expand-lg navbar-inverse navbar-fixed-top">
@@ -25,10 +24,18 @@
                     <a class="nav-link main-color-t" href="<c:url value="/procedure.html"/>"
                        role="button">${text["header.procedure"]}</a>
                 </li>
-                <li class="nav-item">
+                <c:if test="${role == 'admin'}"><li class="nav-item">
+                    <a class="nav-link main-color-t" href="<c:url value="/administrate.html"/>"
+                       role="button">${text["header.administrate"]}</a>
+                </li></c:if>
+                <c:if test="${role == 'client'}"><li class="nav-item">
                     <a class="nav-link main-color-t" href="<c:url value="/appointment.html"/>"
                        role="button">${text["header.appointment"]}</a>
-                </li>
+                </li></c:if>
+                <c:if test="${role == 'employee'}"><li class="nav-item">
+                    <a class="nav-link main-color-t" href="<c:url value="/graphic.html"/>"
+                       role="button">${text["header.graphic"]}</a>
+                </li></c:if>
                 <li class="nav-item">
                     <a class="nav-link main-color-t" href="<c:url value="/about.html"/>"
                        role="button">${text["header.about"]}</a>
@@ -70,8 +77,14 @@
     </div>
 </nav>
 </div>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 </body>
 </html>

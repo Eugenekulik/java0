@@ -1,13 +1,13 @@
 package by.training.beauty_parlor.domain;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Score extends Entity {
     private int userId;
     private int appointmentId;
     private String comment;
-    private Date date;
+    private LocalDateTime date;
     private byte value;
 
     public int getUserId() {
@@ -34,11 +34,11 @@ public class Score extends Entity {
         this.comment = comment;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 
@@ -66,6 +66,6 @@ public class Score extends Entity {
     @Override
     public String toString() {
         return "id: " + getId() + "user_id: " +
-                userId + "appointment_id: " + appointmentId + "date: " + date.getTime();
+                userId + "appointment_id: " + appointmentId + "date: " + date;
     }
 }

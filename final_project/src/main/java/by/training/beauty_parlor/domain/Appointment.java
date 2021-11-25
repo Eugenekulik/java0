@@ -1,14 +1,14 @@
 package by.training.beauty_parlor.domain;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Appointment extends Entity{
     private int procedureEmployeeId;
     private int userId;
-    private int price;
-    private boolean status;
-    private Date date;
+    private double price;
+    private int status;
+    private LocalDateTime date;
 
     public int getProcedureEmployeeId() {
         return procedureEmployeeId;
@@ -26,27 +26,27 @@ public class Appointment extends Entity{
         this.userId = userId;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
-    public boolean isStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 
@@ -66,7 +66,7 @@ public class Appointment extends Entity{
     @Override
     public String toString() {
         return "id: " + getId() + "procedureEmployeeId: " + procedureEmployeeId +
-                "userId: " + userId + "date: " + date.getTime() +
-                        " status: " + status + "price: " + price;
+                "userId: " + userId + "date: "  +
+                        " status: " + status + "price: " + price;// TODO: 22.11.2021  
     }
 }

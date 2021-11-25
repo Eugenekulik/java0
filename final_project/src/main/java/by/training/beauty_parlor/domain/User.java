@@ -6,13 +6,17 @@ public class User extends Entity{
     private String name;
     private String login;
     private String password;
-
-
-
+    private String phone;
     private Role role;
 
     public User(){};
 
+    public String getPhone() {
+        return phone;
+    }
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
     public User(int id){
         super(id);
     }
@@ -49,7 +53,7 @@ public class User extends Entity{
     }
 
     public enum Role {
-        client("client"), user("user"), admin("admin");
+        client("client"), employee("employee"), admin("admin");
         private String role;
 
         Role(String role) {

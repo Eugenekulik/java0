@@ -1,55 +1,45 @@
 package by.training.beauty_parlor.dao.mysql;
 
+import by.training.beauty_parlor.dao.GraphicDao;
+import by.training.beauty_parlor.domain.Graphic;
 import by.training.beauty_parlor.dao.DaoException;
-import by.training.beauty_parlor.dao.ProcedureDao;
-import by.training.beauty_parlor.domain.Procedure;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProcudureDaoImpl implements ProcedureDao {
-    private static final Logger LOGGER = LogManager.getLogger(UserDaoImpl.class);
+public class GraphicDaoImpl implements GraphicDao {
+    private static final Logger LOGGER = LogManager.getLogger(GraphicDao.class);
+    private static final String SQL_FIND_INTERVAL = "SELECT graphic.id, graphic.employee_id, graphic.date " +
+            "from graphic WHERE graphic.id>0 LIMIT ?, ?;";
     private Connection connection;
-    private static final String SQL_FIND_INTERVAL = "SELECT `procedure`.id, `procedure`.category_id, " +
-            "`procedure`.name, `procedure`.description, `procedure`.elapsed_time " +
-            "FROM `procedure` WHERE `procedure`.id>0 LIMIT ?, ?;";
-    private static final String SQL_CREATE = "INSERT INTO `procedure`(`procedure`.category_id, " +
-            "`procedure`.name, `procedure`.description, `procedure`.elapsed_time) VALUES(?,?,?,?);";
-    private static final String SQL_FIND_ALL = "SELECT `procedure`.id, `procedure`.category_id, " +
-            "`procedure`.name, `procedure`.description, `procedure`.elapsed_time FROM `procedure`;";
-    private static final String SQL_FIND_BY_ID = "SELECT `procedure`.id, `procedure`.category_id, " +
-            "`procedure`.name, `procedure`.description, `procedure`.elapsed_time " +
-            "FROM `procedure` WHERE `procedure`.id = ?;";
-    private static final String SQL_FIND_BY_NAME = "SELECT `procedure`.id, `procedure`.category_id, " +
-            "`procedure`.name, `procedure`.description, `procedure`.elapsed_time " +
-            "FROM `procedure` WHERE `procedure`.name = ?;";
-    private static final String SQL_DELETE = "DELETE FROM `procedure` WHERE `procedure`.id = ?;";
-    private static final String SQL_UPDATE = "UPDATE `procedure` SET `procedure`.category_id= ?, " +
-            "`procedure`.name = ?, `procedure`.description = ?, `procedure`.elapsed_time = ? " +
-            "WHERE `procedure`.id = ?;";
+    private static final String SQL_FIND_BY_EMPLOYEE = "SELECT graphic.id, graphic.employee_id, graphic.date " +
+            "from graphic WHERE graphic.employee_id = ?;";
+    private static final String SQL_FIND_BY_DATE = "SELECT graphic.id, graphic.employee_id, " +
+            "graphic.date FROM graphic WHERE graphic.date = ?;";
+    private static final String SQL_CREATE = "INSERT INTO graphic(graphic.employee_id, graphic.date) VALUES(?,?);";
+    private static final String SQL_FIND_ALL = "SELECT graphic.id, graphic.employee_id, graphic.date from graphic;";
+    private static final String SQL_FIND_BY_ID = "SELECT graphic.id, graphic.employee_id, graphic.date WHERE graphic.id = ?;";
+    private static final String SQL_DELETE = "DELETE FROM graphic WHERE graphic.id = ?;";
+    private static final String SQL_UPDATE = "UPDATE graphic SET graphic.employee_id = ?, graphic.date = ? WHERE graphic.id = ?;";
     @Override
-    public List<Procedure> findall() throws DaoException {
+    public List<Graphic> findall() throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        List<Procedure> procedures = new ArrayList<>();
+        List<Graphic> graphics = new ArrayList<>();
         try {
             statement = connection.prepareStatement(SQL_FIND_ALL);
             statement.execute();
             resultSet = statement.getResultSet();
             while (resultSet.next()){
-                Procedure procedure = new Procedure();
-                procedure.setId(resultSet.getInt("procedure.id"));
-                procedure.setCategoryId(resultSet.getInt("procedure.id"));
-                procedure.setName(resultSet.getString("procedure.name"));
-                procedure.setDescription(resultSet.getString("procedure.description"));
-                procedure.setElapsedTime(resultSet.getInt("procedure.elapsed_time"));
-                procedures.add(procedure);
+                Graphic graphic = new Graphic();
+                graphic.setId(resultSet.getInt("graphic.id"));
+                graphic.setEmployeeId(resultSet.getInt("graphic.employee_id"));
+                graphic.setDate(resultSet.getTimestamp("graphic.date").toLocalDateTime());
+                graphics.add(graphic);
             }
         } catch (SQLException e) {
             LOGGER.debug(e.getMessage());
@@ -72,14 +62,14 @@ public class ProcudureDaoImpl implements ProcedureDao {
                 throw new DaoException();
             }
         }
-        return procedures;
+        return graphics;
     }
 
     @Override
-    public List<Procedure> findInterval(int begin, int count) throws DaoException {
+    public List<Graphic> findInterval(int begin, int count) throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        List<Procedure> procedures = new ArrayList<>();
+        List<Graphic> graphics = new ArrayList<>();
         try {
             statement = connection.prepareStatement(SQL_FIND_INTERVAL);
             statement.setInt(1,begin);
@@ -87,13 +77,11 @@ public class ProcudureDaoImpl implements ProcedureDao {
             statement.execute();
             resultSet = statement.getResultSet();
             while (resultSet.next()){
-                Procedure procedure = new Procedure();
-                procedure.setId(resultSet.getInt("procedure.id"));
-                procedure.setCategoryId(resultSet.getInt("procedure.id"));
-                procedure.setName(resultSet.getString("procedure.name"));
-                procedure.setDescription(resultSet.getString("procedure.description"));
-                procedure.setElapsedTime(resultSet.getInt("procedure.elapsed_time"));
-                procedures.add(procedure);
+                Graphic graphic = new Graphic();
+                graphic.setId(resultSet.getInt("graphic.id"));
+                graphic.setEmployeeId(resultSet.getInt("graphic.employee_id"));
+                graphic.setDate(resultSet.getTimestamp("graphic.date").toLocalDateTime());
+                graphics.add(graphic);
             }
         } catch (SQLException e) {
             LOGGER.debug(e.getMessage());
@@ -116,28 +104,25 @@ public class ProcudureDaoImpl implements ProcedureDao {
                 throw new DaoException();
             }
         }
-        return procedures;
+        return graphics;
     }
 
     @Override
-    public Procedure findById(int id) throws DaoException {
+    public Graphic findById(int id) throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        Procedure procedure = null;
+        Graphic graphic = new Graphic();
         try {
             statement = connection.prepareStatement(SQL_FIND_BY_ID);
             statement.setInt(1,id);
             statement.execute();
             resultSet = statement.getResultSet();
-            if (resultSet.next()){
-                procedure = new Procedure();
-                procedure.setId(resultSet.getInt("procedure.id"));
-                procedure.setCategoryId(resultSet.getInt("procedure.id"));
-                procedure.setName(resultSet.getString("procedure.name"));
-                procedure.setDescription(resultSet.getString("procedure.description"));
-                procedure.setElapsedTime(resultSet.getInt("procedure.elapsed_time"));
+            while(resultSet.next()){
+                graphic.setId(resultSet.getInt("graphic.id"));
+                graphic.setEmployeeId(resultSet.getInt("graphic.employee_id"));
+                graphic.setDate(resultSet.getTimestamp("graphic.date").toLocalDateTime());
             }
-            return procedure;
+            return graphic;
         } catch (SQLException e) {
             LOGGER.debug(e.getMessage());
             throw new DaoException();
@@ -184,14 +169,12 @@ public class ProcudureDaoImpl implements ProcedureDao {
     }
 
     @Override
-    public boolean create(Procedure procedure) throws DaoException {
+    public boolean create(Graphic graphic) throws DaoException {
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(SQL_CREATE);
-            statement.setInt(1, procedure.getCategoryId());
-            statement.setString(2, procedure.getName());
-            statement.setString(3, procedure.getDescription());
-            statement.setInt(4, procedure.getElapsedTime());
+            statement.setInt(1, graphic.getEmployeeId());
+            statement.setTimestamp(2, Timestamp.valueOf(graphic.getDate()));
             return statement.executeUpdate() != 0;
         } catch (SQLException e) {
             LOGGER.debug(e.getMessage());
@@ -209,15 +192,13 @@ public class ProcudureDaoImpl implements ProcedureDao {
     }
 
     @Override
-    public boolean update(Procedure procedure) throws DaoException {
+    public boolean update(Graphic graphic) throws DaoException {
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(SQL_UPDATE);
-            statement.setInt(1, procedure.getCategoryId());
-            statement.setString(2, procedure.getName());
-            statement.setString(3, procedure.getDescription());
-            statement.setInt(4, procedure.getElapsedTime());
-            statement.setInt(5,procedure.getId());
+            statement.setInt(1, graphic.getEmployeeId());
+            statement.setTimestamp(2, Timestamp.valueOf(graphic.getDate()));
+            statement.setInt(3,graphic.getId());
             return statement.executeUpdate() != 0;
         } catch (SQLException e) {
             LOGGER.debug(e.getMessage());
@@ -239,24 +220,62 @@ public class ProcudureDaoImpl implements ProcedureDao {
     }
 
     @Override
-    public Procedure findByName(String name) throws DaoException {
+    public List<Graphic> findByEmployee(int employeeId) throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        Procedure procedure = null;
+        List<Graphic> graphics = new ArrayList<>();
         try {
-            statement = connection.prepareStatement(SQL_FIND_BY_NAME);
-            statement.setString(1,name);
+            statement = connection.prepareStatement(SQL_FIND_BY_EMPLOYEE);
+            statement.setInt(1, employeeId);
             statement.execute();
             resultSet = statement.getResultSet();
-            if (resultSet.next()){
-                procedure = new Procedure();
-                procedure.setId(resultSet.getInt("procedure.id"));
-                procedure.setCategoryId(resultSet.getInt("procedure.id"));
-                procedure.setName(resultSet.getString("procedure.name"));
-                procedure.setDescription(resultSet.getString("procedure.description"));
-                procedure.setElapsedTime(resultSet.getInt("procedure.elapsed_time"));
+            while (resultSet.next()){
+                Graphic graphic = new Graphic();
+                graphic.setId(resultSet.getInt("graphic.id"));
+                graphic.setEmployeeId(resultSet.getInt("graphic.employee_id"));
+                graphic.setDate(resultSet.getTimestamp("graphic.date").toLocalDateTime());
+                graphics.add(graphic);
             }
-            return procedure;
+        } catch (SQLException e) {
+            LOGGER.debug(e.getMessage());
+            throw new DaoException();
+        } finally {
+            try {
+                if(resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (SQLException e) {
+                LOGGER.debug(e.getMessage());
+                throw new DaoException();
+            }
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                LOGGER.debug(e.getMessage());
+                throw new DaoException();
+            }
+        }
+        return graphics;
+    }
+
+    @Override
+    public Graphic findByDate(LocalDateTime date) throws DaoException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        Graphic graphic = new Graphic();
+        try {
+            statement = connection.prepareStatement(SQL_FIND_BY_DATE);
+            statement.setTimestamp(1, Timestamp.valueOf(date));
+            statement.execute();
+            resultSet = statement.getResultSet();
+            while(resultSet.next()){
+                graphic.setId(resultSet.getInt("graphic.id"));
+                graphic.setEmployeeId(resultSet.getInt("graphic.employee_id"));
+                graphic.setDate(resultSet.getTimestamp("graphic.date").toLocalDateTime());
+            }
+            return graphic;
         } catch (SQLException e) {
             LOGGER.debug(e.getMessage());
             throw new DaoException();

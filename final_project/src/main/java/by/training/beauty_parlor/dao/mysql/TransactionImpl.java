@@ -1,7 +1,7 @@
 package by.training.beauty_parlor.dao.mysql;
 
 import by.training.beauty_parlor.dao.Dao;
-import by.training.beauty_parlor.exception.DaoException;
+import by.training.beauty_parlor.dao.DaoException;
 import by.training.beauty_parlor.dao.Transaction;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -38,6 +38,9 @@ public class TransactionImpl implements Transaction {
                 break;
             case "scoreDao":
                 dao = (Type)new ScoreDaoImpl();
+                break;
+            case "graphicDao":
+                dao = (Type)new GraphicDaoImpl();
                 break;
             default:
                 LOGGER.warn("No such Dao class");

@@ -1,8 +1,8 @@
-package by.training.beauty_parlor.controller.action.actionImpl.get;
+package by.training.beauty_parlor.controller.action.actionImpl;
 
 import by.training.beauty_parlor.controller.action.Action;
 import by.training.beauty_parlor.controller.action.PageEnum;
-import by.training.beauty_parlor.exception.ServiceException;
+import by.training.beauty_parlor.service.ServiceException;
 import by.training.beauty_parlor.domain.Procedure;
 import by.training.beauty_parlor.service.ProcedureService;
 import org.apache.logging.log4j.LogManager;

@@ -1,6 +1,8 @@
 package by.training.beauty_parlor.dao.mysql;
 
-import by.training.beauty_parlor.exception.DaoException;
+import by.training.beauty_parlor.domain.Procedure;
+import by.training.beauty_parlor.domain.User;
+import by.training.beauty_parlor.dao.DaoException;
 import by.training.beauty_parlor.dao.ProcedureEmployeeDao;
 import by.training.beauty_parlor.domain.ProcedureEmployee;
 import org.apache.logging.log4j.LogManager;
@@ -15,15 +17,22 @@ import java.util.List;
 
 public class ProcedureEmployeeDaoImpl implements ProcedureEmployeeDao {
     private static final Logger LOGGER = LogManager.getLogger(UserDaoImpl.class);
+    private static final String SQL_FIND_BY_PROCEDURE_EMPLOYEE = "SELECT procedure_employee.id, procedure_employee.employee_id, " +
+            "procedure_employee.procedure_id, procedure_employee.price, procedure_employee.rating " +
+            "FROM procedure_employee WHERE procedure_employee.procedure_id = ? " +
+            "AND procedure_employee.employee_id = ?;";
+    private static final String SQL_FIND_INTERVAL = "SELECT procedure_employee.id, procedure_employee.employee_id, " +
+            "procedure_employee.procedure_id, procedure_employee.price, procedure_employee.rating " +
+            "FROM procedure_employee WHERE procedure_employee.id>0 LIMIT ?, ?;";
     private Connection connection;
     private static final String SQL_CREATE = "INSERT INTO procedure_employee(" +
             "procedure_employee.employee_id, procedure_employee.procedure_id, " +
             "procedure_employee.price, procedure_employee.rating) VALUES(?,?,?,?);";
     private static final String SQL_FIND_ALL = "SELECT procedure_employee.id, procedure_employee.employee_id, " +
-            "procedure_employee.procedure_id, procedure_emplouee.price, procedure_employee.rating " +
+            "procedure_employee.procedure_id, procedure_employee.price, procedure_employee.rating " +
             "FROM procedure_employee;";
     private static final String SQL_FIND_BY_ID = "SELECT procedure_employee.id, procedure_employee.employee_id, " +
-            "procedure_employee.procedure_id, procedure_emplouee.price, procedure_employee.rating " +
+            "procedure_employee.procedure_id, procedure_employee.price, procedure_employee.rating " +
             "FROM procedure_employee WHERE procedure_employee.id = ?";
     private static final String SQL_DELETE = "DELETE FROM procedure_employee " +
             "WHERE procedure_employee.id = ?;";
@@ -31,6 +40,9 @@ public class ProcedureEmployeeDaoImpl implements ProcedureEmployeeDao {
             "procedure_employee.employee_id= ?, procedure_employee.procedure_id = ?, " +
             "procedure_employee.price = ?, procedure_employee.rating = ? " +
             "WHERE procedure_employee.id = ?;";
+    private static final String SQL_FIND_BY_PROCEDURE = "SELECT procedure_employee.id, procedure_employee.employee_id, " +
+            "procedure_employee.procedure_id, procedure_employee.price, procedure_employee.rating " +
+            "FROM procedure_employee WHERE procedure_employee.procedure_id = ?;";
 
     @Override
     public List<ProcedureEmployee> findall() throws DaoException {
@@ -46,12 +58,12 @@ public class ProcedureEmployeeDaoImpl implements ProcedureEmployeeDao {
                 procedureEmployee.setId(resultSet.getInt("procedure_employee.id"));
                 procedureEmployee.setEmployeeId(resultSet.getInt("procedure_employee.employee_id"));
                 procedureEmployee.setProcedureId(resultSet.getInt("procedure_employee.procedure_id"));
-                procedureEmployee.setPrice(resultSet.getInt("procedure_employee.price"));
-                procedureEmployee.setRating(resultSet.getInt("procedure_employee.rating"));
+                procedureEmployee.setPrice(resultSet.getDouble("procedure_employee.price"));
+                procedureEmployee.setRating(resultSet.getDouble("procedure_employee.rating"));
                 procedureEmployees.add(procedureEmployee);
             }
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.debug(e.getMessage());
             throw new DaoException();
         } finally {
             try {
@@ -59,7 +71,7 @@ public class ProcedureEmployeeDaoImpl implements ProcedureEmployeeDao {
                     resultSet.close();
                 }
             } catch (SQLException e) {
-                LOGGER.error(e.getMessage());
+                LOGGER.debug(e.getMessage());
                 throw new DaoException();
             }
             try {
@@ -67,7 +79,51 @@ public class ProcedureEmployeeDaoImpl implements ProcedureEmployeeDao {
                     statement.close();
                 }
             } catch (SQLException e) {
-                LOGGER.error(e.getMessage());
+                LOGGER.debug(e.getMessage());
+                throw new DaoException();
+            }
+        }
+        return procedureEmployees;
+    }
+
+    @Override
+    public List<ProcedureEmployee> findInterval(int begin, int count) throws DaoException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        List<ProcedureEmployee> procedureEmployees = new ArrayList<>();
+        try {
+            statement = connection.prepareStatement(SQL_FIND_INTERVAL);
+            statement.setInt(1,begin);
+            statement.setInt(2, count);
+            statement.execute();
+            resultSet = statement.getResultSet();
+            while (resultSet.next()){
+                ProcedureEmployee procedureEmployee = new ProcedureEmployee();
+                procedureEmployee.setId(resultSet.getInt("procedure_employee.id"));
+                procedureEmployee.setEmployeeId(resultSet.getInt("procedure_employee.employee_id"));
+                procedureEmployee.setProcedureId(resultSet.getInt("procedure_employee.procedure_id"));
+                procedureEmployee.setPrice(resultSet.getDouble("procedure_employee.price"));
+                procedureEmployee.setRating(resultSet.getDouble("procedure_employee.rating"));
+                procedureEmployees.add(procedureEmployee);
+            }
+        } catch (SQLException e) {
+            LOGGER.debug(e.getMessage());
+            throw new DaoException();
+        } finally {
+            try {
+                if(resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (SQLException e) {
+                LOGGER.debug(e.getMessage());
+                throw new DaoException();
+            }
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                LOGGER.debug(e.getMessage());
                 throw new DaoException();
             }
         }
@@ -88,12 +144,12 @@ public class ProcedureEmployeeDaoImpl implements ProcedureEmployeeDao {
                 procedureEmployee.setId(resultSet.getInt("procedure_employee.id"));
                 procedureEmployee.setEmployeeId(resultSet.getInt("procedure_employee.employee_id"));
                 procedureEmployee.setProcedureId(resultSet.getInt("procedure_employee.procedure_id"));
-                procedureEmployee.setPrice(resultSet.getInt("procedure_employee.price"));
-                procedureEmployee.setRating(resultSet.getInt("procedure_employee.rating"));
+                procedureEmployee.setPrice(resultSet.getDouble("procedure_employee.price"));
+                procedureEmployee.setRating(resultSet.getDouble("procedure_employee.rating"));
             }
             return procedureEmployee;
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.debug(e.getMessage());
             throw new DaoException();
         } finally {
             try {
@@ -101,7 +157,7 @@ public class ProcedureEmployeeDaoImpl implements ProcedureEmployeeDao {
                     resultSet.close();
                 }
             } catch (SQLException e) {
-                LOGGER.error(e.getMessage());
+                LOGGER.debug(e.getMessage());
                 throw new DaoException();
             }
             try {
@@ -109,7 +165,7 @@ public class ProcedureEmployeeDaoImpl implements ProcedureEmployeeDao {
                     statement.close();
                 }
             } catch (SQLException e) {
-                LOGGER.error(e.getMessage());
+                LOGGER.debug(e.getMessage());
                 throw new DaoException();
             }
         }
@@ -123,7 +179,7 @@ public class ProcedureEmployeeDaoImpl implements ProcedureEmployeeDao {
             statement.setInt(1, id);
             return statement.executeUpdate() != 0;
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.debug(e.getMessage());
             throw new DaoException();
         } finally {
             try {
@@ -131,7 +187,7 @@ public class ProcedureEmployeeDaoImpl implements ProcedureEmployeeDao {
                     statement.close();
                 }
             } catch (SQLException e) {
-                LOGGER.error(e.getMessage());
+                LOGGER.debug(e.getMessage());
                 throw new DaoException();
             }
         }
@@ -144,11 +200,11 @@ public class ProcedureEmployeeDaoImpl implements ProcedureEmployeeDao {
             statement = connection.prepareStatement(SQL_CREATE);
             statement.setInt(1, procedureEmployee.getEmployeeId());
             statement.setInt(2, procedureEmployee.getProcedureId());
-            statement.setInt(3, procedureEmployee.getPrice());
-            statement.setInt(4, procedureEmployee.getRating());
+            statement.setDouble(3, procedureEmployee.getPrice());
+            statement.setDouble(4, procedureEmployee.getRating());
             return statement.executeUpdate() != 0;
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.debug(e.getMessage());
             throw new DaoException();
         } finally {
             try {
@@ -156,7 +212,7 @@ public class ProcedureEmployeeDaoImpl implements ProcedureEmployeeDao {
                     statement.close();
                 }
             } catch (SQLException e) {
-                LOGGER.error(e.getMessage());
+                LOGGER.debug(e.getMessage());
                 throw new DaoException();
             }
         }
@@ -169,12 +225,12 @@ public class ProcedureEmployeeDaoImpl implements ProcedureEmployeeDao {
             statement = connection.prepareStatement(SQL_UPDATE);
             statement.setInt(1, procedureEmployee.getEmployeeId());
             statement.setInt(2, procedureEmployee.getProcedureId());
-            statement.setInt(3, procedureEmployee.getPrice());
-            statement.setInt(4, procedureEmployee.getRating());
+            statement.setDouble(3, procedureEmployee.getPrice());
+            statement.setDouble(4, procedureEmployee.getRating());
             statement.setInt(5,procedureEmployee.getId());
             return statement.executeUpdate() != 0;
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.debug(e.getMessage());
             throw new DaoException();
         } finally {
             try {
@@ -182,7 +238,7 @@ public class ProcedureEmployeeDaoImpl implements ProcedureEmployeeDao {
                     statement.close();
                 }
             } catch (SQLException e) {
-                LOGGER.error(e.getMessage());
+                LOGGER.debug(e.getMessage());
                 throw new DaoException();
             }
         }
@@ -191,5 +247,91 @@ public class ProcedureEmployeeDaoImpl implements ProcedureEmployeeDao {
     @Override
     public void setConnection(Connection connection) {
         this.connection = connection;
+    }
+
+    @Override
+    public List<ProcedureEmployee> findByProcedure(Procedure procedure) throws DaoException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        List<ProcedureEmployee> procedureEmployees = new ArrayList<>();
+        try {
+            statement = connection.prepareStatement(SQL_FIND_BY_PROCEDURE);
+            statement.setInt(1, procedure.getId());
+            statement.execute();
+            resultSet = statement.getResultSet();
+            while (resultSet.next()){
+                ProcedureEmployee procedureEmployee = new ProcedureEmployee();
+                procedureEmployee.setId(resultSet.getInt("procedure_employee.id"));
+                procedureEmployee.setEmployeeId(resultSet.getInt("procedure_employee.employee_id"));
+                procedureEmployee.setProcedureId(resultSet.getInt("procedure_employee.procedure_id"));
+                procedureEmployee.setPrice(resultSet.getDouble("procedure_employee.price"));
+                procedureEmployee.setRating(resultSet.getDouble("procedure_employee.rating"));
+                procedureEmployees.add(procedureEmployee);
+            }
+        } catch (SQLException e) {
+            LOGGER.debug(e.getMessage());
+            throw new DaoException();
+        } finally {
+            try {
+                if(resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (SQLException e) {
+                LOGGER.debug(e.getMessage());
+                throw new DaoException();
+            }
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                LOGGER.debug(e.getMessage());
+                throw new DaoException();
+            }
+        }
+        return procedureEmployees;
+    }
+
+    @Override
+    public ProcedureEmployee findByProcedureEmployee(Procedure procedure, User employee) throws DaoException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        ProcedureEmployee procedureEmployee = null;
+        try {
+            statement = connection.prepareStatement(SQL_FIND_BY_PROCEDURE_EMPLOYEE);
+            statement.setInt(1, procedure.getId());
+            statement.setInt(2, employee.getId());
+            statement.execute();
+            resultSet = statement.getResultSet();
+            while(resultSet.next()){
+                procedureEmployee = new ProcedureEmployee();
+                procedureEmployee.setId(resultSet.getInt("procedure_employee.id"));
+                procedureEmployee.setEmployeeId(resultSet.getInt("procedure_employee.employee_id"));
+                procedureEmployee.setProcedureId(resultSet.getInt("procedure_employee.procedure_id"));
+                procedureEmployee.setPrice(resultSet.getDouble("procedure_employee.price"));
+                procedureEmployee.setRating(resultSet.getDouble("procedure_employee.rating"));
+            }
+        } catch (SQLException e) {
+            LOGGER.debug(e.getMessage());
+            throw new DaoException();
+        } finally {
+            try {
+                if(resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (SQLException e) {
+                LOGGER.debug(e.getMessage());
+                throw new DaoException();
+            }
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                LOGGER.debug(e.getMessage());
+                throw new DaoException();
+            }
+        }
+        return procedureEmployee;
     }
 }

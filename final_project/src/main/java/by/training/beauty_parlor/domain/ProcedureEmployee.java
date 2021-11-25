@@ -5,8 +5,8 @@ import java.util.Objects;
 public class ProcedureEmployee extends Entity {
     private int employeeId;
     private int procedureId;
-    private int rating;
-    private int price;
+    private double rating;
+    private double price;
 
     public int getEmployeeId() {
         return employeeId;
@@ -24,19 +24,19 @@ public class ProcedureEmployee extends Entity {
         this.procedureId = procedureId;
     }
 
-    public int getRating() {
+    public double getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(double rating) {
         this.rating = rating;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

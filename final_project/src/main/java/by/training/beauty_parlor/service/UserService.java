@@ -1,12 +1,12 @@
 package by.training.beauty_parlor.service;
 
-import by.training.beauty_parlor.exception.DaoException;
+import by.training.beauty_parlor.dao.DaoException;
 import by.training.beauty_parlor.dao.Transaction;
 import by.training.beauty_parlor.dao.TransactionFactory;
 import by.training.beauty_parlor.dao.UserDao;
 import by.training.beauty_parlor.dao.mysql.TransactionFactoryImpl;
 import by.training.beauty_parlor.domain.User;
-import by.training.beauty_parlor.exception.ServiceException;
+import by.training.beauty_parlor.service.validator.UserValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -40,7 +40,15 @@ public class UserService {
         user.setLogin(request.getParameter("login"));
         user.setPassword(request.getParameter("password"));
         user.setName(request.getParameter("name"));
+        user.setPhone(request.getParameter("phone"));
         user.setRole("client");
+        UserValidator userValidator = new UserValidator();
+        if(!(userValidator.loginValidator(user.getLogin())
+        || userValidator.nameValidator(user.getName())
+        || userValidator.passwordValidator(user.getPassword())
+        || userValidator.phoneValidator(user.getPhone()))) {
+            return null;
+        }
         TransactionFactory transactionFactory = new TransactionFactoryImpl();
         Transaction transaction = null;
         try {

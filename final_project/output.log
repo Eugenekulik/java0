@@ -1,0 +1,3 @@
+13:48:29.391 [by.training.beauty_parlor.dao.mysql.TransactionImpl  -----+`  t] WARN  by.training.beauty_parlor.dao.mysql.TransactionImpl - No such Dao class
+13:48:51.437 [by.training.beauty_parlor.dao.mysql.TransactionImpl  -----+`  t] WARN  by.training.beauty_parlor.dao.mysql.TransactionImpl - No such Dao class
+13:50:51.537 [by.training.beauty_parlor.dao.mysql.TransactionImpl  -----+`  t] WARN  by.training.beauty_parlor.dao.mysql.TransactionImpl - No such Dao class

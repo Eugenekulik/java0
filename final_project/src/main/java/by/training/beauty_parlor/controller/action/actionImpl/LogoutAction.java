@@ -1,4 +1,4 @@
-package by.training.beauty_parlor.controller.action.actionImpl.get;
+package by.training.beauty_parlor.controller.action.actionImpl;
 
 import by.training.beauty_parlor.controller.action.Action;
 

@@ -1,6 +1,6 @@
 package by.training.beauty_parlor.dao.mysql;
 
-import by.training.beauty_parlor.exception.DaoException;
+import by.training.beauty_parlor.dao.DaoException;
 import by.training.beauty_parlor.dao.Transaction;
 import by.training.beauty_parlor.dao.TransactionFactory;
 import by.training.beauty_parlor.dao.pool.ConnectionPool;

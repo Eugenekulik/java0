@@ -6,17 +6,10 @@
     <meta charset="UTF-8">
 </head>
 <body>
-    <div class="">
-        <div class="nav">
-            <div class="nav-item col-sm-3">
-                <div class="h1">Copyright</div>
-            </div>
-            <div class="nav-item col-sm-6">is</div>
-            <div class="nav-item col-sm-3">this</div>
+    <footer class="pt-4 my-md-5 pt-md-5 border-top main-color-f">
+        <div class="row">
+
         </div>
-    </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+    </footer>
 </body>
 </html>
