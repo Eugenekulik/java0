@@ -18,9 +18,9 @@
                 <div class="h2 main-color-s">${text['procedure.title']}</div>
             </div>
             <br/>
-            <c:forEach var="category" items="${categoryList}" varStatus="status">
+            <c:forEach var="category" items="${categories}" varStatus="status">
                 <div class="category">
-                    <c:out value="${category}"/>
+                    <c:out value="${category.name}"/>
                 </div>
                 <c:forEach var="elem" items="${procedureList}">
                     <c:if test="${status.count == elem.categoryId}">

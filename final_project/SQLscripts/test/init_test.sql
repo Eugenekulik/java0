@@ -1,4 +1,5 @@
-INSERT INTO category (id,name,description)
+TRUNCATE test.category;
+INSERT INTO test.category (id,name,description)
 VALUES (1, 'Аппаратная косметология', 'Аппаратная косметология'),
        (2, 'Инъекционная косметология', 'Инъекционная косметология'),
        (3, 'Клеточные технологии', 'клеточные технологии'),
@@ -6,7 +7,8 @@ VALUES (1, 'Аппаратная косметология', 'Аппаратна�
        (5, 'Коррекция фигуры', 'Коррекция фигуры'),
        (6, 'Эпиляция', 'Эпиляция');
 
-INSERT INTO `procedure`(category_id, name, description, elapsed_time)
+TRUNCATE test.`procedure`;
+INSERT INTO test.`procedure`(category_id, name, description, elapsed_time)
 VALUES (1, 'Лазерное омоложение', 'С возрастом коллагеновые структуры,
 отвечающие за упругость и естественный блеск нашей кожи, становятся рыхлыми и утрачивают
 способность обеспечивать коже ее прежние свойства. В стремлении
@@ -57,21 +59,31 @@ VALUES (1, 'Лазерное омоложение', 'С возрастом ко�
 современных косметических смесей лежит карамелизированный сахар,
 этот вид депиляции не случайно называют «персидской».', 60);
 
-INSERT INTO user(id, login, password, name, role)
-VALUES (1,'first', 'first', 'first', 'admin'),
-        (2,'second', 'second', 'second', 'employee'),
-        (3,'third', 'third', 'third', 'client');
+TRUNCATE test.user;
+INSERT INTO test.user(id, login, password, name, phone, role)
+VALUES (1,'firstuser', 'firstuser', 'firstuser','+375291111111', 'admin'),
+        (2,'seconduser', 'seconduser', 'seconduser','+375292222222', 'employee'),
+        (3,'thirduser', 'thirduser', 'thirduser','+375293333333', 'client');
 
-INSERT INTO procedure_employee(employee_id, procedure_id, price, rating)
+TRUNCATE test.procedure_employee;
+INSERT INTO test.procedure_employee(employee_id, procedure_id, price, rating)
 VALUES (2, 1, 30, 0),
         (2, 3, 50, 0);
 
-INSERT INTO appointment(user_id, procedure_employee_id, date, status, price)
-VALUES (3, 2, '2021-11-07', 1, 50),
-        (3, 1, '2021-11-08', 1, 30),
-        (3, 2, '2021-11-09', 1, 50);
+TRUNCATE test.appointment;
+INSERT INTO test.appointment(user_id, procedure_employee_id, date, status, price)
+VALUES (3, 2, '2021-12-01 09:00:00', 1, 50),
+        (3, 1, '2021-12-01 11:00:00', 1, 30),
+        (3, 2, '2021-12-01 12:00:00', 1, 50);
 
-INSERT INTO score(user_id, value, appointment_id, comment, date)
-VALUES (3, 5, 1, 'it is nice work!','2021-11-08'),
-        (3, 4, 2, 'good work', '2021-11-09'),
-        (3, 3, 3, 'normal', '2021-11-10');
+TRUNCATE test.score;
+INSERT INTO test.score(user_id, value, appointment_id, comment, date)
+VALUES (3, 5, 1, 'it is nice work!','2021-12-02 10:30:00'),
+        (3, 4, 2, 'good work', '2021-12-02 10:30:00'),
+        (3, 3, 3, 'normal', '2021-12-02 10:30:00');
+
+TRUNCATE test.graphic;
+INSERT INTO test.graphic(id, employee_id, date)
+VALUES (1, 2, '2021-12-01 10:00:00'),
+       (2, 2, '2021-12-01 13:00:00'),
+       (3, 2, '2021-12-01 14:00:00');

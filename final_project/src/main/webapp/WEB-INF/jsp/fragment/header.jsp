@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport=" content="width-device-width, initial-scale = 1.0">
-    <title>header</title>
 </head>
 <body style="background: url('<c:url value="/img/fon.jpg"/>')">
 <nav class="navbar navbar-expand-lg navbar-inverse navbar-fixed-top">
@@ -25,7 +24,7 @@
                        role="button">${text["header.procedure"]}</a>
                 </li>
                 <c:if test="${role == 'admin'}"><li class="nav-item">
-                    <a class="nav-link main-color-t" href="<c:url value="/administrate.html"/>"
+                    <a  class="nav-link main-color-t" href="<c:url value="/administrate.html"/>"
                        role="button">${text["header.administrate"]}</a>
                 </li></c:if>
                 <c:if test="${role == 'client'}"><li class="nav-item">
@@ -86,5 +85,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

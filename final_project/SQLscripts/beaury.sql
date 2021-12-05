@@ -109,10 +109,10 @@ DROP TABLE IF EXISTS `beauty_parlor`.`appointment` ;
 CREATE TABLE IF NOT EXISTS `beauty_parlor`.`appointment` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NOT NULL,
-  `procedure_employee_id` INT NOT NULL,
+  `procedure_employee_id` INT,
   `date` TIMESTAMP NOT NULL,
   `status` TINYINT NOT NULL DEFAULT 0,
-  `price` DECIMAL(2) NOT NULL,
+  `price` DOUBLE NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
   INDEX `service_id_idx` (`procedure_employee_id` ASC) VISIBLE,
@@ -120,13 +120,13 @@ CREATE TABLE IF NOT EXISTS `beauty_parlor`.`appointment` (
   CONSTRAINT `procedure_emplyee_id`
     FOREIGN KEY (`procedure_employee_id`)
     REFERENCES `beauty_parlor`.`procedure_employee` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE SET NULL
+    ON UPDATE CASCADE ,
   CONSTRAINT `user_id`
     FOREIGN KEY (`user_id`)
     REFERENCES `beauty_parlor`.`user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE )
 ENGINE = InnoDB;
 
 
@@ -137,7 +137,7 @@ DROP TABLE IF EXISTS `beauty_parlor`.`score` ;
 
 CREATE TABLE IF NOT EXISTS `beauty_parlor`.`score` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `user_id` INT NOT NULL,
+  `user_id` INT,
   `value` TINYINT NOT NULL,
   `appointment_id` INT NOT NULL,
   `comment` TEXT(200) CHARACTER SET 'utf8mb4' NULL,
@@ -148,13 +148,13 @@ CREATE TABLE IF NOT EXISTS `beauty_parlor`.`score` (
   CONSTRAINT `user`
     FOREIGN KEY (`user_id`)
     REFERENCES `beauty_parlor`.`user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE SET NULL
+    ON UPDATE CASCADE ,
   CONSTRAINT `appointment`
     FOREIGN KEY (`appointment_id`)
     REFERENCES `beauty_parlor`.`appointment` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE )
 ENGINE = InnoDB;
 
 
@@ -169,6 +169,7 @@ CREATE TABLE IF NOT EXISTS `beauty_parlor`.`graphic` (
   `date` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
+  CONSTRAINT `un_graphic` UNIQUE (`employee_id`,`date`),
   INDEX `employee_idx` (`employee_id` ASC) VISIBLE,
   CONSTRAINT `employee`
     FOREIGN KEY (`employee_id`)
