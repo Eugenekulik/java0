@@ -13,6 +13,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class implement ProcedureDao for database MySQL.
+ */
+
 public class ProcudureDaoImpl implements ProcedureDao {
     private static final Logger LOGGER = LogManager.getLogger(UserDaoImpl.class);
     private Connection connection;

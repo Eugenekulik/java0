@@ -6,6 +6,11 @@ import by.training.beautyParlor.controller.action.PageEnum;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Set;
 
+/**
+ * This class implement interface Action
+ * and doesn't execute any service, only
+ * return error page.
+ */
 public class EmptyAction implements Action {
     @Override
     public boolean isRedirect() {

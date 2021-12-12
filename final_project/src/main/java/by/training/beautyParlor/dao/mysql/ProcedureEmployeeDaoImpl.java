@@ -15,6 +15,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class implement ProcedureEmployeeDao for database MySQL.
+ */
+
 public class ProcedureEmployeeDaoImpl implements ProcedureEmployeeDao {
     private static final Logger LOGGER = LogManager.getLogger(UserDaoImpl.class);
     private static final String SQL_FIND_BY_PROCEDURE_EMPLOYEE = "SELECT procedure_employee.id, procedure_employee.employee_id, " +

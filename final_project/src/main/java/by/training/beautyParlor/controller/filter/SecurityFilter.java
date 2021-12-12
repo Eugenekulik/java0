@@ -12,6 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * This class implement Filter and allows to keep track of the security. It's
+ * it decides whether a given user has access to this page and whether the
+ * request came from the correct method.
+ */
+
 public class SecurityFilter implements Filter {
     private static final Logger LOGGER = LogManager.getLogger(SecurityFilter.class);
 

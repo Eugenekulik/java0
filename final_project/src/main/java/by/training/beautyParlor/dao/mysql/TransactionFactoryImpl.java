@@ -10,6 +10,10 @@ import org.apache.logging.log4j.Logger;
 
 import java.sql.SQLException;
 
+/**
+ * This class implement TransactionFactory for database MySQL.
+ */
+
 public class TransactionFactoryImpl implements TransactionFactory {
     private static final Logger LOGGER = LogManager.getLogger(TransactionFactoryImpl.class);
 

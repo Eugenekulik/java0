@@ -1,7 +1,6 @@
 package by.training.beautyParlor.controller.action.actionImpl;
 
 import by.training.beautyParlor.controller.action.Action;
-import by.training.beautyParlor.dao.Dao;
 import by.training.beautyParlor.domain.Appointment;
 import by.training.beautyParlor.domain.Procedure;
 import by.training.beautyParlor.domain.User;
@@ -12,7 +11,17 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.ThreadPoolExecutor;
+
+/**
+ * This class implement interface Action
+ * which handles administrator requests to change data.
+ *
+ * @see Action
+ * @see UserService
+ * @see AppointmentService
+ * @see ProcedureService
+ * @see GraphicService
+ */
 
 public class AdministrateChangeAction implements Action {
     private static final Logger LOGGER = LogManager.getLogger(AdministrateChangeAction.class);
@@ -39,7 +48,8 @@ public class AdministrateChangeAction implements Action {
                     }
                     if (id != null) {
                         try {
-                            UserService userService = new UserService();
+                            UserService userService =
+                                    ServiceFactory.getInstance().getUserService();
                             userService.deleteUser(id);
                         } catch (ServiceException e) {
                             LOGGER.warn(String.format("it is impossible to delete user by id: %d", id));
@@ -60,7 +70,8 @@ public class AdministrateChangeAction implements Action {
                         user.setName(request.getParameter("name"));
                         user.setPhone(request.getParameter("phone"));
                         user.setRole(request.getParameter("selectRole"));
-                        UserService userService = new UserService();
+                        UserService userService =
+                                ServiceFactory.getInstance().getUserService();
                         userService.updateUser(user);
                     } catch (ServiceException e) {
                         LOGGER.warn(String.format("it is impossible to update user with id: %d", user.getId()));
@@ -78,7 +89,8 @@ public class AdministrateChangeAction implements Action {
                     }
                     if (id != null) {
                         try {
-                            AppointmentService appointmentService = new AppointmentService();
+                            AppointmentService appointmentService =
+                                    ServiceFactory.getInstance().getAppointmentService();
                             appointmentService.deleteAppointment(id);
                         } catch (ServiceException e) {
                             LOGGER.warn(String.format("it is impossible to delete user by id: %d", id));
@@ -98,7 +110,8 @@ public class AdministrateChangeAction implements Action {
                         }
                         appointment.setPrice(Double.valueOf(request.getParameter("appointmentPrice")));
                         appointment.setStatus(Integer.parseInt(request.getParameter("selectStatus")));
-                        AppointmentService appointmentService = new AppointmentService();
+                        AppointmentService appointmentService =
+                                ServiceFactory.getInstance().getAppointmentService();
                         appointmentService.updateAppointment(appointment);
                     } catch (ServiceException e) {
                         LOGGER.warn(String.format("it is impossible to update appointment with id: %d", appointment.getId()));
@@ -116,7 +129,8 @@ public class AdministrateChangeAction implements Action {
                     }
                     if (id != null) {
                         try {
-                            ProcedureService procedureService = new ProcedureService();
+                            ProcedureService procedureService =
+                                    ServiceFactory.getInstance().getProcedureService();
                             procedureService.deleteProcedure(id);
                         } catch (ServiceException e) {
                             LOGGER.warn(String.format("it is impossible to delete procedure by id: %d", id));
@@ -138,7 +152,8 @@ public class AdministrateChangeAction implements Action {
                                 .parseInt(request.getParameter("procedureElapsedTime")));
                         procedure.setName(request.getParameter("procedureName"));
                         procedure.setDescription(request.getParameter("description"));
-                        ProcedureService procedureService = new ProcedureService();
+                        ProcedureService procedureService =
+                                ServiceFactory.getInstance().getProcedureService();
                         procedureService.updateProcedure(procedure);
                     } catch (ServiceException e) {
                         LOGGER.warn(String.format("it is impossible to update appointment with id: %d", procedure.getId()));
@@ -156,7 +171,8 @@ public class AdministrateChangeAction implements Action {
                     }
                     if (id != null) {
                         try {
-                            GraphicService graphicService = new GraphicService();
+                            GraphicService graphicService =
+                                    ServiceFactory.getInstance().getGraphicService();
                             graphicService.deleteGraphic(id);
                         } catch (ServiceException e) {
                             LOGGER.warn(String.format("it is impossible to delete graphic by id: %d", id));

@@ -2,6 +2,16 @@ package by.training.beautyParlor.domain;
 
 import java.util.Objects;
 
+/**
+ * This class extends Entity and represents bean.
+ * It represents one of the possible procedures of the beauty parlor.
+ * It has fields:
+ * name - name of the procedure;
+ * description - description of the procedure;
+ * elapsedTime - time required for the procedure;
+ * categoryId - id of the category to which the procedure belongs.
+ */
+
 public class Procedure extends Entity{
     private int categoryId;
     private String name;

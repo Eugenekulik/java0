@@ -7,7 +7,7 @@ public class UserValidator {
         if (login.length() < 6 || login.length() > 20) {
             return false;
         }
-        return Pattern.matches("([A-Za-z0-9_.-]*)", login);
+        return Pattern.matches("([A-Za-z][A-Za-z0-9_.-]*)", login);
     }
 
     public boolean passwordValidator(String password) {

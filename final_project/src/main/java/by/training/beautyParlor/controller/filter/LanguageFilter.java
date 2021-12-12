@@ -8,6 +8,11 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * This class implement Filter and  allows you to keep track of
+ * the internationalization of the application
+ */
+
 public class LanguageFilter implements Filter {
 
     @Override

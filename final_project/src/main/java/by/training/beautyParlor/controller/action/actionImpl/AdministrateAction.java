@@ -6,6 +6,7 @@ import by.training.beautyParlor.dao.CategoryDao;
 import by.training.beautyParlor.domain.*;
 import by.training.beautyParlor.service.AdministrateService;
 import by.training.beautyParlor.service.ServiceException;
+import by.training.beautyParlor.service.ServiceFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,6 +16,17 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+/**
+ * This class implement interface Action,
+ * and allows get entities for further processing by the administrator
+ *
+ * Depending on the received parameter tab,
+ * the specific method of AdministrateService is called.
+ *
+ * @see Action
+ * @see AdministrateService
+ */
 
 public class AdministrateAction implements Action {
     private static final Logger LOGGER  = LogManager.getLogger(AdministrateAction.class);
@@ -37,7 +49,7 @@ public class AdministrateAction implements Action {
         } else if (request.getSession().getAttribute("activeTab") == null) {
             request.getSession().setAttribute("activeTab", "1");
         }
-        AdministrateService administrateService = new AdministrateService();
+        AdministrateService administrateService = ServiceFactory.getInstance().getAdministrateService();
         int pageCount = 0;
         int paginationPage;
         try {

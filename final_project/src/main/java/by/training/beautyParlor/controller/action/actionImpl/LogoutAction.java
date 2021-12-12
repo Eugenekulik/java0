@@ -6,6 +6,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Set;
 
+/**
+ * This class implement interface Action
+ * and allows logout user.
+ *
+ * @see Action
+ */
+
 public class LogoutAction implements Action {
     @Override
     public boolean isRedirect() {

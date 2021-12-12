@@ -6,12 +6,22 @@ import by.training.beautyParlor.domain.Procedure;
 import by.training.beautyParlor.service.GraphicService;
 import by.training.beautyParlor.service.ProcedureService;
 import by.training.beautyParlor.service.ServiceException;
+import by.training.beautyParlor.service.ServiceFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.util.Set;
+
+/**
+ * This class implement interface action which handles
+ * administrator requests to add data.
+ *
+ * @see Action
+ * @see ProcedureService
+ * @see GraphicService
+ */
 
 public class AdministrateAddAction implements Action {
     private static final Logger LOGGER = LogManager.getLogger(AdministrateAddAction.class);
@@ -30,7 +40,8 @@ public class AdministrateAddAction implements Action {
         String tab = (String) request.getSession().getAttribute("activeTab");
         switch (tab){
             case "3":
-                ProcedureService procedureService = new ProcedureService();
+                ProcedureService procedureService =
+                        ServiceFactory.getInstance().getProcedureService();
                 try {
                     Procedure procedure = new Procedure();
                     procedure.setName(request.getParameter("name"));
@@ -43,7 +54,8 @@ public class AdministrateAddAction implements Action {
                 }
                 break;
             case "4":
-                GraphicService graphicService = new GraphicService();
+                GraphicService graphicService =
+                        ServiceFactory.getInstance().getGraphicService();
                 try {
                     int employeeId = 0;
                     LocalDate date = null;

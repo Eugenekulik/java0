@@ -3,7 +3,14 @@ package by.training.beautyParlor.domain;
 import java.util.Objects;
 
 /**
- *
+ * This class extends Entity and represents bean.
+ * Is represents user and store any information about him.
+ * It has fields:
+ * name - username;
+ * login  - user login;
+ * password - user password;
+ * phone - user phone;
+ * role - user role(client, employee, admin);
  */
 public class User extends Entity{
     private String name;

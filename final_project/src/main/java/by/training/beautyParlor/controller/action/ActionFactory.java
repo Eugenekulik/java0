@@ -5,6 +5,10 @@ import by.training.beautyParlor.controller.action.actionImpl.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Set;
 
+/**
+ * This class allows init action by the request
+ */
+
 public class ActionFactory {
     private HttpServletRequest request;
 
@@ -19,6 +23,7 @@ public class ActionFactory {
             return new EmptyAction();
         }
         switch (commandType) {
+            //This action allows getting login page.
             case "/login":
                 action = new Action() {
                     @Override
@@ -42,6 +47,7 @@ public class ActionFactory {
                     }
                 };
                 break;
+                // This action allows getting administrate_add page.
             case "/administrate_add":
                 switch ((String) request.getSession().getAttribute("activeTab")) {
                     case "3":
@@ -51,6 +57,7 @@ public class ActionFactory {
                         action  = new GraphicAddAction();
                 }
                 break;
+                //This action allows getting registration page.
             case "/registration":
                 action = new Action() {
                     @Override
@@ -74,6 +81,7 @@ public class ActionFactory {
                     }
                 };
                 break;
+                //This action allows getting main page.
             case "/main":
                 action = new Action() {
                     @Override
@@ -97,6 +105,7 @@ public class ActionFactory {
                     }
                 };
                 break;
+                //This action allows getting about page.
             case "/about":
                 action = new Action() {
                     @Override
@@ -126,7 +135,6 @@ public class ActionFactory {
             case "/logout":
                 action = new LogoutAction();
                 break;
-
             case "/registration_submit":
                 action = new RegistrationAction();
                 break;

@@ -11,6 +11,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class implement AppointmentDao for database MySQL.
+ */
+
 public class AppointmentDaoImpl implements AppointmentDao {
     private static final Logger LOGGER = LogManager.getLogger(UserDaoImpl.class);
     private static final String SQL_FIND_INTERVAL = "SELECT appointment.id, appointment.user_id, " +
@@ -54,7 +58,7 @@ public class AppointmentDaoImpl implements AppointmentDao {
                 appointments.add(appointment);
             }
         } catch (SQLException e) {
-            LOGGER.debug(e.getMessage());
+            LOGGER.debug(e.getMessage(),e);
             throw new DaoException();
         } finally {
             try {

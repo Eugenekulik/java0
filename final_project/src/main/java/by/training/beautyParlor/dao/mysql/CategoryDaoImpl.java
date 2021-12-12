@@ -13,6 +13,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class implement CategoryDao for database MySQL.
+ */
+
 public class CategoryDaoImpl implements CategoryDao {
     private static final Logger LOGGER = LogManager.getLogger(CategoryDaoImpl.class);
     private Connection connection;

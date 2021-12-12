@@ -6,12 +6,21 @@ import by.training.beautyParlor.domain.Category;
 import by.training.beautyParlor.domain.Procedure;
 import by.training.beautyParlor.service.ProcedureService;
 import by.training.beautyParlor.service.ServiceException;
+import by.training.beautyParlor.service.ServiceFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Set;
+
+/**
+ * This class implement interface Action
+ * and allows adding procedure.
+ *
+ * @see Action
+ * @see ProcedureService
+ */
 
 public class ProcedureAddAction implements Action {
     private static final Logger LOGGER = LogManager.getLogger(ProcedureAddAction.class);
@@ -27,7 +36,8 @@ public class ProcedureAddAction implements Action {
 
     @Override
     public String execute(HttpServletRequest request) {
-        ProcedureService procedureService = new ProcedureService();
+        ProcedureService procedureService =
+                ServiceFactory.getInstance().getProcedureService();
         try {
             List<Category> categories = procedureService.getCategories();
             request.getSession().setAttribute("categories",categories);

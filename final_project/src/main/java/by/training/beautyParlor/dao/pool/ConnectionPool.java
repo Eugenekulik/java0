@@ -11,6 +11,11 @@ import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.concurrent.LinkedBlockingDeque;
 
+/**
+ * This class is factory of database connections
+ * which stores pool of connection and highlights them when needed
+ */
+
 public class ConnectionPool {
     private static final Logger LOGGER = LogManager.getLogger(ConnectionPool.class);
 

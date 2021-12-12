@@ -9,6 +9,10 @@ import org.apache.logging.log4j.Logger;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * This class implement Transaction for database MySQL.
+ */
+
 public class TransactionImpl implements Transaction {
     private static final Logger LOGGER = LogManager.getLogger(TransactionImpl.class);
     private Connection connection;

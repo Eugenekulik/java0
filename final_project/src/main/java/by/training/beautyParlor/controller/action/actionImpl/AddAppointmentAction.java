@@ -5,10 +5,7 @@ import by.training.beautyParlor.controller.action.PageEnum;
 import by.training.beautyParlor.domain.Appointment;
 import by.training.beautyParlor.domain.Procedure;
 import by.training.beautyParlor.domain.User;
-import by.training.beautyParlor.service.ServiceException;
-import by.training.beautyParlor.service.AppointmentService;
-import by.training.beautyParlor.service.EmployeeService;
-import by.training.beautyParlor.service.GraphicService;
+import by.training.beautyParlor.service.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,6 +17,17 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ThreadPoolExecutor;
 
+/**
+ * This class implement interface action and give opportunity
+ * to add appointment for client.
+ * <br/>
+ * At client by HttpRequest comes tree parameters(date, employee and time)
+ * with which AppointmentService create appointment.
+ *
+ * @see Action
+ * @see Appointment
+ * @see AppointmentService
+ */
 public class AddAppointmentAction implements Action {
     private static final Logger LOGGER = LogManager
             .getLogger(AddAppointmentAction.class);
@@ -37,7 +45,8 @@ public class AddAppointmentAction implements Action {
     @Override
     public String execute(HttpServletRequest request) {
         if (request.getParameter("timeSelect") != null) {
-            AppointmentService appointmentService = new AppointmentService();
+            AppointmentService appointmentService =
+                    ServiceFactory.getInstance().getAppointmentService();
             try {
                 User client = (User) request.getSession().getAttribute("user");
                 Procedure procedure = (Procedure) request.getSession().getAttribute("procedure");
@@ -68,7 +77,8 @@ public class AddAppointmentAction implements Action {
                     "We will try to solve this problem");
             return PageEnum.ERROR.getPage();
         }
-        EmployeeService employeeService = new EmployeeService();
+        EmployeeService employeeService =
+                ServiceFactory.getInstance().getEmployeeService();
         try {
             List<User> employeeList = employeeService.employeesByProcedure(procedure);
             request.getSession().setAttribute("employeeList", employeeList);
@@ -85,7 +95,8 @@ public class AddAppointmentAction implements Action {
                 return PageEnum.APPOINTMENT_ADD.getPage();
             }
             request.getSession().setAttribute("selectedDate", dateString);
-            GraphicService graphicService = new GraphicService();
+            GraphicService graphicService =
+                    ServiceFactory.getInstance().getGraphicService();
             LocalDate date = LocalDate.parse((String) request.getSession()
                     .getAttribute("selectedDate"));
             List<LocalTime> graphics = graphicService.graphicsByEmployee(selectedEmployee, date);

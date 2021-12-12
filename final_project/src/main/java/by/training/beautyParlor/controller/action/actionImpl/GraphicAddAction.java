@@ -5,12 +5,21 @@ import by.training.beautyParlor.controller.action.PageEnum;
 import by.training.beautyParlor.domain.User;
 import by.training.beautyParlor.service.EmployeeService;
 import by.training.beautyParlor.service.ServiceException;
+import by.training.beautyParlor.service.ServiceFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Set;
+
+/**
+ * This class implement interface Action
+ * and allows get data required to add a graphic.
+ *
+ * @see Action
+ * @see EmployeeService
+ */
 
 public class GraphicAddAction implements Action {
     private static final Logger LOGGER = LogManager.getLogger(GraphicAddAction.class);
@@ -26,7 +35,8 @@ public class GraphicAddAction implements Action {
 
     @Override
     public String execute(HttpServletRequest request) {
-        EmployeeService employeeService = new EmployeeService();
+        EmployeeService employeeService =
+                ServiceFactory.getInstance().getEmployeeService();
         try {
             List<User> employees = employeeService.employeeList();
             request.getSession().setAttribute("employeeList", employees);

@@ -2,6 +2,14 @@ package by.training.beautyParlor.domain;
 
 import java.util.Objects;
 
+/**
+ * This class extends Entity and represents bean.
+ * It represents the group of the procedures which have common technologies.
+ * it has fields:
+ * name - name of the category;
+ * description - description of the category.
+ */
+
 public class Category extends Entity{
     private String name;
     private String description;

@@ -7,6 +7,7 @@ import by.training.beautyParlor.domain.Entity;
 import by.training.beautyParlor.domain.User;
 import by.training.beautyParlor.service.ServiceException;
 import by.training.beautyParlor.service.AppointmentService;
+import by.training.beautyParlor.service.ServiceFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -14,6 +15,15 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+/**
+ * This class implement interface Action
+ * and execute command of getting list of appointment
+ * of specific user
+ *
+ * @see Action
+ * @see AppointmentService
+ */
 
 public class AppointmentAction implements Action {
     private static final Logger LOGGER = LogManager.getLogger(AppointmentAction.class);
@@ -31,7 +41,8 @@ public class AppointmentAction implements Action {
     public String execute(HttpServletRequest request) {
         String page = null;
         try {
-            AppointmentService appointmentService = new AppointmentService();
+            AppointmentService appointmentService =
+                    ServiceFactory.getInstance().getAppointmentService();
             if(request.getParameter("delete") != null) {
                 Integer id = null;
                 try {

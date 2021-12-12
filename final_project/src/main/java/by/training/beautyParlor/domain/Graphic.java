@@ -2,6 +2,14 @@ package by.training.beautyParlor.domain;
 
 import java.time.LocalDateTime;
 
+/**
+ * This class extends Entity and represents bean.
+ * Is represents an object that stores information about the employee's working time.
+ * It has fields:
+ * employeeId - id of the employee;
+ * date - working time.
+ */
+
 public class Graphic extends Entity{
     private int employeeId;
     private LocalDateTime date;

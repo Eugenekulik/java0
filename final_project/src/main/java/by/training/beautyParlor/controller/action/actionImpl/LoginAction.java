@@ -3,6 +3,7 @@ package by.training.beautyParlor.controller.action.actionImpl;
 import by.training.beautyParlor.controller.action.Action;
 import by.training.beautyParlor.domain.User;
 import by.training.beautyParlor.service.ServiceException;
+import by.training.beautyParlor.service.ServiceFactory;
 import by.training.beautyParlor.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,6 +11,14 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Set;
+
+/**
+ * This class implement interface Action
+ * and allows authorized user.
+ *
+ * @see Action
+ * @see UserService
+ */
 
 public class LoginAction implements Action {
     private static final Logger LOGGER = LogManager.getLogger(LoginAction.class);
@@ -35,7 +44,8 @@ public class LoginAction implements Action {
             request.getSession().removeAttribute("errorLoginPassMessage");
         }
         try {
-            UserService userService = new UserService();
+            UserService userService =
+                    ServiceFactory.getInstance().getUserService();
             User user = userService.login(login,password);
             if(user !=null) {
                 HttpSession session = request.getSession();
@@ -48,7 +58,7 @@ public class LoginAction implements Action {
                 page ="/login.html";
             }
         } catch (ServiceException e) {
-            LOGGER.error("it is impossible to autorizate");
+            LOGGER.error("it is impossible to authorize user");
             page ="/login.html";
         }
         return page;

@@ -2,6 +2,17 @@ package by.training.beautyParlor.domain;
 
 import java.util.Objects;
 
+/**
+ * This class extends Entity and represents bean.
+ * it is a link between the procedure and the employee
+ * in order to understand what procedures the employee can perform.
+ * It has fields:
+ * employeeId - id of the employee;
+ * procedureId - id of the procedure;
+ * rating - rating of the procedure that a particular employee does;
+ * price - price of the procedure;
+ */
+
 public class ProcedureEmployee extends Entity {
     private int employeeId;
     private int procedureId;

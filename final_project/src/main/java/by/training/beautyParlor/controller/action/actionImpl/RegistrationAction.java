@@ -3,6 +3,7 @@ package by.training.beautyParlor.controller.action.actionImpl;
 import by.training.beautyParlor.controller.action.Action;
 import by.training.beautyParlor.domain.User;
 import by.training.beautyParlor.service.ServiceException;
+import by.training.beautyParlor.service.ServiceFactory;
 import by.training.beautyParlor.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,6 +11,14 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Set;
+
+/**
+ * This class implement interface Action
+ * and give registration opportunity.
+ *
+ * @see Action
+ * @see UserService
+ */
 
 public class RegistrationAction implements Action {
     private static final Logger LOGGER = LogManager.getLogger(RegistrationAction.class);
@@ -27,7 +36,8 @@ public class RegistrationAction implements Action {
     @Override
     public String execute(HttpServletRequest request) {
         String page = null;
-        UserService userService = new UserService();
+        UserService userService =
+                ServiceFactory.getInstance().getUserService();
         if(request.getSession().getAttribute("userExist") != null){
             request.getSession().removeAttribute("userExist");
         }

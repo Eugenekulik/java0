@@ -8,6 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * This class implement Filter
+ * and allows getting action from request.
+ */
+
 public class ActionFromUriFilter implements Filter {
     private static final Logger LOGGER = LogManager.getLogger(ActionFromUriFilter.class);
 

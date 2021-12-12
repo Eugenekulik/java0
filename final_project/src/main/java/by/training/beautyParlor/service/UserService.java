@@ -42,7 +42,8 @@ public class UserService {
     public User registrate(User user) throws ServiceException {
         user.setPassword(hexPassword(user.getPassword()));
         user.setRole("client");
-        UserValidator userValidator = new UserValidator();
+        UserValidator userValidator =
+                ServiceFactory.getInstance().getUserValidator();
         if(!(userValidator.loginValidator(user.getLogin())
         || userValidator.nameValidator(user.getName())
         || userValidator.passwordValidator(user.getPassword())

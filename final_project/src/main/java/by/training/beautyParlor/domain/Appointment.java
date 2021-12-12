@@ -3,6 +3,17 @@ package by.training.beautyParlor.domain;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+/**
+ * This class extends Entity and represents bean.
+ * It represents the appointment which client can do.
+ * it has fields:
+ * procedureEmployeeId - the id of entity ProcedureEmployee;
+ * userId - the id of the user who submitted the entry;
+ * price - price of work;
+ * status - what is the state of appointment(1 - in processing, 2 - active, 3 - archive);
+ * date - the date of the appointment.
+ */
+
 public class Appointment extends Entity{
     private int procedureEmployeeId;
     private int userId;
@@ -66,7 +77,7 @@ public class Appointment extends Entity{
     @Override
     public String toString() {
         return "id: " + getId() + "procedureEmployeeId: " + procedureEmployeeId +
-                "userId: " + userId + "date: "  +
-                        " status: " + status + "price: " + price;// TODO: 22.11.2021  
+                "userId: " + userId + "date: "  + date +
+                        " status: " + status + "price: " + price;
     }
 }

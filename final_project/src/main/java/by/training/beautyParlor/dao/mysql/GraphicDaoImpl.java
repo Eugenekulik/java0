@@ -11,6 +11,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class implement GraphicDao for database MySQL.
+ */
+
 public class GraphicDaoImpl implements GraphicDao {
     private static final Logger LOGGER = LogManager.getLogger(GraphicDao.class);
     private static final String SQL_FIND_INTERVAL = "SELECT graphic.id, graphic.employee_id, graphic.date " +

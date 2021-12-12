@@ -3,6 +3,17 @@ package by.training.beautyParlor.domain;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+/**
+ * This class extends Entity and represents bean.
+ * It represents score and comment which client can leave.
+ * It has fields:
+ * userId - id of the user which leave this score;
+ * appointmentId - id of the appointment which store belongs;
+ * comment  - text comment of the store;
+ * date - date of the store;
+ * value  - number from 1 to 5.
+ */
+
 public class Score extends Entity {
     private int userId;
     private int appointmentId;
