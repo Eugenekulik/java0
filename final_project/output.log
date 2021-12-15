@@ -1,7 +1,7 @@
-21:31:26.894 [by.training.beautyParlor.service.AppointmentServiceTest  -----+`  t] ERROR by.training.beautyParlor.service.AppointmentServiceTest - it is impossible to update appointment
-by.training.beautyParlor.service.ServiceException: by.training.beautyParlor.dao.DaoException
-	at by.training.beautyParlor.service.AppointmentService.updateAppointment(AppointmentService.java:167) ~[classes/:?]
-	at by.training.beautyParlor.service.AppointmentServiceTest.testUpdateAppointment(AppointmentServiceTest.java:116) ~[test-classes/:?]
+21:31:26.894 [by.training.beauty.service.AppointmentServiceTest  -----+`  t] ERROR by.training.beauty.service.AppointmentServiceTest - it is impossible to update appointment
+by.training.beauty.service.ServiceException: by.training.beauty.dao.DaoException
+	at by.training.beauty.service.AppointmentService.updateAppointment(AppointmentService.java:167) ~[classes/:?]
+	at by.training.beauty.service.AppointmentServiceTest.testUpdateAppointment(AppointmentServiceTest.java:116) ~[test-classes/:?]
 	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
 	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:?]
 	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
@@ -29,17 +29,17 @@ by.training.beautyParlor.service.ServiceException: by.training.beautyParlor.dao.
 	at org.testng.TestNG.run(TestNG.java:1031) [testng-7.4.0.jar:7.4.0]
 	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:66) [testng-rt.jar:?]
 	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:109) [testng-rt.jar:?]
-Caused by: by.training.beautyParlor.dao.DaoException
-	at by.training.beautyParlor.dao.mysql.AppointmentDaoImpl.update(AppointmentDaoImpl.java:267) ~[classes/:?]
-	at by.training.beautyParlor.dao.mysql.AppointmentDaoImpl.update(AppointmentDaoImpl.java:14) ~[classes/:?]
-	at by.training.beautyParlor.service.AppointmentService.updateAppointment(AppointmentService.java:158) ~[classes/:?]
+Caused by: by.training.beauty.dao.DaoException
+	at by.training.beauty.dao.mysql.AppointmentDaoImpl.update(AppointmentDaoImpl.java:267) ~[classes/:?]
+	at by.training.beauty.dao.mysql.AppointmentDaoImpl.update(AppointmentDaoImpl.java:14) ~[classes/:?]
+	at by.training.beauty.service.AppointmentService.updateAppointment(AppointmentService.java:158) ~[classes/:?]
 	... 28 more
-21:39:38.339 [by.training.beautyParlor.service.GraphicServiceTest  -----+`  t] ERROR by.training.beautyParlor.service.GraphicServiceTest - an occurred error while getting graphic
-21:40:05.289 [by.training.beautyParlor.service.GraphicServiceTest  -----+`  t] ERROR by.training.beautyParlor.service.GraphicServiceTest - an occurred error while getting graphic
-14:41:33.281 [by.training.beautyParlor.service.AppointmentServiceTest  -----+`  t] ERROR by.training.beautyParlor.service.AppointmentServiceTest - it is impossible to update appointment
-by.training.beautyParlor.service.ServiceException: by.training.beautyParlor.dao.DaoException
-	at by.training.beautyParlor.service.AppointmentService.updateAppointment(AppointmentService.java:167) ~[classes/:?]
-	at by.training.beautyParlor.service.AppointmentServiceTest.testUpdateAppointment(AppointmentServiceTest.java:116) ~[test-classes/:?]
+21:39:38.339 [by.training.beauty.service.ScheduleServiceTest  -----+`  t] ERROR by.training.beauty.service.ScheduleServiceTest - an occurred error while getting schedule
+21:40:05.289 [by.training.beauty.service.ScheduleServiceTest  -----+`  t] ERROR by.training.beauty.service.ScheduleServiceTest - an occurred error while getting schedule
+14:41:33.281 [by.training.beauty.service.AppointmentServiceTest  -----+`  t] ERROR by.training.beauty.service.AppointmentServiceTest - it is impossible to update appointment
+by.training.beauty.service.ServiceException: by.training.beauty.dao.DaoException
+	at by.training.beauty.service.AppointmentService.updateAppointment(AppointmentService.java:167) ~[classes/:?]
+	at by.training.beauty.service.AppointmentServiceTest.testUpdateAppointment(AppointmentServiceTest.java:116) ~[test-classes/:?]
 	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
 	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:?]
 	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
@@ -67,16 +67,16 @@ by.training.beautyParlor.service.ServiceException: by.training.beautyParlor.dao.
 	at org.testng.TestNG.run(TestNG.java:1031) [testng-7.4.0.jar:7.4.0]
 	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:66) [testng-rt.jar:?]
 	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:109) [testng-rt.jar:?]
-Caused by: by.training.beautyParlor.dao.DaoException
-	at by.training.beautyParlor.dao.mysql.AppointmentDaoImpl.update(AppointmentDaoImpl.java:267) ~[classes/:?]
-	at by.training.beautyParlor.dao.mysql.AppointmentDaoImpl.update(AppointmentDaoImpl.java:14) ~[classes/:?]
-	at by.training.beautyParlor.service.AppointmentService.updateAppointment(AppointmentService.java:158) ~[classes/:?]
+Caused by: by.training.beauty.dao.DaoException
+	at by.training.beauty.dao.mysql.AppointmentDaoImpl.update(AppointmentDaoImpl.java:267) ~[classes/:?]
+	at by.training.beauty.dao.mysql.AppointmentDaoImpl.update(AppointmentDaoImpl.java:14) ~[classes/:?]
+	at by.training.beauty.service.AppointmentService.updateAppointment(AppointmentService.java:158) ~[classes/:?]
 	... 28 more
-14:41:33.727 [by.training.beautyParlor.service.GraphicServiceTest  -----+`  t] ERROR by.training.beautyParlor.service.GraphicServiceTest - an error occurred while getting graphic
-19:05:09.016 [by.training.beautyParlor.service.AppointmentServiceTest  -----+`  t] ERROR by.training.beautyParlor.service.AppointmentServiceTest - it is impossible to update appointment
-by.training.beautyParlor.service.ServiceException: by.training.beautyParlor.dao.DaoException
-	at by.training.beautyParlor.service.AppointmentService.updateAppointment(AppointmentService.java:167) ~[classes/:?]
-	at by.training.beautyParlor.service.AppointmentServiceTest.testUpdateAppointment(AppointmentServiceTest.java:116) ~[test-classes/:?]
+14:41:33.727 [by.training.beauty.service.ScheduleServiceTest  -----+`  t] ERROR by.training.beauty.service.ScheduleServiceTest - an error occurred while getting schedule
+19:05:09.016 [by.training.beauty.service.AppointmentServiceTest  -----+`  t] ERROR by.training.beauty.service.AppointmentServiceTest - it is impossible to update appointment
+by.training.beauty.service.ServiceException: by.training.beauty.dao.DaoException
+	at by.training.beauty.service.AppointmentService.updateAppointment(AppointmentService.java:167) ~[classes/:?]
+	at by.training.beauty.service.AppointmentServiceTest.testUpdateAppointment(AppointmentServiceTest.java:116) ~[test-classes/:?]
 	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
 	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:?]
 	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
@@ -104,16 +104,16 @@ by.training.beautyParlor.service.ServiceException: by.training.beautyParlor.dao.
 	at org.testng.TestNG.run(TestNG.java:1031) [testng-7.4.0.jar:7.4.0]
 	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:66) [testng-rt.jar:?]
 	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:109) [testng-rt.jar:?]
-Caused by: by.training.beautyParlor.dao.DaoException
-	at by.training.beautyParlor.dao.mysql.AppointmentDaoImpl.update(AppointmentDaoImpl.java:267) ~[classes/:?]
-	at by.training.beautyParlor.dao.mysql.AppointmentDaoImpl.update(AppointmentDaoImpl.java:14) ~[classes/:?]
-	at by.training.beautyParlor.service.AppointmentService.updateAppointment(AppointmentService.java:158) ~[classes/:?]
+Caused by: by.training.beauty.dao.DaoException
+	at by.training.beauty.dao.mysql.AppointmentDaoImpl.update(AppointmentDaoImpl.java:267) ~[classes/:?]
+	at by.training.beauty.dao.mysql.AppointmentDaoImpl.update(AppointmentDaoImpl.java:14) ~[classes/:?]
+	at by.training.beauty.service.AppointmentService.updateAppointment(AppointmentService.java:158) ~[classes/:?]
 	... 28 more
-19:05:09.237 [by.training.beautyParlor.service.GraphicServiceTest  -----+`  t] ERROR by.training.beautyParlor.service.GraphicServiceTest - an error occurred while getting graphic
-12:15:39.003 [by.training.beautyParlor.service.AppointmentServiceTest  -----+`  t] ERROR by.training.beautyParlor.service.AppointmentServiceTest - it is impossible to update appointment
-by.training.beautyParlor.service.ServiceException: by.training.beautyParlor.dao.DaoException
-	at by.training.beautyParlor.service.AppointmentService.updateAppointment(AppointmentService.java:167) ~[classes/:?]
-	at by.training.beautyParlor.service.AppointmentServiceTest.testUpdateAppointment(AppointmentServiceTest.java:116) ~[test-classes/:?]
+19:05:09.237 [by.training.beauty.service.ScheduleServiceTest  -----+`  t] ERROR by.training.beauty.service.ScheduleServiceTest - an error occurred while getting schedule
+12:15:39.003 [by.training.beauty.service.AppointmentServiceTest  -----+`  t] ERROR by.training.beauty.service.AppointmentServiceTest - it is impossible to update appointment
+by.training.beauty.service.ServiceException: by.training.beauty.dao.DaoException
+	at by.training.beauty.service.AppointmentService.updateAppointment(AppointmentService.java:167) ~[classes/:?]
+	at by.training.beauty.service.AppointmentServiceTest.testUpdateAppointment(AppointmentServiceTest.java:116) ~[test-classes/:?]
 	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
 	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:?]
 	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
@@ -141,16 +141,16 @@ by.training.beautyParlor.service.ServiceException: by.training.beautyParlor.dao.
 	at org.testng.TestNG.run(TestNG.java:1031) [testng-7.4.0.jar:7.4.0]
 	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:66) [testng-rt.jar:?]
 	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:109) [testng-rt.jar:?]
-Caused by: by.training.beautyParlor.dao.DaoException
-	at by.training.beautyParlor.dao.mysql.AppointmentDaoImpl.update(AppointmentDaoImpl.java:267) ~[classes/:?]
-	at by.training.beautyParlor.dao.mysql.AppointmentDaoImpl.update(AppointmentDaoImpl.java:14) ~[classes/:?]
-	at by.training.beautyParlor.service.AppointmentService.updateAppointment(AppointmentService.java:158) ~[classes/:?]
+Caused by: by.training.beauty.dao.DaoException
+	at by.training.beauty.dao.mysql.AppointmentDaoImpl.update(AppointmentDaoImpl.java:267) ~[classes/:?]
+	at by.training.beauty.dao.mysql.AppointmentDaoImpl.update(AppointmentDaoImpl.java:14) ~[classes/:?]
+	at by.training.beauty.service.AppointmentService.updateAppointment(AppointmentService.java:158) ~[classes/:?]
 	... 28 more
-12:15:39.539 [by.training.beautyParlor.service.GraphicServiceTest  -----+`  t] ERROR by.training.beautyParlor.service.GraphicServiceTest - an error occurred while getting graphic
-12:26:43.709 [by.training.beautyParlor.service.AppointmentServiceTest  -----+`  t] ERROR by.training.beautyParlor.service.AppointmentServiceTest - it is impossible to update appointment
-by.training.beautyParlor.service.ServiceException: by.training.beautyParlor.dao.DaoException
-	at by.training.beautyParlor.service.AppointmentService.updateAppointment(AppointmentService.java:167) ~[classes/:?]
-	at by.training.beautyParlor.service.AppointmentServiceTest.testUpdateAppointment(AppointmentServiceTest.java:116) ~[test-classes/:?]
+12:15:39.539 [by.training.beauty.service.ScheduleServiceTest  -----+`  t] ERROR by.training.beauty.service.ScheduleServiceTest - an error occurred while getting schedule
+12:26:43.709 [by.training.beauty.service.AppointmentServiceTest  -----+`  t] ERROR by.training.beauty.service.AppointmentServiceTest - it is impossible to update appointment
+by.training.beauty.service.ServiceException: by.training.beauty.dao.DaoException
+	at by.training.beauty.service.AppointmentService.updateAppointment(AppointmentService.java:167) ~[classes/:?]
+	at by.training.beauty.service.AppointmentServiceTest.testUpdateAppointment(AppointmentServiceTest.java:116) ~[test-classes/:?]
 	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
 	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:?]
 	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
@@ -178,16 +178,16 @@ by.training.beautyParlor.service.ServiceException: by.training.beautyParlor.dao.
 	at org.testng.TestNG.run(TestNG.java:1031) [testng-7.4.0.jar:7.4.0]
 	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:66) [testng-rt.jar:?]
 	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:109) [testng-rt.jar:?]
-Caused by: by.training.beautyParlor.dao.DaoException
-	at by.training.beautyParlor.dao.mysql.AppointmentDaoImpl.update(AppointmentDaoImpl.java:267) ~[classes/:?]
-	at by.training.beautyParlor.dao.mysql.AppointmentDaoImpl.update(AppointmentDaoImpl.java:14) ~[classes/:?]
-	at by.training.beautyParlor.service.AppointmentService.updateAppointment(AppointmentService.java:158) ~[classes/:?]
+Caused by: by.training.beauty.dao.DaoException
+	at by.training.beauty.dao.mysql.AppointmentDaoImpl.update(AppointmentDaoImpl.java:267) ~[classes/:?]
+	at by.training.beauty.dao.mysql.AppointmentDaoImpl.update(AppointmentDaoImpl.java:14) ~[classes/:?]
+	at by.training.beauty.service.AppointmentService.updateAppointment(AppointmentService.java:158) ~[classes/:?]
 	... 28 more
-12:26:44.151 [by.training.beautyParlor.service.GraphicServiceTest  -----+`  t] ERROR by.training.beautyParlor.service.GraphicServiceTest - an error occurred while getting graphic
-12:40:46.360 [by.training.beautyParlor.service.AppointmentServiceTest  -----+`  t] ERROR by.training.beautyParlor.service.AppointmentServiceTest - it is impossible to update appointment
-by.training.beautyParlor.service.ServiceException: by.training.beautyParlor.dao.DaoException
-	at by.training.beautyParlor.service.AppointmentService.updateAppointment(AppointmentService.java:167) ~[classes/:?]
-	at by.training.beautyParlor.service.AppointmentServiceTest.testUpdateAppointment(AppointmentServiceTest.java:116) ~[test-classes/:?]
+12:26:44.151 [by.training.beauty.service.ScheduleServiceTest  -----+`  t] ERROR by.training.beauty.service.ScheduleServiceTest - an error occurred while getting schedule
+12:40:46.360 [by.training.beauty.service.AppointmentServiceTest  -----+`  t] ERROR by.training.beauty.service.AppointmentServiceTest - it is impossible to update appointment
+by.training.beauty.service.ServiceException: by.training.beauty.dao.DaoException
+	at by.training.beauty.service.AppointmentService.updateAppointment(AppointmentService.java:167) ~[classes/:?]
+	at by.training.beauty.service.AppointmentServiceTest.testUpdateAppointment(AppointmentServiceTest.java:116) ~[test-classes/:?]
 	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
 	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:?]
 	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
@@ -215,9 +215,165 @@ by.training.beautyParlor.service.ServiceException: by.training.beautyParlor.dao.
 	at org.testng.TestNG.run(TestNG.java:1031) [testng-7.4.0.jar:7.4.0]
 	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:66) [testng-rt.jar:?]
 	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:109) [testng-rt.jar:?]
-Caused by: by.training.beautyParlor.dao.DaoException
-	at by.training.beautyParlor.dao.mysql.AppointmentDaoImpl.update(AppointmentDaoImpl.java:267) ~[classes/:?]
-	at by.training.beautyParlor.dao.mysql.AppointmentDaoImpl.update(AppointmentDaoImpl.java:14) ~[classes/:?]
-	at by.training.beautyParlor.service.AppointmentService.updateAppointment(AppointmentService.java:158) ~[classes/:?]
+Caused by: by.training.beauty.dao.DaoException
+	at by.training.beauty.dao.mysql.AppointmentDaoImpl.update(AppointmentDaoImpl.java:267) ~[classes/:?]
+	at by.training.beauty.dao.mysql.AppointmentDaoImpl.update(AppointmentDaoImpl.java:14) ~[classes/:?]
+	at by.training.beauty.service.AppointmentService.updateAppointment(AppointmentService.java:158) ~[classes/:?]
 	... 28 more
-12:40:46.813 [by.training.beautyParlor.service.GraphicServiceTest  -----+`  t] ERROR by.training.beautyParlor.service.GraphicServiceTest - an error occurred while getting graphic
+12:40:46.813 [by.training.beauty.service.ScheduleServiceTest  -----+`  t] ERROR by.training.beauty.service.ScheduleServiceTest - an error occurred while getting schedule
+19:36:11.583 [by.training.beauty.service.AdministrateServiceTest  -----+`  t] ERROR by.training.beauty.service.AdministrateServiceTest - it is impossible to get user list
+19:36:11.603 [by.training.beauty.service.AdministrateServiceTest  -----+`  t] ERROR by.training.beauty.service.AdministrateServiceTest - it is impossible to get pageCount
+19:36:11.646 [by.training.beauty.dao.mysql.AppointmentDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Cannot add or update a child row: a foreign key constraint fails
+19:36:11.649 [by.training.beauty.service.AppointmentServiceTest  -----+`  t] ERROR by.training.beauty.service.AppointmentServiceTest - it is impossible to update appointment
+by.training.beauty.service.ServiceException: by.training.beauty.dao.DaoException
+	at by.training.beauty.service.AppointmentService.updateAppointment(AppointmentService.java:177) ~[classes/:?]
+	at by.training.beauty.service.AppointmentServiceTest.testUpdateAppointment(AppointmentServiceTest.java:113) ~[test-classes/:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:564) ~[?:?]
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128) ~[testng-7.4.0.jar:7.4.0]
+	at java.util.ArrayList.forEach(ArrayList.java:1380) [?:?]
+	at org.testng.TestRunner.privateRun(TestRunner.java:794) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestRunner.run(TestRunner.java:596) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:377) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:371) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:332) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.run(SuiteRunner.java:276) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1212) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1134) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuites(TestNG.java:1063) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.run(TestNG.java:1031) [testng-7.4.0.jar:7.4.0]
+	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:66) [testng-rt.jar:?]
+	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:109) [testng-rt.jar:?]
+Caused by: by.training.beauty.dao.DaoException
+	at by.training.beauty.dao.mysql.AppointmentDaoImpl.update(AppointmentDaoImpl.java:261) ~[classes/:?]
+	at by.training.beauty.dao.mysql.AppointmentDaoImpl.update(AppointmentDaoImpl.java:18) ~[classes/:?]
+	at by.training.beauty.service.AppointmentService.updateAppointment(AppointmentService.java:166) ~[classes/:?]
+	... 28 more
+19:36:11.676 [by.training.beauty.service.AppointmentServiceTest  -----+`  t] ERROR by.training.beauty.service.AppointmentServiceTest - it is impossible to delete user
+19:36:11.735 [by.training.beauty.service.AppointmentServiceTest  -----+`  t] ERROR by.training.beauty.service.AppointmentServiceTest - it is impossible to delete user
+19:36:11.779 [by.training.beauty.service.AppointmentServiceTest  -----+`  t] ERROR by.training.beauty.service.AppointmentServiceTest - java.sql.SQLSyntaxErrorException: Table 'test.schedule' doesn't exist
+19:36:11.826 [by.training.beauty.service.ScheduleServiceTest  -----+`  t] ERROR by.training.beauty.service.ScheduleServiceTest - it is impossible to get schedules by employee with id: 2
+by.training.beauty.service.ServiceException: by.training.beauty.dao.DaoException
+	at by.training.beauty.service.ScheduleService.schedulesByEmployeeDate(ScheduleService.java:43) ~[classes/:?]
+	at by.training.beauty.service.ScheduleServiceTest.testschedulesByEmployee(ScheduleServiceTest.java:52) ~[test-classes/:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:564) ~[?:?]
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128) ~[testng-7.4.0.jar:7.4.0]
+	at java.util.ArrayList.forEach(ArrayList.java:1380) [?:?]
+	at org.testng.TestRunner.privateRun(TestRunner.java:794) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestRunner.run(TestRunner.java:596) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:377) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:371) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:332) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.run(SuiteRunner.java:276) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1212) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1134) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuites(TestNG.java:1063) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.run(TestNG.java:1031) [testng-7.4.0.jar:7.4.0]
+	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:66) [testng-rt.jar:?]
+	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:109) [testng-rt.jar:?]
+Caused by: by.training.beauty.dao.DaoException
+	at by.training.beauty.dao.mysql.ScheduleDaoImpl.findByEmployee(ScheduleDaoImpl.java:246) ~[classes/:?]
+	at by.training.beauty.service.ScheduleService.schedulesByEmployeeDate(ScheduleService.java:28) ~[classes/:?]
+	... 28 more
+19:36:11.831 [by.training.beauty.service.ScheduleServiceTest  -----+`  t] ERROR by.training.beauty.service.ScheduleServiceTest - it is impossible to add schedule
+by.training.beauty.service.ServiceException: by.training.beauty.dao.DaoException
+	at by.training.beauty.service.ScheduleService.addschedule(ScheduleService.java:71) ~[classes/:?]
+	at by.training.beauty.service.ScheduleServiceTest.testAddschedule(ScheduleServiceTest.java:66) ~[test-classes/:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:564) ~[?:?]
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128) ~[testng-7.4.0.jar:7.4.0]
+	at java.util.ArrayList.forEach(ArrayList.java:1380) [?:?]
+	at org.testng.TestRunner.privateRun(TestRunner.java:794) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestRunner.run(TestRunner.java:596) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:377) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:371) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:332) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.run(SuiteRunner.java:276) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1212) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1134) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuites(TestNG.java:1063) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.run(TestNG.java:1031) [testng-7.4.0.jar:7.4.0]
+	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:66) [testng-rt.jar:?]
+	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:109) [testng-rt.jar:?]
+Caused by: by.training.beauty.dao.DaoException
+	at by.training.beauty.dao.mysql.ScheduleDaoImpl.create(ScheduleDaoImpl.java:186) ~[classes/:?]
+	at by.training.beauty.dao.mysql.ScheduleDaoImpl.create(ScheduleDaoImpl.java:18) ~[classes/:?]
+	at by.training.beauty.service.ScheduleService.addschedule(ScheduleService.java:62) ~[classes/:?]
+	... 28 more
+19:36:11.834 [by.training.beauty.service.ScheduleServiceTest  -----+`  t] ERROR by.training.beauty.service.ScheduleServiceTest - it is impossible to delete schedule
+19:36:11.838 [by.training.beauty.service.ScheduleServiceTest  -----+`  t] ERROR by.training.beauty.service.ScheduleServiceTest - java.sql.SQLSyntaxErrorException: Table 'test.schedule' doesn't exist
+19:36:11.919 [by.training.beauty.service.UserServiceTest  -----+`  t] ERROR by.training.beauty.service.AdministrateServiceTest - java.sql.SQLSyntaxErrorException: Table 'test.schedule' doesn't exist
+19:36:12.028 [by.training.beauty.service.ProcedureServiceTest  -----+`  t] ERROR by.training.beauty.service.ProcedureServiceTest - java.sql.SQLSyntaxErrorException: Table 'test.schedule' doesn't exist
+19:42:25.130 [by.training.beauty.service.ScheduleServiceTest  -----+`  t] ERROR by.training.beauty.service.ScheduleServiceTest - an error occurred while getting schedule
+19:43:09.982 [by.training.beauty.dao.mysql.AppointmentDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Cannot add or update a child row: a foreign key constraint fails
+19:43:09.989 [by.training.beauty.service.AppointmentServiceTest  -----+`  t] ERROR by.training.beauty.service.AppointmentServiceTest - it is impossible to update appointment
+by.training.beauty.service.ServiceException: by.training.beauty.dao.DaoException
+	at by.training.beauty.service.AppointmentService.updateAppointment(AppointmentService.java:177) ~[classes/:?]
+	at by.training.beauty.service.AppointmentServiceTest.testUpdateAppointment(AppointmentServiceTest.java:113) ~[test-classes/:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:564) ~[?:?]
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128) ~[testng-7.4.0.jar:7.4.0]
+	at java.util.ArrayList.forEach(ArrayList.java:1380) [?:?]
+	at org.testng.TestRunner.privateRun(TestRunner.java:794) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestRunner.run(TestRunner.java:596) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:377) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:371) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:332) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.run(SuiteRunner.java:276) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1212) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1134) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuites(TestNG.java:1063) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.run(TestNG.java:1031) [testng-7.4.0.jar:7.4.0]
+	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:66) [testng-rt.jar:?]
+	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:109) [testng-rt.jar:?]
+Caused by: by.training.beauty.dao.DaoException
+	at by.training.beauty.dao.mysql.AppointmentDaoImpl.update(AppointmentDaoImpl.java:261) ~[classes/:?]
+	at by.training.beauty.dao.mysql.AppointmentDaoImpl.update(AppointmentDaoImpl.java:18) ~[classes/:?]
+	at by.training.beauty.service.AppointmentService.updateAppointment(AppointmentService.java:166) ~[classes/:?]
+	... 28 more
+19:43:10.198 [by.training.beauty.service.ScheduleServiceTest  -----+`  t] ERROR by.training.beauty.service.ScheduleServiceTest - an error occurred while getting schedule

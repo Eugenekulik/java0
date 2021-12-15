@@ -32,13 +32,9 @@
                        role="button">${text["header.appointment"]}</a>
                 </li></c:if>
                 <c:if test="${role == 'employee'}"><li class="nav-item">
-                    <a class="nav-link main-color-t" href="<c:url value="/graphic.html"/>"
-                       role="button">${text["header.graphic"]}</a>
+                    <a class="nav-link main-color-t" href="<c:url value="/schedule.html"/>"
+                       role="button">${text["header.schedule"]}</a>
                 </li></c:if>
-                <li class="nav-item">
-                    <a class="nav-link main-color-t" href="<c:url value="/about.html"/>"
-                       role="button">${text["header.about"]}</a>
-                </li>
                 <li class="nav-item log">
                     <c:choose>
                         <c:when test="${pageContext.session.getAttribute('user') == null}">

@@ -81,7 +81,7 @@ VALUES (3, 1, 20, 0),
        (4, 5, 20, 0),
        (4, 6, 20, 0);
 
-INSERT INTO graphic (employee_id, date)
+INSERT INTO schedule (employee_id, date)
 VALUES (3, '2021-12-01 09:00:00'),
        (3, '2021-12-01 10:00:00'),
        (3, '2021-12-01 11:00:00'),

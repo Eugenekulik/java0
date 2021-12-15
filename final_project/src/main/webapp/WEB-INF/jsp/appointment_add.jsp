@@ -34,7 +34,7 @@
     <div>
         <form name="timeForm" class="form-group" method="post" action="<c:url value="/appointment_add.html"/>">
             <select class="form-control" id="timeSelect" name="timeSelect">
-                <c:forEach items="${graphics}" var="elem">
+                <c:forEach items="${schedules}" var="elem">
                     <option value="${elem}" role="option">${elem}</option>
                 </c:forEach>
             </select>

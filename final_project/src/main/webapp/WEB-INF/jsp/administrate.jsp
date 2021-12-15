@@ -9,6 +9,7 @@
     <link href="${path}" rel="stylesheet">
     <title>administrate</title>
 </head>
+<body>
 <c:import url="fragment/header.jsp"/>
 <div class="container">
     <ul class="nav nav-pills nav-fill tab">
@@ -26,7 +27,7 @@
         </li>
         <li class="nav-item <c:if test="${tab == 4}">active</c:if>">
             <a class="nav-link h5 main-color-s"
-               href="<c:url value="/administrate.html?tab=4"/>">${text['header.graphic']}</a>
+               href="<c:url value="/administrate.html?tab=4"/>">${text['header.schedule']}</a>
         </li>
     </ul>
     <div class="panel">
@@ -266,21 +267,21 @@
                         <th>date</th>
                         <td></td>
                     </tr>
-                    <c:forEach var="graphic" items="${graphics}">
+                    <c:forEach var="schedule" items="${schedules}">
                         <tr>
-                            <td>${graphic.id}</td>
+                            <td>${schedule.id}</td>
                             <td>
                                 <c:forEach var="employee" items="${employees}">
-                                    <c:if test="${employee.id == graphic.employeeId}">
+                                    <c:if test="${employee.id == schedule.employeeId}">
                                         ${employee.name}
                                     </c:if>
                                 </c:forEach>
                             </td>
-                            <td>${graphic.date}</td>
+                            <td>${schedule.date}</td>
                             <td>
                                 <form method="post" action="<c:url
                                     value="/changeData.html"/>">
-                                    <input type="hidden" value="${graphic.id}" name="delete">
+                                    <input type="hidden" value="${schedule.id}" name="delete">
                                     <button class="btn btn-danger" type="submit">${text['administrate.delete']}</button>
                                 </form>
                             </td>
@@ -323,7 +324,6 @@
         </c:choose>
     </div>
 </div>
-<c:import url="fragment/footer.jsp"/>
 
 <!--Modal window for update user-->
 <div id="user-modal" class="modal">
@@ -471,5 +471,6 @@
             $("#procedureElapsedTime").attr('value', procedureTime);
         });
 </script>
+<c:import url="fragment/footer.jsp"/>
 </body>
 </html>

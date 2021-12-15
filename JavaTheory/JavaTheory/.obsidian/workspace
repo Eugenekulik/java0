@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Theory for text(part 2).md",
+            "file": "Theory for test.md",
             "mode": "source"
           }
         }
@@ -39,7 +39,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "транзакции",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -48,8 +48,7 @@
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -69,7 +68,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Theory for text(part 2).md",
+                "file": "Theory for test.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -89,9 +88,9 @@
   },
   "active": "84db50eca8e3d606",
   "lastOpenFiles": [
-    "Theory for text(part 2).md",
+    "Theory for test.md",
+    "Theory for test(part 2).md",
     "Pasted image 20211124141751.png",
-    "Без названия.md",
-    "Theory for test.md"
+    "Без названия.md"
   ]
 }

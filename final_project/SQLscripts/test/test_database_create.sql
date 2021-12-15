@@ -172,18 +172,18 @@ CREATE TABLE IF NOT EXISTS `test`.`score`
 
 
 -- -----------------------------------------------------
--- Table `beauty_parlor`.`graphic`
+-- Table `beauty_parlor`.`schedule`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `test`.`graphic`;
+DROP TABLE IF EXISTS `test`.`schedule`;
 
-CREATE TABLE IF NOT EXISTS `test`.`graphic`
+CREATE TABLE IF NOT EXISTS `test`.`schedule`
 (
     `id`          INT       NOT NULL AUTO_INCREMENT,
     `employee_id` INT       NOT NULL,
     `date`        TIMESTAMP NOT NULL,
     PRIMARY KEY (`id`),
     UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
-    CONSTRAINT `un_graphic` UNIQUE (`employee_id`, `date`),
+    CONSTRAINT `un_schedule` UNIQUE (`employee_id`, `date`),
     INDEX `employee_idx` (`employee_id` ASC) VISIBLE,
     CONSTRAINT `employee`
         FOREIGN KEY (`employee_id`)

@@ -6,7 +6,7 @@
         </File>
     </Appenders>
     <Loggers>
-        <Logger name="by.training.beautyParlor" level="info" additivity="false">
+        <Logger name="by.training.beauty" level="info" additivity="false">
             <AppenderRef ref="LogToFile"/>
         </Logger>
         <Root level="debug">

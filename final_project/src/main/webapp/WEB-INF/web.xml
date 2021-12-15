@@ -9,7 +9,7 @@
     </welcome-file-list>
     <servlet>
         <servlet-name>controller</servlet-name>
-        <servlet-class>by.training.beautyParlor.controller.Controller</servlet-class>
+        <servlet-class>by.training.beauty.controller.Controller</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>controller</servlet-name>
@@ -17,15 +17,23 @@
     </servlet-mapping>
     <filter>
         <filter-name>EncodingFilter</filter-name>
-        <filter-class>by.training.beautyParlor.controller.filter.EncodingFilter</filter-class>
+        <filter-class>by.training.beauty.controller.filter.EncodingFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>EncodingFilter</filter-name>
         <url-pattern>*.html</url-pattern>
     </filter-mapping>
     <filter>
+        <filter-name>XssFilter</filter-name>
+        <filter-class>by.training.beauty.controller.filter.XssFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>XssFilter</filter-name>
+        <url-pattern>*.html</url-pattern>
+    </filter-mapping>
+    <filter>
         <filter-name>ActionFromUriFilter</filter-name>
-        <filter-class>by.training.beautyParlor.controller.filter.ActionFromUriFilter</filter-class>
+        <filter-class>by.training.beauty.controller.filter.ActionFromUriFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>ActionFromUriFilter</filter-name>
@@ -33,7 +41,7 @@
     </filter-mapping>
     <filter>
         <filter-name>LanguageFilter</filter-name>
-        <filter-class>by.training.beautyParlor.controller.filter.LanguageFilter</filter-class>
+        <filter-class>by.training.beauty.controller.filter.LanguageFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>LanguageFilter</filter-name>
@@ -41,7 +49,7 @@
     </filter-mapping>
     <filter>
         <filter-name>SecurityFilter</filter-name>
-        <filter-class>by.training.beautyParlor.controller.filter.SecurityFilter</filter-class>
+        <filter-class>by.training.beauty.controller.filter.SecurityFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>SecurityFilter</filter-name>
