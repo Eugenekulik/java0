@@ -16,3 +16,4 @@
 
 Примеры: https://www.kosmetologiya.by/
         https://linline-club.by/services/kosmetologiya/
+![image](https://user-images.githubusercontent.com/67892037/146311416-6ed58cdc-e5e4-428f-b9fc-1074e6a459fc.png)
