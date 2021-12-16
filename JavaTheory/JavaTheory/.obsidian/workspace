@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Theory for test.md",
+            "file": "Theory for test(part 2).md",
             "mode": "source"
           }
         }
@@ -68,7 +68,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Theory for test.md",
+                "file": "Theory for test(part 2).md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -88,8 +88,8 @@
   },
   "active": "84db50eca8e3d606",
   "lastOpenFiles": [
-    "Theory for test.md",
     "Theory for test(part 2).md",
+    "Theory for test.md",
     "Pasted image 20211124141751.png",
     "Без названия.md"
   ]

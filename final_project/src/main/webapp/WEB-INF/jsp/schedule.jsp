@@ -14,13 +14,13 @@
 <div class="panel">
     <table class="table">
         <tr>
-            <th>Id</th>
+            <th>№</th>
             <th>date</th>
         </tr>
-        <c:forEach var="schedule" items="${schedules}">
+        <c:forEach var="date" items="${dates}" varStatus="status">
             <tr>
-                <td>${schedule.id}</td>
-                <td>${schedule.date}</td>
+                <td>${status.index + 1}</td>
+                <td>${date}</td>
             </tr>
         </c:forEach>
     </table>

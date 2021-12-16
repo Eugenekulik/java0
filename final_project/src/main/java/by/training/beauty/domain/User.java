@@ -64,7 +64,7 @@ public class User extends Entity{
     }
 
     public enum Role {
-        CLIENT("client"), EMPLOYEE("employee"), ADMIN("admin");
+        client("client"), employee("employee"), admin("admin");
         private String actual;
 
         Role(String actual) {

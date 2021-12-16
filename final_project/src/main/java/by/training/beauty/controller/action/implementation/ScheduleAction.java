@@ -13,6 +13,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -39,8 +41,8 @@ public class ScheduleAction implements Action {
 
     @Override
     public String execute(HttpServletRequest request) {
-        /*int pageCount  = 0;
-        int paginationPage = 0;*/
+        int pageCount  = 0;
+        int paginationPage = 0;
         User employee = (User) request.getSession().getAttribute("user");
         ScheduleService scheduleService = new ScheduleService();
         try {
@@ -55,10 +57,24 @@ public class ScheduleAction implements Action {
                             .map(Appointment.class::cast)
                     .sorted((o1, o2) -> o1.getDate().compareTo(o2.getDate()))
                                     .collect(Collectors.toList());
-            request.getSession().setAttribute("schedules",schedules);
-            request.getSession().setAttribute("appointments",appointments);
+            Set<LocalDate>  dates = new HashSet<>();
+            dates.addAll(schedules.stream()
+                    .map(schedule -> schedule.getDate().toLocalDate())
+                    .collect(Collectors.toSet()));
+            dates.addAll(appointments.stream()
+                    .map(appointment -> appointment.getDate().toLocalDate())
+                    .collect(Collectors.toSet()));
+            try {
+                paginationPage = Integer.parseInt(request.getParameter("paginationPage"));
+            } catch (NumberFormatException e) {
+                paginationPage = 1;
+            }
+            request.getSession().setAttribute("paginationPage",paginationPage);
+            pageCount = (int) Math.ceil(dates.size()/10.0);
+            request.getSession().setAttribute("dates", dates);
+            request.getSession().setAttribute("pageCount",pageCount);
             return PageEnum.SCHEDULE.getPage();
-        } catch (ServiceException e){
+        } catch (ServiceException e) {
             LOGGER.error("it is impossible to get schedules");
         }
         return PageEnum.ERROR.getPage();
