@@ -42,6 +42,5 @@
         </form>
     </div>
 </div>
-<c:import url="fragment/footer.jsp"/>
 </body>
 </html>

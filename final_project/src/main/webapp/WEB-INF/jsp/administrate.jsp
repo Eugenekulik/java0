@@ -471,6 +471,5 @@
             $("#procedureElapsedTime").attr('value', procedureTime);
         });
 </script>
-<c:import url="fragment/footer.jsp"/>
 </body>
 </html>

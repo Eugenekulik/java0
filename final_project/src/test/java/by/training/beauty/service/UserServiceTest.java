@@ -10,6 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.File;
@@ -55,6 +56,25 @@ public class UserServiceTest {
         }
     }
 
+    @DataProvider(name = "invalidLogin")
+    public Object[][] createLoginPassword(){
+        return new Object[][]{
+                {"thiruser","thirduser"},
+                {"thirduser","thiruser"},
+        };
+    }
+
+    @Test(dataProvider = "invalidLogin")
+    public void testLoginInvalid(String login, String password){
+        UserService userService = new UserService();
+        try {
+            User user = userService.login(login,password);
+            assertNull(user);
+        } catch (ServiceException e){
+            LOGGER.error("it is impossible to authorizate",e);
+        }
+    }
+
     @Test
     public void testRegistrate() {
         UserService userService =  new UserService();
@@ -68,6 +88,22 @@ public class UserServiceTest {
             assertNotNull(actual);
         } catch (ServiceException e) {
             LOGGER.error("it is impossible to registrate user",e);
+        }
+    }
+
+    @Test
+    public void testRegistrateInvalid() {
+        UserService userService =  new UserService();
+        User user = new User();
+        user.setName("new user");
+        user.setLogin("thirduser"); //user with this login exist
+        user.setPassword("password");
+        user.setPhone("+375337748378");
+        try {
+            User actual = userService.registrate(user);
+            assertNull(actual);
+        } catch (ServiceException e) {
+            LOGGER.error("an error occurred while registering the user",e);
         }
     }
 
