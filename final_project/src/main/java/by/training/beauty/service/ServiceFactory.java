@@ -1,5 +1,6 @@
 package by.training.beauty.service;
 
+import by.training.beauty.domain.Score;
 import by.training.beauty.service.validator.UserValidator;
 
 public class ServiceFactory {
@@ -33,6 +34,7 @@ public class ServiceFactory {
     public UserService getUserService(){
         return new UserService();
     }
+    public ScoreService getScoreService() {return new ScoreService();}
 
 }
 

@@ -1,5 +1,6 @@
 package by.training.beauty.dao;
 
+import by.training.beauty.domain.Appointment;
 import by.training.beauty.domain.Schedule;
 import by.training.beauty.domain.User;
 
@@ -30,4 +31,6 @@ public interface ScheduleDao extends Dao<Schedule>{
      * @throws DaoException
      */
     Schedule findByEmployeeDate(LocalDateTime time, User employee) throws DaoException;
+
+    Schedule findByAppointment(Appointment appointment) throws  DaoException;
 }

@@ -5,10 +5,8 @@ import by.training.beauty.dao.UserDao;
 import by.training.beauty.domain.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -218,16 +216,23 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean create(User user) throws DaoException {
+    public int create(User user) throws DaoException {
         PreparedStatement statement = null;
+        ResultSet resultSet = null;
         try {
-            statement = connection.prepareStatement(SQL_CREATE);
+            statement = connection.prepareStatement(SQL_CREATE, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, user.getLogin());
             statement.setString(2, user.getPassword());
             statement.setString(3, user.getName());
             statement.setString(4, user.getPhone());
             statement.setString(5, user.getRole());
-            return statement.executeUpdate() != 0;
+            statement.executeUpdate();
+            resultSet = statement.getGeneratedKeys();
+            int id = 0;
+            while(resultSet.next()){
+                id = resultSet.getInt(1);
+            }
+            return id;
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
             throw new DaoException();
@@ -235,6 +240,13 @@ public class UserDaoImpl implements UserDao {
             try {
                 if (statement != null) {
                     statement.close();
+                }
+            } catch (SQLException e) {
+                LOGGER.error(e.getMessage());
+            }
+            try {
+                if(resultSet != null) {
+                    resultSet.close();
                 }
             } catch (SQLException e) {
                 LOGGER.error(e.getMessage());

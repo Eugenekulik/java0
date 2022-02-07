@@ -61,7 +61,9 @@ public class SecurityFilter implements Filter {
         user.setName("unknown");
         String role = null;
         if (session != null) {
-            user  = ((User) session.getAttribute("user"));
+            if(session.getAttribute("user") != null) {
+                user = ((User) session.getAttribute("user"));
+            }
             role = (String) session.getAttribute("role");
             if(role == null) {
                 role = "unknown";

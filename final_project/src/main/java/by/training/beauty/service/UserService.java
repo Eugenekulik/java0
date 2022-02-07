@@ -78,7 +78,8 @@ public class UserService {
             transaction = transactionFactory.createTransaction();
             UserDao userDao = transaction.createDao(USER_DAO);
             User temp = userDao.findByLogin(user.getLogin());
-            if (temp == null && userDao.create(user)) {
+            if (temp == null) {
+                userDao.create(user);
                 transaction.commit();
                 return user;
             } else {
@@ -180,5 +181,27 @@ public class UserService {
             }
             throw new ServiceException(e);
         }
+    }
+
+    public User findById(int id){
+        TransactionFactory transactionFactory = null;
+        Transaction transaction = null;
+        User user = null;
+        try {
+            transactionFactory = new TransactionFactoryImpl();
+            transaction = transactionFactory.createTransaction();
+            UserDao userDao = transaction.createDao("userDao");
+            user  = userDao.findById(id);
+            transaction.commit();
+        } catch (DaoException e){
+            try {
+                if(transaction != null){
+                    transaction.rollback();
+                }
+            } catch (DaoException e1) {
+                LOGGER.error("it is impossible to rollback transaction");
+            }
+        }
+        return user;
     }
 }

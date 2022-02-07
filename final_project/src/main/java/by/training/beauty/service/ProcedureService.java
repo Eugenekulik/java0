@@ -58,14 +58,14 @@ public class ProcedureService {
      * @return Procedure
      * @throws ServiceException
      */
-    public Procedure getProcedureByName(String name) throws ServiceException {
+    public Procedure getProcedureById(int id) throws ServiceException {
         Procedure procedure;
         TransactionFactory transactionFactory = new TransactionFactoryImpl();
         Transaction transaction = null;
         try {
             transaction = transactionFactory.createTransaction();
             ProcedureDao procedureDao = transaction.createDao(PROCEDURE_DAO);
-            procedure = procedureDao.findByName(name);
+            procedure = procedureDao.findById(id);
             transaction.commit();
         } catch (DaoException e) {
             try {

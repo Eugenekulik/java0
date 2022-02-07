@@ -2,6 +2,7 @@ package by.training.beauty.dao.mysql;
 
 import by.training.beauty.dao.DaoException;
 import by.training.beauty.dao.ScoreDao;
+import by.training.beauty.domain.Appointment;
 import by.training.beauty.domain.Score;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,10 +17,13 @@ import java.util.List;
 
 public class ScoreDaoImpl implements ScoreDao {
     private static final Logger LOGGER = LogManager.getLogger(ScoreDaoImpl.class);
+    private static final String SQL_FIND_BY_APPOINTMENT = "SELECT score.id, score.user_id, " +
+            "score.value, score.appointment_id, score.comment, " +
+            "score.date FROM score WHERE score.appointment_id = ?;";
     private Connection connection;
     private static final String SQL_CREATE = "INSERT INTO score(score.user_id, " +
             "score.value , score.appointment_id , score.comment, " +
-            "appointment.date) VALUES(?,?,?,?,?);";
+            "score.date) VALUES(?,?,?,?,?);";
     private static final String SQL_FIND_INTERVAL = "SELECT score.id, score.user_id, " +
             "score.value, score.appointment_id, score.comment, " +
             "score.date FROM score WHERE score.id>0 LIMIT ?, ?;";
@@ -214,16 +218,19 @@ public class ScoreDaoImpl implements ScoreDao {
     }
 
     @Override
-    public boolean create(Score score) throws DaoException {
+    public int create(Score score) throws DaoException {
         PreparedStatement statement = null;
+        ResultSet resultSet = null;
         try {
-            statement = connection.prepareStatement(SQL_CREATE);
+            statement = connection.prepareStatement(SQL_CREATE, Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, score.getUserId());
             statement.setInt(2, score.getValue());
             statement.setInt(3, score.getAppointmentId());
             statement.setString(4, score.getComment());
             statement.setTimestamp(5, Timestamp.valueOf(score.getDate()));
-            return statement.executeUpdate() != 0;
+            statement.executeUpdate();
+            resultSet = statement.getGeneratedKeys();
+            return 1;
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
             throw new DaoException();
@@ -231,6 +238,13 @@ public class ScoreDaoImpl implements ScoreDao {
             try {
                 if (statement != null) {
                     statement.close();
+                }
+            } catch (SQLException e) {
+                LOGGER.error(e.getMessage());
+            }
+            try {
+                if(resultSet != null) {
+                    resultSet.close();
                 }
             } catch (SQLException e) {
                 LOGGER.error(e.getMessage());
@@ -267,5 +281,47 @@ public class ScoreDaoImpl implements ScoreDao {
     @Override
     public void setConnection(Connection connection) {
         this.connection = connection;
+    }
+
+    @Override
+    public List<Score> findByAppointment(Appointment appointment) throws DaoException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        List<Score> scores = new ArrayList<>();
+        try {
+            statement = connection.prepareStatement(SQL_FIND_BY_APPOINTMENT);
+            statement.setInt(1,appointment.getId());
+            statement.execute();
+            resultSet = statement.getResultSet();
+            while(resultSet.next()){
+                Score score = new Score();
+                score.setId(resultSet.getInt("score.id"));
+                score.setUserId(resultSet.getInt("score.user_id"));
+                score.setValue(resultSet.getByte("score.value"));
+                score.setAppointmentId(resultSet.getInt("score.appointment_id"));
+                score.setComment(resultSet.getString("score.comment"));
+                score.setDate(resultSet.getTimestamp("score.date").toLocalDateTime());
+                scores.add(score);
+            }
+            return scores;
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+            throw new DaoException();
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (SQLException e) {
+                LOGGER.error(e.getMessage());
+            }
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                LOGGER.error(e.getMessage());
+            }
+        }
     }
 }

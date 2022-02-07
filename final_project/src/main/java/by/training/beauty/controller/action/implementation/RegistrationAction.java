@@ -25,10 +25,9 @@ public class RegistrationAction implements Action {
     private static final String EXIST = "userExist";
 
     private static final Logger LOGGER = LogManager.getLogger(RegistrationAction.class);
-    private boolean redirect = true;
     @Override
     public boolean isRedirect() {
-        return redirect;
+        return true;
     }
 
     @Override

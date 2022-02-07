@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 public class Schedule extends Entity{
     private int employeeId;
     private LocalDateTime date;
+    private int appointmentId;
 
     @Override
     public int hashCode() {
@@ -48,5 +49,13 @@ public class Schedule extends Entity{
 
     public void setDate(LocalDateTime date) {
         this.date = date;
+    }
+
+    public int getAppointmentId() {
+        return appointmentId;
+    }
+
+    public void setAppointmentId(int appointmentId) {
+        this.appointmentId = appointmentId;
     }
 }

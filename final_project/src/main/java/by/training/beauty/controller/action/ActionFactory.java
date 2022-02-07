@@ -138,6 +138,9 @@ public class ActionFactory {
             case "/schedule":
                 action = new ScheduleAction();
                 break;
+            case "/score_add":
+                action = new AddScoreAction();
+                break;
             default: action = new EmptyAction();
         }
         return action;

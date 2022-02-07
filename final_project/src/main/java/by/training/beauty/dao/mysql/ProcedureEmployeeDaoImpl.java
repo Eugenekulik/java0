@@ -228,15 +228,18 @@ public class ProcedureEmployeeDaoImpl implements ProcedureEmployeeDao {
     }
 
     @Override
-    public boolean create(ProcedureEmployee procedureEmployee) throws DaoException {
+    public int create(ProcedureEmployee procedureEmployee) throws DaoException {
         PreparedStatement statement = null;
+        ResultSet resultSet = null;
         try {
             statement = connection.prepareStatement(SQL_CREATE);
             statement.setInt(1, procedureEmployee.getEmployeeId());
             statement.setInt(2, procedureEmployee.getProcedureId());
             statement.setDouble(3, procedureEmployee.getPrice());
             statement.setDouble(4, procedureEmployee.getRating());
-            return statement.executeUpdate() != 0;
+            statement.executeUpdate();
+            resultSet = statement.getGeneratedKeys();
+            return resultSet.getInt("id");
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
             throw new DaoException();
@@ -244,6 +247,13 @@ public class ProcedureEmployeeDaoImpl implements ProcedureEmployeeDao {
             try {
                 if (statement != null) {
                     statement.close();
+                }
+            } catch (SQLException e) {
+                LOGGER.error(e.getMessage());
+            }
+            try {
+                if(resultSet != null) {
+                    resultSet.close();
                 }
             } catch (SQLException e) {
                 LOGGER.error(e.getMessage());

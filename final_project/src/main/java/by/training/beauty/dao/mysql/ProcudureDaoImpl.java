@@ -214,15 +214,18 @@ public class ProcudureDaoImpl implements ProcedureDao {
     }
 
     @Override
-    public boolean create(Procedure procedure) throws DaoException {
+    public int create(Procedure procedure) throws DaoException {
         PreparedStatement statement = null;
+        ResultSet resultSet = null;
         try {
             statement = connection.prepareStatement(SQL_CREATE);
             statement.setInt(1, procedure.getCategoryId());
             statement.setString(2, procedure.getName());
             statement.setString(3, procedure.getDescription());
             statement.setInt(4, procedure.getElapsedTime());
-            return statement.executeUpdate() != 0;
+            statement.executeUpdate();
+            resultSet = statement.getGeneratedKeys();
+            return resultSet.getInt("id");
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
             throw new DaoException();
@@ -230,6 +233,13 @@ public class ProcudureDaoImpl implements ProcedureDao {
             try {
                 if (statement != null) {
                     statement.close();
+                }
+            } catch (SQLException e) {
+                LOGGER.error(e.getMessage());
+            }
+            try {
+                if(resultSet != null) {
+                    resultSet.close();
                 }
             } catch (SQLException e) {
                 LOGGER.error(e.getMessage());

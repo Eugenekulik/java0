@@ -39,16 +39,6 @@ public class AppointmentService {
             transaction = transactionFactory.createTransaction();
             AppointmentDao appointmentDao
                     = transaction.createDao(APPOINTMENT_DAO);
-            Appointment tempAppointment
-                    = appointmentDao.findById(id);
-            ScheduleDao scheduleDao = transaction.createDao("scheduleDao");
-            ProcedureEmployeeDao procedureEmployeeDao =
-                    transaction.createDao(PROCEDURE_EMPLOYEE_DAO);
-            Schedule schedule = new Schedule();
-            schedule.setEmployeeId(procedureEmployeeDao.findById(tempAppointment
-                    .getProcedureEmployeeId()).getEmployeeId());
-            schedule.setDate(tempAppointment.getDate());
-            scheduleDao.create(schedule);
             appointmentDao.delete(id);
             transaction.commit();
         } catch (DaoException e) {
@@ -172,17 +162,17 @@ public class AppointmentService {
             appointment.setStatus(1);
             AppointmentDao appointmentDao
                     = transaction.createDao(APPOINTMENT_DAO);
-            boolean isSuccess = appointmentDao.create(appointment);
-            if (isSuccess) {
+            int isSuccess = appointmentDao.create(appointment);
+            if (isSuccess != 0) {
                 User employee = userDao.findById(employeeId);
                 ScheduleDao scheduleDao = transaction.createDao("scheduleDao");
                 Schedule schedule = scheduleDao
                         .findByEmployeeDate(appointment.getDate(), employee);
-                scheduleDao.delete(schedule.getId());
+                schedule.setAppointmentId(isSuccess);
+                scheduleDao.update(schedule);
             }
-
             transaction.commit();
-            return isSuccess;
+            return true;
         } catch (DaoException e) {
             try {
                 if(transaction != null) {

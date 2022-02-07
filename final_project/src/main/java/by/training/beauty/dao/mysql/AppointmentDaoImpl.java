@@ -224,16 +224,22 @@ public class AppointmentDaoImpl implements AppointmentDao {
     }
 
     @Override
-    public boolean create(Appointment appointment) throws DaoException {
+    public int create(Appointment appointment) throws DaoException {
         PreparedStatement statement = null;
+        ResultSet resultSet = null;
         try {
-            statement = connection.prepareStatement(SQL_CREATE);
+            statement = connection.prepareStatement(SQL_CREATE, Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, appointment.getUserId());
             statement.setInt(2, appointment.getProcedureEmployeeId());
             statement.setTimestamp(3, Timestamp.valueOf(appointment.getDate()));
             statement.setInt(4, appointment.getStatus());
             statement.setDouble(5, appointment.getPrice());
-            return statement.executeUpdate() != 0;
+            statement.executeUpdate();
+            resultSet = statement.getGeneratedKeys();
+            while(resultSet.next()){
+                return resultSet.getInt("GENERATED_KEY");
+            }
+            return 0;
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
             throw new DaoException();
@@ -241,6 +247,13 @@ public class AppointmentDaoImpl implements AppointmentDao {
             try {
                 if (statement != null) {
                     statement.close();
+                }
+            } catch (SQLException e) {
+                LOGGER.error(e.getMessage());
+            }
+            try {
+                if(resultSet != null){
+                    resultSet.close();
                 }
             } catch (SQLException e) {
                 LOGGER.error(e.getMessage());

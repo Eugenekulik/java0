@@ -167,6 +167,7 @@ CREATE TABLE IF NOT EXISTS `beauty_parlor`.`schedule` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `employee_id` INT NOT NULL,
   `date` TIMESTAMP NOT NULL,
+  `appointment_id` INT,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
   CONSTRAINT `un_schedule` UNIQUE (`employee_id`,`date`),
@@ -175,8 +176,25 @@ CREATE TABLE IF NOT EXISTS `beauty_parlor`.`schedule` (
     FOREIGN KEY (`employee_id`)
     REFERENCES `beauty_parlor`.`user` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE NO ACTION,
+  CONSTRAINT `appointment_id`
+    FOREIGN KEY (`appointment_id`)
+    REFERENCES `beauty_parlor`.`appointment` (`id`)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE )
 ENGINE = InnoDB;
+
+CREATE DEFINER = CURRENT_USER TRIGGER `beauty_parlor`.`score_AFTER_INSERT` AFTER INSERT ON `score` FOR EACH ROW
+BEGIN
+    set @idr = (select procedure_employee_id
+    from score inner join appointment on score.appointment_id = appointment_id
+    where score.id = new.id);
+    update procedure_employee set procedure_employee.rating =
+                                      (select avg(value)
+                                       from score inner join appointment on score.appointment_id = appointment_id
+                                       where procedure_employee.id = procedure_employee_id)
+    where procedure_employee.id = @idr;
+END;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

@@ -1,6 +1,7 @@
 package by.training.beauty.dao.mysql;
 
 import by.training.beauty.dao.ScheduleDao;
+import by.training.beauty.domain.Appointment;
 import by.training.beauty.domain.Schedule;
 import by.training.beauty.dao.DaoException;
 import by.training.beauty.domain.User;
@@ -18,18 +19,36 @@ import java.util.List;
 
 public class ScheduleDaoImpl implements ScheduleDao {
     private static final Logger LOGGER = LogManager.getLogger(ScheduleDaoImpl.class);
-    private static final String SQL_FIND_INTERVAL = "SELECT schedule.id, schedule.employee_id, schedule.date " +
-            "from schedule WHERE schedule.id>0 LIMIT ?, ?;";
+    private static final String SQL_FIND_INTERVAL = "SELECT schedule.id, " +
+            "schedule.employee_id, schedule.date, " +
+            "schedule.appointment_id from schedule " +
+            "WHERE schedule.id>0 LIMIT ?, ?;";
+    private static final String SQL_FIND_BY_APPOINTMENT = "SELECT schedule.id, " +
+            "schedule.employee_id, schedule.date, " +
+            "schedule.appointment_id from schedule " +
+            "WHERE schedule.appointment_id = ?;";
     private Connection connection;
-    private static final String SQL_FIND_BY_EMPLOYEE = "SELECT schedule.id, schedule.employee_id, schedule.date " +
-            "from schedule WHERE schedule.employee_id = ?;";
-    private static final String SQL_FIND_BY_EMPLOYEE_DATE = "SELECT schedule.id, schedule.employee_id, " +
-            "schedule.date FROM schedule WHERE schedule.date = ? and schedule.employee_id = ?;";
-    private static final String SQL_CREATE = "INSERT INTO schedule(schedule.employee_id, schedule.date) VALUES(?,?);";
-    private static final String SQL_FIND_ALL = "SELECT schedule.id, schedule.employee_id, schedule.date from schedule;";
-    private static final String SQL_FIND_BY_ID = "SELECT schedule.id, schedule.employee_id, schedule.date WHERE schedule.id = ?;";
-    private static final String SQL_DELETE = "DELETE FROM schedule WHERE schedule.id = ?;";
-    private static final String SQL_UPDATE = "UPDATE schedule SET schedule.employee_id = ?, schedule.date = ? WHERE schedule.id = ?;";
+    private static final String SQL_FIND_BY_EMPLOYEE = "SELECT schedule.id, " +
+            "schedule.employee_id, schedule.date, " +
+            "schedule.appointment_id from schedule " +
+            "WHERE schedule.employee_id = ?;";
+    private static final String SQL_FIND_BY_EMPLOYEE_DATE = "SELECT schedule.id, " +
+            "schedule.employee_id, schedule.date, schedule.appointment_id " +
+            "FROM schedule WHERE schedule.date = ? and schedule.employee_id = ?;";
+    private static final String SQL_CREATE = "INSERT INTO schedule(" +
+            "schedule.employee_id, schedule.date) " +
+            "VALUES(?,?);";
+    private static final String SQL_FIND_ALL = "SELECT schedule.id, " +
+            "schedule.employee_id, schedule.date, schedule.appointment_id " +
+            "from schedule;";
+    private static final String SQL_FIND_BY_ID = "SELECT schedule.id, " +
+            "schedule.employee_id, schedule.date, schedule.appointment_id " +
+            "WHERE schedule.id = ?;";
+    private static final String SQL_DELETE = "DELETE FROM schedule " +
+            "WHERE schedule.id = ?;";
+    private static final String SQL_UPDATE = "UPDATE schedule " +
+            "SET schedule.employee_id = ?, schedule.date = ?, " +
+            "schedule.appointment_id = ? WHERE schedule.id = ?;";
     @Override
     public List<Schedule> findall() throws DaoException {
         PreparedStatement statement = null;
@@ -44,6 +63,7 @@ public class ScheduleDaoImpl implements ScheduleDao {
                 schedule.setId(resultSet.getInt("schedule.id"));
                 schedule.setEmployeeId(resultSet.getInt("schedule.employee_id"));
                 schedule.setDate(resultSet.getTimestamp("schedule.date").toLocalDateTime());
+                schedule.setAppointmentId(resultSet.getInt("schedule.appointment_id"));
                 schedules.add(schedule);
             }
         } catch (SQLException e) {
@@ -84,6 +104,7 @@ public class ScheduleDaoImpl implements ScheduleDao {
                 schedule.setId(resultSet.getInt("schedule.id"));
                 schedule.setEmployeeId(resultSet.getInt("schedule.employee_id"));
                 schedule.setDate(resultSet.getTimestamp("schedule.date").toLocalDateTime());
+                schedule.setAppointmentId(resultSet.getInt("schedule.appointment_id"));
                 schedules.add(schedule);
             }
         } catch (SQLException e) {
@@ -123,6 +144,7 @@ public class ScheduleDaoImpl implements ScheduleDao {
                 schedule.setId(resultSet.getInt("schedule.id"));
                 schedule.setEmployeeId(resultSet.getInt("schedule.employee_id"));
                 schedule.setDate(resultSet.getTimestamp("schedule.date").toLocalDateTime());
+                schedule.setAppointmentId(resultSet.getInt("schedule.appointment_id"));
             }
             return schedule;
         } catch (SQLException e) {
@@ -168,13 +190,19 @@ public class ScheduleDaoImpl implements ScheduleDao {
     }
 
     @Override
-    public boolean create(Schedule schedule) throws DaoException {
+    public int create(Schedule schedule) throws DaoException {
         PreparedStatement statement = null;
+        ResultSet resultSet = null;
         try {
-            statement = connection.prepareStatement(SQL_CREATE);
+            statement = connection.prepareStatement(SQL_CREATE, Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, schedule.getEmployeeId());
             statement.setTimestamp(2, Timestamp.valueOf(schedule.getDate()));
-            return statement.executeUpdate() != 0;
+            statement.executeUpdate();
+            resultSet = statement.getGeneratedKeys();
+            while(resultSet.next()){
+                return resultSet.getInt("GENERATED_KEY");
+            }
+            return 0;
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
             throw new DaoException();
@@ -182,6 +210,13 @@ public class ScheduleDaoImpl implements ScheduleDao {
             try {
                 if (statement != null) {
                     statement.close();
+                }
+            } catch (SQLException e) {
+                LOGGER.error(e.getMessage());
+            }
+            try {
+                if(resultSet != null) {
+                    resultSet.close();
                 }
             } catch (SQLException e) {
                 LOGGER.error(e.getMessage());
@@ -196,7 +231,8 @@ public class ScheduleDaoImpl implements ScheduleDao {
             statement = connection.prepareStatement(SQL_UPDATE);
             statement.setInt(1, schedule.getEmployeeId());
             statement.setTimestamp(2, Timestamp.valueOf(schedule.getDate()));
-            statement.setInt(3, schedule.getId());
+            statement.setInt(3, schedule.getAppointmentId());
+            statement.setInt(4, schedule.getId());
             return statement.executeUpdate() != 0;
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
@@ -231,6 +267,7 @@ public class ScheduleDaoImpl implements ScheduleDao {
                 schedule.setId(resultSet.getInt("schedule.id"));
                 schedule.setEmployeeId(resultSet.getInt("schedule.employee_id"));
                 schedule.setDate(resultSet.getTimestamp("schedule.date").toLocalDateTime());
+                schedule.setAppointmentId(resultSet.getInt("schedule.appointment_id"));
                 schedules.add(schedule);
             }
         } catch (SQLException e) {
@@ -270,6 +307,7 @@ public class ScheduleDaoImpl implements ScheduleDao {
                 schedule.setId(resultSet.getInt("schedule.id"));
                 schedule.setEmployeeId(resultSet.getInt("schedule.employee_id"));
                 schedule.setDate(resultSet.getTimestamp("schedule.date").toLocalDateTime());
+                schedule.setAppointmentId(resultSet.getInt("schedule.appointment_id"));
             }
             return schedule;
         } catch (SQLException e) {
@@ -292,6 +330,45 @@ public class ScheduleDaoImpl implements ScheduleDao {
             }
         }
     }
+
+    @Override
+    public Schedule findByAppointment(Appointment appointment) throws DaoException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        Schedule schedule = new Schedule();
+        try {
+            statement = connection.prepareStatement(SQL_FIND_BY_APPOINTMENT);
+            statement.setInt(1,appointment.getId());
+            statement.execute();
+            resultSet = statement.getResultSet();
+            while(resultSet.next()){
+                schedule.setId(resultSet.getInt("schedule.id"));
+                schedule.setEmployeeId(resultSet.getInt("schedule.employee_id"));
+                schedule.setDate(resultSet.getTimestamp("schedule.date").toLocalDateTime());
+                schedule.setAppointmentId(resultSet.getInt("schedule.appointment_id"));
+            }
+            return schedule;
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+            throw new DaoException();
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (SQLException e) {
+                LOGGER.error(e.getMessage());
+            }
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                LOGGER.error(e.getMessage());
+            }
+        }
+    }
+
     @Override
     public int count() throws DaoException {
         PreparedStatement statement = null;

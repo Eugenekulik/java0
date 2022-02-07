@@ -62,7 +62,8 @@
                                     <form method="post" action="<c:url
                                     value="/changeData.html"/>">
                                         <input type="hidden" value="${user.id}" name="delete">
-                                        <button class="btn btn-danger" type="submit">${text['administrate.delete']}</button>
+                                        <button class="btn btn-danger"
+                                                type="submit">${text['administrate.delete']}</button>
                                     </form>
                                 </td>
                             </c:if>
@@ -226,7 +227,8 @@
                         </tr>
                     </c:forEach>
                 </table>
-                <a class="btn btn-success" href="<c:url value="/administrate_add.html"/>">${text['administrate.add']}</a>
+                <a class="btn btn-success"
+                   href="<c:url value="/administrate_add.html"/>">${text['administrate.add']}</a>
                 <ul class="pagination">
                     <c:if test="${paginationPage>1}">
                         <li class="page-item">
@@ -263,8 +265,9 @@
                 <table class="table">
                     <tr>
                         <th>id</th>
-                        <th>Employee</th>
+                        <th>employee</th>
                         <th>date</th>
+                        <th>appointment id</th>
                         <td></td>
                     </tr>
                     <c:forEach var="schedule" items="${schedules}">
@@ -278,6 +281,12 @@
                                 </c:forEach>
                             </td>
                             <td>${schedule.date}</td>
+                            <c:if test="${schedule.appointmentId != 0}">
+                                <td>${schedule.appointmentId}</td>
+                            </c:if>
+                            <c:if test="${schedule.appointmentId == 0}">
+                                <td></td>
+                            </c:if>
                             <td>
                                 <form method="post" action="<c:url
                                     value="/changeData.html"/>">
@@ -288,7 +297,8 @@
                         </tr>
                     </c:forEach>
                 </table>
-                <a class="btn btn-success" href="<c:url value="/administrate_add.html"/>">${text['administrate.add']}</a>
+                <a class="btn btn-success"
+                   href="<c:url value="/administrate_add.html"/>">${text['administrate.add']}</a>
                 <ul class="pagination">
                     <c:if test="${paginationPage>1}">
                         <li class="page-item">

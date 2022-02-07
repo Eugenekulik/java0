@@ -181,15 +181,21 @@ CREATE TABLE IF NOT EXISTS `test`.`schedule`
     `id`          INT       NOT NULL AUTO_INCREMENT,
     `employee_id` INT       NOT NULL,
     `date`        TIMESTAMP NOT NULL,
+    `appointment_id` INT,
     PRIMARY KEY (`id`),
     UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
     CONSTRAINT `un_schedule` UNIQUE (`employee_id`, `date`),
     INDEX `employee_idx` (`employee_id` ASC) VISIBLE,
     CONSTRAINT `employee`
         FOREIGN KEY (`employee_id`)
-            REFERENCES `test`.`user` (`id`)
-            ON DELETE NO ACTION
-            ON UPDATE NO ACTION
+        REFERENCES `test`.`user` (`id`)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION,
+    CONSTRAINT `appointment_id`
+    FOREIGN KEY (`appointment_id`)
+    REFERENCES `test`.`appointment` (`id`)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE
 )
     ENGINE = InnoDB;
 

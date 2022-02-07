@@ -18,7 +18,7 @@ public interface Dao<T extends Entity> {
     int count()throws DaoException;
     T findById(int id)throws DaoException;
     boolean delete(int id) throws DaoException;
-    boolean create(T t) throws DaoException;
+    int create(T t) throws DaoException;
     boolean update(T t)throws DaoException;
     void setConnection(Connection connection);
 }

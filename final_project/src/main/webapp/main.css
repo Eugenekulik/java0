@@ -114,3 +114,7 @@ footer {
     background: #c44569;
     color: #574b90;
 }
+.comment {
+    border: 2px solid #c6727e;
+    border-radius: 3px;
+}

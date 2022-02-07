@@ -4,12 +4,12 @@
     "type": "split",
     "children": [
       {
-        "id": "84db50eca8e3d606",
+        "id": "3d5efa68af24fa40",
         "type": "leaf",
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Theory for test.md",
+            "file": "Транзакции и ACID.md",
             "mode": "source"
           }
         }
@@ -52,7 +52,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 144
+    "width": 152
   },
   "right": {
     "id": "730b5b44b427ab2e",
@@ -68,7 +68,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Theory for test.md",
+                "file": "Транзакции и ACID.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -86,11 +86,17 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "84db50eca8e3d606",
+  "active": "3d5efa68af24fa40",
   "lastOpenFiles": [
+    "Транзакции и ACID.md",
+    "Collections Java.md",
+    "Функциональное программирование Stream API.md",
+    "HTTP протокол.md",
+    "SOLID принципы.md",
     "Theory for test.md",
     "Theory for test(part 2).md",
-    "Pasted image 20211124141751.png",
-    "Без названия.md"
+    "ОПП и принципы ООП.md",
+    "Сервлеты.md",
+    "Память в JAVA.md"
   ]
 }

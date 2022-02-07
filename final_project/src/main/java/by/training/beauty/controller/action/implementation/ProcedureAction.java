@@ -2,17 +2,20 @@ package by.training.beauty.controller.action.implementation;
 
 import by.training.beauty.controller.action.Action;
 import by.training.beauty.controller.action.PageEnum;
+import by.training.beauty.dao.UserDao;
 import by.training.beauty.domain.Category;
-import by.training.beauty.service.ServiceException;
+import by.training.beauty.domain.Score;
+import by.training.beauty.domain.User;
+import by.training.beauty.service.*;
 import by.training.beauty.domain.Procedure;
-import by.training.beauty.service.ProcedureService;
-import by.training.beauty.service.ServiceFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * This class implement interface Action
@@ -37,22 +40,34 @@ public class ProcedureAction implements Action {
     @Override
     public String execute(HttpServletRequest request) {
         String page;
-        String current = request.getParameter("current");
+        Integer current = null;
+        try {
+            current = Integer.parseInt(request.getParameter("current"));
+        } catch (NumberFormatException e){}
+        if(current == null){
+            current = 1;
+        }
         try {
             ProcedureService procedureService =
                     ServiceFactory.getInstance().getProcedureService();
+            ScoreService scoreService = ServiceFactory.getInstance().getScoreService();
+            UserService userService = ServiceFactory.getInstance().getUserService();
             List<Procedure> procedureList = procedureService.getProcedures();
             if(procedureList.isEmpty()) {
                 return PageEnum.MAIN.getPage();
             }
-            if(current == null) {
-                current = procedureList.get(0).getName();
-            }
-            Procedure procedure = procedureService.getProcedureByName(current);
+            Procedure procedure = procedureService.getProcedureById(current);
             List<Category> categories = procedureService.getCategories();
+            List<Score> scores = scoreService.getScoreByProcedure(procedure);
+            List<User> users = new ArrayList<>();
+            users.addAll(scores.stream()
+                    .map(score -> userService.findById(score.getUserId()))
+                    .collect(Collectors.toList()));
             request.getSession().setAttribute("categories",categories);
             request.getSession().setAttribute("procedureList", procedureList);
             request.getSession().setAttribute("procedure", procedure);
+            request.getSession().setAttribute("scores", scores);
+            request.getSession().setAttribute("users", users);
             page = PageEnum.PROCEDURE.getPage();
         } catch (ServiceException e) {
             LOGGER.error("it is impossible to get procedure list");

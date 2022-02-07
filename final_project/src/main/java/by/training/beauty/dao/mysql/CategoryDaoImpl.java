@@ -211,14 +211,17 @@ public class CategoryDaoImpl implements CategoryDao {
     }
 
     @Override
-    public boolean create(Category category) throws DaoException {
+    public int create(Category category) throws DaoException {
         PreparedStatement statement = null;
+        ResultSet resultSet = null;
         try {
             statement = connection.prepareStatement(SQL_CREATE);
             statement.setInt(1, category.getId());
             statement.setString(2,category.getName());
             statement.setString(3,category.getDescription());
-            return statement.executeUpdate() != 0;
+            statement.executeUpdate();
+            resultSet = statement.getGeneratedKeys();
+            return resultSet.getInt("id");
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
             throw new DaoException();
@@ -226,6 +229,13 @@ public class CategoryDaoImpl implements CategoryDao {
             try {
                 if (statement != null) {
                     statement.close();
+                }
+            } catch (SQLException e) {
+                LOGGER.error(e.getMessage());
+            }
+            try {
+                if(resultSet != null) {
+                    resultSet.close();
                 }
             } catch (SQLException e) {
                 LOGGER.error(e.getMessage());

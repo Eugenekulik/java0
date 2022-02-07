@@ -25,7 +25,7 @@
                 <c:forEach var="elem" items="${procedureList}">
                     <c:if test="${status.count == elem.categoryId}">
                         <li>
-                            <a href="<c:url value="/procedure.html?current=${elem.name}"/>"
+                            <a href="<c:url value="/procedure.html?current=${elem.id}"/>"
                                class="main-color-s">${elem.name}</a>
                         </li>
                     </c:if>
@@ -45,7 +45,22 @@
             method="post" name="AddAppointmentForm">
                 <input type="submit" class="btn btn-success btn-lg" value="${text['procedure.add']}"/>
             </form>
-
+        </div>
+        </br>
+        <div class="container comment">
+            <c:forEach var="score" items="${scores}">
+                <div class="">
+                    <c:forEach items="${users}" var="user">
+                        <c:if test="${score.userId == user.id }">
+                            ${user.name}
+                        </c:if>
+                    </c:forEach><span>: ${score.value}/5</span>
+                </div>
+                <hr>
+                <div>
+                        ${score.comment}
+                </div>
+            </c:forEach>
         </div>
     </div>
 </div>

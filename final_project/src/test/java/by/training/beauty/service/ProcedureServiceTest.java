@@ -55,14 +55,14 @@ public class ProcedureServiceTest {
     }
 
     @Test
-    public void testGetProcedureByName() {
+    public void testGetProcedureById() {
         ProcedureService procedureService =  new ProcedureService();
-        String name = "Лазерное омоложение";
+        int id  = 1;
         try {
-            Procedure procedure = procedureService.getProcedureByName(name);
-            assertEquals(procedure.getId(),1);
+            Procedure procedure = procedureService.getProcedureById(id);
+            assertEquals(procedure.getName(),"Лазерное омоложение");
         } catch (ServiceException e) {
-            LOGGER.error(String.format("it is impossible to get procedure by name: %s",name),e);
+            LOGGER.error(String.format("it is impossible to get procedure by id: %s",id),e);
         }
     }
 
