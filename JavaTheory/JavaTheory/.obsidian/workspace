@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Транзакции и ACID.md",
+            "file": "пометки.md",
             "mode": "source"
           }
         }
@@ -52,7 +52,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 152
+    "width": 134
   },
   "right": {
     "id": "730b5b44b427ab2e",
@@ -68,7 +68,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Транзакции и ACID.md",
+                "file": "пометки.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -88,15 +88,15 @@
   },
   "active": "3d5efa68af24fa40",
   "lastOpenFiles": [
-    "Транзакции и ACID.md",
-    "Сервлеты.md",
-    "Функциональное программирование Stream API.md",
-    "Collections Java.md",
-    "SOLID принципы.md",
-    "Theory for test.md",
-    "HTTP протокол.md",
+    "пометки.md",
     "Память в JAVA.md",
+    "Theory for test.md",
+    "Theory for test(part 2).md",
+    "Транзакции и ACID.md",
     "ОПП и принципы ООП.md",
-    "img/Pasted image 20211225161705.png"
+    "Сервлеты.md",
+    "HTTP протокол.md",
+    "SOLID принципы.md",
+    "Функциональное программирование Stream API.md"
   ]
 }

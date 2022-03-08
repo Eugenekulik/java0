@@ -54,7 +54,7 @@ public class AppointmentServiceTest {
         expected.setUserId(3);
         expected.setStatus(1);
         expected.setPrice(20.0);
-        expected.setDate(LocalDateTime.of(LocalDate.parse("2021-12-01"), LocalTime.parse("09:00:00")));
+        expected.setDate(LocalDateTime.of(LocalDate.parse("2021-12-01"), LocalTime.parse("10:00:00")));
         expected.setProcedureEmployeeId(2);
         Procedure procedure = new Procedure();
         procedure.setId(1);

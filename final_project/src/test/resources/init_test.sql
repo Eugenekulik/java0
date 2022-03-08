@@ -82,10 +82,6 @@ VALUES (1, 3, 2, '2021-12-01 09:00:00', 1, 50),
         (2, 3, 1, '2021-12-01 11:00:00', 1, 30),
         (3, 3, 2, '2021-12-01 12:00:00', 1, 50);
 
-INSERT INTO test.score(id, user_id, value, appointment_id, comment, date)
-VALUES (1,3, 5, 1, 'it is nice work!','2021-12-02 10:30:00'),
-        (2, 3, 4, 2, 'good work', '2021-12-02 10:30:00'),
-        (3, 3, 3, 3, 'normal', '2021-12-02 10:30:00');
 
 INSERT INTO test.schedule(id, employee_id, date)
 VALUES (1, 2, '2021-12-01 10:00:00'),
