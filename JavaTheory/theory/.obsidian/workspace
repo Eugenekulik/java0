@@ -1,29 +1,32 @@
 {
   "main": {
-    "id": "06f4c5b912f0fa7b",
+    "id": "aa95a4efe5a2eda6",
     "type": "split",
     "children": [
       {
-        "id": "93f8dbad8404ae3b",
+        "id": "3d5efa68af24fa40",
         "type": "leaf",
         "state": {
-          "type": "empty",
-          "state": {}
+          "type": "markdown",
+          "state": {
+            "file": "java/пометки.md",
+            "mode": "source"
+          }
         }
       }
     ],
     "direction": "vertical"
   },
   "left": {
-    "id": "59072c2307a5a75a",
+    "id": "07387be70ec6179e",
     "type": "split",
     "children": [
       {
-        "id": "0860ff56d271bc0e",
+        "id": "26ed1f164b199228",
         "type": "tabs",
         "children": [
           {
-            "id": "e1c7b236865ba401",
+            "id": "e838323faf20ccd0",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -31,7 +34,7 @@
             }
           },
           {
-            "id": "398b1e983042de15",
+            "id": "5d213396b818be7b",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -49,22 +52,23 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 134
   },
   "right": {
-    "id": "258ff21482aadfa0",
+    "id": "730b5b44b427ab2e",
     "type": "split",
     "children": [
       {
-        "id": "e2d895f6dc0ca455",
+        "id": "b7609a69ca9fcd9b",
         "type": "tabs",
         "children": [
           {
-            "id": "2af91a0c7821bd1d",
+            "id": "aed27a1ad05f968d",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
+                "file": "java/пометки.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -82,6 +86,17 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "93f8dbad8404ae3b",
-  "lastOpenFiles": []
+  "active": "3d5efa68af24fa40",
+  "lastOpenFiles": [
+    "java/пометки.md",
+    "java/Память в JAVA.md",
+    "java/Theory for test.md",
+    "java/Theory for test(part 2).md",
+    "java/Транзакции и ACID.md",
+    "java/ОПП и принципы ООП.md",
+    "java/Сервлеты.md",
+    "java/HTTP протокол.md",
+    "java/SOLID принципы.md",
+    "java/Функциональное программирование Stream API.md"
+  ]
 }
