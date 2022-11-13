@@ -1,8 +1,20 @@
 package by.training.beauty.controller.action;
 
-import by.training.beauty.controller.action.implementation.*;
+import by.training.beauty.controller.action.implementation.admin.AdministrateAction;
+import by.training.beauty.controller.action.implementation.admin.AdministrateAddAction;
+import by.training.beauty.controller.action.implementation.admin.AdministrateChangeAction;
+import by.training.beauty.controller.action.implementation.admin.ScheduleAddAction;
+import by.training.beauty.controller.action.implementation.client.*;
+import by.training.beauty.controller.action.implementation.common.EmptyAction;
+import by.training.beauty.controller.action.implementation.common.LoginAction;
+import by.training.beauty.controller.action.implementation.common.LogoutAction;
+import by.training.beauty.controller.action.implementation.common.RegistrationAction;
+import by.training.beauty.controller.action.implementation.employee.ScheduleAction;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Locale;
 import java.util.Set;
 
 /**
@@ -10,6 +22,7 @@ import java.util.Set;
  */
 
 public class ActionFactory {
+    private static final Logger logger = LogManager.getLogger(ActionFactory.class);
     private HttpServletRequest request;
     private static final String UNKNOWN = "unknown";
 
@@ -23,125 +36,19 @@ public class ActionFactory {
         if (commandType == null) {
             return new EmptyAction();
         }
-        switch (commandType) {
-            //This action allows getting login page.
-            case "/login":
-                action = new Action() {
-                    @Override
-                    public boolean isRedirect() {
-                        return false;
-                    }
-
-                    @Override
-                    public Set<String> getRoles() {
-                        return Set.of(UNKNOWN);
-                    }
-
-                    @Override
-                    public String execute(HttpServletRequest request) {
-                        return PageEnum.LOGIN.getPage();
-                    }
-
-                    @Override
-                    public String getMethod() {
-                        return "GET";
-                    }
-                };
-                break;
-                // This action allows getting administrate_add page.
-            case "/administrate_add":
-                switch ((String) request.getSession().getAttribute("activeTab")) {
-                    case "3":
-                        action = new ProcedureAddAction();
-                        break;
-                    case "4":
-                        action  = new ScheduleAddAction();
-                        break;
-                    default: action = new EmptyAction();
-                }
-                break;
-                //This action allows getting registration page.
-            case "/registration":
-                action = new Action() {
-                    @Override
-                    public boolean isRedirect() {
-                        return false;
-                    }
-
-                    @Override
-                    public Set<String> getRoles() {
-                        return Set.of(UNKNOWN);
-                    }
-
-                    @Override
-                    public String execute(HttpServletRequest request) {
-                        return PageEnum.REGISTRATION.getPage();
-                    }
-
-                    @Override
-                    public String getMethod() {
-                        return "GET";
-                    }
-                };
-                break;
-                //This action allows getting main page.
-            case "/main":
-                action = new Action() {
-                    @Override
-                    public boolean isRedirect() {
-                        return false;
-                    }
-
-                    @Override
-                    public Set<String> getRoles() {
-                        return Set.of(UNKNOWN,"admin","employee","client");
-                    }
-
-                    @Override
-                    public String execute(HttpServletRequest request) {
-                        return PageEnum.MAIN.getPage();
-                    }
-
-                    @Override
-                    public String getMethod() {
-                        return "GET";
-                    }
-                };
-                break;
-            case "/login_submit":
-                action = new LoginAction();
-                break;
-            case "/logout":
-                action = new LogoutAction();
-                break;
-            case "/registration_submit":
-                action = new RegistrationAction();
-                break;
-            case "/procedure":
-                action = new ProcedureAction();
-                break;
-            case "/appointment":
-                action = new AppointmentAction();
-                break;
-            case "/appointment_add":
-                action = new AddAppointmentAction();
-                break;
-            case "/administrate":
-                action = new AdministrateAction();
-                break;
-            case "/changeData":
-                action = new AdministrateChangeAction();
-                break;
-            case  "/administrate_add_submit":
-                action = new AdministrateAddAction();
-                break;
-            case "/schedule":
-                action = new ScheduleAction();
-                break;
-            case "/score_add":
-                action = new AddScoreAction();
-                break;
-            default: action = new EmptyAction();
+        commandType = commandType.substring(1).toUpperCase(Locale.ROOT);
+        try {
+            ActionEnum actionEnum = ActionEnum.valueOf(commandType);
+            action = actionEnum.getAction().newInstance();
+        } catch (InstantiationException e) {
+            logger.warn(e.getMessage());
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            logger.warn(e.getMessage());
+            e.printStackTrace();
+        }
+        if(action == null){
+            return new EmptyAction();
         }
         return action;
     }

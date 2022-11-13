@@ -18,24 +18,24 @@ public class UserDaoImpl implements UserDao {
     private static final Logger LOGGER = LogManager.getLogger(UserDaoImpl.class);
     private Connection connection;
     private static final String SQL_CREATE = "INSERT INTO user(user.login, user.password, " +
-            "user.name, user.phone, user.role) VALUES(?,?,?,?,?);";
+            "user.name, user.phone) VALUES(?,?,?,?);";
     private static final String SQL_FIND_ALL = "SELECT user.id, user.login, user.password, " +
-            "user.name, user.phone, user.role FROM user";
+            "user.name, user.phone FROM user";
     private static final String SQL_FIND_INTERVAL = "SELECT user.id, user.login, user.password, " +
-            "user.name, user.phone, user.role FROM user WHERE user.id>0 LIMIT ?, ?";
+            "user.name, user.phone FROM user WHERE user.id>0 LIMIT ?, ?";
     private static final String SQL_FIND_BY_ID = "SELECT user.id, user.login, user.password, " +
-            "user.name, user.phone, user.role FROM user WHERE user.id = ?;";
+            "user.name, user.phone FROM user WHERE user.id = ?;";
     private static final String SQL_DELETE = "DELETE FROM user WHERE user.id = ?;";
     private static final String SQL_UPDATE = "UPDATE user SET user.login = ?, user.password = ?, " +
-            "user.name = ?, user.phone = ?, user.role = ? WHERE user.id = ?;";
+            "user.name = ?, user.phone = ? WHERE user.id = ?;";
     private static final String SQL_READ_BY_LOGIN_PASSWORD = "SELECT user.id, user.login, user.password, " +
-            "user.name, user.phone, user.role FROM user WHERE user.login = ? AND user.password = ?;";
+            "user.name, user.phone FROM user WHERE user.login = ? AND user.password = ?;";
     private static final String SQL_READ_BY_LOGIN = "SELECT user.id, user.login, user.password, " +
-            "user.name, user.phone, user.role FROM user WHERE user.login = ?;";
+            "user.name, user.phone FROM user WHERE user.login = ?;";
     private static final String SQL_READ_BY_NAME = "SELECT user.id, user.login, user.password, " +
-            "user.name, user.phone, user.role FROM user WHERE user.name = ?;";
+            "user.name, user.phone FROM user WHERE user.name = ?;";
     private static final String SQL_FIND_EMPLOYEES = "SELECT user.id, user.login, user.password, " +
-            "user.name, user.phone, user.role FROM user WHERE user.role = 'employee'";
+            "user.name, user.phone FROM user WHERE user.role = 'employee'";
     @Override
     public List<User> findall() throws DaoException {
         PreparedStatement statement = null;
@@ -52,7 +52,6 @@ public class UserDaoImpl implements UserDao {
                 user.setPassword(resultSet.getString("user.password"));
                 user.setName(resultSet.getString("user.name"));
                 user.setPhone(resultSet.getString("user.phone"));
-                user.setRole(resultSet.getString("user.role"));
                 users.add(user);
             }
         } catch (SQLException e) {
@@ -128,7 +127,6 @@ public class UserDaoImpl implements UserDao {
                 user.setPassword(resultSet.getString("user.password"));
                 user.setName(resultSet.getString("user.name"));
                 user.setPhone(resultSet.getString("user.phone"));
-                user.setRole(resultSet.getString("user.role"));
                 users.add(user);
             }
         } catch (SQLException e) {
@@ -170,7 +168,6 @@ public class UserDaoImpl implements UserDao {
                 user.setPassword(resultSet.getString("user.password"));
                 user.setName(resultSet.getString("user.name"));
                 user.setPhone(resultSet.getString("user.phone"));
-                user.setRole(resultSet.getString("user.role"));
             }
             return user;
         } catch (SQLException e) {
@@ -225,7 +222,6 @@ public class UserDaoImpl implements UserDao {
             statement.setString(2, user.getPassword());
             statement.setString(3, user.getName());
             statement.setString(4, user.getPhone());
-            statement.setString(5, user.getRole());
             statement.executeUpdate();
             resultSet = statement.getGeneratedKeys();
             int id = 0;
@@ -263,8 +259,7 @@ public class UserDaoImpl implements UserDao {
             statement.setString(2, user.getPassword());
             statement.setString(3, user.getName());
             statement.setString(4, user.getPhone());
-            statement.setString(5, user.getRole());
-            statement.setInt(6,user.getId());
+            statement.setInt(5,user.getId());
             return statement.executeUpdate() != 0;
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
@@ -298,7 +293,6 @@ public class UserDaoImpl implements UserDao {
                 user.setPassword(resultSet.getString("user.password"));
                 user.setName(resultSet.getString("user.name"));
                 user.setPhone(resultSet.getString("user.phone"));
-                user.setRole(resultSet.getString("user.role"));
             }
             return user;
         } catch (SQLException e) {
@@ -339,7 +333,6 @@ public class UserDaoImpl implements UserDao {
                 user.setPassword(resultSet.getString("user.password"));
                 user.setName(resultSet.getString("user.name"));
                 user.setPhone(resultSet.getString("user.phone"));
-                user.setRole(resultSet.getString("user.role"));
             }
             return user;
         } catch (SQLException e) {
@@ -379,7 +372,6 @@ public class UserDaoImpl implements UserDao {
                 user.setPassword(resultSet.getString("user.password"));
                 user.setName(resultSet.getString("user.name"));
                 user.setPhone(resultSet.getString("user.phone"));
-                user.setRole(resultSet.getString("user.role"));
                 users.add(user);
             }
         } catch (SQLException e) {
@@ -420,7 +412,6 @@ public class UserDaoImpl implements UserDao {
                 user.setPassword(resultSet.getString("user.password"));
                 user.setName(resultSet.getString("user.name"));
                 user.setPhone(resultSet.getString("user.phone"));
-                user.setRole(resultSet.getString("user.role"));
             }
             return user;
         } catch (SQLException e) {

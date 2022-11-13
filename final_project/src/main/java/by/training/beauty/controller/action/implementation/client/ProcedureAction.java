@@ -1,8 +1,7 @@
-package by.training.beauty.controller.action.implementation;
+package by.training.beauty.controller.action.implementation.client;
 
 import by.training.beauty.controller.action.Action;
 import by.training.beauty.controller.action.PageEnum;
-import by.training.beauty.dao.UserDao;
 import by.training.beauty.domain.Category;
 import by.training.beauty.domain.Score;
 import by.training.beauty.domain.User;

@@ -1,5 +1,8 @@
 package by.training.beauty.domain;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -10,15 +13,17 @@ import java.util.Objects;
  * login  - user login;
  * password - user password;
  * phone - user phone;
- * role - user role(client, employee, admin);
+ * role - user role represented as a Role class ;
  */
 public class User extends Entity{
     private String name;
     private String login;
     private String password;
     private String phone;
-    private Role role;
 
+
+
+    private List<Role> roles = new ArrayList<>();
     public User(){}
 
 
@@ -55,31 +60,17 @@ public class User extends Entity{
     public void setPassword(String password) {
         this.password = password;
     }
-
-    public String getRole() {
-        return role.getActual();
-    }
-    public void setRole(String role) {
-        this.role = Role.valueOf(role);
+    public List<Role> getRoles() {
+        return roles;
     }
 
-    public enum Role {
-        client("client"), employee("employee"), admin("admin");
-        private String actual;
-
-        Role(String actual) {
-            this.actual = actual;
-        }
-
-        public String getActual() {
-            return actual;
-        }
-
-        @Override
-        public String toString() {
-            return actual;
-        }
+    public boolean addRole(Role role) {
+        return roles.add(role);
     }
+    public boolean removeRole(Role role){
+        return roles.remove(role);
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -97,6 +88,6 @@ public class User extends Entity{
     @Override
     public String toString(){
         return "id: " + getId() + " name: " + name +
-                " login: " + login + " role: " + role;
+                " login: " + login;
     }
 }

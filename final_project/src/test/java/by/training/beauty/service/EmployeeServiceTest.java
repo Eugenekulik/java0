@@ -55,7 +55,7 @@ public class EmployeeServiceTest {
             assertEquals(employeeList.size(), 1);
         } catch (ServiceException e) {
             LOGGER.error(String.format("it is impossible to get employee " +
-                    "list by procedure with id: %D", procedure.getId()));
+                    "list by procedure with id: %d", procedure.getId()));
         }
     }
 

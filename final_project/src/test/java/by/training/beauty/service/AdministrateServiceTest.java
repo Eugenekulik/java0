@@ -67,7 +67,7 @@ public class AdministrateServiceTest {
         AdministrateService administrateService = new AdministrateService();
         try {
             List<Entity> entities = administrateService.administrateAppointments(1);
-            assertEquals(entities.size(), 8);
+            assertEquals(entities.size(), 14);
         } catch (ServiceException e) {
             LOGGER.error("it is impossible to get user list");
         }

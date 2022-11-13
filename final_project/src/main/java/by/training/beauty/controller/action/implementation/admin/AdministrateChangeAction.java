@@ -1,8 +1,9 @@
-package by.training.beauty.controller.action.implementation;
+package by.training.beauty.controller.action.implementation.admin;
 
 import by.training.beauty.controller.action.Action;
 import by.training.beauty.domain.Appointment;
 import by.training.beauty.domain.Procedure;
+import by.training.beauty.domain.Role;
 import by.training.beauty.domain.User;
 import by.training.beauty.service.*;
 import org.apache.logging.log4j.LogManager;
@@ -72,9 +73,11 @@ public class AdministrateChangeAction implements Action {
                                 break;
                             }
                         }
+                        Role role = new Role();
+                        role.setName(request.getParameter("selectedRole"));
                         user.setName(request.getParameter("name"));
                         user.setPhone(request.getParameter("phone"));
-                        user.setRole(request.getParameter("selectRole"));
+                        user.addRole(role);
                         UserService userService =
                                 ServiceFactory.getInstance().getUserService();
                         userService.updateUser(user);

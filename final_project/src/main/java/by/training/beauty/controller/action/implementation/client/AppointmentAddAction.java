@@ -1,4 +1,4 @@
-package by.training.beauty.controller.action.implementation;
+package by.training.beauty.controller.action.implementation.client;
 
 import by.training.beauty.controller.action.Action;
 import by.training.beauty.controller.action.PageEnum;
@@ -27,7 +27,7 @@ import java.util.Set;
  * @see Appointment
  * @see AppointmentService
  */
-public class AddAppointmentAction implements Action {
+public class AppointmentAddAction implements Action {
 
     //CONSTANTS
     private static final String PROCEDURE = "procedure";
@@ -38,7 +38,7 @@ public class AddAppointmentAction implements Action {
 
     //LOGGER
     private static final Logger LOGGER = LogManager
-            .getLogger(AddAppointmentAction.class);
+            .getLogger(AppointmentAddAction.class);
 
     @Override
     public boolean isRedirect() {

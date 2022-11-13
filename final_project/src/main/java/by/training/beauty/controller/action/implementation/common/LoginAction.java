@@ -1,4 +1,4 @@
-package by.training.beauty.controller.action.implementation;
+package by.training.beauty.controller.action.implementation.common;
 
 import by.training.beauty.controller.action.Action;
 import by.training.beauty.domain.User;
@@ -51,7 +51,7 @@ public class LoginAction implements Action {
             if(user !=null) {
                 HttpSession session = request.getSession();
                 session.setAttribute("user", user);
-                session.setAttribute("role", user.getRole());
+                session.setAttribute("roles", user.getRoles());
                 page = "/main.html";
             }
             else {

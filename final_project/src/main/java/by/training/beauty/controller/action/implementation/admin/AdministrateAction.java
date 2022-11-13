@@ -1,4 +1,4 @@
-package by.training.beauty.controller.action.implementation;
+package by.training.beauty.controller.action.implementation.admin;
 
 import by.training.beauty.controller.action.Action;
 import by.training.beauty.controller.action.PageEnum;
@@ -70,20 +70,24 @@ public class AdministrateAction implements Action {
                     entities = administrateService.administrateAppointments(paginationPage);
                     List<User> clients = entities.stream()
                             .filter(User.class::isInstance).map(User.class::cast)
-                            .filter(user -> user.getRole().equals("client")).collect(Collectors.toList());
+                            .filter(user -> user.getRoles().equals("client")).collect(Collectors.toList());
                     List<User> employees = entities.stream()
                             .filter(User.class::isInstance).map(User.class::cast)
-                            .filter((user -> user.getRole().equals("employee"))).collect(Collectors.toList());
+                            .filter((user -> user.getRoles().equals("employee"))).collect(Collectors.toList());
                     List<Appointment> appointments = entities.stream()
                             .filter(Appointment.class::isInstance)
                             .map(Appointment.class::cast).collect(Collectors.toList());
                     List<Procedure> procedures = entities.stream()
                             .filter(Procedure.class::isInstance)
                             .map(Procedure.class::cast).collect(Collectors.toList());
+                    List<Category> categories = entities.stream()
+                            .filter(Category.class::isInstance)
+                            .map(Category.class::cast).collect(Collectors.toList());
                     request.getSession().setAttribute("clients", clients);
                     request.getSession().setAttribute("employees", employees);
                     request.getSession().setAttribute("appointments", appointments);
                     request.getSession().setAttribute("procedures", procedures);
+                    request.getSession().setAttribute("categories", categories);
                     break;
                 case "3":
                     pageCount = administrateService.getPagecount(3);
@@ -92,11 +96,11 @@ public class AdministrateAction implements Action {
                             .filter(Procedure.class::isInstance)
                             .map(Procedure.class::cast)
                             .collect(Collectors.toList());
-                    List<Category> categories = entities.stream()
+                    List<Category> categories1 = entities.stream()
                             .filter(Category.class::isInstance)
                             .map(Category.class::cast)
                             .collect(Collectors.toList());
-                    request.getSession().setAttribute("categories", categories);
+                    request.getSession().setAttribute("categories", categories1);
                     request.getSession().setAttribute("procedures", procedures1);
                     break;
                 case "4":

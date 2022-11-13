@@ -49,24 +49,24 @@
                             <td>${user.name}</td>
                             <td>${user.login}</td>
                             <td>${user.phone}</td>
-                            <td>${user.role}</td>
-                            <c:if test="${user.role != 'admin'}">
-                                <td>
-                                    <button type="button" class="btn btn-warning user-modal-btn"
-                                            data-id="${user.id}" data-name="${user.name}"
-                                            data-role="${user.role}" data-toggle="modal"
-                                            data-phone="${user.phone}" data-target="#user-modal">Update
-                                    </button>
-                                </td>
-                                <td>
-                                    <form method="post" action="<c:url
-                                    value="/changeData.html"/>">
-                                        <input type="hidden" value="${user.id}" name="delete">
-                                        <button class="btn btn-danger"
-                                                type="submit">${text['administrate.delete']}</button>
-                                    </form>
-                                </td>
-                            </c:if>
+                            <td><c:forEach var="role" items="${user.roles}">
+                                ${role.name},
+                            </c:forEach></td>
+                            <td>
+                                <button type="button" class="btn btn-warning user-modal-btn"
+                                        data-id="${user.id}" data-name="${user.name}"
+                                        data-role="${user.roles}" data-toggle="modal"
+                                        data-phone="${user.phone}" data-target="#user-modal">Update
+                                </button>
+                            </td>
+                            <td>
+                                <form method="post" action="<c:url
+                                    value="/administrate_change.html"/>">
+                                    <input type="hidden" value="${user.id}" name="delete">
+                                    <button class="btn btn-danger"
+                                            type="submit">${text['administrate.delete']}</button>
+                                </form>
+                            </td>
                         </tr>
                     </c:forEach>
                 </table>
@@ -147,7 +147,7 @@
                             </td>
                             <td>
                                 <form method="post" action="<c:url
-                                    value="/changeData.html"/>">
+                                    value="/administrate_change.html"/>">
                                     <input type="hidden" value="${appointment.id}" name="delete">
                                     <button class="btn btn-danger" type="submit">${text['administrate.delete']}</button>
                                 </form>
@@ -210,7 +210,7 @@
                             <td>${procedure.elapsedTime}${text["time.minute"]}</td>
                             <td>
                                 <button type="button" class="btn btn-warning procedure-modal-btn" data-toggle="modal"
-                                        data-target="#procedure-modal" data-id="${procedure.id}"
+                                        data-target="#procedure-update-modal" data-id="${procedure.id}"
                                         data-name="${procedure.name}"
                                         data-description="${procedure.description}"
                                         data-time="${procedure.elapsedTime}">
@@ -219,7 +219,7 @@
                             </td>
                             <td>
                                 <form method="post" action="<c:url
-                                    value="/changeData.html"/>">
+                                    value="/administrate_change.html"/>">
                                     <input type="hidden" value="${procedure.id}" name="delete">
                                     <button class="btn btn-danger" type="submit">${text['administrate.delete']}</button>
                                 </form>
@@ -227,8 +227,10 @@
                         </tr>
                     </c:forEach>
                 </table>
-                <a class="btn btn-success"
-                   href="<c:url value="/administrate_add.html"/>">${text['administrate.add']}</a>
+                <button type="button" class="btn btn-success procedure-modal-btn" data-toggle="modal"
+                        data-target="#procedure-create-modal">
+                    Create
+                </button>
                 <ul class="pagination">
                     <c:if test="${paginationPage>1}">
                         <li class="page-item">
@@ -289,7 +291,7 @@
                             </c:if>
                             <td>
                                 <form method="post" action="<c:url
-                                    value="/changeData.html"/>">
+                                    value="/administrate_change.html"/>">
                                     <input type="hidden" value="${schedule.id}" name="delete">
                                     <button class="btn btn-danger" type="submit">${text['administrate.delete']}</button>
                                 </form>
@@ -344,7 +346,7 @@
                 <button type="button" class="btn-close" data-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form action="<c:url value="/changeData.html"/>" method="post">
+                <form action="<c:url value="/administrate_change.html"/>" method="post">
                     <input type="hidden" name="update" value="1">
                     <input id="name" maxlength="40" minlength="4" pattern="([A-ZА-ЯЁa-zа-яё ]*)"
                            class="main-color-bg-f form-control" type="text" name="name" value=""
@@ -354,11 +356,6 @@
                            placeholder="<c:out value="${text['registration.phone']}"/>"/>
                     <br/>
                     <div><span id="role"></span></div>
-                    <select id="selectRole" name="selectRole">
-                        <option value="client">client</option>
-                        <option value="admin">admin</option>
-                        <option value="employee">employee</option>
-                    </select>
                     <br/>
                     <br/>
                     <input type="hidden" name="userId" id="hideId" value="">
@@ -371,6 +368,8 @@
         </div>
     </div>
 </div>
+
+
 <!--Modal window for update appointment-->
 <div class="modal" id="appointment-modal">
     <div class="modal-dialog">
@@ -380,7 +379,7 @@
                 <button type="button" class="btn-close" data-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form action="<c:url value="/changeData.html"/>" method="post">
+                <form action="<c:url value="/administrate_change.html"/>" method="post">
                     <input type="hidden" name="update" value="1">
                     <input id="appointmentPrice" maxlength="10" minlength="1" pattern="([0-9.]*)"
                            class="main-color-bg-f form-control" type="number" name="appointmentPrice" value=""
@@ -403,8 +402,10 @@
         </div>
     </div>
 </div>
+
+
 <!--Modal window for update procedure-->
-<div class="modal" id="procedure-modal">
+<div class="modal" id="procedure-update-modal">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -412,7 +413,7 @@
                 <button type="button" class="btn-close" data-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form action="<c:url value="/changeData.html"/>" method="post">
+                <form action="<c:url value="/administrate_change.html"/>" method="post">
                     <input type="hidden" name="update" value="1">
                     <input id="procedureName" maxlength="50" minlength="4" pattern="([А-ЯЁа-яё ]+)"
                            class="main-color-bg-f form-control" type="text" name="procedureName" value=""
@@ -436,7 +437,40 @@
         </div>
     </div>
 </div>
-<!--Modal window for update procedure-->
+
+
+<!--Modal window for create procedure-->
+<div class="modal" id="procedure-create-modal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="h3">Form to create new procedure</div>
+                <button type="button" class="btn-close" data-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form action="<c:url value="/administrate_add.html"/>" method="post">
+                    <input maxlength="50" minlength="4" pattern="([А-ЯЁа-яё ]+)"
+                           class="main-color-bg-f form-control" type="text" name="procedureName" value=""/>
+                    <br/>
+                    <textarea rows="7" maxlength="500"
+                              class="main-color-bg-f form-control" type="text" name="procedureDescription"
+                              value=""></textarea>
+                    <br/>
+                    <input maxlength="500"
+                           class="main-color-bg-f form-control" type="number" name="procedureElapsedTime" value=""
+                    />
+                    <br/>
+                    <input type="hidden" name="procedureId" value="">
+                    <input class="btn-success" type="submit">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     $(".user-modal-btn").click(
         function () {
@@ -448,10 +482,6 @@
             $("#name").attr('value', userName);
             $("#phone").attr('value', userPhone);
             $("#hideId").attr('value', userId);
-            const select = document.querySelector('#selectRole').getElementsByTagName('option');
-            for (let i = 0; i < select.length; i++) {
-                if (select[i].value === userRole) select[i].selected = true;
-            }
         });
     $(".appointment-modal-btn").click(
         function () {

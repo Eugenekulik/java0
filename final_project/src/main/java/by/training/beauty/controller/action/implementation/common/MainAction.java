@@ -1,4 +1,4 @@
-package by.training.beauty.controller.action.implementation;
+package by.training.beauty.controller.action.implementation.common;
 
 import by.training.beauty.controller.action.Action;
 import by.training.beauty.controller.action.PageEnum;
@@ -6,12 +6,7 @@ import by.training.beauty.controller.action.PageEnum;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Set;
 
-/**
- * This class implement interface Action
- * and doesn't execute any service, only
- * return error page.
- */
-public class EmptyAction implements Action {
+public class MainAction implements Action {
     @Override
     public boolean isRedirect() {
         return false;
@@ -19,12 +14,12 @@ public class EmptyAction implements Action {
 
     @Override
     public Set<String> getRoles() {
-        return Set.of("unknown","client","employee","admin");
+        return Set.of("unknown","admin","employee","client");
     }
 
     @Override
     public String execute(HttpServletRequest request) {
-        return PageEnum.ERROR.getPage();
+        return PageEnum.MAIN.getPage();
     }
 
     @Override

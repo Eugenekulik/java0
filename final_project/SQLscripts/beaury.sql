@@ -28,12 +28,45 @@ CREATE TABLE IF NOT EXISTS `beauty_parlor`.`user` (
   `password` VARCHAR(255) CHARACTER SET 'utf8mb4' NOT NULL,
   `name` VARCHAR(64) CHARACTER SET 'utf8mb4' NOT NULL,
   `phone` VARCHAR(32) CHARACTER SET 'utf8mb4' NOT NULL,
-  `role` ENUM('client', 'employee', 'admin') CHARACTER SET 'utf8mb4' NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
-  UNIQUE INDEX `e-mail_UNIQUE` (`login` ASC) VISIBLE)
+  UNIQUE INDEX `login_UNIQUE` (`login` ASC) VISIBLE)
 ENGINE = InnoDB;
 
+-- -----------------------------------------------------
+-- Table `beauty_parlor`.`user`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `beauty_parlor`.`role` ;
+
+CREATE TABLE IF NOT EXISTS `beauty_parlor`.`role` (
+      `id` INT NOT NULL AUTO_INCREMENT,
+      `name` VARCHAR(64) CHARACTER SET 'utf8mb4' NOT NULL unique ,
+      PRIMARY KEY (`id`),
+      UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
+      UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `beauty_parlor`.`user_role`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `beauty_parlor`.`user_role` ;
+
+CREATE TABLE IF NOT EXISTS `beauty_parlor`.`user_role` (
+      `user_id` INT NOT NULL,
+      `role_id` INT NOT NULL,
+      PRIMARY KEY (`user_id`,`role_id`),
+      CONSTRAINT `user_id_from_user`
+          FOREIGN KEY (`user_id`)
+              REFERENCES `beauty_parlor`.`user` (`id`)
+              ON DELETE cascade
+              ON UPDATE cascade,
+      CONSTRAINT `role_id_from_role`
+          FOREIGN KEY (`role_id`)
+              REFERENCES `beauty_parlor`.`role` (`id`)
+              ON DELETE cascade
+              ON UPDATE cascade)
+ENGINE = InnoDB;
 
 -- -----------------------------------------------------
 -- Table `beauty_parlor`.`category`
@@ -175,8 +208,8 @@ CREATE TABLE IF NOT EXISTS `beauty_parlor`.`schedule` (
   CONSTRAINT `employee`
     FOREIGN KEY (`employee_id`)
     REFERENCES `beauty_parlor`.`user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE cascade
+    ON UPDATE cascade ,
   CONSTRAINT `appointment_id`
     FOREIGN KEY (`appointment_id`)
     REFERENCES `beauty_parlor`.`appointment` (`id`)

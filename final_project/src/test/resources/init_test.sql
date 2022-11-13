@@ -5,6 +5,8 @@ DELETE FROM test.procedure_employee WHERE id>0;
 DELETE FROM test.user WHERE id>0;
 DELETE FROM test.`procedure` WHERE id>0;
 DELETE FROM test.category WHERE id>0;
+DELETE FROM test.user_role where user_role.user_id>0;
+DELETE FROM test.role where role.id>0;
 
 INSERT INTO test.category (id,name,description)
 VALUES (1, 'Аппаратная косметология', 'Аппаратная косметология'),
@@ -65,13 +67,23 @@ VALUES (1, 1, 'Лазерное омоложение', 'С возрастом к
 современных косметических смесей лежит карамелизированный сахар,
 этот вид депиляции не случайно называют «персидской».', 60);
 
-INSERT INTO test.user(id, login, password, name, phone, role)
+INSERT INTO test.user(id, login, password, name, phone)
 VALUES (1,'firstuser', 'bc45d36ca604cfbaf323636e79cf720e524bd8b5a34094763cd7e0c70a1d08a8',
-        'firstuser','+375291111111', 'admin'),
+        'firstuser','+375291111111'),
         (2,'seconduser', 'a30ad9f78e746614c4448268ab86b9bbe8c709f17ec3789b7b01cd1fd3c2ce83',
-         'seconduser','+375292222222', 'employee'),
+         'seconduser','+375292222222'),
         (3,'thirduser', 'b816140000cb14150c1fdb98c83edadc3fc8fe4dc43647312559be8b202fb1be',
-         'thirduser','+375293333333', 'client');
+         'thirduser','+375293333333');
+
+INSERT INTO test.role(id, name)
+VALUES (1, 'admin'),
+       (2, 'client'),
+       (3, 'employee');
+
+INSERT INTO test.user_role(user_id, role_id)
+VALUES (1, 1),
+       (2, 2),
+       (3, 3);
 
 INSERT INTO test.procedure_employee(id, employee_id, procedure_id, price, rating)
 VALUES (1, 2, 1, 30, 0),

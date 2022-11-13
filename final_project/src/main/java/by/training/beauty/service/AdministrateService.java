@@ -1,6 +1,7 @@
 package by.training.beauty.service;
 
 import by.training.beauty.dao.*;
+import by.training.beauty.dao.mysql.DaoEnum;
 import by.training.beauty.dao.mysql.TransactionFactoryImpl;
 import by.training.beauty.domain.*;
 import org.apache.logging.log4j.LogManager;
@@ -86,8 +87,17 @@ public class AdministrateService {
         try {
             transactionFactory = new TransactionFactoryImpl();
             transaction = transactionFactory.createTransaction();
-            UserDao userDao = transaction.createDao(USER_DAO);
+            RoleDao roleDao = transaction.createDao(DaoEnum.ROLE.getDao());
+            UserDao userDao = transaction.createDao(DaoEnum.USER.getDao());
             users = userDao.findInterval((paginationPage - 1) * 10, 10);
+            for (User user : users) {
+                try {
+                    roleDao.findByUser(user).stream().forEach(user::addRole);
+                } catch (DaoException e) {
+                    LOGGER.error(e.getMessage());
+                    e.printStackTrace();
+                }
+            }
             transaction.commit();
         } catch (DaoException e) {
             try {
@@ -116,12 +126,14 @@ public class AdministrateService {
         try {
             transactionFactory = new TransactionFactoryImpl();
             transaction = transactionFactory.createTransaction();
+            CategoryDao categoryDao = transaction.createDao("categoryDao");
             AppointmentDao appointmentDao
                     = transaction.createDao("appointmentDao");
             ProcedureEmployeeDao procedureEmployeeDao =
                     transaction.createDao("procedureEmployeeDao");
             UserDao userDao = transaction.createDao(USER_DAO);
             ProcedureDao procedureDao = transaction.createDao(PROCEDURE_DAO);
+            List<Category> categories = categoryDao.findall();
             List<Appointment> appointments = appointmentDao
                     .findInterval((paginationPage - 1) * 10, 10);
             Set<ProcedureEmployee> procedureEmployeeList
@@ -182,6 +194,7 @@ public class AdministrateService {
             entities.addAll(clients);
             entities.addAll(procedures);
             entities.addAll(employees);
+            entities.addAll(categories);
             transaction.commit();
         } catch (DaoException e) {
             try {
@@ -214,7 +227,7 @@ public class AdministrateService {
             CategoryDao categoryDao = transaction.createDao("categoryDao");
             List<Procedure> procedures = procedureDao
                     .findInterval((paginationPage - 1) * 10, 10);
-            List<Category> categories = procedures.stream().map(procedure -> {
+            Set<Category> categories = procedures.stream().map(procedure -> {
                 try {
                     return categoryDao.findById(procedure.getCategoryId());
                 } catch (DaoException e) {
@@ -223,7 +236,7 @@ public class AdministrateService {
                             , procedure.getCategoryId());
                 }
                 return null;
-            }).filter(Objects::nonNull).collect(Collectors.toList());
+            }).filter(Objects::nonNull).collect(Collectors.toSet());
             entities = new ArrayList<>();
             entities.addAll(procedures);
             entities.addAll(categories);

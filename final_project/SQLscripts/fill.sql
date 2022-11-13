@@ -1,3 +1,12 @@
+delete from score where id>0;
+delete from appointment where id>0;
+delete from schedule where id>0;
+delete from procedure_employee where id>0;
+delete from `procedure` where id>0;
+delete from category where id>0;
+delete from user where id>0;
+
+
 INSERT INTO category (id,name,description)
 VALUES (1, 'Аппаратная косметология', 'Аппаратная косметология'),
         (2, 'Инъекционная косметология', 'Инъекционная косметология'),
@@ -57,15 +66,27 @@ VALUES (1, 'Лазерное омоложение', '\tС возрастом к�
 современных косметических смесей лежит карамелизированный сахар,
 этот вид депиляции не случайно называют «персидской».', 60);
 
-INSERT INTO user (id, login, password, name, phone, role)
-values (1,'administrator','4194d1706ed1f408d5e02d672777019f4d5385c766a8c6ca8acba3167d36a7b9'
-,'admin','+375291111111','admin'),
+INSERT INTO user (id, login, password, name, phone)
+values (1,'administrator','061a1c0ea20e6b5d90ace3c0d879304b52c751ef53e62ccf159e1fb21d954c2f'
+,'admin','+375291111111'),
        (2,'client','c56207bc713c9529e4e6e2ca7958d30cee4ddd9e5c4b53dd9d3132dd56816e08'
-       ,'client','+375332222222','client'),
+       ,'client','+375332222222'),
        (3,'employee1','36cdfcec47d26e934f3b0c0b9ca761bbe09fae6d37581ab2e4bb4a52b66623ab',
-        'First Employee','+375443333333','employee'),
+        'First Employee','+375443333333'),
        (4,'employee2','e5dc127f9f0a1c2ce3d61e6321670602931f1d50c43abfb9b004594bd283d878',
-        'Second Employee','+375254444444','employee');
+        'Second Employee','+375254444444');
+
+
+INSERT INTO role (id, name)
+VALUES (1, 'admin'),
+       (2, 'client'),
+       (3, 'employee');
+
+INSERT INTO user_role (user_id, role_id)
+VALUES (1,1),
+       (2,2),
+       (3,3),
+       (4,3);
 
 INSERT INTO procedure_employee (employee_id, procedure_id, price, rating)
 VALUES (3, 1, 20, 0),

@@ -1,4 +1,4 @@
-package by.training.beauty.controller.action.implementation;
+package by.training.beauty.controller.action.implementation.admin;
 
 import by.training.beauty.controller.action.Action;
 import by.training.beauty.controller.action.PageEnum;

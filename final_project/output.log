@@ -1363,3 +1363,316 @@ Caused by: by.training.beauty.dao.DaoException
 	at by.training.beauty.dao.mysql.AppointmentDaoImpl.update(AppointmentDaoImpl.java:19) ~[classes/:?]
 	at by.training.beauty.service.AppointmentService.updateAppointment(AppointmentService.java:202) ~[classes/:?]
 	... 28 more
+12:24:51.529 [by.training.beauty.dao.mysql.ScheduleDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.ScheduleDaoImpl - Unknown table 'schedule' in field list
+12:24:51.537 [by.training.beauty.service.ScheduleServiceTest  -----+`  t] ERROR by.training.beauty.service.ScheduleServiceTest - an error occurred while getting schedule
+12:24:52.320 [by.training.beauty.dao.mysql.AppointmentDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.AppointmentDaoImpl - Cannot add or update a child row: a foreign key constraint fails
+12:24:52.324 [by.training.beauty.service.AppointmentServiceTest  -----+`  t] ERROR by.training.beauty.service.AppointmentServiceTest - it is impossible to update appointment
+by.training.beauty.service.ServiceException: by.training.beauty.dao.DaoException
+	at by.training.beauty.service.AppointmentService.updateAppointment(AppointmentService.java:212) ~[classes/:?]
+	at by.training.beauty.service.AppointmentServiceTest.testUpdateAppointment(AppointmentServiceTest.java:113) ~[test-classes/:?]
+	at jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:577) ~[?:?]
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128) ~[testng-7.4.0.jar:7.4.0]
+	at java.util.ArrayList.forEach(ArrayList.java:1511) [?:?]
+	at org.testng.TestRunner.privateRun(TestRunner.java:794) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestRunner.run(TestRunner.java:596) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:377) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:371) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:332) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.run(SuiteRunner.java:276) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1212) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1134) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuites(TestNG.java:1063) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.run(TestNG.java:1031) [testng-7.4.0.jar:7.4.0]
+	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:66) [testng-rt.jar:?]
+	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:109) [testng-rt.jar:?]
+Caused by: by.training.beauty.dao.DaoException
+	at by.training.beauty.dao.mysql.AppointmentDaoImpl.update(AppointmentDaoImpl.java:278) ~[classes/:?]
+	at by.training.beauty.dao.mysql.AppointmentDaoImpl.update(AppointmentDaoImpl.java:19) ~[classes/:?]
+	at by.training.beauty.service.AppointmentService.updateAppointment(AppointmentService.java:202) ~[classes/:?]
+	... 26 more
+12:28:57.701 [by.training.beauty.service.AppointmentServiceTest  -----+`  t] ERROR by.training.beauty.service.AppointmentServiceTest - java.sql.SQLSyntaxErrorException: Unknown column 'role' in 'field list'
+12:28:57.757 [by.training.beauty.dao.mysql.UserDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Unknown column 'user.role' in 'where clause'
+12:28:57.758 [by.training.beauty.service.AdministrateServiceTest  -----+`  t] ERROR by.training.beauty.service.AdministrateServiceTest - it is impossible to get user list
+12:28:57.798 [by.training.beauty.dao.mysql.UserDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Unknown column 'user.role' in 'where clause'
+12:28:57.799 [by.training.beauty.service.EmployeeServiceTest  -----+`  t] ERROR by.training.beauty.service.EmployeeService - it is impossible to get employee list
+12:28:57.805 [by.training.beauty.dao.mysql.UserDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Unknown column 'user.role' in 'where clause'
+12:28:57.959 [by.training.beauty.service.UserServiceTest  -----+`  t] ERROR by.training.beauty.service.AdministrateServiceTest - java.sql.SQLSyntaxErrorException: Unknown column 'role' in 'field list'
+12:28:58.147 [by.training.beauty.service.ProcedureServiceTest  -----+`  t] ERROR by.training.beauty.service.ProcedureServiceTest - java.sql.SQLSyntaxErrorException: Unknown column 'role' in 'field list'
+12:28:58.175 [by.training.beauty.dao.mysql.ScheduleDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.ScheduleDaoImpl - Cannot add or update a child row: a foreign key constraint fails
+12:28:58.178 [by.training.beauty.service.ScheduleServiceTest  -----+`  t] ERROR by.training.beauty.service.ScheduleServiceTest - it is impossible to add schedule
+by.training.beauty.service.ServiceException: by.training.beauty.dao.DaoException
+	at by.training.beauty.service.ScheduleService.addschedule(ScheduleService.java:101) ~[classes/:?]
+	at by.training.beauty.service.ScheduleServiceTest.testAddschedule(ScheduleServiceTest.java:66) ~[test-classes/:?]
+	at jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:577) ~[?:?]
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128) ~[testng-7.4.0.jar:7.4.0]
+	at java.util.ArrayList.forEach(ArrayList.java:1511) [?:?]
+	at org.testng.TestRunner.privateRun(TestRunner.java:794) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestRunner.run(TestRunner.java:596) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:377) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:371) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:332) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.run(SuiteRunner.java:276) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1212) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1134) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuites(TestNG.java:1063) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.run(TestNG.java:1031) [testng-7.4.0.jar:7.4.0]
+	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:66) [testng-rt.jar:?]
+	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:109) [testng-rt.jar:?]
+Caused by: by.training.beauty.dao.DaoException
+	at by.training.beauty.dao.mysql.ScheduleDaoImpl.create(ScheduleDaoImpl.java:208) ~[classes/:?]
+	at by.training.beauty.dao.mysql.ScheduleDaoImpl.create(ScheduleDaoImpl.java:20) ~[classes/:?]
+	at by.training.beauty.service.ScheduleService.addschedule(ScheduleService.java:90) ~[classes/:?]
+	... 26 more
+12:28:58.188 [by.training.beauty.dao.mysql.ScheduleDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.ScheduleDaoImpl - Unknown table 'schedule' in field list
+12:28:58.188 [by.training.beauty.service.ScheduleServiceTest  -----+`  t] ERROR by.training.beauty.service.ScheduleServiceTest - an error occurred while getting schedule
+12:28:58.227 [by.training.beauty.service.ScheduleServiceTest  -----+`  t] ERROR by.training.beauty.service.ScheduleServiceTest - java.sql.SQLSyntaxErrorException: Unknown column 'role' in 'field list'
+12:34:22.568 [by.training.beauty.dao.mysql.UserDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Unknown column 'user.role' in 'where clause'
+12:34:22.574 [by.training.beauty.service.EmployeeServiceTest  -----+`  t] ERROR by.training.beauty.service.EmployeeService - it is impossible to get employee list
+12:34:22.598 [by.training.beauty.dao.mysql.UserDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Unknown column 'user.role' in 'where clause'
+12:34:22.701 [by.training.beauty.dao.mysql.UserDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Unknown column 'user.role' in 'where clause'
+12:34:22.703 [by.training.beauty.service.AdministrateServiceTest  -----+`  t] ERROR by.training.beauty.service.AdministrateServiceTest - it is impossible to get user list
+12:34:22.757 [by.training.beauty.dao.mysql.AppointmentDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.AppointmentDaoImpl - Cannot add or update a child row: a foreign key constraint fails
+12:34:22.762 [by.training.beauty.service.AppointmentServiceTest  -----+`  t] ERROR by.training.beauty.service.AppointmentServiceTest - it is impossible to update appointment
+by.training.beauty.service.ServiceException: by.training.beauty.dao.DaoException
+	at by.training.beauty.service.AppointmentService.updateAppointment(AppointmentService.java:212) ~[classes/:?]
+	at by.training.beauty.service.AppointmentServiceTest.testUpdateAppointment(AppointmentServiceTest.java:113) ~[test-classes/:?]
+	at jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:577) ~[?:?]
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128) ~[testng-7.4.0.jar:7.4.0]
+	at java.util.ArrayList.forEach(ArrayList.java:1511) [?:?]
+	at org.testng.TestRunner.privateRun(TestRunner.java:794) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestRunner.run(TestRunner.java:596) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:377) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:371) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:332) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.run(SuiteRunner.java:276) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1212) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1134) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuites(TestNG.java:1063) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.run(TestNG.java:1031) [testng-7.4.0.jar:7.4.0]
+	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:66) [testng-rt.jar:?]
+	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:109) [testng-rt.jar:?]
+Caused by: by.training.beauty.dao.DaoException
+	at by.training.beauty.dao.mysql.AppointmentDaoImpl.update(AppointmentDaoImpl.java:278) ~[classes/:?]
+	at by.training.beauty.dao.mysql.AppointmentDaoImpl.update(AppointmentDaoImpl.java:19) ~[classes/:?]
+	at by.training.beauty.service.AppointmentService.updateAppointment(AppointmentService.java:202) ~[classes/:?]
+	... 26 more
+12:34:22.937 [by.training.beauty.service.AppointmentServiceTest  -----+`  t] ERROR by.training.beauty.service.AppointmentServiceTest - java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1' for key 'role.PRIMARY'
+12:34:23.102 [by.training.beauty.service.UserServiceTest  -----+`  t] ERROR by.training.beauty.service.AdministrateServiceTest - java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1' for key 'role.PRIMARY'
+12:34:23.282 [by.training.beauty.service.ProcedureServiceTest  -----+`  t] ERROR by.training.beauty.service.ProcedureServiceTest - java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1' for key 'role.PRIMARY'
+12:34:23.348 [by.training.beauty.dao.mysql.ScheduleDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.ScheduleDaoImpl - Unknown table 'schedule' in field list
+12:34:23.348 [by.training.beauty.service.ScheduleServiceTest  -----+`  t] ERROR by.training.beauty.service.ScheduleServiceTest - an error occurred while getting schedule
+12:34:23.403 [by.training.beauty.service.ScheduleServiceTest  -----+`  t] ERROR by.training.beauty.service.ScheduleServiceTest - java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1' for key 'role.PRIMARY'
+12:35:09.145 [by.training.beauty.service.AppointmentServiceTest  -----+`  t] ERROR by.training.beauty.service.AppointmentServiceTest - java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1' for key 'role.PRIMARY'
+12:35:09.237 [by.training.beauty.dao.mysql.ScheduleDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.ScheduleDaoImpl - Unknown table 'schedule' in field list
+12:35:09.237 [by.training.beauty.service.ScheduleServiceTest  -----+`  t] ERROR by.training.beauty.service.ScheduleServiceTest - an error occurred while getting schedule
+12:35:09.300 [by.training.beauty.service.ScheduleServiceTest  -----+`  t] ERROR by.training.beauty.service.ScheduleServiceTest - java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1' for key 'role.PRIMARY'
+12:35:09.382 [by.training.beauty.dao.mysql.UserDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Unknown column 'user.role' in 'where clause'
+12:35:09.384 [by.training.beauty.service.AdministrateServiceTest  -----+`  t] ERROR by.training.beauty.service.AdministrateServiceTest - it is impossible to get user list
+12:35:09.426 [by.training.beauty.dao.mysql.UserDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Unknown column 'user.role' in 'where clause'
+12:35:09.428 [by.training.beauty.service.EmployeeServiceTest  -----+`  t] ERROR by.training.beauty.service.EmployeeService - it is impossible to get employee list
+12:35:09.435 [by.training.beauty.dao.mysql.UserDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Unknown column 'user.role' in 'where clause'
+12:35:09.437 [by.training.beauty.service.EmployeeServiceTest  -----+`  t] ERROR by.training.beauty.service.EmployeeService - it is impossible to get employee list by procedure with id: 1
+12:35:09.583 [by.training.beauty.service.UserServiceTest  -----+`  t] ERROR by.training.beauty.service.AdministrateServiceTest - java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1' for key 'role.PRIMARY'
+12:35:09.736 [by.training.beauty.service.ProcedureServiceTest  -----+`  t] ERROR by.training.beauty.service.ProcedureServiceTest - java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1' for key 'role.PRIMARY'
+12:36:29.658 [by.training.beauty.dao.mysql.AppointmentDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.AppointmentDaoImpl - Cannot add or update a child row: a foreign key constraint fails
+12:36:29.667 [by.training.beauty.service.AppointmentServiceTest  -----+`  t] ERROR by.training.beauty.service.AppointmentServiceTest - it is impossible to update appointment
+by.training.beauty.service.ServiceException: by.training.beauty.dao.DaoException
+	at by.training.beauty.service.AppointmentService.updateAppointment(AppointmentService.java:212) ~[classes/:?]
+	at by.training.beauty.service.AppointmentServiceTest.testUpdateAppointment(AppointmentServiceTest.java:113) ~[test-classes/:?]
+	at jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:577) ~[?:?]
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128) ~[testng-7.4.0.jar:7.4.0]
+	at java.util.ArrayList.forEach(ArrayList.java:1511) [?:?]
+	at org.testng.TestRunner.privateRun(TestRunner.java:794) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestRunner.run(TestRunner.java:596) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:377) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:371) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:332) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.run(SuiteRunner.java:276) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1212) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1134) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuites(TestNG.java:1063) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.run(TestNG.java:1031) [testng-7.4.0.jar:7.4.0]
+	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:66) [testng-rt.jar:?]
+	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:109) [testng-rt.jar:?]
+Caused by: by.training.beauty.dao.DaoException
+	at by.training.beauty.dao.mysql.AppointmentDaoImpl.update(AppointmentDaoImpl.java:278) ~[classes/:?]
+	at by.training.beauty.dao.mysql.AppointmentDaoImpl.update(AppointmentDaoImpl.java:19) ~[classes/:?]
+	at by.training.beauty.service.AppointmentService.updateAppointment(AppointmentService.java:202) ~[classes/:?]
+	... 26 more
+12:36:29.948 [by.training.beauty.dao.mysql.UserDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Unknown column 'user.role' in 'where clause'
+12:36:29.949 [by.training.beauty.service.AdministrateServiceTest  -----+`  t] ERROR by.training.beauty.service.AdministrateServiceTest - it is impossible to get user list
+12:36:29.999 [by.training.beauty.dao.mysql.UserDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Unknown column 'user.role' in 'where clause'
+12:36:30.000 [by.training.beauty.service.EmployeeServiceTest  -----+`  t] ERROR by.training.beauty.service.EmployeeService - it is impossible to get employee list
+12:36:30.006 [by.training.beauty.dao.mysql.UserDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Unknown column 'user.role' in 'where clause'
+12:36:30.008 [by.training.beauty.service.EmployeeServiceTest  -----+`  t] ERROR by.training.beauty.service.EmployeeService - it is impossible to get employee list by procedure with id: 1
+12:36:30.443 [by.training.beauty.dao.mysql.ScheduleDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.ScheduleDaoImpl - Unknown table 'schedule' in field list
+12:36:30.443 [by.training.beauty.service.ScheduleServiceTest  -----+`  t] ERROR by.training.beauty.service.ScheduleServiceTest - an error occurred while getting schedule
+12:38:19.415 [by.training.beauty.dao.mysql.AppointmentDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.AppointmentDaoImpl - Cannot add or update a child row: a foreign key constraint fails
+12:38:19.428 [by.training.beauty.service.AppointmentServiceTest  -----+`  t] ERROR by.training.beauty.service.AppointmentServiceTest - it is impossible to update appointment
+by.training.beauty.service.ServiceException: by.training.beauty.dao.DaoException
+	at by.training.beauty.service.AppointmentService.updateAppointment(AppointmentService.java:212) ~[classes/:?]
+	at by.training.beauty.service.AppointmentServiceTest.testUpdateAppointment(AppointmentServiceTest.java:113) ~[test-classes/:?]
+	at jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:577) ~[?:?]
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128) ~[testng-7.4.0.jar:7.4.0]
+	at java.util.ArrayList.forEach(ArrayList.java:1511) [?:?]
+	at org.testng.TestRunner.privateRun(TestRunner.java:794) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestRunner.run(TestRunner.java:596) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:377) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:371) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:332) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.run(SuiteRunner.java:276) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1212) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1134) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuites(TestNG.java:1063) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.run(TestNG.java:1031) [testng-7.4.0.jar:7.4.0]
+	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:66) [testng-rt.jar:?]
+	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:109) [testng-rt.jar:?]
+Caused by: by.training.beauty.dao.DaoException
+	at by.training.beauty.dao.mysql.AppointmentDaoImpl.update(AppointmentDaoImpl.java:278) ~[classes/:?]
+	at by.training.beauty.dao.mysql.AppointmentDaoImpl.update(AppointmentDaoImpl.java:19) ~[classes/:?]
+	at by.training.beauty.service.AppointmentService.updateAppointment(AppointmentService.java:202) ~[classes/:?]
+	... 26 more
+12:38:19.701 [by.training.beauty.dao.mysql.UserDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Unknown column 'user.role' in 'where clause'
+12:38:19.702 [by.training.beauty.service.AdministrateServiceTest  -----+`  t] ERROR by.training.beauty.service.AdministrateServiceTest - it is impossible to get user list
+12:38:19.747 [by.training.beauty.dao.mysql.UserDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Unknown column 'user.role' in 'where clause'
+12:38:19.754 [by.training.beauty.service.EmployeeServiceTest  -----+`  t] ERROR by.training.beauty.service.EmployeeService - it is impossible to get employee list
+12:38:19.761 [by.training.beauty.dao.mysql.UserDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Unknown column 'user.role' in 'where clause'
+12:38:19.764 [by.training.beauty.service.EmployeeServiceTest  -----+`  t] ERROR by.training.beauty.service.EmployeeService - it is impossible to get employee list by procedure with id: 1
+12:38:20.015 [by.training.beauty.dao.mysql.ScheduleDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.ScheduleDaoImpl - Unknown table 'schedule' in field list
+12:38:20.015 [by.training.beauty.service.ScheduleServiceTest  -----+`  t] ERROR by.training.beauty.service.ScheduleServiceTest - an error occurred while getting schedule
+13:40:42.293 [by.training.beauty.dao.mysql.UserDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Unknown column 'user.role' in 'where clause'
+13:40:42.298 [by.training.beauty.service.AdministrateServiceTest  -----+`  t] ERROR by.training.beauty.service.AdministrateServiceTest - it is impossible to get user list
+13:40:42.388 [by.training.beauty.dao.mysql.AppointmentDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.AppointmentDaoImpl - Cannot add or update a child row: a foreign key constraint fails
+13:40:42.393 [by.training.beauty.service.AppointmentServiceTest  -----+`  t] ERROR by.training.beauty.service.AppointmentServiceTest - it is impossible to update appointment
+by.training.beauty.service.ServiceException: by.training.beauty.dao.DaoException
+	at by.training.beauty.service.AppointmentService.updateAppointment(AppointmentService.java:212) ~[classes/:?]
+	at by.training.beauty.service.AppointmentServiceTest.testUpdateAppointment(AppointmentServiceTest.java:113) ~[test-classes/:?]
+	at jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:577) ~[?:?]
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128) ~[testng-7.4.0.jar:7.4.0]
+	at java.util.ArrayList.forEach(ArrayList.java:1511) [?:?]
+	at org.testng.TestRunner.privateRun(TestRunner.java:794) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestRunner.run(TestRunner.java:596) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:377) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:371) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:332) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.run(SuiteRunner.java:276) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1212) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1134) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuites(TestNG.java:1063) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.run(TestNG.java:1031) [testng-7.4.0.jar:7.4.0]
+	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:66) [testng-rt.jar:?]
+	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:109) [testng-rt.jar:?]
+Caused by: by.training.beauty.dao.DaoException
+	at by.training.beauty.dao.mysql.AppointmentDaoImpl.update(AppointmentDaoImpl.java:278) ~[classes/:?]
+	at by.training.beauty.dao.mysql.AppointmentDaoImpl.update(AppointmentDaoImpl.java:19) ~[classes/:?]
+	at by.training.beauty.service.AppointmentService.updateAppointment(AppointmentService.java:202) ~[classes/:?]
+	... 26 more
+13:40:42.604 [by.training.beauty.dao.mysql.UserDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Unknown column 'user.role' in 'where clause'
+13:40:42.606 [by.training.beauty.service.EmployeeServiceTest  -----+`  t] ERROR by.training.beauty.service.EmployeeService - it is impossible to get employee list
+13:40:42.611 [by.training.beauty.dao.mysql.UserDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Unknown column 'user.role' in 'where clause'
+13:40:42.614 [by.training.beauty.service.EmployeeServiceTest  -----+`  t] ERROR by.training.beauty.service.EmployeeService - it is impossible to get employee list by procedure with id: 1
+13:40:42.690 [by.training.beauty.dao.mysql.ScheduleDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.ScheduleDaoImpl - Unknown table 'schedule' in field list
+13:40:42.690 [by.training.beauty.service.ScheduleServiceTest  -----+`  t] ERROR by.training.beauty.service.ScheduleServiceTest - an error occurred while getting schedule
+13:42:55.395 [by.training.beauty.dao.mysql.UserDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Unknown column 'user.role' in 'where clause'
+13:42:55.401 [by.training.beauty.service.EmployeeServiceTest  -----+`  t] ERROR by.training.beauty.service.EmployeeService - it is impossible to get employee list
+13:42:55.430 [by.training.beauty.dao.mysql.UserDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Unknown column 'user.role' in 'where clause'
+13:42:55.440 [by.training.beauty.service.EmployeeServiceTest  -----+`  t] ERROR by.training.beauty.service.EmployeeService - it is impossible to get employee list by procedure with id: 1
+13:42:55.557 [by.training.beauty.dao.mysql.UserDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Unknown column 'user.role' in 'where clause'
+13:42:55.559 [by.training.beauty.service.AdministrateServiceTest  -----+`  t] ERROR by.training.beauty.service.AdministrateServiceTest - it is impossible to get user list
+13:42:55.606 [by.training.beauty.dao.mysql.AppointmentDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.AppointmentDaoImpl - Cannot add or update a child row: a foreign key constraint fails
+13:42:55.609 [by.training.beauty.service.AppointmentServiceTest  -----+`  t] ERROR by.training.beauty.service.AppointmentServiceTest - it is impossible to update appointment
+by.training.beauty.service.ServiceException: by.training.beauty.dao.DaoException
+	at by.training.beauty.service.AppointmentService.updateAppointment(AppointmentService.java:212) ~[classes/:?]
+	at by.training.beauty.service.AppointmentServiceTest.testUpdateAppointment(AppointmentServiceTest.java:113) ~[test-classes/:?]
+	at jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:577) ~[?:?]
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128) ~[testng-7.4.0.jar:7.4.0]
+	at java.util.ArrayList.forEach(ArrayList.java:1511) [?:?]
+	at org.testng.TestRunner.privateRun(TestRunner.java:794) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestRunner.run(TestRunner.java:596) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:377) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:371) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:332) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.run(SuiteRunner.java:276) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1212) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1134) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuites(TestNG.java:1063) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.run(TestNG.java:1031) [testng-7.4.0.jar:7.4.0]
+	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:66) [testng-rt.jar:?]
+	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:109) [testng-rt.jar:?]
+Caused by: by.training.beauty.dao.DaoException
+	at by.training.beauty.dao.mysql.AppointmentDaoImpl.update(AppointmentDaoImpl.java:278) ~[classes/:?]
+	at by.training.beauty.dao.mysql.AppointmentDaoImpl.update(AppointmentDaoImpl.java:19) ~[classes/:?]
+	at by.training.beauty.service.AppointmentService.updateAppointment(AppointmentService.java:202) ~[classes/:?]
+	... 26 more
+13:42:56.194 [by.training.beauty.dao.mysql.ScheduleDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.ScheduleDaoImpl - Unknown table 'schedule' in field list
+13:42:56.195 [by.training.beauty.service.ScheduleServiceTest  -----+`  t] ERROR by.training.beauty.service.ScheduleServiceTest - an error occurred while getting schedule

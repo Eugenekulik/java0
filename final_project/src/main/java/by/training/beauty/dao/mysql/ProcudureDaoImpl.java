@@ -6,10 +6,7 @@ import by.training.beauty.domain.Procedure;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,7 +46,7 @@ public class ProcudureDaoImpl implements ProcedureDao {
             while (resultSet.next()){
                 Procedure procedure = new Procedure();
                 procedure.setId(resultSet.getInt("procedure.id"));
-                procedure.setCategoryId(resultSet.getInt("procedure.id"));
+                procedure.setCategoryId(resultSet.getInt("procedure.category_id"));
                 procedure.setName(resultSet.getString("procedure.name"));
                 procedure.setDescription(resultSet.getString("procedure.description"));
                 procedure.setElapsedTime(resultSet.getInt("procedure.elapsed_time"));
@@ -124,7 +121,7 @@ public class ProcudureDaoImpl implements ProcedureDao {
             while (resultSet.next()){
                 Procedure procedure = new Procedure();
                 procedure.setId(resultSet.getInt("procedure.id"));
-                procedure.setCategoryId(resultSet.getInt("procedure.id"));
+                procedure.setCategoryId(resultSet.getInt("procedure.category_id"));
                 procedure.setName(resultSet.getString("procedure.name"));
                 procedure.setDescription(resultSet.getString("procedure.description"));
                 procedure.setElapsedTime(resultSet.getInt("procedure.elapsed_time"));
@@ -218,14 +215,17 @@ public class ProcudureDaoImpl implements ProcedureDao {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-            statement = connection.prepareStatement(SQL_CREATE);
+            statement = connection.prepareStatement(SQL_CREATE, Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, procedure.getCategoryId());
             statement.setString(2, procedure.getName());
             statement.setString(3, procedure.getDescription());
             statement.setInt(4, procedure.getElapsedTime());
             statement.executeUpdate();
             resultSet = statement.getGeneratedKeys();
-            return resultSet.getInt("id");
+            while(resultSet.next()){
+                return resultSet.getInt("GENERATED_KEY");
+            }
+            return 0;
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
             throw new DaoException();

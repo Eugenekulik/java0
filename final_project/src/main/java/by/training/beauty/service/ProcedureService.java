@@ -54,7 +54,7 @@ public class ProcedureService {
 
     /**
      * This method allows you to get procedure by name.
-     * @param name of the procedure
+     * @param id of the procedure
      * @return Procedure
      * @throws ServiceException
      */

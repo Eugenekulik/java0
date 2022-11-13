@@ -23,22 +23,33 @@
                     <a class="nav-link main-color-t" href="<c:url value="/procedure.html"/>"
                        role="button">${text["header.procedure"]}</a>
                 </li>
-                <c:if test="${role == 'admin'}"><li class="nav-item">
+
+                <!--/////////////////////////////////////////////////////////////////-->
+                <c:forEach var="role" items = "${roles}">
+                <c:if test="${role.name == 'admin'}"><li class="nav-item">
                     <a  class="nav-link main-color-t" href="<c:url value="/administrate.html"/>"
                        role="button">${text["header.administrate"]}</a>
-                </li></c:if>
-                <c:if test="${role == 'client'}"><li class="nav-item">
+                </li></c:if></c:forEach>
+
+                <!--/////////////////////////////////////////////////////////////////-->
+                <c:forEach var="role" items = "${roles}">
+                <c:if test="${role.name == 'client'}"><li class="nav-item">
                     <a class="nav-link main-color-t" href="<c:url value="/appointment.html"/>"
                        role="button">${text["header.appointment"]}</a>
-                </li></c:if>
-                <c:if test="${role == 'employee'}"><li class="nav-item">
+                </li></c:if></c:forEach>
+
+                <!--/////////////////////////////////////////////////////////////////-->
+                <c:forEach var="role" items = "${roles}">
+                <c:if test="${role.name == 'employee'}"><li class="nav-item">
                     <a class="nav-link main-color-t" href="<c:url value="/schedule.html"/>"
                        role="button">${text["header.schedule"]}</a>
-                </li></c:if>
+                </li></c:if></c:forEach>
+
+                <!--/////////////////////////////////////////////////////////////////-->
                 <li class="nav-item log">
                     <c:choose>
                         <c:when test="${pageContext.session.getAttribute('user') == null}">
-                            <a href="<c:url value="/login.html"/>"
+                            <a href="<c:url value="/login_form.html"/>"
                                class="nav-link main-color-t">${text['login.login']}</a>
                         </c:when>
                         <c:when test="${pageContext.session.getAttribute('user') != null}">
@@ -47,6 +58,8 @@
                         </c:when>
                     </c:choose>
                 </li>
+
+                <!--/////////////////////////////////////////////////////////////////-->
                 <li>
                     <c:if test="${pageContext.session.getAttribute('action') == null}">
                         <c:set value="/main" scope="session" var="action"/>

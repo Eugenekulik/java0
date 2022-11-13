@@ -5,6 +5,7 @@ import by.training.beauty.dao.UserDao;
 import by.training.beauty.dao.mysql.UserDaoImpl;
 import by.training.beauty.dao.pool.ConnectionPool;
 import by.training.beauty.dao.pool.PooledConnection;
+import by.training.beauty.domain.Role;
 import by.training.beauty.domain.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -132,9 +133,9 @@ public class UserServiceTest {
         UserService userService = new UserService();
         User user = new User();
         user.setId(3);
-        user.setRole("employee");
+        user.addRole(new Role("employee"));
         user.setPhone("+375293333333");
-        user.setName("thirduser");
+        user.setName("thirduserUpdate");
         try {
             userService.updateUser(user);
             try {
@@ -142,7 +143,7 @@ public class UserServiceTest {
                 UserDao userDao = new UserDaoImpl();
                 userDao.setConnection(connection);
                 User actual = userDao.findById(3);
-                assertEquals(actual.getRole(), "employee");
+                assertEquals(actual.getName(),user.getName());
                 connection.close();
             } catch (DaoException e) {
                 LOGGER.error("an error occurred while getting user", e);

@@ -13,7 +13,7 @@
 <div class="box col-sm-8 col-md-6 col-lg-4 col-xl-3 main-color-bg-s main-color-f">
     <div class="h1 main-color-f">LOGIN</div>
     <br/>
-    <c:url value="/login_submit.html" var="login"/>
+    <c:url value="/login.html" var="login"/>
     <form name="LoginForm" method="post" action='<c:out value="${login}"/>'>
         <div class="">
             <input required minlength="6" maxlength="20" pattern="([A-Za-z0-9_.-]*)" class="main-color-bg-f" type="text" name="login" value="" placeholder="${text['login.login']}"/>

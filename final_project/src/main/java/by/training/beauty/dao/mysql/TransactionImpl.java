@@ -46,6 +46,9 @@ public class TransactionImpl implements Transaction {
             case "scheduleDao":
                 dao = (T)new ScheduleDaoImpl();
                 break;
+            case "roleDao":
+                dao = (T)new RoleDaoImpl();
+                break;
             default:
                 LOGGER.warn("No such Dao class");
                 throw new DaoException();

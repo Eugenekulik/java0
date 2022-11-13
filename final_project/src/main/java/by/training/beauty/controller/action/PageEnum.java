@@ -15,7 +15,6 @@ public enum PageEnum {
 
     //Admin
     ADMINISTRATE("/WEB-INF/jsp/administrate.jsp"),
-    ADMINISTRATE_PROCEDURE_ADD("/WEB-INF/jsp/procedure_add.jsp"),
     ADMINISTRATE_SCHEDULE_ADD("/WEB-INF/jsp/schedule_add.jsp"),
 
     //Employee

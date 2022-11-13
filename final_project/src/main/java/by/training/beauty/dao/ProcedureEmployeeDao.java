@@ -18,7 +18,7 @@ public interface ProcedureEmployeeDao extends Dao<ProcedureEmployee>{
     /**
      * This method allows getting ProcedureEmployee by Procedure.
      *
-     * @param procedure
+     * @param employee it's a user with role employee,whose procedures you want to find.
      * @return ProcedureEmployee
      * @throws DaoException
      */

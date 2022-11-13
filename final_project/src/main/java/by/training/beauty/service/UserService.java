@@ -1,10 +1,9 @@
 package by.training.beauty.service;
 
-import by.training.beauty.dao.DaoException;
-import by.training.beauty.dao.Transaction;
-import by.training.beauty.dao.TransactionFactory;
-import by.training.beauty.dao.UserDao;
+import by.training.beauty.dao.*;
+import by.training.beauty.dao.mysql.DaoEnum;
 import by.training.beauty.dao.mysql.TransactionFactoryImpl;
+import by.training.beauty.domain.Role;
 import by.training.beauty.domain.User;
 import by.training.beauty.service.validator.UserValidator;
 import org.apache.logging.log4j.LogManager;
@@ -13,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 /**
  * This service allows you to do some activities with users.
@@ -38,9 +38,13 @@ public class UserService {
         Transaction transaction = null;
         try {
             transaction = transactionFactory.createTransaction();
+            RoleDao roleDao = transaction.createDao(DaoEnum.ROLE.getDao());
             UserDao userDao = transaction.createDao(USER_DAO);
             String hexPassword = hexPassword(password);
             user = userDao.findByLogin(login, hexPassword);
+            if(user!=null){
+                roleDao.findByUser(user).stream().forEach(user::addRole);
+            }
             transaction.commit();
         } catch (DaoException e) {
             try {
@@ -63,7 +67,7 @@ public class UserService {
      */
     public User registrate(User user) throws ServiceException {
         user.setPassword(hexPassword(user.getPassword()));
-        user.setRole("client");
+        user.addRole(new Role("client"));
         UserValidator userValidator =
                 ServiceFactory.getInstance().getUserValidator();
         if (!(userValidator.loginValidator(user.getLogin())
@@ -168,7 +172,7 @@ public class UserService {
             User actual = userDao.findById(user.getId());
             actual.setName(user.getName());
             actual.setPhone(user.getPhone());
-            actual.setRole(user.getRole());
+            user.getRoles().stream().forEach(actual::addRole);
             userDao.update(actual);
             transaction.commit();
         } catch (DaoException e) {

@@ -3,206 +3,225 @@
 -- Model: New Model    Version: 1.0
 -- MySQL Workbench Forward Engineering
 
-SET @OLD_UNIQUE_CHECKS = @@UNIQUE_CHECKS, UNIQUE_CHECKS = 0;
-SET @OLD_FOREIGN_KEY_CHECKS = @@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS = 0;
-SET @OLD_SQL_MODE = @@SQL_MODE, SQL_MODE =
-        'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema beauty_parlor
+-- Schema test`
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema beauty_parlor
+-- Schema test`
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `test` DEFAULT CHARACTER SET utf8mb4;
-USE `test`;
+CREATE SCHEMA IF NOT EXISTS `test` DEFAULT CHARACTER SET utf8mb4 ;
+USE `test` ;
 
 -- -----------------------------------------------------
--- Table `beauty_parlor`.`user`
+-- Table `test`.`user`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `test`.`user`;
+DROP TABLE IF EXISTS `test`.`user` ;
 
-CREATE TABLE IF NOT EXISTS `test`.`user`
-(
-    `id`       INT                                                          NOT NULL AUTO_INCREMENT,
-    `login`    VARCHAR(64) CHARACTER SET 'utf8mb4'                          NOT NULL,
-    `password` VARCHAR(255) CHARACTER SET 'utf8mb4'                         NOT NULL,
-    `name`     VARCHAR(64) CHARACTER SET 'utf8mb4'                          NOT NULL,
-    `phone`    VARCHAR(32) CHARACTER SET 'utf8mb4'                          NOT NULL,
-    `role`     ENUM ('client', 'employee', 'admin') CHARACTER SET 'utf8mb4' NOT NULL,
-    PRIMARY KEY (`id`),
-    UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
-    UNIQUE INDEX `e-mail_UNIQUE` (`login` ASC) VISIBLE
-)
-    ENGINE = InnoDB;
-
+CREATE TABLE IF NOT EXISTS `test`.`user` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `login` VARCHAR(64) CHARACTER SET 'utf8mb4' NOT NULL,
+  `password` VARCHAR(255) CHARACTER SET 'utf8mb4' NOT NULL,
+  `name` VARCHAR(64) CHARACTER SET 'utf8mb4' NOT NULL,
+  `phone` VARCHAR(32) CHARACTER SET 'utf8mb4' NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
+  UNIQUE INDEX `login_UNIQUE` (`login` ASC) VISIBLE)
+ENGINE = InnoDB;
 
 -- -----------------------------------------------------
--- Table `beauty_parlor`.`category`
+-- Table `test`.`user`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `test`.`category`;
+DROP TABLE IF EXISTS `test`.`role` ;
 
-CREATE TABLE IF NOT EXISTS `test`.`category`
-(
-    `id`          INT                                   NOT NULL AUTO_INCREMENT,
-    `name`        VARCHAR(64) CHARACTER SET 'utf8mb4'   NOT NULL,
-    `description` VARCHAR(1000) CHARACTER SET 'utf8mb4' NOT NULL,
-    PRIMARY KEY (`id`),
-    UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
-    UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE
-)
-    ENGINE = InnoDB;
+CREATE TABLE IF NOT EXISTS `test`.`role` (
+      `id` INT NOT NULL AUTO_INCREMENT,
+      `name` VARCHAR(64) CHARACTER SET 'utf8mb4' NOT NULL unique ,
+      PRIMARY KEY (`id`),
+      UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
+      UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE)
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `beauty_parlor`.`procedure`
+-- Table `test`.`user_role`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `test`.`procedure`;
+DROP TABLE IF EXISTS `test`.`user_role` ;
 
-CREATE TABLE IF NOT EXISTS `test`.`procedure`
-(
-    `id`           INT                                 NOT NULL AUTO_INCREMENT,
-    `category_id`  INT                                 NOT NULL,
-    `name`         VARCHAR(64) CHARACTER SET 'utf8mb4' NOT NULL,
-    `description`  TEXT(1000) CHARACTER SET 'utf8mb4'  NOT NULL,
-    `elapsed_time` TINYINT                             NOT NULL,
-    PRIMARY KEY (`id`),
-    UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
-    UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE,
-    INDEX `category_id_idx` (`category_id` ASC) VISIBLE,
-    CONSTRAINT `category_id`
-        FOREIGN KEY (`category_id`)
-            REFERENCES `test`.`category` (`id`)
-            ON DELETE NO ACTION
-            ON UPDATE NO ACTION
-)
-    ENGINE = InnoDB;
-
+CREATE TABLE IF NOT EXISTS `test`.`user_role` (
+      `user_id` INT NOT NULL,
+      `role_id` INT NOT NULL,
+      PRIMARY KEY (`user_id`,`role_id`),
+      CONSTRAINT `user_id_from_user`
+          FOREIGN KEY (`user_id`)
+              REFERENCES `test`.`user` (`id`)
+              ON DELETE cascade
+              ON UPDATE cascade,
+      CONSTRAINT `role_id_from_role`
+          FOREIGN KEY (`role_id`)
+              REFERENCES `test`.`role` (`id`)
+              ON DELETE cascade
+              ON UPDATE cascade)
+ENGINE = InnoDB;
 
 -- -----------------------------------------------------
--- Table `beauty_parlor`.`procedure_employee`
+-- Table `test`.`category`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `test`.`procedure_employee`;
+DROP TABLE IF EXISTS `test`.`category` ;
 
-CREATE TABLE IF NOT EXISTS `test`.`procedure_employee`
-(
-    `id`           INT        NOT NULL AUTO_INCREMENT,
-    `employee_id`  INT        NOT NULL,
-    `procedure_id` INT        NOT NULL,
-    `price`        DECIMAL(2) NOT NULL,
-    `rating`       DECIMAL(2) NULL DEFAULT 0,
-    PRIMARY KEY (`id`),
-    UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
-    INDEX `procedure_id_idx` (`procedure_id` ASC) VISIBLE,
-    INDEX `emplyee_id_idx` (`employee_id` ASC) VISIBLE,
-    CONSTRAINT `procedure_id`
-        FOREIGN KEY (`procedure_id`)
-            REFERENCES `test`.`procedure` (`id`)
-            ON DELETE CASCADE
-            ON UPDATE NO ACTION,
-    CONSTRAINT `emplyee_id`
-        FOREIGN KEY (`employee_id`)
-            REFERENCES `test`.`user` (`id`)
-            ON DELETE CASCADE
-            ON UPDATE NO ACTION
-)
-    ENGINE = InnoDB;
+CREATE TABLE IF NOT EXISTS `test`.`category` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(64) CHARACTER SET 'utf8mb4' NOT NULL,
+  `description` VARCHAR(1000) CHARACTER SET 'utf8mb4' NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE)
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `beauty_parlor`.`appointment`
+-- Table `test`.`procedure`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `test`.`appointment`;
+DROP TABLE IF EXISTS `test`.`procedure` ;
 
-CREATE TABLE IF NOT EXISTS `test`.`appointment`
-(
-    `id`                    INT       NOT NULL AUTO_INCREMENT,
-    `user_id`               INT       NOT NULL,
-    `procedure_employee_id` INT,
-    `date`                  TIMESTAMP NOT NULL,
-    `status`                TINYINT   NOT NULL DEFAULT 0,
-    `price`                 DOUBLE    NOT NULL,
-    PRIMARY KEY (`id`),
-    UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
-    INDEX `service_id_idx` (`procedure_employee_id` ASC) VISIBLE,
-    INDEX `user_id_idx` (`user_id` ASC) VISIBLE,
-    CONSTRAINT `procedure_emplyee_id`
-        FOREIGN KEY (`procedure_employee_id`)
-            REFERENCES `test`.`procedure_employee` (`id`)
-            ON DELETE SET NULL
-            ON UPDATE CASCADE,
-    CONSTRAINT `user_id`
-        FOREIGN KEY (`user_id`)
-            REFERENCES `test`.`user` (`id`)
-            ON DELETE CASCADE
-            ON UPDATE CASCADE
-)
-    ENGINE = InnoDB;
+CREATE TABLE IF NOT EXISTS `test`.`procedure` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `category_id` INT NOT NULL,
+  `name` VARCHAR(64) CHARACTER SET 'utf8mb4' NOT NULL,
+  `description` TEXT(1000) CHARACTER SET 'utf8mb4' NOT NULL,
+  `elapsed_time` TINYINT NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE,
+  INDEX `category_id_idx` (`category_id` ASC) VISIBLE,
+  CONSTRAINT `category_id`
+    FOREIGN KEY (`category_id`)
+    REFERENCES `test`.`category` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `beauty_parlor`.`score`
+-- Table `test`.`procedure_employee`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `test`.`score`;
+DROP TABLE IF EXISTS `test`.`procedure_employee` ;
 
-CREATE TABLE IF NOT EXISTS `test`.`score`
-(
-    `id`             INT                               NOT NULL AUTO_INCREMENT,
-    `user_id`        INT ,
-    `value`          TINYINT                           NOT NULL,
-    `appointment_id` INT                               NOT NULL,
-    `comment`        TEXT(200) CHARACTER SET 'utf8mb4' NULL,
-    `date`           TIMESTAMP                         NOT NULL,
-    PRIMARY KEY (`id`),
-    UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
-    INDEX `_idx` (`user_id` ASC) VISIBLE,
-    CONSTRAINT `user`
-        FOREIGN KEY (`user_id`)
-            REFERENCES `test`.`user` (`id`)
-            ON DELETE SET NULL
-            ON UPDATE CASCADE,
-    CONSTRAINT `appointment`
-        FOREIGN KEY (`appointment_id`)
-            REFERENCES `test`.`appointment` (`id`)
-            ON DELETE CASCADE
-            ON UPDATE CASCADE
-)
-    ENGINE = InnoDB;
+CREATE TABLE IF NOT EXISTS `test`.`procedure_employee` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `employee_id` INT NOT NULL,
+  `procedure_id` INT NOT NULL,
+  `price` DECIMAL(2) NOT NULL,
+  `rating` DECIMAL(2) NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
+  INDEX `procedure_id_idx` (`procedure_id` ASC) VISIBLE,
+  INDEX `emplyee_id_idx` (`employee_id` ASC) VISIBLE,
+  CONSTRAINT `procedure_id`
+    FOREIGN KEY (`procedure_id`)
+    REFERENCES `test`.`procedure` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION,
+  CONSTRAINT `emplyee_id`
+    FOREIGN KEY (`employee_id`)
+    REFERENCES `test`.`user` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `beauty_parlor`.`schedule`
+-- Table `test`.`appointment`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `test`.`schedule`;
+DROP TABLE IF EXISTS `test`.`appointment` ;
 
-CREATE TABLE IF NOT EXISTS `test`.`schedule`
-(
-    `id`          INT       NOT NULL AUTO_INCREMENT,
-    `employee_id` INT       NOT NULL,
-    `date`        TIMESTAMP NOT NULL,
-    `appointment_id` INT,
-    PRIMARY KEY (`id`),
-    UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
-    CONSTRAINT `un_schedule` UNIQUE (`employee_id`, `date`),
-    INDEX `employee_idx` (`employee_id` ASC) VISIBLE,
-    CONSTRAINT `employee`
-        FOREIGN KEY (`employee_id`)
-        REFERENCES `test`.`user` (`id`)
-        ON DELETE NO ACTION
-        ON UPDATE NO ACTION,
-    CONSTRAINT `appointment_id`
+CREATE TABLE IF NOT EXISTS `test`.`appointment` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NOT NULL,
+  `procedure_employee_id` INT,
+  `date` TIMESTAMP NOT NULL,
+  `status` TINYINT NOT NULL DEFAULT 0,
+  `price` DOUBLE NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
+  INDEX `service_id_idx` (`procedure_employee_id` ASC) VISIBLE,
+  INDEX `user_id_idx` (`user_id` ASC) VISIBLE,
+  CONSTRAINT `procedure_emplyee_id`
+    FOREIGN KEY (`procedure_employee_id`)
+    REFERENCES `test`.`procedure_employee` (`id`)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE ,
+  CONSTRAINT `user_id`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `test`.`user` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `test`.`score`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `test`.`score` ;
+
+CREATE TABLE IF NOT EXISTS `test`.`score` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT,
+  `value` TINYINT NOT NULL,
+  `appointment_id` INT NOT NULL,
+  `comment` TEXT(200) CHARACTER SET 'utf8mb4' NULL,
+  `date` TIMESTAMP NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
+  INDEX `_idx` (`user_id` ASC) VISIBLE,
+  CONSTRAINT `user`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `test`.`user` (`id`)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE ,
+  CONSTRAINT `appointment`
+    FOREIGN KEY (`appointment_id`)
+    REFERENCES `test`.`appointment` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `test`.`schedule`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `test`.`schedule` ;
+
+CREATE TABLE IF NOT EXISTS `test`.`schedule` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `employee_id` INT NOT NULL,
+  `date` TIMESTAMP NOT NULL,
+  `appointment_id` INT,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
+  CONSTRAINT `un_schedule` UNIQUE (`employee_id`,`date`),
+  INDEX `employee_idx` (`employee_id` ASC) VISIBLE,
+  CONSTRAINT `employee`
+    FOREIGN KEY (`employee_id`)
+    REFERENCES `test`.`user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `appointment_id`
     FOREIGN KEY (`appointment_id`)
     REFERENCES `test`.`appointment` (`id`)
     ON DELETE SET NULL
-    ON UPDATE CASCADE
-)
-    ENGINE = InnoDB;
+    ON UPDATE CASCADE )
+ENGINE = InnoDB;
+
 CREATE DEFINER = CURRENT_USER TRIGGER `test`.`score_AFTER_INSERT` AFTER INSERT ON `score` FOR EACH ROW
 BEGIN
     set @idr = (select procedure_employee_id
-                from score inner join appointment on score.appointment_id = appointment_id
-                where score.id = new.id);
+    from score inner join appointment on score.appointment_id = appointment_id
+    where score.id = new.id);
     update procedure_employee set procedure_employee.rating =
                                       (select avg(value)
                                        from score inner join appointment on score.appointment_id = appointment_id
@@ -211,6 +230,6 @@ BEGIN
 END;
 
 
-SET SQL_MODE = @OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS = @OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS = @OLD_UNIQUE_CHECKS;
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
