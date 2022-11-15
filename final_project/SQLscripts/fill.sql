@@ -4,7 +4,9 @@ delete from schedule where id>0;
 delete from procedure_employee where id>0;
 delete from `procedure` where id>0;
 delete from category where id>0;
+delete from user_role where user_id>0;
 delete from user where id>0;
+delete from role where id>0;
 
 
 INSERT INTO category (id,name,description)
@@ -101,23 +103,3 @@ VALUES (3, 1, 20, 0),
        (4, 4, 20, 0),
        (4, 5, 20, 0),
        (4, 6, 20, 0);
-
-INSERT INTO schedule (employee_id, date)
-VALUES (3, '2021-12-01 09:00:00'),
-       (3, '2021-12-01 10:00:00'),
-       (3, '2021-12-01 11:00:00'),
-       (3, '2021-12-01 12:00:00'),
-       (3, '2021-12-01 13:00:00'),
-       (3, '2021-12-01 14:00:00'),
-       (3, '2021-12-01 15:00:00'),
-       (3, '2021-12-01 16:00:00'),
-       (3, '2021-12-01 17:00:00'),
-       (4, '2021-12-01 09:00:00'),
-       (4, '2021-12-01 10:00:00'),
-       (4, '2021-12-01 11:00:00'),
-       (4, '2021-12-01 12:00:00'),
-       (4, '2021-12-01 13:00:00'),
-       (4, '2021-12-01 14:00:00'),
-       (4, '2021-12-01 15:00:00'),
-       (4, '2021-12-01 16:00:00'),
-       (4, '2021-12-01 17:00:00');

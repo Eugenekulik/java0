@@ -21,8 +21,8 @@ import java.util.Set;
  * @see EmployeeService
  */
 
-public class ScheduleAddAction implements Action {
-    private static final Logger LOGGER = LogManager.getLogger(ScheduleAddAction.class);
+public class ScheduleCreateFormAction implements Action {
+    private static final Logger LOGGER = LogManager.getLogger(ScheduleCreateFormAction.class);
     @Override
     public boolean isRedirect() {
         return false;

@@ -168,7 +168,8 @@ public class UserService {
         try {
             transactionFactory = new TransactionFactoryImpl();
             transaction = transactionFactory.createTransaction();
-            UserDao userDao = transaction.createDao(USER_DAO);
+            UserDao userDao = transaction.createDao(DaoEnum.USER.getDao());
+            RoleDao roleDao = transaction.createDao(DaoEnum.ROLE.getDao());
             User actual = userDao.findById(user.getId());
             actual.setName(user.getName());
             actual.setPhone(user.getPhone());

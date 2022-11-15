@@ -101,7 +101,7 @@ public class AppointmentAddAction implements Action {
             }
             request.getSession().setAttribute(DATE, dateString);
             ScheduleService scheduleService =
-                    ServiceFactory.getInstance().getscheduleService();
+                    ServiceFactory.getInstance().getScheduleService();
             LocalDate date = LocalDate.parse((String) request.getSession()
                     .getAttribute(DATE));
             List<LocalTime> schedules = scheduleService.schedulesByEmployeeDate(selectedEmployee, date);

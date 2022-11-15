@@ -1,9 +1,6 @@
 package by.training.beauty.controller.action;
 
-import by.training.beauty.controller.action.implementation.admin.AdministrateAction;
-import by.training.beauty.controller.action.implementation.admin.AdministrateAddAction;
-import by.training.beauty.controller.action.implementation.admin.AdministrateChangeAction;
-import by.training.beauty.controller.action.implementation.admin.ScheduleAddAction;
+import by.training.beauty.controller.action.implementation.admin.*;
 import by.training.beauty.controller.action.implementation.client.*;
 import by.training.beauty.controller.action.implementation.common.*;
 
@@ -20,8 +17,12 @@ public enum ActionEnum {
     //Admin
     ADMINISTRATE(AdministrateAction.class),
     ADMINISTRATE_ADD(AdministrateAddAction.class),
-    ADMINISTRATE_CHANGE(AdministrateChangeAction.class),
-    SHEDULE_ADD(ScheduleAddAction.class),
+    SCHEDULE_ADD(ScheduleCreateFormAction.class),
+    ADMINISTRATE_USER(AdministrateUserAction.class),
+    ADMINISTRATE_APPOINTMENT(AdministrateAppointmentAction.class),
+    ADMINISTRATE_PROCEDURE(AdministrateProcedureAction.class),
+    ADMINISTRATE_SCHEDULE(AdministrateScheduleAction.class),
+
 
 
     //Client

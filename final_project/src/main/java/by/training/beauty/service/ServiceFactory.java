@@ -6,35 +6,47 @@ import by.training.beauty.service.validator.UserValidator;
 public class ServiceFactory {
     private static  final ServiceFactory INSTANCE = new ServiceFactory();
     private final UserValidator userValidator = new UserValidator();
+    private final AdministrateService administrateService = new AdministrateService();
+    private final AppointmentService appointmentService = new AppointmentService();
+    private final ConnectionPoolService connectionPoolService = new ConnectionPoolService();
+    private final EmployeeService employeeService = new EmployeeService();
+    private final ScheduleService scheduleService = new ScheduleService();
+    private final ProcedureService procedureService = new ProcedureService();
+    private final UserService userService = new UserService();
+    private final ScoreService scoreService = new ScoreService();
+    private final RoleService roleService = new RoleService();
+
+
     public static ServiceFactory getInstance(){
         return INSTANCE;
     }
 
     public AdministrateService getAdministrateService(){
-        return new AdministrateService();
+        return administrateService;
     }
     public AppointmentService getAppointmentService(){
-        return new AppointmentService();
+        return appointmentService;
     }
     public ConnectionPoolService getConnectionPoolService(){
-        return new ConnectionPoolService();
+        return connectionPoolService;
     }
     public UserValidator getUserValidator(){
         return userValidator;
     }
     public EmployeeService getEmployeeService(){
-        return new EmployeeService();
+        return employeeService;
     }
-    public ScheduleService getscheduleService(){
-        return new ScheduleService();
+    public ScheduleService getScheduleService(){
+        return scheduleService;
     }
     public ProcedureService getProcedureService(){
-        return new ProcedureService();
+        return procedureService;
     }
     public UserService getUserService(){
-        return new UserService();
+        return userService;
     }
-    public ScoreService getScoreService() {return new ScoreService();}
+    public ScoreService getScoreService() {return scoreService;}
+    public RoleService getRoleService() {return roleService;}
 
 }
 

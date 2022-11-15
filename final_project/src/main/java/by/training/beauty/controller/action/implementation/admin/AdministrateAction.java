@@ -49,7 +49,6 @@ public class AdministrateAction implements Action {
         } else if (request.getSession().getAttribute(ACTIVE_TAB) == null) {
             request.getSession().setAttribute(ACTIVE_TAB, "1");
         }
-        AdministrateService administrateService = ServiceFactory.getInstance().getAdministrateService();
         int pageCount = 0;
         int paginationPage;
         try {
@@ -61,28 +60,47 @@ public class AdministrateAction implements Action {
         try {
             switch ((String) request.getSession().getAttribute(ACTIVE_TAB)) {
                 case "1":
-                    pageCount = administrateService.getPagecount(1);
-                    List<User> users = administrateService.administrateUsers(paginationPage);
+                    pageCount = ServiceFactory.getInstance()
+                            .getAdministrateService()
+                            .getPagecount(1);
+                    List<User> users = ServiceFactory.getInstance()
+                            .getAdministrateService()
+                            .administrateUsers(paginationPage);
+                    List<Role> roles = ServiceFactory.getInstance()
+                            .getRoleService()
+                            .getAllRoles();
                     request.getSession().setAttribute("users", users);
+                    request.getSession().setAttribute("allRoles", roles);
                     break;
                 case "2":
-                    pageCount = administrateService.getPagecount(2);
-                    entities = administrateService.administrateAppointments(paginationPage);
+                    pageCount = ServiceFactory.getInstance()
+                            .getAdministrateService()
+                            .getPagecount(2);
+                    entities = ServiceFactory.getInstance()
+                            .getAdministrateService()
+                            .administrateAppointments(paginationPage);
                     List<User> clients = entities.stream()
-                            .filter(User.class::isInstance).map(User.class::cast)
-                            .filter(user -> user.getRoles().equals("client")).collect(Collectors.toList());
+                            .filter(User.class::isInstance)
+                            .map(User.class::cast)
+                            .filter(user -> user.getRoles().equals("client"))
+                            .collect(Collectors.toList());
                     List<User> employees = entities.stream()
-                            .filter(User.class::isInstance).map(User.class::cast)
-                            .filter((user -> user.getRoles().equals("employee"))).collect(Collectors.toList());
+                            .filter(User.class::isInstance)
+                            .map(User.class::cast)
+                            .filter((user -> user.getRoles().equals("employee")))
+                            .collect(Collectors.toList());
                     List<Appointment> appointments = entities.stream()
                             .filter(Appointment.class::isInstance)
-                            .map(Appointment.class::cast).collect(Collectors.toList());
+                            .map(Appointment.class::cast)
+                            .collect(Collectors.toList());
                     List<Procedure> procedures = entities.stream()
                             .filter(Procedure.class::isInstance)
-                            .map(Procedure.class::cast).collect(Collectors.toList());
+                            .map(Procedure.class::cast)
+                            .collect(Collectors.toList());
                     List<Category> categories = entities.stream()
                             .filter(Category.class::isInstance)
-                            .map(Category.class::cast).collect(Collectors.toList());
+                            .map(Category.class::cast)
+                            .collect(Collectors.toList());
                     request.getSession().setAttribute("clients", clients);
                     request.getSession().setAttribute("employees", employees);
                     request.getSession().setAttribute("appointments", appointments);
@@ -90,8 +108,12 @@ public class AdministrateAction implements Action {
                     request.getSession().setAttribute("categories", categories);
                     break;
                 case "3":
-                    pageCount = administrateService.getPagecount(3);
-                    entities = administrateService.administrateProcedures(paginationPage);
+                    pageCount = ServiceFactory.getInstance()
+                            .getAdministrateService()
+                            .getPagecount(3);
+                    entities = ServiceFactory.getInstance()
+                            .getAdministrateService()
+                            .administrateProcedures(paginationPage);
                     List<Procedure> procedures1 = entities.stream()
                             .filter(Procedure.class::isInstance)
                             .map(Procedure.class::cast)
@@ -104,8 +126,12 @@ public class AdministrateAction implements Action {
                     request.getSession().setAttribute("procedures", procedures1);
                     break;
                 case "4":
-                    pageCount = administrateService.getPagecount(4);
-                    entities = administrateService.administrateSchedules(paginationPage);
+                    pageCount = ServiceFactory.getInstance()
+                            .getAdministrateService()
+                            .getPagecount(4);
+                    entities = ServiceFactory.getInstance()
+                            .getAdministrateService()
+                            .administrateSchedules(paginationPage);
                     List<User> employees1 = entities.stream()
                             .filter(User.class::isInstance)
                             .map(User.class::cast)

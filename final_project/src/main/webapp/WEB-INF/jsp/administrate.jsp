@@ -55,14 +55,15 @@
                             <td>
                                 <button type="button" class="btn btn-warning user-modal-btn"
                                         data-id="${user.id}" data-name="${user.name}"
-                                        data-role="${user.roles}" data-toggle="modal"
+                                        data-roles="${user.roles}" data-toggle="modal"
                                         data-phone="${user.phone}" data-target="#user-modal">Update
                                 </button>
                             </td>
                             <td>
                                 <form method="post" action="<c:url
-                                    value="/administrate_change.html"/>">
-                                    <input type="hidden" value="${user.id}" name="delete">
+                                    value="/administrate_user.html"/>">
+                                    <input type="hidden" value="delete" name="method">
+                                    <input type="hidden" value="${user.id}" name="userId">
                                     <button class="btn btn-danger"
                                             type="submit">${text['administrate.delete']}</button>
                                 </form>
@@ -147,8 +148,9 @@
                             </td>
                             <td>
                                 <form method="post" action="<c:url
-                                    value="/administrate_change.html"/>">
-                                    <input type="hidden" value="${appointment.id}" name="delete">
+                                    value="/administrate_appointment.html"/>">
+                                    <input type="hidden" value="delete" name="method">
+                                    <input type="hidden" value="${appointment.id}" name="appointmentId">
                                     <button class="btn btn-danger" type="submit">${text['administrate.delete']}</button>
                                 </form>
                             </td>
@@ -219,8 +221,9 @@
                             </td>
                             <td>
                                 <form method="post" action="<c:url
-                                    value="/administrate_change.html"/>">
-                                    <input type="hidden" value="${procedure.id}" name="delete">
+                                    value="/administrate_procedure.html"/>">
+                                    <input type="hidden" value="delete" name="method">
+                                    <input type="hidden" value="${procedure.id}" name="procedureId">
                                     <button class="btn btn-danger" type="submit">${text['administrate.delete']}</button>
                                 </form>
                             </td>
@@ -291,8 +294,9 @@
                             </c:if>
                             <td>
                                 <form method="post" action="<c:url
-                                    value="/administrate_change.html"/>">
-                                    <input type="hidden" value="${schedule.id}" name="delete">
+                                    value="/administrate_schedule.html"/>">
+                                    <input type="hidden" value="delete" name="method">
+                                    <input type="hidden" value="${schedule.id}" name="scheduleId">
                                     <button class="btn btn-danger" type="submit">${text['administrate.delete']}</button>
                                 </form>
                             </td>
@@ -300,7 +304,7 @@
                     </c:forEach>
                 </table>
                 <a class="btn btn-success"
-                   href="<c:url value="/administrate_add.html"/>">${text['administrate.add']}</a>
+                   href="<c:url value="/schedule_add.html"/>">${text['administrate.add']}</a>
                 <ul class="pagination">
                     <c:if test="${paginationPage>1}">
                         <li class="page-item">
@@ -346,14 +350,25 @@
                 <button type="button" class="btn-close" data-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form action="<c:url value="/administrate_change.html"/>" method="post">
-                    <input type="hidden" name="update" value="1">
+                <form action="<c:url value="/administrate_user.html"/>" method="post">
+                    <input type="hidden" name="method" value="update">
                     <input id="name" maxlength="40" minlength="4" pattern="([A-ZА-ЯЁa-zа-яё ]*)"
                            class="main-color-bg-f form-control" type="text" name="name" value=""
                            placeholder="<c:out value="${text['registration.name']}"/>"/>
                     <input id="phone" maxlength="20" minlength="4" pattern="([+0-9][0-9]*)"
                            class="main-color-bg-f form-control" type="text" name="phone" value=""
                            placeholder="<c:out value="${text['registration.phone']}"/>"/>
+                    <c:forEach var="role" items="${allRoles}">
+                        <label>
+                            <input type="checkbox" value="${role.name}"
+                                <c:forEach var="userRole" items="${userRoles}">
+                                    <c:if test="${userRole.name == role.name}">checked</c:if>
+                                </c:forEach>
+                                   name="checkedRoles">
+                            ${role.name}
+                        </label>
+                    </c:forEach>
+                    </select>
                     <br/>
                     <div><span id="role"></span></div>
                     <br/>
@@ -476,7 +491,6 @@
         function () {
             var userId = $(this).attr('data-id');
             var userName = $(this).attr('data-name');
-            var userRole = $(this).attr('data-role');
             var userPhone = $(this).attr('data-phone');
             $("#userId").html(userId);
             $("#name").attr('value', userName);

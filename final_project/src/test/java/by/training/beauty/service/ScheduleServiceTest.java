@@ -63,7 +63,7 @@ public class ScheduleServiceTest {
         int employeeId = 2;
         ScheduleService scheduleService = new ScheduleService();
         try {
-            scheduleService.addschedule(employeeId, date);
+            scheduleService.addSchedule(employeeId, date);
             try {
                 PooledConnection connection = ConnectionPool.getInstance().getConnection();
                 ScheduleDao scheduleDao = new ScheduleDaoImpl();

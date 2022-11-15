@@ -69,7 +69,7 @@ public class ScheduleService {
      * @param date
      * @throws ServiceException
      */
-    public void addschedule(int employeeId, LocalDate date)
+    public void addSchedule(int employeeId, LocalDate date)
             throws ServiceException {
         TransactionFactory transactionFactory;
         Transaction transaction = null;

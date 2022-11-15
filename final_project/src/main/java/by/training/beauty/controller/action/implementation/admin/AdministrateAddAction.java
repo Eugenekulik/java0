@@ -54,15 +54,15 @@ public class AdministrateAddAction implements Action {
                 }
                 break;
             case "4":
-                ScheduleService scheduleService =
-                        ServiceFactory.getInstance().getscheduleService();
                 try {
                     int employeeId = 0;
                     LocalDate date = null;
                     employeeId = Integer.parseInt(request.getParameter("employeeId"));
                     date = LocalDate.parse(request.getParameter("date"));
                     if (date != null && employeeId != 0) {
-                        scheduleService.addschedule(employeeId, date);
+                        ServiceFactory.getInstance()
+                                .getScheduleService()
+                                .addSchedule(employeeId, date);
                     }
                 } catch (ServiceException e) {
                     LOGGER.error("it is impossible to add schedule");

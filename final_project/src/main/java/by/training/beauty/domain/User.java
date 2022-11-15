@@ -71,6 +71,9 @@ public class User extends Entity{
         return roles.remove(role);
     }
 
+    public void removeAllRoles(){
+        roles.clear();
+    }
 
     @Override
     public boolean equals(Object o) {

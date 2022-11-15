@@ -17,25 +17,37 @@ import java.util.List;
 public class UserDaoImpl implements UserDao {
     private static final Logger LOGGER = LogManager.getLogger(UserDaoImpl.class);
     private Connection connection;
-    private static final String SQL_CREATE = "INSERT INTO user(user.login, user.password, " +
-            "user.name, user.phone) VALUES(?,?,?,?);";
-    private static final String SQL_FIND_ALL = "SELECT user.id, user.login, user.password, " +
-            "user.name, user.phone FROM user";
-    private static final String SQL_FIND_INTERVAL = "SELECT user.id, user.login, user.password, " +
-            "user.name, user.phone FROM user WHERE user.id>0 LIMIT ?, ?";
-    private static final String SQL_FIND_BY_ID = "SELECT user.id, user.login, user.password, " +
-            "user.name, user.phone FROM user WHERE user.id = ?;";
-    private static final String SQL_DELETE = "DELETE FROM user WHERE user.id = ?;";
-    private static final String SQL_UPDATE = "UPDATE user SET user.login = ?, user.password = ?, " +
-            "user.name = ?, user.phone = ? WHERE user.id = ?;";
-    private static final String SQL_READ_BY_LOGIN_PASSWORD = "SELECT user.id, user.login, user.password, " +
-            "user.name, user.phone FROM user WHERE user.login = ? AND user.password = ?;";
-    private static final String SQL_READ_BY_LOGIN = "SELECT user.id, user.login, user.password, " +
-            "user.name, user.phone FROM user WHERE user.login = ?;";
-    private static final String SQL_READ_BY_NAME = "SELECT user.id, user.login, user.password, " +
-            "user.name, user.phone FROM user WHERE user.name = ?;";
-    private static final String SQL_FIND_EMPLOYEES = "SELECT user.id, user.login, user.password, " +
-            "user.name, user.phone FROM user WHERE user.role = 'employee'";
+    private static final String SQL_CREATE =
+            "INSERT INTO user(user.login, user.password, user.name, user.phone) " +
+            "VALUES(?,?,?,?);";
+    private static final String SQL_FIND_ALL =
+            "SELECT user.id, user.login, user.password, user.name, user.phone " +
+            "FROM user";
+    private static final String SQL_FIND_INTERVAL =
+            "SELECT user.id, user.login, user.password, user.name, user.phone " +
+            "FROM user WHERE user.id>0 LIMIT ?, ?";
+    private static final String SQL_FIND_BY_ID =
+            "SELECT user.id, user.login, user.password, user.name, user.phone " +
+            "FROM user WHERE user.id = ?;";
+    private static final String SQL_DELETE =
+            "DELETE FROM user WHERE user.id = ?;";
+    private static final String SQL_UPDATE =
+            "UPDATE user SET user.login = ?, user.password = ?, user.name = ?, user.phone = ? " +
+            "WHERE user.id = ?;";
+    private static final String SQL_READ_BY_LOGIN_PASSWORD =
+            "SELECT user.id, user.login, user.password, user.name, user.phone " +
+            "FROM user WHERE user.login = ? AND user.password = ?;";
+    private static final String SQL_READ_BY_LOGIN =
+            "SELECT user.id, user.login, user.password, user.name, user.phone " +
+            "FROM user WHERE user.login = ?;";
+    private static final String SQL_READ_BY_NAME =
+            "SELECT user.id, user.login, user.password, user.name, user.phone " +
+            "FROM user WHERE user.name = ?;";
+    private static final String SQL_FIND_EMPLOYEES =
+            "SELECT user.id, user.login, user.password, user.name, user.phone " +
+            "FROM user right join (user_role left join role on user_role.role_id = role.id) " +
+            "on user.id = user_role.user_id " +
+            "WHERE role.name = 'employee'";
     @Override
     public List<User> findall() throws DaoException {
         PreparedStatement statement = null;
