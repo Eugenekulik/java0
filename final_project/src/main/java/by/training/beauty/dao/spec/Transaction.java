@@ -1,4 +1,6 @@
-package by.training.beauty.dao;
+package by.training.beauty.dao.spec;
+
+import by.training.beauty.dao.DaoException;
 
 /**
  * The Transaction interface allows operations to be performed against

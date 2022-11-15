@@ -1,7 +1,10 @@
 package by.training.beauty.service;
 
-import by.training.beauty.dao.*;
 import by.training.beauty.dao.mysql.TransactionFactoryImpl;
+import by.training.beauty.dao.spec.ProcedureEmployeeDao;
+import by.training.beauty.dao.spec.Transaction;
+import by.training.beauty.dao.spec.TransactionFactory;
+import by.training.beauty.dao.spec.UserDao;
 import by.training.beauty.domain.Procedure;
 import by.training.beauty.domain.ProcedureEmployee;
 import by.training.beauty.domain.User;

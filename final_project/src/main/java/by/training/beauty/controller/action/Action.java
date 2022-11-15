@@ -1,6 +1,9 @@
 package by.training.beauty.controller.action;
 
+import by.training.beauty.domain.Role;
+
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Set;
 
 
@@ -18,11 +21,10 @@ public interface Action {
     boolean isRedirect();
 
     /**
-     * This method allows figure out users with which roles
-     * access to the command is allowed.
-     * @return Set<String> contains all roles which have access.
+     * This method allows you to find out if the request is allowed.
+     * @return boolean if allowed.
      */
-    Set<String> getRoles();
+    boolean isAllowed(HttpServletRequest request);
 
     /**
      * It is method is main which calls the necessery services.
@@ -31,9 +33,4 @@ public interface Action {
      */
     String execute(HttpServletRequest request);
 
-    /**
-     * This method allows figure out what query method are allowed.
-     * @return String method name(GET, POST or another)
-     */
-    String getMethod();
 }

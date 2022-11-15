@@ -1,7 +1,7 @@
 package by.training.beauty.dao.mysql;
 
 import by.training.beauty.dao.DaoException;
-import by.training.beauty.dao.RoleDao;
+import by.training.beauty.dao.spec.RoleDao;
 import by.training.beauty.domain.Role;
 import by.training.beauty.domain.User;
 import org.apache.logging.log4j.LogManager;

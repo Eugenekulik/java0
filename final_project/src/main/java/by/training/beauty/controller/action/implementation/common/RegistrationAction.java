@@ -31,9 +31,11 @@ public class RegistrationAction implements Action {
     }
 
     @Override
-    public Set<String> getRoles() {
-        return Set.of("unknown","client","admin","employee");
+    public boolean isAllowed(HttpServletRequest request) {
+        return request.getSession().getAttribute("roles") == null
+                && request.getMethod().equals("POST");
     }
+
 
     @Override
     public String execute(HttpServletRequest request) {
@@ -65,10 +67,5 @@ public class RegistrationAction implements Action {
             page = "/registration.html";
         }
         return page;
-    }
-
-    @Override
-    public String getMethod() {
-        return "POST";
     }
 }

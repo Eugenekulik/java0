@@ -1,6 +1,7 @@
 package by.training.beauty.controller.action.implementation.client;
 
 import by.training.beauty.controller.action.Action;
+import by.training.beauty.domain.Role;
 import by.training.beauty.domain.Score;
 import by.training.beauty.domain.User;
 import by.training.beauty.service.ScoreService;
@@ -10,7 +11,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.List;
 
 public class AddScoreAction implements Action {
     private static final Logger LOGGER = LogManager.getLogger(AddScoreAction.class);
@@ -20,9 +21,13 @@ public class AddScoreAction implements Action {
     }
 
     @Override
-    public Set<String> getRoles() {
-        return Set.of("client");
+    public boolean isAllowed(HttpServletRequest request) {
+        List<Role> roles = (List<Role>) request.getSession().getAttribute("roles");
+        if(roles == null) return false;
+        if(roles.contains(new Role("client")) && request.getMethod().equals("POST")) return true;
+        return false;
     }
+
 
     @Override
     public String execute(HttpServletRequest request) {
@@ -50,8 +55,5 @@ public class AddScoreAction implements Action {
         return "/procedure.html";
     }
 
-    @Override
-    public String getMethod() {
-        return "POST";
-    }
+
 }

@@ -18,8 +18,8 @@ public class EmptyAction implements Action {
     }
 
     @Override
-    public Set<String> getRoles() {
-        return Set.of("unknown","client","employee","admin");
+    public boolean isAllowed(HttpServletRequest request) {
+        return true;
     }
 
     @Override
@@ -27,8 +27,4 @@ public class EmptyAction implements Action {
         return PageEnum.ERROR.getPage();
     }
 
-    @Override
-    public String getMethod() {
-        return "GET";
-    }
 }

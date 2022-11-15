@@ -4,6 +4,7 @@ import by.training.beauty.controller.action.Action;
 import by.training.beauty.controller.action.PageEnum;
 import by.training.beauty.domain.Appointment;
 import by.training.beauty.domain.Procedure;
+import by.training.beauty.domain.Role;
 import by.training.beauty.domain.User;
 import by.training.beauty.service.*;
 import org.apache.logging.log4j.LogManager;
@@ -46,9 +47,13 @@ public class AppointmentAddAction implements Action {
     }
 
     @Override
-    public Set<String> getRoles() {
-        return Set.of("client");
+    public boolean isAllowed(HttpServletRequest request) {
+        List<Role> roles = (List<Role>) request.getSession().getAttribute("roles");
+        if(roles == null) return false;
+        if(roles.contains(new Role("client")) && request.getMethod().equals("POST"))return true;
+        return false;
     }
+
 
     @Override
     public String execute(HttpServletRequest request) {
@@ -114,8 +119,4 @@ public class AppointmentAddAction implements Action {
         return PageEnum.APPOINTMENT_ADD.getPage();
     }
 
-    @Override
-    public String getMethod() {
-        return "POST";
-    }
 }

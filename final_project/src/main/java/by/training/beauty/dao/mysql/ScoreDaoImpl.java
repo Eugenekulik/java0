@@ -1,7 +1,7 @@
 package by.training.beauty.dao.mysql;
 
 import by.training.beauty.dao.DaoException;
-import by.training.beauty.dao.ScoreDao;
+import by.training.beauty.dao.spec.ScoreDao;
 import by.training.beauty.domain.Appointment;
 import by.training.beauty.domain.Score;
 import org.apache.logging.log4j.LogManager;

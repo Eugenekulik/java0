@@ -37,7 +37,7 @@ public class SecurityFilter implements Filter {
             HttpServletRequest request = (HttpServletRequest) servletRequest;
             HttpServletResponse response = (HttpServletResponse) servletResponse;
             Action action = new ActionFactory(request).initCommand();
-            if(checkRole(request, action) && checkMethod(request, action)) {
+            if(action.isAllowed(request)) {
                 chain.doFilter(servletRequest,servletResponse);
             }
             else {
@@ -56,52 +56,5 @@ public class SecurityFilter implements Filter {
     @Override
     public void destroy() {
         Filter.super.destroy();
-    }
-
-    private boolean checkRole(HttpServletRequest request, Action action){
-        HttpSession session = request.getSession(false);
-        User user = new User();
-        user.setName("unknown");
-        List<Role> roles = new ArrayList<>();
-        if (session != null) {
-            if(session.getAttribute("user") != null) {
-                user = ((User) session.getAttribute("user"));
-            }
-            roles = (List<Role>)  session.getAttribute("roles");
-            if(roles == null) {
-                roles = new ArrayList<>();
-                roles.add(new Role("unknown"));
-            }
-            String errorMessage = (String) session.getAttribute(MESSAGE);
-            if (errorMessage != null) {
-                request.setAttribute("message",errorMessage);
-                session.removeAttribute(MESSAGE);
-            }
-        }
-        if (roles.stream().filter(role -> {
-            return action.getRoles().contains(role.getName());
-        }).findAny() !=null) {
-            return true;
-        } else {
-            LOGGER.info("Trying of {} to forbidden to resource", user.getName());
-            if (session != null) {
-                session.getAttribute(MESSAGE);
-            }
-            return false;
-        }
-
-    }
-
-    private boolean checkMethod(HttpServletRequest request, Action action){
-        if(request.getMethod().equals(action.getMethod())) {
-            return true;
-        } else {
-            LOGGER.info("An attempt to send a request using the wrong method");
-            HttpSession session = request.getSession();
-            if (session != null) {
-                session.getAttribute(MESSAGE);
-            }
-            return false;
-        }
     }
 }

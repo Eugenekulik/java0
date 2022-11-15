@@ -1,7 +1,7 @@
 package by.training.beauty.dao.mysql;
 
 import by.training.beauty.dao.DaoException;
-import by.training.beauty.dao.CategoryDao;
+import by.training.beauty.dao.spec.CategoryDao;
 import by.training.beauty.domain.Category;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

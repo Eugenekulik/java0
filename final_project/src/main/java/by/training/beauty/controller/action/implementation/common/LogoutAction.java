@@ -20,8 +20,9 @@ public class LogoutAction implements Action {
     }
 
     @Override
-    public Set<String> getRoles() {
-        return Set.of("admin","client","employee");
+    public boolean isAllowed(HttpServletRequest request) {
+        return request.getSession().getAttribute("roles") != null
+                && request.getMethod().equals("GET");
     }
 
     @Override
@@ -33,8 +34,5 @@ public class LogoutAction implements Action {
         return "/main.html";
     }
 
-    @Override
-    public String getMethod() {
-        return "GET";
-    }
+
 }

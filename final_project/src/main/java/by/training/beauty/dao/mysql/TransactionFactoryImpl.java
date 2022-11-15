@@ -1,8 +1,8 @@
 package by.training.beauty.dao.mysql;
 
 import by.training.beauty.dao.DaoException;
-import by.training.beauty.dao.Transaction;
-import by.training.beauty.dao.TransactionFactory;
+import by.training.beauty.dao.spec.Transaction;
+import by.training.beauty.dao.spec.TransactionFactory;
 import by.training.beauty.dao.pool.ConnectionPool;
 import by.training.beauty.dao.pool.PooledConnection;
 import org.apache.logging.log4j.LogManager;

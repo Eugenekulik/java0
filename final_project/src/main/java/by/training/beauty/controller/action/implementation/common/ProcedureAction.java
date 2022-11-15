@@ -1,4 +1,4 @@
-package by.training.beauty.controller.action.implementation.client;
+package by.training.beauty.controller.action.implementation.common;
 
 import by.training.beauty.controller.action.Action;
 import by.training.beauty.controller.action.PageEnum;
@@ -13,7 +13,6 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -32,9 +31,11 @@ public class ProcedureAction implements Action {
     }
 
     @Override
-    public Set<String> getRoles() {
-        return Set.of("unknown","admin","client","employee");
+    public boolean isAllowed(HttpServletRequest request) {
+
+        return request.getMethod().equals("GET");
     }
+
 
     @Override
     public String execute(HttpServletRequest request) {
@@ -75,8 +76,4 @@ public class ProcedureAction implements Action {
         return page;
     }
 
-    @Override
-    public String getMethod() {
-        return "GET";
-    }
 }

@@ -3,7 +3,7 @@ package by.training.beauty.dao.mysql;
 import by.training.beauty.domain.Procedure;
 import by.training.beauty.domain.User;
 import by.training.beauty.dao.DaoException;
-import by.training.beauty.dao.ProcedureEmployeeDao;
+import by.training.beauty.dao.spec.ProcedureEmployeeDao;
 import by.training.beauty.domain.ProcedureEmployee;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

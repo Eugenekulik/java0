@@ -2,6 +2,7 @@ package by.training.beauty.controller.action.implementation.admin;
 
 import by.training.beauty.controller.action.Action;
 import by.training.beauty.domain.Procedure;
+import by.training.beauty.domain.Role;
 import by.training.beauty.service.ScheduleService;
 import by.training.beauty.service.ProcedureService;
 import by.training.beauty.service.ServiceException;
@@ -11,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -31,8 +33,11 @@ public class AdministrateAddAction implements Action {
     }
 
     @Override
-    public Set<String> getRoles() {
-        return Set.of("admin");
+    public boolean isAllowed(HttpServletRequest request) {
+        List<Role> roles = (List<Role>) request.getSession().getAttribute("roles");
+        if(roles == null) return false;
+        if(roles.contains(new Role("admin")) && request.getMethod().equals("POST")) return true;
+        return false;
     }
 
     @Override
@@ -76,8 +81,4 @@ public class AdministrateAddAction implements Action {
         return "/administrate.html";
     }
 
-    @Override
-    public String getMethod() {
-        return "POST";
-    }
 }

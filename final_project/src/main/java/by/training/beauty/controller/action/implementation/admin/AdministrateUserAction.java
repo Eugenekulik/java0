@@ -24,13 +24,11 @@ public class AdministrateUserAction implements Action {
     }
 
     @Override
-    public Set<String> getRoles() {
-        return Set.of("admin");
-    }
-
-    @Override
-    public String getMethod() {
-        return "POST";
+    public boolean isAllowed(HttpServletRequest request) {
+        List<Role> roles = (List<Role>) request.getSession().getAttribute("roles");
+        if(roles == null) return false;
+        if(roles.contains(new Role("admin")) && request.getMethod().equals("POST")) return true;
+        return false;
     }
 
     @Override
@@ -39,10 +37,13 @@ public class AdministrateUserAction implements Action {
         switch (method){
             case "create":
                 create(request);
+                break;
             case "update":
                 update(request);
+                break;
             case "delete":
                 delete(request);
+                break;
         }
         return "/administrate.html";
     }

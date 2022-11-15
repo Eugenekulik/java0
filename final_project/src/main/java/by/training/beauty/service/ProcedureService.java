@@ -1,9 +1,9 @@
 package by.training.beauty.service;
 
-import by.training.beauty.dao.CategoryDao;
-import by.training.beauty.dao.ProcedureDao;
-import by.training.beauty.dao.Transaction;
-import by.training.beauty.dao.TransactionFactory;
+import by.training.beauty.dao.spec.CategoryDao;
+import by.training.beauty.dao.spec.ProcedureDao;
+import by.training.beauty.dao.spec.Transaction;
+import by.training.beauty.dao.spec.TransactionFactory;
 import by.training.beauty.dao.mysql.TransactionFactoryImpl;
 import by.training.beauty.domain.Category;
 import by.training.beauty.domain.Procedure;

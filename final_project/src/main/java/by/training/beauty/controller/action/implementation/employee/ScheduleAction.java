@@ -2,10 +2,7 @@ package by.training.beauty.controller.action.implementation.employee;
 
 import by.training.beauty.controller.action.Action;
 import by.training.beauty.controller.action.PageEnum;
-import by.training.beauty.domain.Appointment;
-import by.training.beauty.domain.Entity;
-import by.training.beauty.domain.Schedule;
-import by.training.beauty.domain.User;
+import by.training.beauty.domain.*;
 import by.training.beauty.service.ScheduleService;
 import by.training.beauty.service.ServiceException;
 import org.apache.logging.log4j.LogManager;
@@ -34,8 +31,12 @@ public class ScheduleAction implements Action {
     }
 
     @Override
-    public Set<String> getRoles() {
-        return Set.of("employee");
+    public boolean isAllowed(HttpServletRequest request) {
+        List<Role> roles = (List<Role>) request.getSession().getAttribute("roles");
+        if(roles == null) return false;
+        if(roles.contains(new Role("employee"))
+                && request.getMethod().equals("GET")) return true;
+        return false;
     }
 
     @Override
@@ -79,8 +80,4 @@ public class ScheduleAction implements Action {
         return PageEnum.ERROR.getPage();
     }
 
-    @Override
-    public String getMethod() {
-        return "GET";
-    }
 }

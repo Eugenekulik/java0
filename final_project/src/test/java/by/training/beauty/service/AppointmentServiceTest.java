@@ -1,6 +1,6 @@
 package by.training.beauty.service;
 
-import by.training.beauty.dao.AppointmentDao;
+import by.training.beauty.dao.spec.AppointmentDao;
 import by.training.beauty.dao.DaoException;
 import by.training.beauty.dao.mysql.AppointmentDaoImpl;
 import by.training.beauty.dao.pool.ConnectionPool;

@@ -37,9 +37,13 @@ public class AdministrateAction implements Action {
     }
 
     @Override
-    public Set<String> getRoles() {
-        return Set.of("admin");
+    public boolean isAllowed(HttpServletRequest request) {
+        List<Role> roles = (List<Role>) request.getSession().getAttribute("roles");
+        if(roles == null) return false;
+        if(roles.contains(new Role("admin")) && request.getMethod().equals("GET")) return true;
+        return false;
     }
+
 
     @Override
     public String execute(HttpServletRequest request) {
@@ -154,8 +158,4 @@ public class AdministrateAction implements Action {
         return PageEnum.ADMINISTRATE.getPage();
     }
 
-    @Override
-    public String getMethod() {
-        return "GET";
-    }
 }

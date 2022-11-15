@@ -13,17 +13,14 @@ public class MainAction implements Action {
     }
 
     @Override
-    public Set<String> getRoles() {
-        return Set.of("unknown","admin","employee","client");
+    public boolean isAllowed(HttpServletRequest request) {
+        return request.getMethod().equals("GET");
     }
+
 
     @Override
     public String execute(HttpServletRequest request) {
         return PageEnum.MAIN.getPage();
     }
 
-    @Override
-    public String getMethod() {
-        return "GET";
-    }
 }

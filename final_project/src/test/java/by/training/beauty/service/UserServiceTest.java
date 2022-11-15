@@ -1,7 +1,7 @@
 package by.training.beauty.service;
 
 import by.training.beauty.dao.DaoException;
-import by.training.beauty.dao.UserDao;
+import by.training.beauty.dao.spec.UserDao;
 import by.training.beauty.dao.mysql.UserDaoImpl;
 import by.training.beauty.dao.pool.ConnectionPool;
 import by.training.beauty.dao.pool.PooledConnection;

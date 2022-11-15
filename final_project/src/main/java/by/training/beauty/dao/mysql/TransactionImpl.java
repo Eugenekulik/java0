@@ -1,8 +1,8 @@
 package by.training.beauty.dao.mysql;
 
-import by.training.beauty.dao.Dao;
+import by.training.beauty.dao.spec.Dao;
 import by.training.beauty.dao.DaoException;
-import by.training.beauty.dao.Transaction;
+import by.training.beauty.dao.spec.Transaction;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

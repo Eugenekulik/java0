@@ -2,6 +2,7 @@ package by.training.beauty.controller.action.implementation.admin;
 
 import by.training.beauty.controller.action.Action;
 import by.training.beauty.domain.Appointment;
+import by.training.beauty.domain.Role;
 import by.training.beauty.service.AppointmentService;
 import by.training.beauty.service.ServiceException;
 import by.training.beauty.service.ServiceFactory;
@@ -21,8 +22,11 @@ public class AdministrateAppointmentAction implements Action {
     }
 
     @Override
-    public Set<String> getRoles() {
-        return Set.of("admin");
+    public boolean isAllowed(HttpServletRequest request) {
+        List<Role> roles = (List<Role>) request.getSession().getAttribute("roles");
+        if(roles == null) return false;
+        if(roles.contains(new Role("admin")) && request.getMethod().equals("POST")) return true;
+        return false;
     }
 
     @Override
@@ -88,8 +92,4 @@ public class AdministrateAppointmentAction implements Action {
         return false;
     }
 
-    @Override
-    public String getMethod() {
-        return "POST";
-    }
 }

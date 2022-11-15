@@ -3,6 +3,10 @@ package by.training.beauty.service;
 import by.training.beauty.dao.*;
 import by.training.beauty.dao.mysql.DaoEnum;
 import by.training.beauty.dao.mysql.TransactionFactoryImpl;
+import by.training.beauty.dao.spec.RoleDao;
+import by.training.beauty.dao.spec.Transaction;
+import by.training.beauty.dao.spec.TransactionFactory;
+import by.training.beauty.dao.spec.UserDao;
 import by.training.beauty.domain.Role;
 import by.training.beauty.domain.User;
 import by.training.beauty.service.validator.UserValidator;
@@ -12,7 +16,6 @@ import org.apache.logging.log4j.Logger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
 
 /**
  * This service allows you to do some activities with users.

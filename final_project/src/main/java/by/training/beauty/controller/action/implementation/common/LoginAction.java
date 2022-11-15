@@ -32,9 +32,11 @@ public class LoginAction implements Action {
     }
 
     @Override
-    public Set<String> getRoles() {
-        return Set.of("unknown");
+    public boolean isAllowed(HttpServletRequest request) {
+        return request.getSession().getAttribute("roles")==null
+                && request.getMethod().equals("POST");
     }
+
 
     @Override
     public String execute(HttpServletRequest request) {
@@ -65,8 +67,4 @@ public class LoginAction implements Action {
         return page;
     }
 
-    @Override
-    public String getMethod() {
-        return "POST";
-    }
 }

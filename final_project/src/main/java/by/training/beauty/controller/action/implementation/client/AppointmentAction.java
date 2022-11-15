@@ -2,10 +2,7 @@ package by.training.beauty.controller.action.implementation.client;
 
 import by.training.beauty.controller.action.Action;
 import by.training.beauty.controller.action.PageEnum;
-import by.training.beauty.domain.Appointment;
-import by.training.beauty.domain.Entity;
-import by.training.beauty.domain.Procedure;
-import by.training.beauty.domain.User;
+import by.training.beauty.domain.*;
 import by.training.beauty.service.ServiceException;
 import by.training.beauty.service.AppointmentService;
 import by.training.beauty.service.ServiceFactory;
@@ -35,9 +32,13 @@ public class AppointmentAction implements Action {
     }
 
     @Override
-    public Set<String> getRoles() {
-        return Set.of("client");
+    public boolean isAllowed(HttpServletRequest request) {
+        List<Role> roles = (List<Role>) request.getSession().getAttribute("roles");
+        if(roles == null) return false;
+        if(roles.contains(new Role("client")) && request.getMethod().equals("GET")) return true;
+        return false;
     }
+
 
     @Override
     public String execute(HttpServletRequest request) {
@@ -88,8 +89,4 @@ public class AppointmentAction implements Action {
         return page;
     }
 
-    @Override
-    public String getMethod() {
-        return "GET";
-    }
 }
