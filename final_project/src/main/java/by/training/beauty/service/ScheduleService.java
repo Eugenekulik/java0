@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,7 +48,7 @@ public class ScheduleService {
             schedules = scheduleDao.findByEmployee(selectedEmployee);
             transaction.commit();
             return schedules.stream()
-                    .sorted((o1, o2) -> o1.getDate().compareTo(o2.getDate()))
+                    .sorted(Comparator.comparing(Schedule::getDate))
                     .filter(schedule -> schedule.getDate().toLocalDate()
                     .equals(date)).map(Schedule::getDate)
                     .map(LocalDateTime::toLocalTime)

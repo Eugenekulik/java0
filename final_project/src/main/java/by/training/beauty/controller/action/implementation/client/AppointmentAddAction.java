@@ -90,10 +90,10 @@ public class AppointmentAddAction implements Action {
                     "We will try to solve this problem");
             return PageEnum.ERROR.getPage();
         }
-        EmployeeService employeeService =
-                ServiceFactory.getInstance().getEmployeeService();
+        UserService userService =
+                ServiceFactory.getInstance().getUserService();
         try {
-            List<User> employeeList = employeeService.employeesByProcedure(procedure);
+            List<User> employeeList = userService.employeesByProcedure(procedure);
             request.getSession().setAttribute("employeeList", employeeList);
             Integer selectedEmployee = Integer.parseInt(request.getParameter("employeeSelect"));
             if (selectedEmployee == null) {

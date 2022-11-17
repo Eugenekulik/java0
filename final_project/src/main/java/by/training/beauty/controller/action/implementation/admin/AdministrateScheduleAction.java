@@ -9,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -67,7 +68,23 @@ public class AdministrateScheduleAction implements Action {
     }
 
     private boolean create(HttpServletRequest request) {
-        return false;
+        try {
+            int employeeId = 0;
+            LocalDate date = null;
+            employeeId = Integer.parseInt(request.getParameter("employeeId"));
+            date = LocalDate.parse(request.getParameter("date"));
+            if (date != null && employeeId != 0) {
+                ServiceFactory.getInstance()
+                        .getScheduleService()
+                        .addSchedule(employeeId, date);
+            }
+            return true;
+        } catch (ServiceException e) {
+            LOGGER.error("it is impossible to add schedule");
+        } catch (NumberFormatException e) {
+            LOGGER.warn(e.getMessage());
+        }
+        return  false;
     }
 
 }

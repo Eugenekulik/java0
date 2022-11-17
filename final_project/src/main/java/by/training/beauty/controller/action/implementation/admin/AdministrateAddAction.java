@@ -13,7 +13,6 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
 
 /**
  * This class implement interface action which handles
@@ -35,8 +34,9 @@ public class AdministrateAddAction implements Action {
     @Override
     public boolean isAllowed(HttpServletRequest request) {
         List<Role> roles = (List<Role>) request.getSession().getAttribute("roles");
-        if(roles == null) return false;
-        if(roles.contains(new Role("admin")) && request.getMethod().equals("POST")) return true;
+        if(roles != null
+            && roles.contains(new Role("admin"))
+                && request.getMethod().equals("POST")) return true;
         return false;
     }
 

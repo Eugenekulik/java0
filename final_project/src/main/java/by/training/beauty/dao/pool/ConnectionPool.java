@@ -28,8 +28,8 @@ public class ConnectionPool {
     private int maxSize;
     private int checkConnectionTimeout;
 
-    private BlockingDeque<PooledConnection> freeConnections = new LinkedBlockingDeque<>();
-    private Set<PooledConnection> usedConnections = new ConcurrentSkipListSet<>();
+    private final BlockingDeque<PooledConnection> freeConnections = new LinkedBlockingDeque<>();
+    private final Set<PooledConnection> usedConnections = new ConcurrentSkipListSet<>();
 
 
     private static final ConnectionPool INSTANCE = new ConnectionPool();

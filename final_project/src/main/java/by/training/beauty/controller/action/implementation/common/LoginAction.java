@@ -25,10 +25,9 @@ public class LoginAction implements Action {
     private static final String PARAM_NAME_LOGIN = "login";
     private static final String PARAM_NAME_PASSWORD = "password";
     private static final String ERROR = "errorLoginPassMessage";
-    private boolean redirect = true;
     @Override
-    public boolean isRedirect() {
-        return redirect;
+    public final boolean isRedirect() {
+        return true;
     }
 
     @Override

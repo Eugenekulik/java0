@@ -9,4 +9,5 @@ import java.util.List;
 public interface RoleDao extends Dao<Role>{
 
     List<Role> findByUser(User user) throws DaoException;
+    boolean updateRolesForUser(User user)throws DaoException;
 }

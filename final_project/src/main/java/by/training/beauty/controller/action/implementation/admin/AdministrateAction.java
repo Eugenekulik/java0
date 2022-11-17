@@ -11,7 +11,6 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -39,8 +38,9 @@ public class AdministrateAction implements Action {
     @Override
     public boolean isAllowed(HttpServletRequest request) {
         List<Role> roles = (List<Role>) request.getSession().getAttribute("roles");
-        if(roles == null) return false;
-        if(roles.contains(new Role("admin")) && request.getMethod().equals("GET")) return true;
+        if(roles != null
+                && roles.contains(new Role("admin"))
+                && request.getMethod().equals("GET")) return true;
         return false;
     }
 
@@ -86,12 +86,12 @@ public class AdministrateAction implements Action {
                     List<User> clients = entities.stream()
                             .filter(User.class::isInstance)
                             .map(User.class::cast)
-                            .filter(user -> user.getRoles().equals("client"))
+                            .filter(user -> user.getRoles().contains(new Role("client")))
                             .collect(Collectors.toList());
                     List<User> employees = entities.stream()
                             .filter(User.class::isInstance)
                             .map(User.class::cast)
-                            .filter((user -> user.getRoles().equals("employee")))
+                            .filter(user -> user.getRoles().contains(new Role("employee")))
                             .collect(Collectors.toList());
                     List<Appointment> appointments = entities.stream()
                             .filter(Appointment.class::isInstance)

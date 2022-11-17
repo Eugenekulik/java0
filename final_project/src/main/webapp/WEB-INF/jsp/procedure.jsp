@@ -41,27 +41,36 @@
             <c:out value="${procedure.description}"/>
         </p>
         <div>
-            <form action="<c:url value="/appointment_add.html"/>"
-            method="post" name="AddAppointmentForm">
-                <input type="submit" class="btn btn-success btn-lg" value="${text['procedure.add']}"/>
-            </form>
+            <c:forEach var="role" items="${roles}">
+                <c:if test="${role.name == 'client'}">
+                    <c:set var="add_access" value="true"/>
+                </c:if>
+            </c:forEach>
+            <c:if test="${add_access == 'true'}">
+                <form action="<c:url value="/appointment_add.html"/>"
+                      method="post" name="AddAppointmentForm">
+                    <input type="submit" class="btn btn-success btn-lg" value="${text['procedure.add']}"/>
+                </form>
+            </c:if>
         </div>
         </br>
-        <div class="container comment">
-            <c:forEach var="score" items="${scores}">
-                <div class="">
-                    <c:forEach items="${users}" var="user">
-                        <c:if test="${score.userId == user.id }">
-                            ${user.name}
-                        </c:if>
-                    </c:forEach><span>: ${score.value}/5</span>
-                </div>
-                <hr>
-                <div>
-                        ${score.comment}
-                </div>
-            </c:forEach>
-        </div>
+        <c:if test="${scores != null}}">
+            <div class="container comment">
+                <c:forEach var="score" items="${scores}">
+                    <div class="">
+                        <c:forEach items="${users}" var="user">
+                            <c:if test="${score.userId == user.id }">
+                                ${user.name}
+                            </c:if>
+                        </c:forEach><span>: ${score.value}/5</span>
+                    </div>
+                    <hr>
+                    <div>
+                            ${score.comment}
+                    </div>
+                </c:forEach>
+            </div>
+        </c:if>
     </div>
 </div>
 </body>

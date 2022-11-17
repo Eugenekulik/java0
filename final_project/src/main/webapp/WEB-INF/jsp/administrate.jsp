@@ -61,7 +61,7 @@
                             </td>
                             <td>
                                 <form method="post" action="<c:url
-                                    value="/administrate_user.html"/>">
+                                    value="/administrate/user.html"/>">
                                     <input type="hidden" value="delete" name="method">
                                     <input type="hidden" value="${user.id}" name="userId">
                                     <button class="btn btn-danger"
@@ -148,7 +148,7 @@
                             </td>
                             <td>
                                 <form method="post" action="<c:url
-                                    value="/administrate_appointment.html"/>">
+                                    value="/administrate/appointment.html"/>">
                                     <input type="hidden" value="delete" name="method">
                                     <input type="hidden" value="${appointment.id}" name="appointmentId">
                                     <button class="btn btn-danger" type="submit">${text['administrate.delete']}</button>
@@ -221,7 +221,7 @@
                             </td>
                             <td>
                                 <form method="post" action="<c:url
-                                    value="/administrate_procedure.html"/>">
+                                    value="/administrate/procedure.html"/>">
                                     <input type="hidden" value="delete" name="method">
                                     <input type="hidden" value="${procedure.id}" name="procedureId">
                                     <button class="btn btn-danger" type="submit">${text['administrate.delete']}</button>
@@ -294,7 +294,7 @@
                             </c:if>
                             <td>
                                 <form method="post" action="<c:url
-                                    value="/administrate_schedule.html"/>">
+                                    value="/administrate/schedule.html"/>">
                                     <input type="hidden" value="delete" name="method">
                                     <input type="hidden" value="${schedule.id}" name="scheduleId">
                                     <button class="btn btn-danger" type="submit">${text['administrate.delete']}</button>
@@ -304,7 +304,7 @@
                     </c:forEach>
                 </table>
                 <a class="btn btn-success"
-                   href="<c:url value="/schedule_add.html"/>">${text['administrate.add']}</a>
+                   href="<c:url value="/schedule/add.html"/>">${text['administrate.add']}</a>
                 <ul class="pagination">
                     <c:if test="${paginationPage>1}">
                         <li class="page-item">
@@ -350,7 +350,7 @@
                 <button type="button" class="btn-close" data-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form action="<c:url value="/administrate_user.html"/>" method="post">
+                <form action="<c:url value="/administrate/user.html"/>" method="post">
                     <input type="hidden" name="method" value="update">
                     <input id="name" maxlength="40" minlength="4" pattern="([A-ZА-ЯЁa-zа-яё ]*)"
                            class="main-color-bg-f form-control" type="text" name="name" value=""
@@ -394,8 +394,7 @@
                 <button type="button" class="btn-close" data-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form action="<c:url value="/administrate_change.html"/>" method="post">
-                    <input type="hidden" name="update" value="1">
+                <form action="<c:url value="/administrate/appointment.html"/>" method="post">
                     <input id="appointmentPrice" maxlength="10" minlength="1" pattern="([0-9.]*)"
                            class="main-color-bg-f form-control" type="number" name="appointmentPrice" value=""
                            placeholder="${text['appointment.price']}"/>
@@ -408,6 +407,7 @@
                     <br/>
                     <br/>
                     <input type="hidden" name="appointmentId" id="hAppointmentId" value="">
+                    <input type="hidden" name="method"value="update">
                     <input class="btn-success" type="submit" value="${text['administrate.update']}">
                 </form>
             </div>
@@ -428,8 +428,7 @@
                 <button type="button" class="btn-close" data-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form action="<c:url value="/administrate_change.html"/>" method="post">
-                    <input type="hidden" name="update" value="1">
+                <form action="<c:url value="/administrate/procedure.html"/>" method="post">
                     <input id="procedureName" maxlength="50" minlength="4" pattern="([А-ЯЁа-яё ]+)"
                            class="main-color-bg-f form-control" type="text" name="procedureName" value=""
                            placeholder="${text['procedure.name']}"/>
@@ -443,6 +442,7 @@
                            placeholder="${text['procedure.elapsedTime']}"/>
                     <br/>
                     <input type="hidden" name="procedureId" id="hProcedureId" value="">
+                    <input type="hidden" name="method" value="update">
                     <input class="btn-success" type="submit" value="${text['administrate.update']}">
                 </form>
             </div>
@@ -463,7 +463,7 @@
                 <button type="button" class="btn-close" data-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form action="<c:url value="/administrate_add.html"/>" method="post">
+                <form action="<c:url value="/administrate/procedure.html"/>" method="post">
                     <input maxlength="50" minlength="4" pattern="([А-ЯЁа-яё ]+)"
                            class="main-color-bg-f form-control" type="text" name="procedureName" value=""/>
                     <br/>
@@ -476,6 +476,7 @@
                     />
                     <br/>
                     <input type="hidden" name="procedureId" value="">
+                    <input type="hidden" name="method" value="create">
                     <input class="btn-success" type="submit">
                 </form>
             </div>

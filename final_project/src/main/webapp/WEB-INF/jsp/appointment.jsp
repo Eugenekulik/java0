@@ -14,13 +14,16 @@
 <div class="container">
     <ul class="nav nav-pills nav-fill tab">
         <li class="nav-item">
-            <a class="nav-link h4 main-color-s" href="<c:url value="/appointment.html?tab=2"/>">${text['appointment.active']}</a>
+            <a class="nav-link h4 main-color-s"
+               href="<c:url value="/appointment.html?tab=2"/>">${text['appointment.active']}</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link h4 main-color-s" href="<c:url value="/appointment.html?tab=1"/>">${text['appointment.inprocessing']}</a>
+            <a class="nav-link h4 main-color-s"
+               href="<c:url value="/appointment.html?tab=1"/>">${text['appointment.inprocessing']}</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link h4 main-color-s" href="<c:url value="/appointment.html?tab=3"/>">${text['appointment.archive']}</a>
+            <a class="nav-link h4 main-color-s"
+               href="<c:url value="/appointment.html?tab=3"/>">${text['appointment.archive']}</a>
         </li>
     </ul>
     <div class="panel col-10">
@@ -35,7 +38,7 @@
             </tr>
             <c:forEach var="elem" items="${appointments}">
                 <tr>
-                <c:if test="${elem.status == tab}">
+                    <c:if test="${elem.status == tab}">
                         <td>
                             <c:forEach var="proc" items="${procedures}">
                                 <c:if test="${proc.id == elem.procedureEmployeeId}">${proc.name}</c:if>
@@ -48,16 +51,17 @@
                         </td>
                         <td>${elem.price}BYN</td>
                         <td>${elem.date}</td>
-                        <td><a class="btn btn-danger" href="<c:url value="/appointment.html?delete=${elem.id}"/>">${text['appointment.delete']}</a></td>
-
-                </c:if>
-                <c:if test="${tab == 3}">
-                    <td>
-                    <button type="button" class="btn btn-update modal-btn" data-toggle="modal"
-                    data-id="${elem.id}" data-target="#modal">add score
-                    </button>
-                    </td>
-                </c:if>
+                        <td><a class="btn btn-danger"
+                               href="<c:url value="/appointment.html?delete=${elem.id}"/>">${text['appointment.delete']}</a>
+                        </td>
+                        <c:if test="${tab == 3}">
+                            <td>
+                                <button type="button" class="btn btn-update modal-btn" data-toggle="modal"
+                                        data-id="${elem.id}" data-target="#modal">add score
+                                </button>
+                            </td>
+                        </c:if>
+                    </c:if>
                 </tr>
             </c:forEach>
         </table>

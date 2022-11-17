@@ -9,7 +9,6 @@ public class ServiceFactory {
     private final AdministrateService administrateService = new AdministrateService();
     private final AppointmentService appointmentService = new AppointmentService();
     private final ConnectionPoolService connectionPoolService = new ConnectionPoolService();
-    private final EmployeeService employeeService = new EmployeeService();
     private final ScheduleService scheduleService = new ScheduleService();
     private final ProcedureService procedureService = new ProcedureService();
     private final UserService userService = new UserService();
@@ -32,9 +31,6 @@ public class ServiceFactory {
     }
     public UserValidator getUserValidator(){
         return userValidator;
-    }
-    public EmployeeService getEmployeeService(){
-        return employeeService;
     }
     public ScheduleService getScheduleService(){
         return scheduleService;

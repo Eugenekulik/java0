@@ -31,7 +31,7 @@ public enum ActionEnum {
     APPOINTMENT(AppointmentAction.class),
     PROCEDURE(ProcedureAction.class);
 
-    private Class<? extends Action> action;
+    private final Class<? extends Action> action;
 
     ActionEnum(Class<? extends Action> action){
         this.action = action;

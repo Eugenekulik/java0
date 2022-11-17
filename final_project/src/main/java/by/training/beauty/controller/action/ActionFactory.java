@@ -5,6 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Locale;
 
 /**
@@ -13,8 +14,7 @@ import java.util.Locale;
 
 public class ActionFactory {
     private static final Logger logger = LogManager.getLogger(ActionFactory.class);
-    private HttpServletRequest request;
-    private static final String UNKNOWN = "unknown";
+    private final HttpServletRequest request;
 
     public ActionFactory(HttpServletRequest request) {
         this.request = request;
@@ -29,11 +29,11 @@ public class ActionFactory {
         commandType = commandType.substring(1).toUpperCase(Locale.ROOT);
         try {
             ActionEnum actionEnum = ActionEnum.valueOf(commandType);
-            action = actionEnum.getAction().newInstance();
-        } catch (InstantiationException e) {
-            logger.warn(e.getMessage());
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+            action = actionEnum.getAction().getDeclaredConstructor().newInstance();
+        } catch (InstantiationException
+                |IllegalAccessException
+                |InvocationTargetException
+                |NoSuchMethodException e) {
             logger.warn(e.getMessage());
             e.printStackTrace();
         }

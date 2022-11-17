@@ -24,7 +24,7 @@ public enum PageEnum {
         return page;
     }
 
-    private String page;
+    private final String page;
     PageEnum(String page) {
         this.page = page;
     }

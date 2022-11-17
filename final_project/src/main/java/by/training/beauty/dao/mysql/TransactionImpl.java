@@ -15,7 +15,7 @@ import java.sql.SQLException;
 
 public class TransactionImpl implements Transaction {
     private static final Logger LOGGER = LogManager.getLogger(TransactionImpl.class);
-    private Connection connection;
+    private final Connection connection;
 
     public TransactionImpl(Connection connection){
         this.connection = connection;

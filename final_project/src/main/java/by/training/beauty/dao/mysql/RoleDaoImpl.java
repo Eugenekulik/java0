@@ -31,6 +31,9 @@ public class RoleDaoImpl implements RoleDao {
             "INSERT INTO role(role.name) VALUES(?);";
     private static final String SQL_UPDATE =
             "UPDATE role SET role.name = ? WHERE role.id = ?;";
+    private static final String SQL_UPDATE_ROLES_FOR_USER =
+            "insert ignore into user_role(user_id, role_id)" +
+            "VALUES (?,?)";
 
 
     @Override
@@ -222,6 +225,33 @@ public class RoleDaoImpl implements RoleDao {
             }
         }
         return roles;
+    }
+
+    @Override
+    public boolean updateRolesForUser(User user) throws DaoException {
+        PreparedStatement statement = null;
+        try {
+            statement = connection.prepareStatement(SQL_UPDATE_ROLES_FOR_USER, Statement.RETURN_GENERATED_KEYS);
+            List<Role> roles = user.getRoles();
+            for (Role role:roles) {
+                statement.setInt(1, user.getId());
+                statement.setInt(2, role.getId());
+                statement.addBatch();
+            }
+            statement.executeBatch();
+            return true;
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+            throw new DaoException();
+        } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                LOGGER.error(e.getMessage());
+            }
+        }
     }
 
     @Override

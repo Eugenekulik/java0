@@ -34,8 +34,9 @@ public class AppointmentAction implements Action {
     @Override
     public boolean isAllowed(HttpServletRequest request) {
         List<Role> roles = (List<Role>) request.getSession().getAttribute("roles");
-        if(roles == null) return false;
-        if(roles.contains(new Role("client")) && request.getMethod().equals("GET")) return true;
+        if(roles != null
+                && roles.contains(new Role("client"))
+                && request.getMethod().equals("GET")) return true;
         return false;
     }
 

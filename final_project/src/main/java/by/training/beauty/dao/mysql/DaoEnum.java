@@ -10,7 +10,7 @@ public enum DaoEnum {
     SCHEDULE("scheduleDao"),
     CATEGORY("categoryDao");
 
-    private String dao;
+    private final String dao;
 
     DaoEnum(String dao) {
         this.dao = dao;

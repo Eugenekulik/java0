@@ -19,36 +19,40 @@ import java.util.List;
 
 public class ScheduleDaoImpl implements ScheduleDao {
     private static final Logger LOGGER = LogManager.getLogger(ScheduleDaoImpl.class);
-    private static final String SQL_FIND_INTERVAL = "SELECT schedule.id, " +
-            "schedule.employee_id, schedule.date, " +
-            "schedule.appointment_id from schedule " +
+    private static final String SQL_FIND_INTERVAL =
+            "SELECT schedule.id, schedule.employee_id, schedule.date, schedule.appointment_id " +
+            "FROM schedule " +
             "WHERE schedule.id>0 LIMIT ?, ?;";
-    private static final String SQL_FIND_BY_APPOINTMENT = "SELECT schedule.id, " +
-            "schedule.employee_id, schedule.date, " +
-            "schedule.appointment_id from schedule " +
+    private static final String SQL_FIND_BY_APPOINTMENT =
+            "SELECT schedule.id, schedule.employee_id, schedule.date, " +
+            "schedule.appointment_id " +
+            "FROM schedule " +
             "WHERE schedule.appointment_id = ?;";
     private Connection connection;
-    private static final String SQL_FIND_BY_EMPLOYEE = "SELECT schedule.id, " +
-            "schedule.employee_id, schedule.date, " +
-            "schedule.appointment_id from schedule " +
-            "WHERE schedule.employee_id = ?;";
-    private static final String SQL_FIND_BY_EMPLOYEE_DATE = "SELECT schedule.id, " +
-            "schedule.employee_id, schedule.date, schedule.appointment_id " +
-            "FROM schedule WHERE schedule.date = ? and schedule.employee_id = ?;";
-    private static final String SQL_CREATE = "INSERT INTO schedule(" +
-            "schedule.employee_id, schedule.date) " +
+    private static final String SQL_FIND_BY_EMPLOYEE =
+            "SELECT schedule.id, schedule.employee_id, schedule.date, schedule.appointment_id " +
+            "FROM schedule " +
+            "WHERE schedule.employee_id = ? and schedule.appointment_id is null";
+    private static final String SQL_FIND_BY_EMPLOYEE_DATE =
+            "SELECT schedule.id, schedule.employee_id, schedule.date, schedule.appointment_id " +
+            "FROM schedule " +
+            "WHERE schedule.date = ? and schedule.employee_id = ?;";
+    private static final String SQL_CREATE =
+            "INSERT INTO schedule(schedule.employee_id, schedule.date) " +
             "VALUES(?,?);";
-    private static final String SQL_FIND_ALL = "SELECT schedule.id, " +
-            "schedule.employee_id, schedule.date, schedule.appointment_id " +
-            "from schedule;";
-    private static final String SQL_FIND_BY_ID = "SELECT schedule.id, " +
-            "schedule.employee_id, schedule.date, schedule.appointment_id " +
+    private static final String SQL_FIND_ALL =
+            "SELECT schedule.id, schedule.employee_id, schedule.date, schedule.appointment_id " +
+            "FROM schedule;";
+    private static final String SQL_FIND_BY_ID =
+            "SELECT schedule.id, schedule.employee_id, schedule.date, schedule.appointment_id " +
+            "FROM schedule" +
             "WHERE schedule.id = ?;";
-    private static final String SQL_DELETE = "DELETE FROM schedule " +
+    private static final String SQL_DELETE =
+            "DELETE FROM schedule WHERE schedule.id = ?;";
+    private static final String SQL_UPDATE =
+            "UPDATE schedule " +
+            "SET schedule.employee_id = ?, schedule.date = ?, schedule.appointment_id = ? " +
             "WHERE schedule.id = ?;";
-    private static final String SQL_UPDATE = "UPDATE schedule " +
-            "SET schedule.employee_id = ?, schedule.date = ?, " +
-            "schedule.appointment_id = ? WHERE schedule.id = ?;";
     @Override
     public List<Schedule> findall() throws DaoException {
         PreparedStatement statement = null;

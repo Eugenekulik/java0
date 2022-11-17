@@ -11,7 +11,6 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Set;
 
 public class AdministrateAppointmentAction implements Action {
     private static final Logger LOGGER = LogManager.getLogger(AdministrateAppointmentAction.class);
@@ -24,8 +23,9 @@ public class AdministrateAppointmentAction implements Action {
     @Override
     public boolean isAllowed(HttpServletRequest request) {
         List<Role> roles = (List<Role>) request.getSession().getAttribute("roles");
-        if(roles == null) return false;
-        if(roles.contains(new Role("admin")) && request.getMethod().equals("POST")) return true;
+        if(roles != null
+                && roles.contains(new Role("admin"))
+                && request.getMethod().equals("POST")) return true;
         return false;
     }
 
@@ -35,10 +35,16 @@ public class AdministrateAppointmentAction implements Action {
         switch (method){
             case "create":
                 create(request);
+                break;
             case "update":
                 update(request);
+                break;
             case "delete":
                 delete(request);
+                break;
+            default:
+                LOGGER.warn(() -> "Unsupported operation with method name: " + method);
+
         }
         return "/administrate.html";
     }

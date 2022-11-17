@@ -11,6 +11,8 @@ import java.io.IOException;
  */
 
 public class ActionFromUriFilter implements Filter {
+
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
     }
@@ -30,6 +32,7 @@ public class ActionFromUriFilter implements Filter {
             else {
                 actionName = uri.substring(beginAction);
             }
+            actionName = actionName.replace("/", "_");
             request.setAttribute("action", actionName);
             request.getSession().setAttribute("action", actionName);
             filterChain.doFilter(servletRequest, servletResponse);
