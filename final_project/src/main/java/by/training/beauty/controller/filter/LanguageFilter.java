@@ -1,5 +1,7 @@
 package by.training.beauty.controller.filter;
 
+import org.apache.commons.lang.StringEscapeUtils;
+
 import javax.servlet.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +27,7 @@ public class LanguageFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse responce = (HttpServletResponse) servletResponse;
         String select = request.getParameter(LANG);
+        select = StringEscapeUtils.unescapeHtml(select);
         Cookie lang = null;
         if (select == null) {
             Cookie[] cookies = request.getCookies();
@@ -46,6 +49,7 @@ public class LanguageFilter implements Filter {
         Locale locale = new Locale(localeArray[0], localeArray[1]);
         ResourceBundle bundle = ResourceBundle.getBundle("text", locale);
         responce.addCookie(lang);
+        request.getSession().setAttribute("language",lang.getValue());
         request.setAttribute("text", bundle);
         switch (localeArray[0]) {
             case "en":

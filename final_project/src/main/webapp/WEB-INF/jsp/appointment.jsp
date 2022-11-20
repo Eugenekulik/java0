@@ -14,26 +14,26 @@
 <div class="container">
     <ul class="nav nav-pills nav-fill tab">
         <li class="nav-item">
-            <a class="nav-link h4 main-color-s"
+            <a class="nav-link h4 pink"
                href="<c:url value="/appointment.html?tab=2"/>">${text['appointment.active']}</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link h4 main-color-s"
+            <a class="nav-link h4 pink"
                href="<c:url value="/appointment.html?tab=1"/>">${text['appointment.inprocessing']}</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link h4 main-color-s"
+            <a class="nav-link h4 pink"
                href="<c:url value="/appointment.html?tab=3"/>">${text['appointment.archive']}</a>
         </li>
     </ul>
     <div class="panel col-10">
         <table class="table">
             <tr>
-                <th class="main-color-f">Procedure</th>
-                <th class="main-color-f">Employee</th>
-                <th class="main-color-f">Price</th>
-                <th class="main-color-f">Date</th>
-                <th class="main-color-f"></th>
+                <th class="violet">Procedure</th>
+                <th class="violet">Employee</th>
+                <th class="violet">Price</th>
+                <th class="violet">Date</th>
+                <th class="violet"></th>
                 <th></th>
             </tr>
             <c:forEach var="elem" items="${appointments}">
@@ -71,7 +71,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-body">
-                <form action="<c:url value="/score_add.html"/>" method="post">
+                <form action="<c:url value="/score.html"/>" method="post">
                     <input id="comment" maxlength="500" minlength="0"
                            class="main-color-bg-f form-control" type="text" name="comment" value=""/>
                     <br/>
@@ -86,6 +86,7 @@
                     <br/>
                     <br/>
                     <input type="hidden" name="appointmentId" id="appointmentId" value="">
+                    <input type="hidden" name="method" value="create">
                     <input class="btn-success" type="submit" value="<c:out value="${text['administrate.add']}"/>">
                 </form>
             </div>

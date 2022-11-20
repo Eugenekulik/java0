@@ -10,8 +10,8 @@
     <title>Login</title>
 </head>
 <body style="background: url('<c:url value="/img/fon.jpg"/>')">
-<div class="box col-sm-8 col-md-6 col-lg-4 col-xl-3 main-color-bg-s main-color-f">
-    <div class="h1 main-color-f">LOGIN</div>
+<div class="box col-sm-8 col-md-6 col-lg-4 col-xl-3 main-color-bg-s violet">
+    <div class="h1 violet">LOGIN</div>
     <br/>
     <c:url value="/login.html" var="login"/>
     <form name="LoginForm" method="post" action='<c:out value="${login}"/>'>
@@ -28,7 +28,7 @@
         </div>
     </form>
     <c:url value="/registration.html" var="registration"/>
-    <a class="h5 main-color-f" href="<c:out value="${registration}"/>"><c:out
+    <a class="h5 violet" href="<c:out value="${registration}"/>"><c:out
             value="${text['registration.registration']}"/></a>
 </div>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

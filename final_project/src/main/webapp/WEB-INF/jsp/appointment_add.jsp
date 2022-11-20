@@ -12,7 +12,7 @@
 <body>
 <c:import url="fragment/header.jsp"/>
 <div class="box">
-    <div class="h1 main-color-f">${procedure.name}</div>
+    <div class="h1 violet">${procedure.name}</div>
     <form class="form-group" name="dateForm" method="post" action="<c:url value="/appointment_add.html"/>">
         <div>
             <input class="form-control" class="date" type="date" name="dateSelect" value="${selectedDate}"/>

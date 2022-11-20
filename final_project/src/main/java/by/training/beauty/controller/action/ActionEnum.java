@@ -27,7 +27,7 @@ public enum ActionEnum {
 
     //Client
     APPOINTMENT_ADD(AppointmentAddAction.class),
-    ADD_SCORE(AddScoreAction.class),
+    SCORE(ScoreAction.class),
     APPOINTMENT(AppointmentAction.class),
     PROCEDURE(ProcedureAction.class);
 

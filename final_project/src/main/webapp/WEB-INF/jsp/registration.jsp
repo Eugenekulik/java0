@@ -9,8 +9,8 @@
 </head>
 <body style="background: url('<c:url value="/img/fon.jpg"/>')">
 <c:url value="/registration_submit.html" var="register"/>
-<div class="box col-sm-8 col-md-6 col-lg-4 col-xl-3 main-color-bg-s main-color-f">
-    <div class="h1 main-color-f">REGISTRATION</div>
+<div class="box col-sm-8 col-md-6 col-lg-4 col-xl-3 main-color-bg-s violet">
+    <div class="h1 violet">REGISTRATION</div>
     <br/>
     <form name="RegistrationForm" method="post" action='<c:out value="${register}"/>'>
         <div>

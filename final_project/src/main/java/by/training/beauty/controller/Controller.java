@@ -58,7 +58,7 @@ public class Controller extends HttpServlet {
             }
         } catch (Exception e) {
             try {
-                resp.sendRedirect(PageEnum.MAIN.getPage());
+                resp.sendRedirect(req.getContextPath() + PageEnum.MAIN.getPage());
             } catch (IOException ioException) {
                 LOGGER.error("It is impossible to forward", e);
             }

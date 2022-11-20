@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class AddScoreAction implements Action {
-    private static final Logger LOGGER = LogManager.getLogger(AddScoreAction.class);
+public class ScoreAction implements Action {
+    private static final Logger LOGGER = LogManager.getLogger(ScoreAction.class);
     @Override
     public boolean isRedirect() {
         return true;
@@ -32,6 +32,22 @@ public class AddScoreAction implements Action {
 
     @Override
     public String execute(HttpServletRequest request) {
+        String method = request.getParameter("method");
+        switch (method){
+            case "create":
+                create(request);
+                break;
+            case "update":
+                break;
+            case "delete":
+                break;
+            default:
+                LOGGER.warn(()->"Unsupported operation with method " + method);
+        }
+        return "/procedure.html";
+    }
+
+    private boolean create(HttpServletRequest request){
         Score score = new Score();
         score.setDate(LocalDateTime.now());
         User user = (User) request.getSession().getAttribute("user");
@@ -52,8 +68,7 @@ public class AddScoreAction implements Action {
         }
         score.setAppointmentId(appointmentId);
         ScoreService scoreService = ServiceFactory.getInstance().getScoreService();
-        scoreService.addScore(score);
-        return "/procedure.html";
+        return scoreService.addScore(score);
     }
 
 

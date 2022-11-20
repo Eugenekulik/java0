@@ -14,19 +14,19 @@
 <div class="container">
     <ul class="nav nav-pills nav-fill tab">
         <li class="nav-item <c:if test="${tab == 1}">active</c:if>">
-            <a class="nav-link h5 main-color-s"
+            <a class="nav-link h5 pink"
                href="<c:url value="/administrate.html?tab=1"/>">${text['administrate.user']}</a>
         </li>
         <li class="nav-item <c:if test="${tab == 2}">active</c:if>">
-            <a class="nav-link h5 main-color-s"
+            <a class="nav-link h5 pink"
                href="<c:url value="/administrate.html?tab=2"/>">${text['header.appointment']}</a>
         </li>
         <li class="nav-item <c:if test="${tab == 3}">active</c:if>">
-            <a class="nav-link h5 main-color-s"
+            <a class="nav-link h5 pink"
                href="<c:url value="/administrate.html?tab=3"/>">${text['header.procedure']}</a>
         </li>
         <li class="nav-item <c:if test="${tab == 4}">active</c:if>">
-            <a class="nav-link h5 main-color-s"
+            <a class="nav-link h5 pink"
                href="<c:url value="/administrate.html?tab=4"/>">${text['header.schedule']}</a>
         </li>
     </ul>

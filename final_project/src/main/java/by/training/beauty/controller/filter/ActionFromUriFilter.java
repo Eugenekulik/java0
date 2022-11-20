@@ -27,7 +27,7 @@ public class ActionFromUriFilter implements Filter {
             int endAction = uri.lastIndexOf(".");
             String actionName;
             if(endAction >= 0) {
-                actionName = uri.substring(beginAction, endAction);
+                actionName = uri.substring(beginAction + 1, endAction);
             }
             else {
                 actionName = uri.substring(beginAction);

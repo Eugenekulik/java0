@@ -26,7 +26,7 @@ public class ActionFactory {
         if (commandType == null) {
             return new EmptyAction();
         }
-        commandType = commandType.substring(1).toUpperCase(Locale.ROOT);
+        commandType = commandType.toUpperCase(Locale.ROOT);
         try {
             ActionEnum actionEnum = ActionEnum.valueOf(commandType);
             action = actionEnum.getAction().getDeclaredConstructor().newInstance();

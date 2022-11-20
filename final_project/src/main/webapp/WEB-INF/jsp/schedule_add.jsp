@@ -10,7 +10,7 @@
     <title>schedule add</title>
 </head>
 <body style="background: url('<c:url value="/img/fon.jpg"/>')">
-<div class="addpanel col-sm-12 col-md-10 col-lg-8 col-xl-6 main-color-bg-s main-color-f">
+<div class="addpanel col-sm-12 col-md-10 col-lg-8 col-xl-6 main-color-bg-s violet">
     <br/>
     <form name="LoginForm" method="post" action='<c:url value="/administrate_add.html"/>'>
         <input type="date" name="date"/>

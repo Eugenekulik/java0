@@ -15,7 +15,7 @@
     <div class="menu col-sm-3">
         <div>
             <div>
-                <div class="h2 main-color-s">${text['procedure.title']}</div>
+                <div class="h2 pink">${text['procedure.title']}</div>
             </div>
             <br/>
             <c:forEach var="category" items="${categories}" varStatus="status">
@@ -26,7 +26,7 @@
                     <c:if test="${status.count == elem.categoryId}">
                         <li>
                             <a href="<c:url value="/procedure.html?current=${elem.id}"/>"
-                               class="main-color-s">${elem.name}</a>
+                               class="pink">${elem.name}</a>
                         </li>
                     </c:if>
                 </c:forEach>
@@ -34,7 +34,7 @@
         </div>
     </div>
     <div class="col-sm-9 bord">
-        <div class="h2 main-color-s">
+        <div class="h2 pink">
             <c:out value="${procedure.name}"/>
         </div>
         <p class="description">
@@ -54,7 +54,7 @@
             </c:if>
         </div>
         </br>
-        <c:if test="${scores != null}}">
+        <c:if test="${not empty scores}">
             <div class="container comment">
                 <c:forEach var="score" items="${scores}">
                     <div class="">

@@ -2,88 +2,130 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
+    <link rel="stylesheet" type="text/css" href="../../../main.css"/>
     <meta charset="UTF-8">
     <meta name="viewport=" content="width-device-width, initial-scale = 1.0">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css'>
 </head>
+<c:if test="${pageContext.session.getAttribute('action') == null}">
+    <c:set value="/main.html" scope="session" var="action"/>
+</c:if>
+<c:url value="${pageContext.session.getAttribute('action')}.html" var="thisPage"/>
 <body style="background: url('<c:url value="/img/fon.jpg"/>')">
-<nav class="navbar navbar-expand-lg navbar-inverse navbar-fixed-top">
-    <div class="container">
-            <a href="<c:url value="/main.html"/>" class="navbar-brand main-color-t">Beauty Parlor</a>
-            <button class="navbar-toggler" data-toggle="collapse" aria-controls="nv-menu"
-                    data-target="#nv-menu" aria-expanded="false" aria-label="Toggle Navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+<div class="container-fluid pink-bg">
+    <nav class="navbar navbar-expand-lg navbar-inverse navbar-fixed-top ">
+
+        <a href="<c:url value="/main.html"/>" class="navbar-brand dark-blue">Beauty Parlor</a>
+        <button class="navbar-toggler" data-toggle="collapse" aria-controls="nv-menu"
+                data-target="#nv-menu" aria-expanded="false" aria-label="Toggle Navigation">
+            <span class="navbar-toggler-icon"><i class="fi fi-br-menu-burger"></i></span>
+        </button>
         <div class="collapse navbar-collapse" id="nv-menu">
-            <ul class="nav navbar-nav mr-auto navbar-right">
-                <li class="nav-item active">
-                    <a class="nav-link main-color-t" href="<c:url value="/main.html" />"
-                       role="button">${text["header.main"]}</a>
+            <ul class="nav navbar-nav col-12">
+                <li class="col-6">
+                    <ul class="nav navbar-nav d-flex col-12">
+                        <li class="nav-item active">
+                            <a class="nav-link dark-blue" href="<c:url value="/main.html" />"
+                               role="button">${text["header.main"]}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link dark-blue" href="<c:url value="/procedure.html"/>"
+                               role="button">${text["header.procedure"]}</a>
+                        </li>
+
+                        <!--/////////////////////////////////////////////////////////////////-->
+                        <c:forEach var="role" items="${roles}">
+                            <c:if test="${role.name == 'admin'}">
+                                <li class="nav-item">
+                                    <a class="nav-link dark-blue" href="<c:url value="/administrate.html"/>"
+                                       role="button">${text["header.administrate"]}</a>
+                                </li>
+                            </c:if></c:forEach>
+
+                        <!--/////////////////////////////////////////////////////////////////-->
+                        <c:forEach var="role" items="${roles}">
+                            <c:if test="${role.name == 'client'}">
+                                <li class="nav-item">
+                                    <a class="nav-link dark-blue" href="<c:url value="/appointment.html"/>"
+                                       role="button">${text["header.appointment"]}</a>
+                                </li>
+                            </c:if></c:forEach>
+
+                        <!--/////////////////////////////////////////////////////////////////-->
+                        <c:forEach var="role" items="${roles}">
+                            <c:if test="${role.name == 'employee'}">
+                                <li class="nav-item">
+                                    <a class="nav-link dark-blue" href="<c:url value="/schedule.html"/>"
+                                       role="button">${text["header.schedule"]}</a>
+                                </li>
+                            </c:if></c:forEach>
+                    </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link main-color-t" href="<c:url value="/procedure.html"/>"
-                       role="button">${text["header.procedure"]}</a>
+                <li class="col-6">
+                    <div class="col-12 d-flex align-items-stretch">
+                        <div class="navbar-nav ms-auto  col-12 d-flex justify-content-end align-item-center">
+
+                            <div class="nav-item label"><c:if test="${not empty user}">
+                                user name: ${user.name}
+                            </c:if>
+                            </div>
+                            <!--/////////////////////////////////////////////////////////////////-->
+                            <div class="nav-item dropdown d-flex align-item-center justify-content-end">
+                                <button type="button" style="min-width: 100px"
+                                        class="btn btn-primary dropdown-toggle btn-pink"
+                                        data-bs-toggle="dropdown">
+                                    ${pageContext.session.getAttribute('language')}</button>
+                                <ul class="pink-bg dropdown-menu dropdown-menu">
+                                    <li class="dropdown-item pink-bg">
+                                        <form class="d-grid" action="<c:url value="${thisPage}"/>"
+                                              method="${pageContext.request.method}">
+                                            <input type="hidden" value="en_US" name="language">
+                                            <input type="submit" class="btn btn-primary btn-block"
+                                                   value="${text["language.english"]}">
+                                        </form>
+                                    </li>
+                                    <li class="dropdown-item pink-bg">
+                                        <form class="d-grid" action="<c:url value="${thisPage}"/>"
+                                              method="${pageContext.request.method}">
+                                            <input type="hidden" value="ru_RU" name="language">
+                                            <input type="submit" class="btn btn-primary"
+                                                   value="${text["language.russian"]}">
+                                        </form>
+                                    </li>
+                                    <li class="dropdown-item pink-bg">
+                                        <form class="d-grid" action="<c:url value="${thisPage}"/>"
+                                              method="${pageContext.request.method}">
+                                            <input type="hidden" value="pl_PL" name="language">
+                                            <input type="submit" class="btn btn-primary"
+                                                   value="${text["language.polski"]}">
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
+
+
+                            <!--/////////////////////////////////////////////////////////////////-->
+                            <div class=" nav-item col-3">
+                                <c:choose>
+                                    <c:when test="${pageContext.session.getAttribute('user') == null}">
+                                        <a href="<c:url value="/login_form.html"/>"
+                                           class="btn btn-primary btn-lg btn-dark-blue">${text['login.login']}</a>
+                                    </c:when>
+                                    <c:when test="${pageContext.session.getAttribute('user') != null}">
+                                        <a href='<c:url value="/logout.html"/>'
+                                           class="btn btn-primary btn-lg btn-dark-blue">${text['header.logout']}</a>
+                                    </c:when>
+                                </c:choose>
+                            </div>
+
+                        </div>
+                    </div>
                 </li>
-
                 <!--/////////////////////////////////////////////////////////////////-->
-                <c:forEach var="role" items = "${roles}">
-                <c:if test="${role.name == 'admin'}"><li class="nav-item">
-                    <a  class="nav-link main-color-t" href="<c:url value="/administrate.html"/>"
-                       role="button">${text["header.administrate"]}</a>
-                </li></c:if></c:forEach>
 
-                <!--/////////////////////////////////////////////////////////////////-->
-                <c:forEach var="role" items = "${roles}">
-                <c:if test="${role.name == 'client'}"><li class="nav-item">
-                    <a class="nav-link main-color-t" href="<c:url value="/appointment.html"/>"
-                       role="button">${text["header.appointment"]}</a>
-                </li></c:if></c:forEach>
-
-                <!--/////////////////////////////////////////////////////////////////-->
-                <c:forEach var="role" items = "${roles}">
-                <c:if test="${role.name == 'employee'}"><li class="nav-item">
-                    <a class="nav-link main-color-t" href="<c:url value="/schedule.html"/>"
-                       role="button">${text["header.schedule"]}</a>
-                </li></c:if></c:forEach>
-
-                <!--/////////////////////////////////////////////////////////////////-->
-                <li class="nav-item log">
-                    <c:choose>
-                        <c:when test="${pageContext.session.getAttribute('user') == null}">
-                            <a href="<c:url value="/login_form.html"/>"
-                               class="nav-link main-color-t">${text['login.login']}</a>
-                        </c:when>
-                        <c:when test="${pageContext.session.getAttribute('user') != null}">
-                            <a href='<c:url value="/logout.html"/>'
-                               class="nav-link main-color-t">${text['header.logout']}</a>
-                        </c:when>
-                    </c:choose>
-                </li>
-
-                <!--/////////////////////////////////////////////////////////////////-->
-                <li>
-                    <c:if test="${pageContext.session.getAttribute('action') == null}">
-                        <c:set value="/main" scope="session" var="action"/>
-                    </c:if>
-                    <c:url value="${pageContext.session.getAttribute('action')}.html" var="thisPage"/>
-                    <form action="${thisPage}" method="${pageContext.request.method}">
-                        <select id="language" onchange="this.form.submit()"
-                                class="main-color-t select" name="language">
-                            <option value="en_US"
-                                    <c:if test="${selectedLang == text['language.english']}">selected</c:if>
-                                    role="option">${text["language.english"]}</option>
-                            <option value="ru_Ru"
-                                    <c:if test="${selectedLang == text['language.russian']}">selected</c:if>
-                                    role="option">${text["language.russian"]}</option>
-                            <option value="pl_PL"
-                                    <c:if test="${selectedLang == text['language.polski']}">selected</c:if>
-                                    role="option">${text["language.polski"]}</option>
-                        </select>
-                    </form>
-                </li>
-                </ul>
         </div>
-    </div>
-</nav>
+    </nav>
+</div>
 </div>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

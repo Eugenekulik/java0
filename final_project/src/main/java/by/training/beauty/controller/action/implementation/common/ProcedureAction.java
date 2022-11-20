@@ -63,10 +63,10 @@ public class ProcedureAction implements Action {
             users.addAll(scores.stream()
                     .map(score -> userService.findById(score.getUserId()))
                     .collect(Collectors.toList()));
-            request.getSession().setAttribute("categories",categories);
-            request.getSession().setAttribute("procedureList", procedureList);
+            request.setAttribute("categories",categories);
+            request.setAttribute("procedureList", procedureList);
             request.getSession().setAttribute("procedure", procedure);
-            request.getSession().setAttribute("scores", scores);
+            if(!scores.isEmpty()) request.setAttribute("scores", scores);
             request.getSession().setAttribute("users", users);
             page = PageEnum.PROCEDURE.getPage();
         } catch (ServiceException e) {

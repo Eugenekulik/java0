@@ -1,16 +1,47 @@
-.main-color-f{
+.violet{
     color: #574b90;
 }
-.main-color-s{
-    color: #c44569;
+.pink{
+    color: #c77189;
 }
-.main-color-s:hover{
+.pink:hover{
     color: #3dc1d3;
 }
-.main-color-t{
+.pink-bg{
+    background-color: #c77189;
+}
+
+
+/* BUTTON PINK*/
+.btn-pink{
+    background-color: #c77189;
+    color: #010f41;
+    border: 0px;
+}
+.btn-pink:hover{
+    background-color: #c77189;
+    color: #3dc1d3;
+}
+
+/* BUTTON DARKBLUE*/
+.btn-dark-blue{
+    background-color: #010f41;
+    color: #c77189;
+    border: 0px;
+}
+.btn-dark-blue:hover{
+    background-color: #092994;
+    color: #c77189;
+}
+
+
+.dark-blue{
     color: #010f41;
 }
-.main-color-t:hover{
+.dark-blue-bg{
+    background-color: #010f41;
+}
+.dark-blue:hover{
     color: #3dc1d3;
 }
 .tab{
@@ -22,7 +53,6 @@
     transform: translate(0%, -10%);
 }
 .select {
-    background: #c6727e;
     text-align: center;
     transform: translate(0%, 25%);
     width: 60px;
@@ -102,7 +132,6 @@ body{
     font: italic small-caps bold 16px/2 cursive;
 }
 .navbar-inverse {
-    background: #c6727e;
     font-size: 20px;
     text-align: center;
 }
@@ -117,4 +146,10 @@ footer {
 .comment {
     border: 2px solid #c6727e;
     border-radius: 3px;
+}
+
+.label {
+    font-size: 16px;
+    display: flex;
+    align-items: center;
 }
