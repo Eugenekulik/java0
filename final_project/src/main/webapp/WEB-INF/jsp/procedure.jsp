@@ -47,8 +47,9 @@
                 </c:if>
             </c:forEach>
             <c:if test="${add_access == 'true'}">
-                <form action="<c:url value="/appointment_add.html"/>"
-                      method="post" name="AddAppointmentForm">
+                <form action="<c:url value="/appointment.html"/>"
+                      method="post">
+                    <input type="hidden" name="method" value="create">
                     <input type="submit" class="btn btn-success btn-lg" value="${text['label.sign']}"/>
                 </form>
             </c:if>

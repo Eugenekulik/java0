@@ -54,14 +54,14 @@
                         <td>${elem.date}</td>
                         <td>${elem.status}</td>
                         <td>
-                        <c:if test="${tab != 3}}">
+                        <c:if test="${tab != 3}">
                             <form action="<c:url value="/appointment.html"/>" method="POST">
                                 <input type="hidden" name="method" value="delete">
                                 <input type="hidden" name="id" value="${elem.id}">
                                 <input class="btn btn-danger" type="submit" value="CANCEL">
                             </form>
                         </c:if>
-                        <c:if test="${tab == 3}">
+                        <c:if test="${elem.status == 3}">
                             <td>
                                 <button type="button" class="btn btn-warning modal-btn" data-toggle="modal"
                                         data-id="${elem.id}" data-target="#modal">add score

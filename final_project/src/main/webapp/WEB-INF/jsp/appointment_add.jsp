@@ -13,7 +13,7 @@
 <c:import url="fragment/header.jsp"/>
 <div class="box">
     <div class="h1 violet">${procedure.name}</div>
-    <form class="form-group" name="dateForm" method="post" action="<c:url value="/appointment_add.html"/>">
+    <form class="form-group" name="dateForm" method="post" action="<c:url value="/appointment.html"/>">
         <div>
             <input class="form-control" class="date" type="date" name="dateSelect" value="${selectedDate}"/>
         </div>
@@ -26,18 +26,20 @@
                 </c:forEach>
             </select>
         </div>
+        <input type="hidden" name="method" value="create">
         <br/>
         <div>
             <input class="btn btn-sm btn-primary" type="submit" value="${text['appointment.schedule']}">
         </div>
     </form>
     <div>
-        <form name="timeForm" class="form-group" method="post" action="<c:url value="/appointment_add.html"/>">
+        <form name="timeForm" class="form-group" method="post" action="<c:url value="/appointment.html"/>">
             <select class="form-control" id="timeSelect" name="timeSelect">
                 <c:forEach items="${schedules}" var="elem">
                     <option value="${elem}" role="option">${elem}</option>
                 </c:forEach>
             </select>
+            <input type="hidden" name="method" value="create">
             <input class="btn btn-submit" type="submit" value="${text['label.add']}">
         </form>
     </div>

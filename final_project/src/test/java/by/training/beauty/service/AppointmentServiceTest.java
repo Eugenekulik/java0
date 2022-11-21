@@ -74,7 +74,7 @@ public class AppointmentServiceTest {
     }
 
     @Test(priority = 2)
-    public void testDeleteAppointment() {
+    public void testCancelAppointment() {
         AppointmentService appointmentService = new AppointmentService();
         try {
             appointmentService.cancelAppointment(1);
@@ -84,7 +84,7 @@ public class AppointmentServiceTest {
             AppointmentDao appointmentDao = new AppointmentDaoImpl();
             appointmentDao.setConnection(connection);
             Appointment actual  = appointmentDao.findById(1);
-            assertEquals(actual,null);
+            assertEquals(actual.getStatus(),4);
         } catch (DaoException e) {LOGGER.error(e);}
     }
     @Test(priority = 1)

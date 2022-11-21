@@ -403,6 +403,7 @@
                         <option value="1">in processing</option>
                         <option value="2">active</option>
                         <option value="3">archive</option>
+                        <option value="3">cancelled</option>
                     </select>
                     <br/>
                     <br/>
