@@ -30,16 +30,16 @@
                href="<c:url value="/administrate.html?tab=4"/>">${text['header.schedule']}</a>
         </li>
     </ul>
-    <div class="panel">
+    <div class="panel table-responsive">
         <c:choose>
             <c:when test="${activeTab == '1'}">
                 <table class="table">
                     <tr>
-                        <th>Id</th>
-                        <th>Name</th>
-                        <th>Login</th>
-                        <th>Phone</th>
-                        <th>Role</th>
+                        <th>${text['entity.id']}</th>
+                        <th>${text['user.name']}</th>
+                        <th>${text['user.login']}</th>
+                        <th>${text['user.phone']}</th>
+                        <th>${text['user.roles']}</th>
                         <td></td>
                         <td></td>
                     </tr>
@@ -65,7 +65,7 @@
                                     <input type="hidden" value="delete" name="method">
                                     <input type="hidden" value="${user.id}" name="userId">
                                     <button class="btn btn-danger"
-                                            type="submit">${text['administrate.delete']}</button>
+                                            type="submit">${text['label.delete']}</button>
                                 </form>
                             </td>
                         </tr>
@@ -106,7 +106,7 @@
             <c:when test="${activeTab == '2'}">
                 <table class="table">
                     <tr>
-                        <th>Id</th>
+                        <th>${text['entity.id']}</th>
                         <th>Client</th>
                         <th>Procedure</th>
                         <th>Employee</th>
@@ -143,7 +143,7 @@
                                         data-id="<c:out value="${appointment.id}"/>"
                                         data-status="<c:out value="${appointment.status}"/>"
                                         data-price="<c:out value="${appointment.price}"/>">
-                                        ${text['administrate.update']}
+                                        ${text['label.update']}
                                 </button>
                             </td>
                             <td>
@@ -151,7 +151,7 @@
                                     value="/administrate/appointment.html"/>">
                                     <input type="hidden" value="delete" name="method">
                                     <input type="hidden" value="${appointment.id}" name="appointmentId">
-                                    <button class="btn btn-danger" type="submit">${text['administrate.delete']}</button>
+                                    <button class="btn btn-danger" type="submit">${text['label.cancel']}</button>
                                 </form>
                             </td>
                         </tr>
@@ -224,7 +224,7 @@
                                     value="/administrate/procedure.html"/>">
                                     <input type="hidden" value="delete" name="method">
                                     <input type="hidden" value="${procedure.id}" name="procedureId">
-                                    <button class="btn btn-danger" type="submit">${text['administrate.delete']}</button>
+                                    <button class="btn btn-danger" type="submit">${text['label.delete']}</button>
                                 </form>
                             </td>
                         </tr>
@@ -297,14 +297,14 @@
                                     value="/administrate/schedule.html"/>">
                                     <input type="hidden" value="delete" name="method">
                                     <input type="hidden" value="${schedule.id}" name="scheduleId">
-                                    <button class="btn btn-danger" type="submit">${text['administrate.delete']}</button>
+                                    <button class="btn btn-danger" type="submit">${text['label.delete']}</button>
                                 </form>
                             </td>
                         </tr>
                     </c:forEach>
                 </table>
                 <a class="btn btn-success"
-                   href="<c:url value="/schedule/add.html"/>">${text['administrate.add']}</a>
+                   href="<c:url value="/schedule/add.html"/>">${text['label.add']}</a>
                 <ul class="pagination">
                     <c:if test="${paginationPage>1}">
                         <li class="page-item">
@@ -374,7 +374,7 @@
                     <br/>
                     <br/>
                     <input type="hidden" name="userId" id="hideId" value="">
-                    <input class="btn-success" type="submit" value="<c:out value="${text['administrate.update']}"/>">
+                    <input class="btn-success" type="submit" value="<c:out value="${text['label.update']}"/>">
                 </form>
             </div>
             <div class="modal-footer">
@@ -408,7 +408,7 @@
                     <br/>
                     <input type="hidden" name="appointmentId" id="hAppointmentId" value="">
                     <input type="hidden" name="method"value="update">
-                    <input class="btn-success" type="submit" value="${text['administrate.update']}">
+                    <input class="btn-success" type="submit" value="${text['label.update']}">
                 </form>
             </div>
             <div class="modal-footer">
@@ -443,7 +443,7 @@
                     <br/>
                     <input type="hidden" name="procedureId" id="hProcedureId" value="">
                     <input type="hidden" name="method" value="update">
-                    <input class="btn-success" type="submit" value="${text['administrate.update']}">
+                    <input class="btn-success" type="submit" value="${text['label.update']}">
                 </form>
             </div>
             <div class="modal-footer">

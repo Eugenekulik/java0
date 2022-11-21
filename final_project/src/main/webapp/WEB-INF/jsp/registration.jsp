@@ -14,10 +14,10 @@
     <br/>
     <form name="RegistrationForm" method="post" action='<c:out value="${register}"/>'>
         <div>
-            <input required maxlength="20" minlength="6" pattern="([A-Za-z0-9-_.]*)" class="main-color-bg-f"type="text" name="login" value="" placeholder="${text['login.login']}"/>
+            <input required maxlength="20" minlength="6" pattern="([A-Za-z0-9-_.]*)" class="main-color-bg-f"type="text" name="login" value="" placeholder="${text['user.login']}"/>
         </div>
         <div >
-            <input required maxlength="50" minlength="8" pattern="([A-Za-z0-9-_.]*)" class="main-color-bg-f" type="password" name="password" value="" placeholder="${text['login.password']}"/>
+            <input required maxlength="50" minlength="8" pattern="([A-Za-z0-9-_.]*)" class="main-color-bg-f" type="password" name="password" value="" placeholder="${text['user.password']}"/>
         </div>
         <div>
             <input required maxlength="40" minlength="4" pattern="([A-ZА-ЯЁa-zа-яё ]*)" class="main-color-bg-f" type="text" name="name" value="" placeholder="${text['registration.name']}"/>

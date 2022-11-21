@@ -21,6 +21,7 @@ public class AppointmentDaoImpl implements AppointmentDao {
     private static final String SQL_FIND_INTERVAL = "SELECT appointment.id, appointment.user_id, " +
             "appointment.procedure_employee_id, appointment.date, appointment.status, " +
             "appointment.price FROM appointment WHERE appointment.id>0 LIMIT ?, ?;";
+    private static final String SQL_CANCEL = "UPDATE appointment set status = 4 WHERE appointment.id = ?;";
     private Connection connection;
     private static final String SQL_FIND_BY_USER = "SELECT appointment.id, appointment.user_id, " +
             "appointment.procedure_employee_id, appointment.date, appointment.status, " +
@@ -374,5 +375,26 @@ public class AppointmentDaoImpl implements AppointmentDao {
             }
         }
         return appointments;
+    }
+
+    @Override
+    public boolean cancel(int id) throws DaoException {
+        PreparedStatement statement = null;
+        try {
+            statement = connection.prepareStatement(SQL_CANCEL);
+            statement.setInt(1, id);
+            return statement.executeUpdate() != 0;
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+            throw new DaoException();
+        } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                LOGGER.error(e.getMessage());
+            }
+        }
     }
 }

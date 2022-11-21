@@ -11,7 +11,6 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -33,26 +32,55 @@ public class AppointmentAction implements Action {
 
     @Override
     public boolean isAllowed(HttpServletRequest request) {
+        String method = request.getParameter("method")!=null?"POST":"GET";
         List<Role> roles = (List<Role>) request.getSession().getAttribute("roles");
         if(roles != null
                 && roles.contains(new Role("client"))
-                && request.getMethod().equals("GET")) return true;
+                && request.getMethod().equals(method)) return true;
         return false;
     }
 
 
     @Override
     public String execute(HttpServletRequest request) {
-        String page = null;
+        String method = request.getParameter("method");
+        switch (method){
+            case "create":
+                break;
+            case "delete":
+                delete(request);
+                break;
+            case "update":
+                break;
+            default:
+                get(request);
+
+        }
+        return PageEnum.APPOINTMENT.getPage();
+    }
+
+
+    private boolean delete(HttpServletRequest request){
+        Integer id = Integer.parseInt(request.getParameter("delete"));
+        if (id != null) {
+            try {
+                ServiceFactory.getInstance()
+                        .getAppointmentService()
+                        .cancelAppointment(id);
+                return true;
+            } catch (ServiceException e) {
+                LOGGER.warn(()->e.getMessage());
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+
+    public void get(HttpServletRequest request){
         try {
             AppointmentService appointmentService =
                     ServiceFactory.getInstance().getAppointmentService();
-            if (request.getParameter("delete") != null) {
-                Integer id = Integer.parseInt(request.getParameter("delete"));
-                if (id != null) {
-                    appointmentService.deleteAppointment(id);
-                }
-            }
             User user = (User) request.getSession().getAttribute("user");
             List<Entity> entities = appointmentService.usersAppointment(user);
             List<Appointment> appointments = entities.stream()
@@ -80,14 +108,12 @@ public class AppointmentAction implements Action {
                 tab = 1;
             }
             request.getSession().setAttribute("tab", tab);
-            page = PageEnum.APPOINTMENT.getPage();
+
         } catch (ServiceException e) {
-            LOGGER.error("it is impossible to autorizate");
-            page = "/login.html";
+            LOGGER.error("it is impossible to get appointments");
         } catch (NumberFormatException e) {
             LOGGER.info(e.getMessage());
         }
-        return page;
     }
 
 }

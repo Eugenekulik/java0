@@ -16,15 +16,15 @@
     <c:url value="/login.html" var="login"/>
     <form name="LoginForm" method="post" action='<c:out value="${login}"/>'>
         <div class="">
-            <input required minlength="6" maxlength="20" pattern="([A-Za-z0-9_.-]*)" class="main-color-bg-f" type="text" name="login" value="" placeholder="${text['login.login']}"/>
+            <input required minlength="6" maxlength="20" pattern="([A-Za-z0-9_.-]*)" class="main-color-bg-f" type="text" name="login" value="" placeholder="${text['user.login']}"/>
         </div>
         <div class="">
-            <input required minlength="8" maxlength="50" pattern="([A-Za-z0-9_.-]*)" class="main-color-bg-f" type="password" name="password" placeholder="${text['login.password']}" value=""/>
+            <input required minlength="8" maxlength="50" pattern="([A-Za-z0-9_.-]*)" class="main-color-bg-f" type="password" name="password" placeholder="${text['user.password']}" value=""/>
         </div>
         <div class="text-danger">${errorLoginPassMessage}</div>
         <br/>
         <div class="">
-            <input class="btn btn-success" type="submit" value="${text['login.login']}"/>
+            <input class="btn btn-success" type="submit" value="${text['user.login']}"/>
         </div>
     </form>
     <c:url value="/registration.html" var="registration"/>

@@ -21,7 +21,7 @@
         </select>
         <br/>
         <div>
-            <input class="btn btn-success" type="submit" value="${text['administrate.add']}"/>
+            <input class="btn btn-success" type="submit" value="${text['label.add']}"/>
         </div>
     </form>
 </div>

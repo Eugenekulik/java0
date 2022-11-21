@@ -13,7 +13,7 @@
 <c:url value="${pageContext.session.getAttribute('action')}.html" var="thisPage"/>
 <body style="background: url('<c:url value="/img/fon.jpg"/>')">
 <div class="container-fluid pink-bg">
-    <nav class="navbar navbar-expand-lg navbar-inverse navbar-fixed-top ">
+    <nav class="navbar navbar-expand-lg navbar-inverse navbar-fixed-top">
 
         <a href="<c:url value="/main.html"/>" class="navbar-brand dark-blue">Beauty Parlor</a>
         <button class="navbar-toggler" data-toggle="collapse" aria-controls="nv-menu"
@@ -21,8 +21,8 @@
             <span class="navbar-toggler-icon"><i class="fi fi-br-menu-burger"></i></span>
         </button>
         <div class="collapse navbar-collapse" id="nv-menu">
-            <ul class="nav navbar-nav col-12">
-                <li class="col-6">
+            <ul class="nav navbar-nav col-12 d-flex">
+                <li class="flex-fill">
                     <ul class="nav navbar-nav d-flex col-12">
                         <li class="nav-item active">
                             <a class="nav-link dark-blue" href="<c:url value="/main.html" />"
@@ -61,16 +61,15 @@
                             </c:if></c:forEach>
                     </ul>
                 </li>
-                <li class="col-6">
+                <li class="flex-fill">
                     <div class="col-12 d-flex align-items-stretch">
-                        <div class="navbar-nav ms-auto  col-12 d-flex justify-content-end align-item-center">
-
-                            <div class="nav-item label"><c:if test="${not empty user}">
-                                user name: ${user.name}
+                        <div class="navbar-nav ms-auto col-12 d-flex justify-content-end align-item-center">
+                            <div class="nav-item label d-flex align-item-center justify-content-center"><c:if test="${not empty user}">
+                                <span>user name: ${user.name}</span>
                             </c:if>
                             </div>
                             <!--/////////////////////////////////////////////////////////////////-->
-                            <div class="nav-item dropdown d-flex align-item-center justify-content-end">
+                            <div class="nav-item dropdown d-flex align-item-center justify-content-center">
                                 <button type="button" style="min-width: 100px"
                                         class="btn btn-primary dropdown-toggle btn-pink"
                                         data-bs-toggle="dropdown">
@@ -105,11 +104,11 @@
 
 
                             <!--/////////////////////////////////////////////////////////////////-->
-                            <div class=" nav-item col-3">
+                            <div class="nav-item">
                                 <c:choose>
                                     <c:when test="${pageContext.session.getAttribute('user') == null}">
                                         <a href="<c:url value="/login_form.html"/>"
-                                           class="btn btn-primary btn-lg btn-dark-blue">${text['login.login']}</a>
+                                           class="btn btn-primary btn-lg btn-dark-blue">${text['user.login']}</a>
                                     </c:when>
                                     <c:when test="${pageContext.session.getAttribute('user') != null}">
                                         <a href='<c:url value="/logout.html"/>'
@@ -122,7 +121,7 @@
                     </div>
                 </li>
                 <!--/////////////////////////////////////////////////////////////////-->
-
+            </ul>
         </div>
     </nav>
 </div>

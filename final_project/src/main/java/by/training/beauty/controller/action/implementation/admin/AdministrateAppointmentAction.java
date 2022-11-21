@@ -60,7 +60,7 @@ public class AdministrateAppointmentAction implements Action {
             try {
                 AppointmentService appointmentService =
                         ServiceFactory.getInstance().getAppointmentService();
-                appointmentService.deleteAppointment(id);
+                appointmentService.cancelAppointment(id);
                 return true;
             } catch (ServiceException e) {
                 LOGGER.warn(String.format("it is impossible to delete user by id: %d", id));

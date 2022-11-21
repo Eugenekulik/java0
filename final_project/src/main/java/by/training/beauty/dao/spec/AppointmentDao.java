@@ -24,4 +24,6 @@ public interface AppointmentDao extends Dao<Appointment> {
      */
     List<Appointment> getUsersAppointment(User user) throws DaoException;
     List<Appointment> getEmployeeAppointment(ProcedureEmployee procedureEmployee) throws DaoException;
+
+    boolean cancel(int id) throws DaoException;
 }

@@ -31,7 +31,7 @@ public class AppointmentService {
      * @param id identifier of appointment.
      * @throws ServiceException
      */
-    public void deleteAppointment(int id) throws ServiceException {
+    public void cancelAppointment(int id) throws ServiceException {
         TransactionFactory transactionFactory;
         Transaction transaction = null;
         try {
@@ -39,7 +39,7 @@ public class AppointmentService {
             transaction = transactionFactory.createTransaction();
             AppointmentDao appointmentDao
                     = transaction.createDao(APPOINTMENT_DAO);
-            appointmentDao.delete(id);
+            appointmentDao.cancel(id);
             transaction.commit();
         } catch (DaoException e) {
             try {

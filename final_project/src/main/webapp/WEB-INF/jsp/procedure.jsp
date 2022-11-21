@@ -49,7 +49,7 @@
             <c:if test="${add_access == 'true'}">
                 <form action="<c:url value="/appointment_add.html"/>"
                       method="post" name="AddAppointmentForm">
-                    <input type="submit" class="btn btn-success btn-lg" value="${text['procedure.add']}"/>
+                    <input type="submit" class="btn btn-success btn-lg" value="${text['label.sign']}"/>
                 </form>
             </c:if>
         </div>

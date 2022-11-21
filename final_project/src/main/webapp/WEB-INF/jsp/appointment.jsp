@@ -33,12 +33,13 @@
                 <th class="violet">Employee</th>
                 <th class="violet">Price</th>
                 <th class="violet">Date</th>
+                <th class="violet">Status</th>
                 <th class="violet"></th>
                 <th></th>
             </tr>
             <c:forEach var="elem" items="${appointments}">
                 <tr>
-                    <c:if test="${elem.status == tab}">
+                    <c:if test="${elem.status == tab || elem.status == 4 && tab == 3}">
                         <td>
                             <c:forEach var="proc" items="${procedures}">
                                 <c:if test="${proc.id == elem.procedureEmployeeId}">${proc.name}</c:if>
@@ -51,12 +52,18 @@
                         </td>
                         <td>${elem.price}BYN</td>
                         <td>${elem.date}</td>
-                        <td><a class="btn btn-danger"
-                               href="<c:url value="/appointment.html?delete=${elem.id}"/>">${text['appointment.delete']}</a>
-                        </td>
+                        <td>${elem.status}</td>
+                        <td>
+                        <c:if test="${tab != 3}}">
+                            <form action="<c:url value="/appointment.html"/>" method="POST">
+                                <input type="hidden" name="method" value="delete">
+                                <input type="hidden" name="id" value="${elem.id}">
+                                <input class="btn btn-danger" type="submit" value="CANCEL">
+                            </form>
+                        </c:if>
                         <c:if test="${tab == 3}">
                             <td>
-                                <button type="button" class="btn btn-update modal-btn" data-toggle="modal"
+                                <button type="button" class="btn btn-warning modal-btn" data-toggle="modal"
                                         data-id="${elem.id}" data-target="#modal">add score
                                 </button>
                             </td>
@@ -87,7 +94,7 @@
                     <br/>
                     <input type="hidden" name="appointmentId" id="appointmentId" value="">
                     <input type="hidden" name="method" value="create">
-                    <input class="btn-success" type="submit" value="<c:out value="${text['administrate.add']}"/>">
+                    <input class="btn-success" type="submit" value="<c:out value="${text['label.add']}"/>">
                 </form>
             </div>
             <div class="modal-footer">

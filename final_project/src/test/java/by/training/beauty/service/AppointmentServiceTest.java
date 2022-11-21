@@ -77,7 +77,7 @@ public class AppointmentServiceTest {
     public void testDeleteAppointment() {
         AppointmentService appointmentService = new AppointmentService();
         try {
-            appointmentService.deleteAppointment(1);
+            appointmentService.cancelAppointment(1);
         } catch (ServiceException e) {LOGGER.error("it is impossible to delete user");}
         try {
             PooledConnection connection = ConnectionPool.getInstance().getConnection();

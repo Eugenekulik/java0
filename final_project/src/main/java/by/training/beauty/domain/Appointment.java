@@ -10,7 +10,7 @@ import java.util.Objects;
  * procedureEmployeeId - the id of entity ProcedureEmployee;
  * userId - the id of the user who submitted the entry;
  * price - price of work;
- * status - what is the state of appointment(1 - in processing, 2 - active, 3 - archive);
+ * status - what is the state of appointment(1 - in processing, 2 - active, 3 - archive, 4 - cancelled);
  * date - the date of the appointment.
  */
 

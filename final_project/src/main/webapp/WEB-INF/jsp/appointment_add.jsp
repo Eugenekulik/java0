@@ -38,7 +38,7 @@
                     <option value="${elem}" role="option">${elem}</option>
                 </c:forEach>
             </select>
-            <input class="btn btn-submit" type="submit" value="${text['appointment.add']}">
+            <input class="btn btn-submit" type="submit" value="${text['label.add']}">
         </form>
     </div>
 </div>
