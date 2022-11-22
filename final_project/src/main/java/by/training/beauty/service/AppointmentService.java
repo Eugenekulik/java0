@@ -212,4 +212,25 @@ public class AppointmentService {
             throw new ServiceException(e);
         }
     }
+
+    public void archive() {
+        TransactionFactory transactionFactory = null;
+        Transaction transaction = null;
+        try {
+            transactionFactory = new TransactionFactoryImpl();
+            transaction = transactionFactory.createTransaction();
+            AppointmentDao appointmentDao
+                    = transaction.createDao(APPOINTMENT_DAO);
+            appointmentDao.archive();
+            transaction.commit();
+        } catch (DaoException e) {
+            try {
+                if(transaction != null) {
+                    transaction.rollback();
+                }
+            } catch (DaoException e1) {
+                LOGGER.error(ROLLBACK_ERROR,e1);
+            }
+        }
+    }
 }

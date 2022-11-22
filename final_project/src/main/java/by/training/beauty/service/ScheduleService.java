@@ -1,6 +1,7 @@
 package by.training.beauty.service;
 
 import by.training.beauty.dao.*;
+import by.training.beauty.dao.mysql.DaoEnum;
 import by.training.beauty.dao.mysql.TransactionFactoryImpl;
 import by.training.beauty.dao.spec.*;
 import by.training.beauty.domain.*;
@@ -176,4 +177,18 @@ public class ScheduleService {
         }
     }
 
+    public void archive() {
+        TransactionFactory transactionFactory = null;
+        Transaction transaction = null;
+        try{
+            transactionFactory = new TransactionFactoryImpl();
+            transaction = transactionFactory.createTransaction();
+            ScheduleDao scheduleDao = transaction.createDao(DaoEnum.SCHEDULE.getDao());
+            scheduleDao.archive();
+            transaction.commit();
+        } catch (DaoException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
 }

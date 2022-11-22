@@ -28,6 +28,9 @@ public class ScheduleDaoImpl implements ScheduleDao {
             "schedule.appointment_id " +
             "FROM schedule " +
             "WHERE schedule.appointment_id = ?;";
+    private static final String SQL_ARCHIVE =
+            "DELETE FROM schedule " +
+            "where schedule.date < now() and schedule.appointment_id is null";
     private Connection connection;
     private static final String SQL_FIND_BY_EMPLOYEE =
             "SELECT schedule.id, schedule.employee_id, schedule.date, schedule.appointment_id " +
@@ -363,6 +366,26 @@ public class ScheduleDaoImpl implements ScheduleDao {
             } catch (SQLException e) {
                 LOGGER.error(e.getMessage());
             }
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                LOGGER.error(e.getMessage());
+            }
+        }
+    }
+
+    @Override
+    public void archive() throws DaoException {
+        PreparedStatement statement = null;
+        try {
+            statement = connection.prepareStatement(SQL_ARCHIVE);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+            throw new DaoException();
+        } finally {
             try {
                 if (statement != null) {
                     statement.close();

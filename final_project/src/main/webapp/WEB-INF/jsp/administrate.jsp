@@ -269,15 +269,15 @@
             <c:when test="${activeTab == '4'}">
                 <table class="table">
                     <tr>
-                        <th>id</th>
+                        <th>№</th>
                         <th>employee</th>
                         <th>date</th>
                         <th>appointment id</th>
                         <td></td>
                     </tr>
-                    <c:forEach var="schedule" items="${schedules}">
+                    <c:forEach var="schedule" items="${schedules}" varStatus="status">
                         <tr>
-                            <td>${schedule.id}</td>
+                            <td>${(paginationPage-1)*10 +  status.index + 1}</td>
                             <td>
                                 <c:forEach var="employee" items="${employees}">
                                     <c:if test="${employee.id == schedule.employeeId}">

@@ -9,10 +9,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * This interface extends Dao for Schedule.
+ * This interface extends Dao for Schedule and allows any special methods for schedule.
  *
  * @see Dao
  * @see Schedule
+ * @see DaoException
  */
 
 public interface ScheduleDao extends Dao<Schedule>{
@@ -26,12 +27,27 @@ public interface ScheduleDao extends Dao<Schedule>{
     List<Schedule> findByEmployee(int employeeId) throws DaoException;
 
     /**
-     * This method allows getting schedule by datetime.
+     * This method allows getting schedule by datetime for concrete employee.
      * @param time LocalDateTime
      * @return Schedule
      * @throws DaoException
      */
     Schedule findByEmployeeDate(LocalDateTime time, User employee) throws DaoException;
 
+
+    /**
+     * This method find schedule for concrete appointment.
+     * @param appointment
+     * @return
+     * @throws DaoException
+     * @see DaoException
+     * @see Dao
+     */
     Schedule findByAppointment(Appointment appointment) throws  DaoException;
+
+
+    /**
+     * This method should delete schedules that have not been used and whose time has passed.
+     */
+    void archive() throws DaoException;
 }

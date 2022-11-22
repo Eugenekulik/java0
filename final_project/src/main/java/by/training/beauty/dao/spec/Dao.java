@@ -7,8 +7,8 @@ import java.sql.Connection;
 import java.util.List;
 
 /**
- * This interface allows getting Entity from store.
- * Data access object pattern.
+ * This interface allows work with store.
+ * Implement Data access object pattern.
  *
  * @param <T> with which kind of Entity we work.
  */
