@@ -107,12 +107,12 @@
                 <table class="table">
                     <tr>
                         <th>${text['entity.id']}</th>
-                        <th>Client</th>
-                        <th>Procedure</th>
-                        <th>Employee</th>
-                        <th>Price</th>
-                        <th>Date</th>
-                        <th>Status</th>
+                        <th>${text['appointment.client']}</th>
+                        <th>${text['appointment.procedure']}</th>
+                        <th>${text['appointment.employee']}</th>
+                        <th>${text['appointment.price']}</th>
+                        <th>${text['appointment.date']}</th>
+                        <th>${text['appointment.status']}</th>
                         <th></th>
                         <th></th>
                     </tr>
