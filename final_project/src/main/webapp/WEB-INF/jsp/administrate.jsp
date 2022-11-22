@@ -119,21 +119,9 @@
                     <c:forEach var="appointment" items="${appointments}">
                         <tr>
                             <td>${appointment.id}</td>
-                            <td>
-                                <c:forEach var="client" items="${clients}">
-                                    <c:if test="${client.id == appointment.userId}">${client.name}</c:if>
-                                </c:forEach>
-                            </td>
-                            <td>
-                                <c:forEach var="proc" items="${procedures}">
-                                    <c:if test="${proc.id == appointment.procedureEmployeeId}">${proc.name}</c:if>
-                                </c:forEach>
-                            </td>
-                            <td>
-                                <c:forEach var="empl" items="${employees}">
-                                    <c:if test="${empl.id == appointment.procedureEmployeeId}">${empl.name}</c:if>
-                                </c:forEach>
-                            </td>
+                            <td>${appointment.client}</td>
+                            <td>${appointment.procedure}</td>
+                            <td>${appointment.employee}</td>
                             <td>${appointment.price}</td>
                             <td>${appointment.date}</td>
                             <td>${appointment.status}</td>
@@ -203,12 +191,7 @@
                         <tr>
                             <td>${procedure.id}</td>
                             <td>${procedure.name}</td>
-                            <td>
-                                <c:forEach var="category" items="${categories}">
-                                    <c:if test="${category.id == procedure.categoryId}">
-                                        ${category.name}</c:if>
-                                </c:forEach>
-                            </td>
+                            <td>${procedure.category}</td>
                             <td>${procedure.elapsedTime}${text["time.minute"]}</td>
                             <td>
                                 <button type="button" class="btn btn-warning procedure-modal-btn" data-toggle="modal"

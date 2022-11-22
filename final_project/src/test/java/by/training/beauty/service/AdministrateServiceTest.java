@@ -62,7 +62,7 @@ public class AdministrateServiceTest {
         }
     }
 
-    @Test
+   /* @Test
     public void testAdministrateAppointments() {
         AdministrateService administrateService = new AdministrateService();
         try {
@@ -71,9 +71,9 @@ public class AdministrateServiceTest {
         } catch (ServiceException e) {
             LOGGER.error("it is impossible to get user list");
         }
-    }
+    }*/
 
-    @Test
+   /* @Test
     public void testAdministrateProcedures() {
         AdministrateService administrateService = new AdministrateService();
         try {
@@ -82,7 +82,7 @@ public class AdministrateServiceTest {
         } catch (ServiceException e) {
             LOGGER.error("it is impossible to get user list");
         }
-    }
+    }*/
 
     @Test
     public void testAdministrateschedules() {

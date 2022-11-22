@@ -5,13 +5,13 @@ import by.training.beauty.dao.mysql.DaoEnum;
 import by.training.beauty.dao.mysql.TransactionFactoryImpl;
 import by.training.beauty.dao.spec.*;
 import by.training.beauty.domain.*;
+import by.training.beauty.dto.AppointmentDto;
+import by.training.beauty.dto.ProcedureDto;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.util.PropertySource;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -119,7 +119,7 @@ public class AdministrateService {
      * @return List of appointments
      * @throws ServiceException
      */
-    public List<Entity> administrateAppointments(int paginationPage)
+    public List<AppointmentDto> administrateAppointments(int paginationPage)
             throws ServiceException {
         TransactionFactory transactionFactory = null;
         Transaction transaction = null;
@@ -170,7 +170,6 @@ public class AdministrateService {
                         try {
                             User employee = userDao
                                 .findById(procedureEmployee.getEmployeeId());
-                            employee.setId(procedureEmployee.getId());
                             return employee;
                         } catch (DaoException e) {
                             LOGGER.warn(String.format("an error ocured " +
@@ -190,13 +189,31 @@ public class AdministrateService {
                 }
                 return null;
             }).filter(Objects::nonNull).collect(Collectors.toSet());
-            entities = new ArrayList<>();
-            entities.addAll(appointments);
-            entities.addAll(clients);
-            entities.addAll(procedures);
-            entities.addAll(employees);
-            entities.addAll(categories);
+            List<AppointmentDto> appointmentDtoList = new ArrayList<>();
+
+            appointments.stream().forEach(appointment -> {
+                AppointmentDto appointmentDto = new AppointmentDto();
+                appointmentDto.setId(appointment.getId());
+                appointmentDto.setStatus(appointment.getStatus());
+                appointmentDto.setDate(appointment.getDate());
+                appointmentDto.setPrice(appointment.getPrice());
+                appointmentDto.setClient(clients.stream()
+                        .filter(client -> client.getId() == appointment.getUserId())
+                        .findAny().get().getName());
+                appointmentDto.setEmployee(employees.stream()
+                        .filter(employee -> employee.getId() == procedureEmployeeList.stream()
+                                .filter(procedureEmployee -> procedureEmployee.getId() == appointment.getProcedureEmployeeId())
+                                .findAny().get().getEmployeeId())
+                        .findAny().get().getName());
+                appointmentDto.setProcedure(procedures.stream()
+                        .filter(procedure -> procedure.getId() == procedureEmployeeList.stream()
+                                .filter(procedureEmployee -> procedureEmployee.getId() == appointment.getProcedureEmployeeId())
+                                .findAny().get().getProcedureId())
+                        .findAny().get().getName());
+                appointmentDtoList.add(appointmentDto);
+            });
             transaction.commit();
+            return appointmentDtoList;
         } catch (DaoException e) {
             try {
                 if (transaction != null) {
@@ -207,7 +224,6 @@ public class AdministrateService {
             }
             throw new ServiceException();
         }
-        return entities;
     }
 
     /**
@@ -216,7 +232,7 @@ public class AdministrateService {
      * @return List of procedures
      * @throws ServiceException
      */
-    public List<Entity> administrateProcedures(int paginationPage)
+    public List<ProcedureDto> administrateProcedures(int paginationPage)
             throws ServiceException {
         TransactionFactory transactionFactory;
         Transaction transaction = null;
@@ -238,10 +254,20 @@ public class AdministrateService {
                 }
                 return null;
             }).filter(Objects::nonNull).collect(Collectors.toSet());
-            entities = new ArrayList<>();
-            entities.addAll(procedures);
-            entities.addAll(categories);
+            List<ProcedureDto> procedureDtoList = new ArrayList<>();
+            procedures.stream().forEach(procedure -> {
+                ProcedureDto procedureDto = new ProcedureDto();
+                procedureDto.setId(procedure.getId());
+                procedureDto.setDescription(procedure.getDescription());
+                procedureDto.setName(procedure.getName());
+                procedureDto.setElapsedTime(procedure.getElapsedTime());
+                procedureDto.setCategory(categories.stream()
+                        .filter(category -> category.getId() == procedure.getCategoryId())
+                        .findFirst().get().getName());
+                procedureDtoList.add(procedureDto);
+            });
             transaction.commit();
+            return procedureDtoList;
         } catch (DaoException e) {
             try {
                 if (transaction != null) {
@@ -252,7 +278,6 @@ public class AdministrateService {
             }
             throw new ServiceException();
         }
-        return entities;
     }
 
     /**

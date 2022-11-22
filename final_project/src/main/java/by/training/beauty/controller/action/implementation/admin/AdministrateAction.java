@@ -3,6 +3,8 @@ package by.training.beauty.controller.action.implementation.admin;
 import by.training.beauty.controller.action.Action;
 import by.training.beauty.controller.action.PageEnum;
 import by.training.beauty.domain.*;
+import by.training.beauty.dto.AppointmentDto;
+import by.training.beauty.dto.ProcedureDto;
 import by.training.beauty.service.AdministrateService;
 import by.training.beauty.service.ServiceException;
 import by.training.beauty.service.ServiceFactory;
@@ -80,54 +82,19 @@ public class AdministrateAction implements Action {
                     pageCount = ServiceFactory.getInstance()
                             .getAdministrateService()
                             .getPagecount(2);
-                    entities = ServiceFactory.getInstance()
+                    List<AppointmentDto> appointmentDtoList = ServiceFactory.getInstance()
                             .getAdministrateService()
                             .administrateAppointments(paginationPage);
-                    List<User> clients = entities.stream()
-                            .filter(User.class::isInstance)
-                            .map(User.class::cast)
-                            .filter(user -> user.getRoles().contains(new Role("client")))
-                            .collect(Collectors.toList());
-                    List<User> employees = entities.stream()
-                            .filter(User.class::isInstance)
-                            .map(User.class::cast)
-                            .filter(user -> user.getRoles().contains(new Role("employee")))
-                            .collect(Collectors.toList());
-                    List<Appointment> appointments = entities.stream()
-                            .filter(Appointment.class::isInstance)
-                            .map(Appointment.class::cast)
-                            .collect(Collectors.toList());
-                    List<Procedure> procedures = entities.stream()
-                            .filter(Procedure.class::isInstance)
-                            .map(Procedure.class::cast)
-                            .collect(Collectors.toList());
-                    List<Category> categories = entities.stream()
-                            .filter(Category.class::isInstance)
-                            .map(Category.class::cast)
-                            .collect(Collectors.toList());
-                    request.getSession().setAttribute("clients", clients);
-                    request.getSession().setAttribute("employees", employees);
-                    request.getSession().setAttribute("appointments", appointments);
-                    request.getSession().setAttribute("procedures", procedures);
-                    request.getSession().setAttribute("categories", categories);
+                    request.getSession().setAttribute("appointments", appointmentDtoList);
                     break;
                 case "3":
                     pageCount = ServiceFactory.getInstance()
                             .getAdministrateService()
                             .getPagecount(3);
-                    entities = ServiceFactory.getInstance()
+                    List<ProcedureDto> procedureDtoList = ServiceFactory.getInstance()
                             .getAdministrateService()
                             .administrateProcedures(paginationPage);
-                    List<Procedure> procedures1 = entities.stream()
-                            .filter(Procedure.class::isInstance)
-                            .map(Procedure.class::cast)
-                            .collect(Collectors.toList());
-                    List<Category> categories1 = entities.stream()
-                            .filter(Category.class::isInstance)
-                            .map(Category.class::cast)
-                            .collect(Collectors.toList());
-                    request.getSession().setAttribute("categories", categories1);
-                    request.getSession().setAttribute("procedures", procedures1);
+                    request.getSession().setAttribute("procedures", procedureDtoList);
                     break;
                 case "4":
                     pageCount = ServiceFactory.getInstance()
