@@ -34,8 +34,9 @@
         <c:choose>
             <c:when test="${activeTab == '1'}">
                 <table class="table">
+                    <thead>
                     <tr>
-                        <th>${text['entity.id']}</th>
+                        <th>№</th>
                         <th>${text['user.name']}</th>
                         <th>${text['user.login']}</th>
                         <th>${text['user.phone']}</th>
@@ -43,9 +44,11 @@
                         <td></td>
                         <td></td>
                     </tr>
-                    <c:forEach var="user" items="${users}">
+                    </thead>
+                    <tbody>
+                    <c:forEach var="user" items="${users}" varStatus="status">
                         <tr>
-                            <td>${user.id}</td>
+                            <td>${(paginationPage -1)*10 + status.index + 1}</td>
                             <td>${user.name}</td>
                             <td>${user.login}</td>
                             <td>${user.phone}</td>
@@ -70,6 +73,7 @@
                             </td>
                         </tr>
                     </c:forEach>
+                    </tbody>
                 </table>
                 <ul class="pagination">
                     <c:if test="${paginationPage>1}">
@@ -105,8 +109,9 @@
             </c:when>
             <c:when test="${activeTab == '2'}">
                 <table class="table">
+                    <thead>
                     <tr>
-                        <th>${text['entity.id']}</th>
+                        <th>№</th>
                         <th>${text['appointment.client']}</th>
                         <th>${text['appointment.procedure']}</th>
                         <th>${text['appointment.employee']}</th>
@@ -116,9 +121,11 @@
                         <th></th>
                         <th></th>
                     </tr>
-                    <c:forEach var="appointment" items="${appointments}">
+                    </thead>
+                    <tbody>
+                    <c:forEach var="appointment" items="${appointments}" varStatus="status">
                         <tr>
-                            <td>${appointment.id}</td>
+                            <td>${(paginationPage - 1)*10 + status.index + 1}</td>
                             <td>${appointment.client}</td>
                             <td>${appointment.procedure}</td>
                             <td>${appointment.employee}</td>
@@ -144,6 +151,7 @@
                             </td>
                         </tr>
                     </c:forEach>
+                    </tbody>
                 </table>
                 <ul class="pagination">
                     <c:if test="${paginationPage>1}">
@@ -179,17 +187,19 @@
             </c:when>
             <c:when test="${activeTab == '3'}">
                 <table class="table">
-                    <tr>
-                        <th>Id</th>
-                        <th>Name</th>
-                        <th>Category</th>
-                        <th>Elapsed time</th>
+                    <thead><tr>
+                        <th>№</th>
+                        <th>${text['procedure.name']}</th>
+                        <th>${text['procedure.category']}</th>
+                        <th>${text['procedure.elapsedTime']}</th>
                         <td></td>
                         <td></td>
                     </tr>
-                    <c:forEach var="procedure" items="${procedures}">
+                    </thead>
+                    <tbody>
+                    <c:forEach var="procedure" items="${procedures}" varStatus="status">
                         <tr>
-                            <td>${procedure.id}</td>
+                            <td>${(paginationPage -1)*10 + status.index + 1}</td>
                             <td>${procedure.name}</td>
                             <td>${procedure.category}</td>
                             <td>${procedure.elapsedTime}${text["time.minute"]}</td>
@@ -212,6 +222,7 @@
                             </td>
                         </tr>
                     </c:forEach>
+                    </tbody>
                 </table>
                 <button type="button" class="btn btn-success procedure-modal-btn" data-toggle="modal"
                         data-target="#procedure-create-modal">
@@ -251,23 +262,19 @@
             </c:when>
             <c:when test="${activeTab == '4'}">
                 <table class="table">
-                    <tr>
+                    <thead><tr>
                         <th>№</th>
-                        <th>employee</th>
-                        <th>date</th>
-                        <th>appointment id</th>
+                        <th>${text['schedule.employee']}</th>
+                        <th>${text['schedule.date']}</th>
+                        <th>${text['schedule.appointment']}</th>
                         <td></td>
                     </tr>
+                    </thead>
+                    <tbody>
                     <c:forEach var="schedule" items="${schedules}" varStatus="status">
                         <tr>
                             <td>${(paginationPage-1)*10 +  status.index + 1}</td>
-                            <td>
-                                <c:forEach var="employee" items="${employees}">
-                                    <c:if test="${employee.id == schedule.employeeId}">
-                                        ${employee.name}
-                                    </c:if>
-                                </c:forEach>
-                            </td>
+                            <td>${schedule.employee}</td>
                             <td>${schedule.date}</td>
                             <c:if test="${schedule.appointmentId != 0}">
                                 <td>${schedule.appointmentId}</td>
@@ -285,6 +292,7 @@
                             </td>
                         </tr>
                     </c:forEach>
+                    <tbody>
                 </table>
                 <a class="btn btn-success"
                    href="<c:url value="/schedule/add.html"/>">${text['label.add']}</a>

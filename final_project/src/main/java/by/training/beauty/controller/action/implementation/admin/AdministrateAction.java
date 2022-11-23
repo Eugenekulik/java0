@@ -5,6 +5,7 @@ import by.training.beauty.controller.action.PageEnum;
 import by.training.beauty.domain.*;
 import by.training.beauty.dto.AppointmentDto;
 import by.training.beauty.dto.ProcedureDto;
+import by.training.beauty.dto.ScheduleDto;
 import by.training.beauty.service.AdministrateService;
 import by.training.beauty.service.ServiceException;
 import by.training.beauty.service.ServiceFactory;
@@ -100,19 +101,10 @@ public class AdministrateAction implements Action {
                     pageCount = ServiceFactory.getInstance()
                             .getAdministrateService()
                             .getPagecount(4);
-                    entities = ServiceFactory.getInstance()
+                    List<ScheduleDto> scheduleDtoList = ServiceFactory.getInstance()
                             .getAdministrateService()
                             .administrateSchedules(paginationPage);
-                    List<User> employees1 = entities.stream()
-                            .filter(User.class::isInstance)
-                            .map(User.class::cast)
-                            .collect(Collectors.toList());
-                    List<Schedule> schedules = entities.stream()
-                            .filter(Schedule.class::isInstance)
-                            .map(Schedule.class::cast)
-                            .collect(Collectors.toList());
-                    request.getSession().setAttribute("schedules", schedules);
-                    request.getSession().setAttribute("employees" ,employees1);
+                    request.getSession().setAttribute("schedules", scheduleDtoList);
                     break;
                 default:
                     break;

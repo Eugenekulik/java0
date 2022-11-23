@@ -7,9 +7,9 @@ import by.training.beauty.dao.spec.*;
 import by.training.beauty.domain.*;
 import by.training.beauty.dto.AppointmentDto;
 import by.training.beauty.dto.ProcedureDto;
+import by.training.beauty.dto.ScheduleDto;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.util.PropertySource;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -286,7 +286,7 @@ public class AdministrateService {
      * @return List of schedules
      * @throws ServiceException
      */
-    public List<Entity> administrateSchedules(int paginationPage)
+    public List<ScheduleDto> administrateSchedules(int paginationPage)
             throws ServiceException {
         TransactionFactory transactionFactory = null;
         Transaction transaction = null;
@@ -300,10 +300,20 @@ public class AdministrateService {
             List<Schedule> schedules = scheduleDao
                     .findInterval((paginationPage - 1) * 10, 10);
             List<User> employees = userDao.findEmployees();
-            entities = new ArrayList<>();
-            entities.addAll(employees);
-            entities.addAll(schedules);
+            List<ScheduleDto> scheduleDtoList = new ArrayList<>();
+
+            schedules.stream().forEach(schedule -> {
+                ScheduleDto scheduleDto = new ScheduleDto();
+                scheduleDto.setId(schedule.getId());
+                scheduleDto.setDate(schedule.getDate());
+                scheduleDto.setAppointmentId(schedule.getAppointmentId());
+                scheduleDto.setEmployee(employees.stream()
+                        .filter(employee -> employee.getId() == schedule.getEmployeeId())
+                        .findAny().get().getName());
+                scheduleDtoList.add(scheduleDto);
+            });
             transaction.commit();
+            return scheduleDtoList;
         } catch (DaoException e) {
             try {
                 if (transaction != null) {
@@ -314,6 +324,5 @@ public class AdministrateService {
             }
             throw new ServiceException();
         }
-        return entities;
     }
 }
