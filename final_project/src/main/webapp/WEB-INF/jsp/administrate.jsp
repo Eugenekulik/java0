@@ -60,12 +60,13 @@
                                 <button type="button" class="btn btn-warning user-modal-btn"
                                         data-id="${user.id}" data-name="${user.name}"
                                         data-roles="${user.roles}" data-toggle="modal"
-                                        data-phone="${user.phone}" data-target="#user-modal">Update
+                                        data-phone="${user.phone}" data-target="#user-modal">
+                                        ${text['label.update']}
                                 </button>
                             </td>
                             <td>
                                 <form method="post" action="<c:url
-                                    value="/administrate/user.html"/>">
+                                    value="/administrate/user.html?paginationPage=${paginationPage}"/>">
                                     <input type="hidden" value="delete" name="method">
                                     <input type="hidden" value="${user.id}" name="userId">
                                     <button class="btn btn-danger"
@@ -144,7 +145,7 @@
                             </td>
                             <td>
                                 <form method="post" action="<c:url
-                                    value="/administrate/appointment.html"/>">
+                                    value="/administrate/appointment.html?paginationPage=${paginationPage}"/>">
                                     <input type="hidden" value="delete" name="method">
                                     <input type="hidden" value="${appointment.id}" name="appointmentId">
                                     <button class="btn btn-danger" type="submit">${text['label.cancel']}</button>
@@ -205,20 +206,24 @@
                             <td>${procedure.category}</td>
                             <td>${procedure.elapsedTime}${text["time.minute"]}</td>
                             <td>
-                                <button type="button" class="btn btn-warning procedure-modal-btn" data-toggle="modal"
-                                        data-target="#procedure-update-modal" data-id="${procedure.id}"
+                                <button type="button" class="btn btn-warning procedure-modal-btn"
+                                        data-toggle="modal"
+                                        data-target="#procedure-update-modal"
+                                        data-id="${procedure.id}"
                                         data-name="${procedure.name}"
                                         data-description="${procedure.description}"
                                         data-time="${procedure.elapsedTime}">
-                                    Update
+                                        ${text['label.update']}
                                 </button>
                             </td>
                             <td>
                                 <form method="post" action="<c:url
-                                    value="/administrate/procedure.html"/>">
+                                    value="/administrate/procedure.html?paginationPage=${paginationPage}"/>">
                                     <input type="hidden" value="delete" name="method">
                                     <input type="hidden" value="${procedure.id}" name="procedureId">
-                                    <button class="btn btn-danger" type="submit">${text['label.delete']}</button>
+                                    <button class="btn btn-danger" type="submit">
+                                            ${text['label.delete']}
+                                    </button>
                                 </form>
                             </td>
                         </tr>
@@ -227,7 +232,7 @@
                 </table>
                 <button type="button" class="btn btn-success procedure-modal-btn" data-toggle="modal"
                         data-target="#procedure-create-modal">
-                    Create
+                        ${text['label.add']}
                 </button>
                 <ul class="pagination">
                     <c:if test="${paginationPage>1}">
@@ -285,7 +290,7 @@
                             </c:if>
                             <td>
                                 <form method="post" action="<c:url
-                                    value="/administrate/schedule.html"/>">
+                                    value="/administrate/schedule.html?paginationPage=${paginationPage}"/>">
                                     <input type="hidden" value="delete" name="method">
                                     <input type="hidden" value="${schedule.id}" name="scheduleId">
                                     <button class="btn btn-danger" type="submit">${text['label.delete']}</button>
@@ -342,7 +347,7 @@
                 <button type="button" class="btn-close" data-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form action="<c:url value="/administrate/user.html"/>" method="post">
+                <form action="<c:url value="/administrate/user.html?paginationPage=${paginationPage}"/>" method="post">
                     <input type="hidden" name="method" value="update">
                     <input id="name" maxlength="40" minlength="4" pattern="([A-ZА-ЯЁa-zа-яё ]*)"
                            class="main-color-bg-f form-control" type="text" name="name" value=""
@@ -386,7 +391,7 @@
                 <button type="button" class="btn-close" data-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form action="<c:url value="/administrate/appointment.html"/>" method="post">
+                <form action="<c:url value="/administrate/appointment.html?paginationPage=${paginationPage}"/>" method="post">
                     <input id="appointmentPrice" maxlength="10" minlength="1" pattern="([0-9.]*)"
                            class="main-color-bg-f form-control" type="number" name="appointmentPrice" value=""
                            placeholder="${text['appointment.price']}"/>
@@ -421,7 +426,7 @@
                 <button type="button" class="btn-close" data-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form action="<c:url value="/administrate/procedure.html"/>" method="post">
+                <form action="<c:url value="/administrate/procedure.html?paginationPage=${paginationPage}"/>" method="post">
                     <input id="procedureName" maxlength="50" minlength="4" pattern="([А-ЯЁа-яё ]+)"
                            class="main-color-bg-f form-control" type="text" name="procedureName" value=""
                            placeholder="${text['procedure.name']}"/>

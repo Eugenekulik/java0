@@ -31,7 +31,7 @@ public class ScheduleCreateFormAction implements Action {
     @Override
     public boolean isAllowed(HttpServletRequest request) {
         List<Role> roles = (List<Role>) request.getSession().getAttribute("roles");
-        return roles == null
+        return roles != null
                 && roles.contains(new Role("admin"))
                 && request.getMethod().equals("GET");
     }

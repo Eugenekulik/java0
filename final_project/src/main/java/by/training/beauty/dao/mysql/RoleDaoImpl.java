@@ -12,13 +12,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RoleDaoImpl implements RoleDao {
-    private static final Logger LOGGER = LogManager.getLogger(RoleDaoImpl.class);
-    private static final String SQL_FIND_BY_USER =
-            "SELECT role.id, role.name from role left join user_role on role.id = user_role.role_id" +
-                    " where user_role.user_id = ?";
+
+    //Connection with database
     private Connection connection;
 
-    //CONSTANT SQL QUERIES
+    //CONSTANTS SQL QUERIES
+    private static final Logger LOGGER = LogManager.getLogger(RoleDaoImpl.class);
+    private static final String SQL_FIND_BY_USER =
+            "SELECT role.id, role.name " +
+            "from role left join user_role on role.id = user_role.role_id" +
+            " where user_role.user_id = ?";
+    private static final String SQL_DELETE_FOR_USER =
+            "DELETE FROM user_role where user_role.user_id = ?";
     private static final String SQL_FIND_ALL =
             "SELECT role.id, role.name from role ";
     private static final String SQL_FIND_INTERVAL =
@@ -229,25 +234,32 @@ public class RoleDaoImpl implements RoleDao {
 
     @Override
     public boolean updateRolesForUser(User user) throws DaoException {
-        PreparedStatement statement = null;
+        PreparedStatement insertStatement = null;
+        PreparedStatement deleteStatement = null;
         try {
-            statement = connection.prepareStatement(SQL_UPDATE_ROLES_FOR_USER, Statement.RETURN_GENERATED_KEYS);
+            deleteStatement = connection.prepareStatement(SQL_DELETE_FOR_USER);
+            deleteStatement.setInt(1,user.getId());
+            deleteStatement.executeUpdate();
+            insertStatement = connection.prepareStatement(SQL_UPDATE_ROLES_FOR_USER, Statement.RETURN_GENERATED_KEYS);
             List<Role> roles = user.getRoles();
             for (Role role:roles) {
-                statement.setInt(1, user.getId());
-                statement.setInt(2, role.getId());
-                statement.addBatch();
+                insertStatement.setInt(1, user.getId());
+                insertStatement.setInt(2, role.getId());
+                insertStatement.addBatch();
             }
-            statement.executeBatch();
+            insertStatement.executeBatch();
             return true;
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
             throw new DaoException();
         } finally {
             try {
-                if (statement != null) {
-                    statement.close();
-                }
+                if(deleteStatement != null) deleteStatement.close();
+            } catch (SQLException e) {
+                LOGGER.error(e.getMessage());
+            }
+            try {
+                if(insertStatement != null) insertStatement.close();
             } catch (SQLException e) {
                 LOGGER.error(e.getMessage());
             }

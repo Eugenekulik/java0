@@ -25,7 +25,7 @@ public class AdministrateUserAction implements Action {
     @Override
     public boolean isAllowed(HttpServletRequest request) {
         List<Role> roles = (List<Role>) request.getSession().getAttribute("roles");
-        return roles == null
+        return roles != null
                 && roles.contains(new Role("admin"))
                 && request.getMethod().equals("POST");
     }
@@ -46,7 +46,8 @@ public class AdministrateUserAction implements Action {
             default:
                 throw new UnsupportedOperationException(request.getRequestURI());
         }
-        return "/administrate.html";
+        String pagination = request.getParameter("paginationPage");
+        return "/administrate.html?paginationPage=" + pagination;
     }
 
 
