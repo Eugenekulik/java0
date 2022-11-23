@@ -23,10 +23,9 @@ public class ScoreAction implements Action {
     @Override
     public boolean isAllowed(HttpServletRequest request) {
         List<Role> roles = (List<Role>) request.getSession().getAttribute("roles");
-        if(roles != null
+        return  roles != null
                 && roles.contains(new Role("client"))
-                && request.getMethod().equals("POST")) return true;
-        else return false;
+                && request.getMethod().equals("POST");
     }
 
 

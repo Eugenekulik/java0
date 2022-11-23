@@ -14,7 +14,6 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * This class implement interface Action,
@@ -41,10 +40,9 @@ public class AdministrateAction implements Action {
     @Override
     public boolean isAllowed(HttpServletRequest request) {
         List<Role> roles = (List<Role>) request.getSession().getAttribute("roles");
-        if(roles != null
+        return roles != null
                 && roles.contains(new Role("admin"))
-                && request.getMethod().equals("GET")) return true;
-        return false;
+                && request.getMethod().equals("GET");
     }
 
 
@@ -63,7 +61,6 @@ public class AdministrateAction implements Action {
         } catch (NumberFormatException e) {
             paginationPage = 1;
         }
-        List<Entity> entities = null;
         try {
             switch ((String) request.getSession().getAttribute(ACTIVE_TAB)) {
                 case "1":

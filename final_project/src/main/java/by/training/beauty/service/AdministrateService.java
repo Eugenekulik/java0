@@ -92,12 +92,7 @@ public class AdministrateService {
             UserDao userDao = transaction.createDao(DaoEnum.USER.getDao());
             users = userDao.findInterval((paginationPage - 1) * 10, 10);
             for (User user : users) {
-                try {
-                    roleDao.findByUser(user).stream().forEach(user::addRole);
-                } catch (DaoException e) {
-                    LOGGER.error(e.getMessage());
-                    e.printStackTrace();
-                }
+                roleDao.findByUser(user).stream().forEach(user::addRole);
             }
             transaction.commit();
         } catch (DaoException e) {
@@ -123,7 +118,6 @@ public class AdministrateService {
             throws ServiceException {
         TransactionFactory transactionFactory = null;
         Transaction transaction = null;
-        List<Entity> entities = null;
         try {
             transactionFactory = new TransactionFactoryImpl();
             transaction = transactionFactory.createTransaction();
@@ -134,7 +128,6 @@ public class AdministrateService {
                     transaction.createDao("procedureEmployeeDao");
             UserDao userDao = transaction.createDao(USER_DAO);
             ProcedureDao procedureDao = transaction.createDao(PROCEDURE_DAO);
-            List<Category> categories = categoryDao.findall();
             List<Appointment> appointments = appointmentDao
                     .findInterval((paginationPage - 1) * 10, 10);
             Set<ProcedureEmployee> procedureEmployeeList
@@ -155,7 +148,6 @@ public class AdministrateService {
                         try {
                             Procedure procedure = procedureDao
                                 .findById(procedureEmployee.getProcedureId());
-                            procedure.setId(procedureEmployee.getId());
                             return procedure;
                         } catch (DaoException e) {
                             LOGGER.warn(String.format("an error occured " +
@@ -168,9 +160,7 @@ public class AdministrateService {
             Set<User> employees = procedureEmployeeList.stream()
                     .map(procedureEmployee -> {
                         try {
-                            User employee = userDao
-                                .findById(procedureEmployee.getEmployeeId());
-                            return employee;
+                            return userDao.findById(procedureEmployee.getEmployeeId());
                         } catch (DaoException e) {
                             LOGGER.warn(String.format("an error ocured " +
                                             "while getting employee by id: %d",
@@ -236,7 +226,6 @@ public class AdministrateService {
             throws ServiceException {
         TransactionFactory transactionFactory;
         Transaction transaction = null;
-        List<Entity> entities;
         try {
             transactionFactory = new TransactionFactoryImpl();
             transaction = transactionFactory.createTransaction();
@@ -290,7 +279,6 @@ public class AdministrateService {
             throws ServiceException {
         TransactionFactory transactionFactory = null;
         Transaction transaction = null;
-        List<Entity> entities = null;
         try {
             transactionFactory = new TransactionFactoryImpl();
             transaction = transactionFactory.createTransaction();

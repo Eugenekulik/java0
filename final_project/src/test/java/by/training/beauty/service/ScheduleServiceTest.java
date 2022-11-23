@@ -44,10 +44,10 @@ public class ScheduleServiceTest {
     }
 
     @Test(priority = 1)
-    public void testschedulesByEmployee() {
+    public void testSchedulesByEmployee() {
         ScheduleService scheduleService = new ScheduleService();
         LocalDate localDate = LocalDate.parse("2021-12-01");
-        int employeeId = 2;
+        int employeeId = 3;
         try {
             List<LocalTime> schedules = scheduleService.schedulesByEmployeeDate(employeeId, localDate);
             assertEquals(schedules.size(),3);
@@ -68,8 +68,8 @@ public class ScheduleServiceTest {
                 PooledConnection connection = ConnectionPool.getInstance().getConnection();
                 ScheduleDao scheduleDao = new ScheduleDaoImpl();
                 scheduleDao.setConnection(connection);
-                List<Schedule> actual  = scheduleDao.findByEmployee(2);
-                assertEquals(actual.size(),12);
+                List<Schedule> actual  = scheduleDao.findByEmployee(3);
+                assertEquals(actual.size(),3);
                 connection.close();
             } catch (DaoException e) {LOGGER.error(e);}
         } catch (ServiceException e) {

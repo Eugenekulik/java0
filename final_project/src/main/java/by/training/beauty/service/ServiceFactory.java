@@ -1,6 +1,5 @@
 package by.training.beauty.service;
 
-import by.training.beauty.domain.Score;
 import by.training.beauty.service.validator.UserValidator;
 
 public class ServiceFactory {

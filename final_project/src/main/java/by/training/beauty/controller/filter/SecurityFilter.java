@@ -2,18 +2,13 @@ package by.training.beauty.controller.filter;
 
 import by.training.beauty.controller.action.Action;
 import by.training.beauty.controller.action.ActionFactory;
-import by.training.beauty.domain.Role;
-import by.training.beauty.domain.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This class implement Filter and allows to keep track of the security. It's
@@ -23,7 +18,6 @@ import java.util.List;
 
 public class SecurityFilter implements Filter {
     //CONSTANTS
-    private static final String MESSAGE = "securityFilterMessage";
 
     private static final Logger LOGGER = LogManager.getLogger(SecurityFilter.class);
 
@@ -41,10 +35,14 @@ public class SecurityFilter implements Filter {
                 chain.doFilter(servletRequest,servletResponse);
             }
             else {
+
                 if(request.getSession().getAttribute("user") == null) {
+                    LOGGER.warn(()->"Access was denied: " + request.getRequestURI());
                     response.sendRedirect(request.getContextPath() + "/login.html");
                 }
                 else {
+                    LOGGER.warn(()->"Access was denied: " + request.getRequestURI() +
+                            "for user: " +  request.getSession().getAttribute("user"));
                     request.setAttribute("error", "Access error!");
                     request.removeAttribute("action");
                     chain.doFilter(servletRequest,servletResponse);

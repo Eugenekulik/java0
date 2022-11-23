@@ -43,7 +43,9 @@ public class ProcedureAction implements Action {
         Integer current = null;
         try {
             current = Integer.parseInt(request.getParameter("current"));
-        } catch (NumberFormatException e){}
+        } catch (NumberFormatException e){
+            LOGGER.info(e.getMessage());
+        }
         if(current == null){
             current = 1;
         }

@@ -51,6 +51,6 @@ public class UserValidator {
         if (phone.length() < 4 || phone.length() > 20) {
             return false;
         }
-        return Pattern.matches("([+0-9][0-9]*)", phone);
+        return Pattern.matches("([+\\d][\\d]*)", phone);
     }
 }

@@ -20,7 +20,7 @@ public class EmployeeWorkTimeScheduler {
         LocalTime time = LocalTime.now();
 
 
-        scheduler.scheduleAtFixedRate(()->execute(),86400 - time.getSecond(), 86400, TimeUnit.SECONDS);
+        scheduler.scheduleAtFixedRate(this::execute,86400L - time.getSecond(), 86400, TimeUnit.SECONDS);
     }
 
     private void execute(){

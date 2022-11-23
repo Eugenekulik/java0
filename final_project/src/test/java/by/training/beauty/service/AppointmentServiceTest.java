@@ -51,7 +51,7 @@ public class AppointmentServiceTest {
     public void testAddAppointment() {
         AppointmentService appointmentService = new AppointmentService();
         Appointment expected = new Appointment();
-        expected.setUserId(3);
+        expected.setUserId(2);
         expected.setStatus(1);
         expected.setPrice(20.0);
         expected.setDate(LocalDateTime.of(LocalDate.parse("2021-12-01"), LocalTime.parse("10:00:00")));
@@ -60,7 +60,7 @@ public class AppointmentServiceTest {
         procedure.setId(1);
         User employee = new User();
         try {
-            appointmentService.addAppointment(expected, procedure, 2);
+            appointmentService.addAppointment(expected, procedure, 3);
         } catch (ServiceException e) {LOGGER.error("it is impossible to delete user");}
         try {
             PooledConnection connection = ConnectionPool.getInstance().getConnection();

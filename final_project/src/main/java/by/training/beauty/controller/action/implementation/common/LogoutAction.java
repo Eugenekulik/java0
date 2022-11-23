@@ -4,8 +4,6 @@ import by.training.beauty.controller.action.Action;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Set;
-
 /**
  * This class implement interface Action
  * and allows logout user.

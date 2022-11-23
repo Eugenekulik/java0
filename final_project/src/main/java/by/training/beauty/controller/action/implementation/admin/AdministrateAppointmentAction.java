@@ -23,10 +23,9 @@ public class AdministrateAppointmentAction implements Action {
     @Override
     public boolean isAllowed(HttpServletRequest request) {
         List<Role> roles = (List<Role>) request.getSession().getAttribute("roles");
-        if(roles != null
+        return  roles != null
                 && roles.contains(new Role("admin"))
-                && request.getMethod().equals("POST")) return true;
-        return false;
+                && request.getMethod().equals("POST");
     }
 
     @Override
@@ -95,7 +94,7 @@ public class AdministrateAppointmentAction implements Action {
     }
 
     private boolean create(HttpServletRequest request) {
-        return false;
+        throw new UnsupportedOperationException(request.getRequestURI());
     }
 
 }

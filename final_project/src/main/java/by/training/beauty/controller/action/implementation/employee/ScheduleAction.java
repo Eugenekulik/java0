@@ -33,10 +33,9 @@ public class ScheduleAction implements Action {
     @Override
     public boolean isAllowed(HttpServletRequest request) {
         List<Role> roles = (List<Role>) request.getSession().getAttribute("roles");
-        if(roles == null) return false;
-        if(roles.contains(new Role("employee"))
-                && request.getMethod().equals("GET")) return true;
-        return false;
+        return roles == null
+                &&roles.contains(new Role("employee"))
+                && request.getMethod().equals("GET");
     }
 
     @Override

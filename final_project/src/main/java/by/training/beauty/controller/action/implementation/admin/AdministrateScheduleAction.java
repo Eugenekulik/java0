@@ -11,7 +11,6 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
 
 public class AdministrateScheduleAction implements Action {
     private static final Logger LOGGER = LogManager.getLogger(AdministrateScheduleAction.class);
@@ -24,9 +23,9 @@ public class AdministrateScheduleAction implements Action {
     @Override
     public boolean isAllowed(HttpServletRequest request) {
         List<Role> roles = (List<Role>) request.getSession().getAttribute("roles");
-        if(roles == null) return false;
-        if(roles.contains(new Role("admin")) && request.getMethod().equals("POST")) return true;
-        return false;
+        return  roles == null
+                && roles.contains(new Role("admin"))
+                && request.getMethod().equals("POST");
     }
 
     @Override
@@ -35,10 +34,15 @@ public class AdministrateScheduleAction implements Action {
         switch (method){
             case "create":
                 create(request);
+                break;
             case "update":
                 update(request);
+                break;
             case "delete":
                 delete(request);
+                break;
+            default:
+                throw new UnsupportedOperationException(request.getRequestURI());
         }
         return "/administrate.html";
     }
@@ -64,7 +68,7 @@ public class AdministrateScheduleAction implements Action {
     }
 
     private boolean update(HttpServletRequest request) {
-        return false;
+        throw new UnsupportedOperationException(request.getRequestURI());
     }
 
     private boolean create(HttpServletRequest request) {

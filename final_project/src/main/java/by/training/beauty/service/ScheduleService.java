@@ -188,7 +188,6 @@ public class ScheduleService {
             transaction.commit();
         } catch (DaoException e) {
             e.printStackTrace();
-            throw new RuntimeException(e);
         }
     }
 }

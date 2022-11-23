@@ -2,8 +2,13 @@ package by.training.beauty.service;
 
 import by.training.beauty.dao.DaoException;
 import by.training.beauty.dao.pool.ConnectionPool;
+import by.training.beauty.dao.spec.ScheduleDao;
 import by.training.beauty.domain.Entity;
+import by.training.beauty.domain.Procedure;
 import by.training.beauty.domain.User;
+import by.training.beauty.dto.AppointmentDto;
+import by.training.beauty.dto.ProcedureDto;
+import by.training.beauty.dto.ScheduleDto;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.annotations.*;
@@ -61,39 +66,38 @@ public class AdministrateServiceTest {
             LOGGER.error("it is impossible to get user list");
         }
     }
-    // TODO: 22.11.2022 refactor test, signature and implementation of this methods are changed.
-   /* @Test
+    @Test
     public void testAdministrateAppointments() {
         AdministrateService administrateService = new AdministrateService();
         try {
-            List<Entity> entities = administrateService.administrateAppointments(1);
-            assertEquals(entities.size(), 14);
+            List<AppointmentDto> appointmentDtoList = administrateService.administrateAppointments(1);
+            assertEquals(appointmentDtoList.size(), 3);
         } catch (ServiceException e) {
             LOGGER.error("it is impossible to get user list");
         }
-    }*/
+    }
 
-   /* @Test
+    @Test
     public void testAdministrateProcedures() {
         AdministrateService administrateService = new AdministrateService();
         try {
-            List<Entity> entities = administrateService.administrateProcedures(1);
-            assertEquals(entities.size(), 12);
+            List<ProcedureDto> procedureDtoList = administrateService.administrateProcedures(1);
+            assertEquals(procedureDtoList.size(), 6);
         } catch (ServiceException e) {
             LOGGER.error("it is impossible to get user list");
         }
-    }*/
+    }
 
-    /*@Test
+    @Test
     public void testAdministrateschedules() {
         AdministrateService administrateService = new AdministrateService();
         try {
-            List<Entity> entities = administrateService.administrateSchedules(1);
-            assertEquals(entities.size(), 4);
+            List<ScheduleDto> scheduleDtoList = administrateService.administrateSchedules(1);
+            assertEquals(scheduleDtoList.size(), 3);
         } catch (ServiceException e) {
             LOGGER.error("it is impossible to get user list");
         }
-    }*/
+    }
 
     @AfterClass
     public void destroy(){

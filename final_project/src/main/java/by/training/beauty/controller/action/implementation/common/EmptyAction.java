@@ -4,7 +4,6 @@ import by.training.beauty.controller.action.Action;
 import by.training.beauty.controller.action.PageEnum;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Set;
 
 /**
  * This class implement interface Action

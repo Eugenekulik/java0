@@ -35,10 +35,9 @@ public class AppointmentAction implements Action {
     public boolean isAllowed(HttpServletRequest request) {
         String method = (request.getParameter("method")!=null)?"POST":"GET";
         List<Role> roles = (List<Role>) request.getSession().getAttribute("roles");
-        if(roles != null
+        return roles != null
                 && roles.contains(new Role("client"))
-                && request.getMethod().equals(method)) return true;
-        return false;
+                && request.getMethod().equals(method);
     }
 
 
@@ -58,7 +57,8 @@ public class AppointmentAction implements Action {
                 break;
             case "get":
                 get(request);
-
+            default:
+                throw new UnsupportedOperationException(request.getRequestURI());
         }
         return page==null?PageEnum.APPOINTMENT.getPage():page;
     }
@@ -73,7 +73,7 @@ public class AppointmentAction implements Action {
                         .cancelAppointment(id);
                 return true;
             } catch (ServiceException e) {
-                LOGGER.warn(()->e.getMessage());
+                LOGGER.warn(e.getMessage());
                 e.printStackTrace();
             }
         }
@@ -103,16 +103,9 @@ public class AppointmentAction implements Action {
             request.getSession().setAttribute("procedures",procedures);
             request.getSession().setAttribute("employees", employees);
             request.getSession().setAttribute("appointments", appointments);
-            Integer tab = null;
-            try {
-                tab = Integer.parseInt(request.getParameter("tab"));
-            } catch (NumberFormatException e) {
-            }
-            if (tab == null) {
-                tab = 1;
-            }
+            Integer tab = 1;
+            tab = Integer.parseInt(request.getParameter("tab"));
             request.getSession().setAttribute("tab", tab);
-
         } catch (ServiceException e) {
             LOGGER.error("it is impossible to get appointments");
         } catch (NumberFormatException e) {
