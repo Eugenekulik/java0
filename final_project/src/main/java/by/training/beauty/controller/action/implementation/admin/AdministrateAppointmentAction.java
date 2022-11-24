@@ -3,6 +3,7 @@ package by.training.beauty.controller.action.implementation.admin;
 import by.training.beauty.controller.action.Action;
 import by.training.beauty.domain.Appointment;
 import by.training.beauty.domain.Role;
+import by.training.beauty.dto.AppointmentDto;
 import by.training.beauty.service.AppointmentService;
 import by.training.beauty.service.ServiceException;
 import by.training.beauty.service.ServiceFactory;
@@ -72,13 +73,6 @@ public class AdministrateAppointmentAction implements Action {
         Appointment appointment = new Appointment();
         try {
             appointment.setId(Integer.parseInt(request.getParameter("appointmentId")));
-            List<Appointment> appointments = (List<Appointment>) request.getSession().getAttribute("appointments");
-            for (Appointment a: appointments) {
-                if(appointment.getId() == a.getId()) {
-                    appointment = a;
-                    break;
-                }
-            }
             appointment.setPrice(Double.valueOf(request.getParameter("appointmentPrice")));
             appointment.setStatus(Integer.parseInt(request.getParameter("selectStatus")));
             AppointmentService appointmentService =

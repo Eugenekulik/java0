@@ -39,6 +39,7 @@ public class ScoreAction implements Action {
             case "update":
                 break;
             case "delete":
+                delete(request);
                 break;
             default:
                 LOGGER.warn(()->"Unsupported operation with method " + method);
@@ -68,6 +69,16 @@ public class ScoreAction implements Action {
         score.setAppointmentId(appointmentId);
         ScoreService scoreService = ServiceFactory.getInstance().getScoreService();
         return scoreService.addScore(score);
+    }
+
+    private boolean delete(HttpServletRequest request){
+        int id = 0;
+        try {
+            id = Integer.parseInt(request.getParameter("id"));
+        } catch (NumberFormatException e){
+            LOGGER.warn("Error occurred while trying to delete score: invalid id");
+        }
+        return ServiceFactory.getInstance().getScoreService().deleteScore(id);
     }
 
 

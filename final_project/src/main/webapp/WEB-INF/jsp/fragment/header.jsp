@@ -107,7 +107,7 @@
                             <div class="nav-item">
                                 <c:choose>
                                     <c:when test="${pageContext.session.getAttribute('user') == null}">
-                                        <a href="<c:url value="/login_form.html"/>"
+                                        <a href="<c:url value="/login/form.html"/>"
                                            class="btn btn-primary btn-lg btn-dark-blue">${text['user.login']}</a>
                                     </c:when>
                                     <c:when test="${pageContext.session.getAttribute('user') != null}">

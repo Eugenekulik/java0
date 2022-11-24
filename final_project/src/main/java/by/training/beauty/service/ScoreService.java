@@ -1,6 +1,7 @@
 package by.training.beauty.service;
 
 import by.training.beauty.dao.*;
+import by.training.beauty.dao.mysql.DaoEnum;
 import by.training.beauty.dao.mysql.TransactionFactoryImpl;
 import by.training.beauty.dao.spec.*;
 import by.training.beauty.domain.Appointment;
@@ -68,5 +69,28 @@ public class ScoreService {
             }
         }
         return scores;
+    }
+
+    public boolean deleteScore(int id) {
+        TransactionFactory transactionFactory = null;
+        Transaction transaction = null;
+        try{
+           transactionFactory = new TransactionFactoryImpl();
+           transaction = transactionFactory.createTransaction();
+           ScoreDao scoreDao = transaction.createDao(DaoEnum.SCORE.getDao());
+           scoreDao.delete(id);
+           transaction.commit();
+           return true;
+        } catch (DaoException e){
+            LOGGER.error(()->"Error occured while trying to delete score: " + e.getMessage());
+            try {
+                if (transaction != null) {
+                    transaction.rollback();
+                }
+            } catch (DaoException e1) {
+                LOGGER.error("It is impossible to rollback transaction");
+            }
+        }
+        return false;
     }
 }

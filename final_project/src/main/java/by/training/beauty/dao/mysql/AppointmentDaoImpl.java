@@ -40,8 +40,7 @@ public class AppointmentDaoImpl implements AppointmentDao {
             "appointment.procedure_employee_id, appointment.date, appointment.status, " +
             "appointment.price FROM appointment WHERE appointment.id = ?;";
     private static final String SQL_DELETE = "DELETE FROM appointment WHERE appointment.id = ?;";
-    private static final String SQL_UPDATE = "UPDATE appointment SET appointment.user_id = ?, " +
-            "appointment.procedure_employee_id = ?, appointment.date = ?, appointment.status = ?," +
+    private static final String SQL_UPDATE = "UPDATE appointment SET appointment.status = ?," +
             "appointment.price = ? WHERE appointment.id = ?;";
 
     @Override
@@ -268,12 +267,9 @@ public class AppointmentDaoImpl implements AppointmentDao {
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(SQL_UPDATE);
-            statement.setInt(1, appointment.getUserId());
-            statement.setInt(2, appointment.getProcedureEmployeeId());
-            statement.setTimestamp(3, Timestamp.valueOf(appointment.getDate()));
-            statement.setInt(4, appointment.getStatus());
-            statement.setDouble(5,appointment.getPrice());
-            statement.setInt(6, appointment.getId());
+            statement.setInt(1, appointment.getStatus());
+            statement.setDouble(2,appointment.getPrice());
+            statement.setInt(3, appointment.getId());
             return statement.executeUpdate() != 0;
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());

@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <c:url value="/main.css" var="path"/>
     <link href="${path}" rel="stylesheet">
@@ -56,14 +58,37 @@
         </div>
         </br>
         <c:if test="${not empty scores}">
-            <div class="container comment">
+            <div class="container comment col-10">
                 <c:forEach var="score" items="${scores}">
-                    <div class="">
-                        <c:forEach items="${users}" var="user">
-                            <c:if test="${score.userId == user.id }">
-                                ${user.name}
+                    <div class="d-flex flex-row">
+                        <c:forEach items="${users}" var="usr">
+                            <div class="d-flex align-items-center m-2">
+                                <c:if test="${score.userId == usr.id }">
+                                    ${usr.name}:
+                                </c:if>
+                            </div>
+                            <div class="d-flex flex-row align-items-center">
+                                <c:forEach begin="1" end="5" varStatus="status">
+                                    <c:if test="${score.value<status.index}">
+                                        <i class="fi fi-rr-star pink"></i>
+                                    </c:if>
+                                    <c:if test="${score.value>=status.index}">
+                                            <i class="fi fi-sr-star pink"></i>
+                                    </c:if>
+                                </c:forEach>
+                            </div>
+                            <c:if test="${user.id == usr.id}">
+                                <div class="d-flex flex-fill justify-content-end">
+                                    <form action="<c:url value='/score.html'/>" method="post"
+                                          id="score-delete">
+                                        <input type="hidden" name="id" value="${score.id}">
+                                        <input type="hidden" name="method" value="delete">
+                                        <button class="btn-delete" onclick="document.getElementById('score-delete').submit()"><i
+                                                class="fi fi-rr-trash"></i></button>
+                                    </form>
+                                </div>
                             </c:if>
-                        </c:forEach><span>: ${score.value}/5</span>
+                        </c:forEach>
                     </div>
                     <hr>
                     <div>

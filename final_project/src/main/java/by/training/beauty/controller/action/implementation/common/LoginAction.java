@@ -56,7 +56,7 @@ public class LoginAction implements Action {
             }
             else {
                 request.getSession().setAttribute(ERROR, "Сheck if the username or password is entered correctly");
-                page ="/login.html";
+                page ="/login/form.html";
             }
         } catch (ServiceException e) {
             LOGGER.error("it is impossible to authorize user");

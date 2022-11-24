@@ -57,6 +57,7 @@ public class AppointmentAction implements Action {
                 break;
             case "get":
                 get(request);
+                break;
             default:
                 throw new UnsupportedOperationException(request.getRequestURI());
         }

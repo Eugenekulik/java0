@@ -34,6 +34,19 @@
     color: #c77189;
 }
 
+/* BUTTON DELETE*/
+
+.btn-delete {
+    border-radius: 40%;
+    border: 1px;
+    background-color: rgba(234, 153, 184, 0.51);
+    font-size: 30px;
+}
+.btn-delete:hover {
+    background-color: rgba(2, 131, 192, 0.42);
+    color: #c44569;
+    transition-duration: 0.3s;
+}
 
 .dark-blue{
     color: #010f41;
