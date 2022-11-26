@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
  * and doesn't execute any service, only
  * return error page.
  */
-public class EmptyAction implements Action {
+public class ErrorAction implements Action {
     @Override
     public boolean isRedirect() {
         return false;

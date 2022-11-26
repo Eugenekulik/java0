@@ -25,5 +25,5 @@ public interface ProcedureEmployeeDao extends Dao<ProcedureEmployee>{
      */
     List<ProcedureEmployee> findByEmployee(User employee) throws DaoException;
     List<ProcedureEmployee> findByProcedure(Procedure procedure)throws DaoException;
-    ProcedureEmployee findByProcedureEmployee(Procedure procedure, User employee) throws DaoException;
+    ProcedureEmployee findByProcedureEmployee(int procedureId, int employeeId) throws DaoException;
 }

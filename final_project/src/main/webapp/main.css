@@ -97,7 +97,7 @@ body{
     border-radius: 10px;
     border: 4px solid #c44569;
 }
-.box input[type = 'text'],.box input[type = 'password'] {
+.box input[class="login"],input[class="password"] {
     border: 0;
     text-align: center;
     color: #574b90;
@@ -108,7 +108,7 @@ body{
     transition: 0.25s;
     outline: none;
 }
-.box input[type = 'text']:focus,.box input[type = 'password']:focus {
+.box input[class="login"]:focus,input[class="password"]:focus {
     width: 280px;
     border-color: #3dc1d3;
 }

@@ -145,7 +145,7 @@ public class AppointmentService {
      * @throws ServiceException
      */
     public boolean addAppointment(Appointment appointment
-            ,Procedure procedure,int employeeId) throws ServiceException {
+            ,int procedureId,int employeeId) throws ServiceException {
         TransactionFactory transactionFactory = null;
         Transaction transaction = null;
         try {
@@ -155,8 +155,7 @@ public class AppointmentService {
             ProcedureEmployeeDao procedureEmployeeDao =
                     transaction.createDao(PROCEDURE_EMPLOYEE_DAO);
             ProcedureEmployee procedureEmployee = procedureEmployeeDao
-                    .findByProcedureEmployee(procedure,
-                    userDao.findById(employeeId));
+                    .findByProcedureEmployee(procedureId, employeeId);
             appointment.setProcedureEmployeeId(procedureEmployee.getId());
             appointment.setPrice(procedureEmployee.getPrice());
             appointment.setStatus(1);

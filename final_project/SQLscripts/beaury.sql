@@ -24,10 +24,10 @@ DROP TABLE IF EXISTS `beauty_parlor`.`user` ;
 
 CREATE TABLE IF NOT EXISTS `beauty_parlor`.`user` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `login` VARCHAR(64) CHARACTER SET 'utf8mb4' NOT NULL,
-  `password` VARCHAR(255) CHARACTER SET 'utf8mb4' NOT NULL,
-  `name` VARCHAR(64) CHARACTER SET 'utf8mb4' NOT NULL,
-  `phone` VARCHAR(32) CHARACTER SET 'utf8mb4' NOT NULL,
+  `login` VARCHAR(256) CHARACTER SET 'utf8mb4' NOT NULL,
+  `password` VARCHAR(256) CHARACTER SET 'utf8mb4' NOT NULL,
+  `name` VARCHAR(256) CHARACTER SET 'utf8mb4' NOT NULL,
+  `phone` VARCHAR(256) CHARACTER SET 'utf8mb4' NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
   UNIQUE INDEX `login_UNIQUE` (`login` ASC) VISIBLE)
@@ -40,7 +40,7 @@ DROP TABLE IF EXISTS `beauty_parlor`.`role` ;
 
 CREATE TABLE IF NOT EXISTS `beauty_parlor`.`role` (
       `id` INT NOT NULL AUTO_INCREMENT,
-      `name` VARCHAR(64) CHARACTER SET 'utf8mb4' NOT NULL unique ,
+      `name` VARCHAR(256) CHARACTER SET 'utf8mb4' NOT NULL unique ,
       PRIMARY KEY (`id`),
       UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
       UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE)
@@ -75,8 +75,8 @@ DROP TABLE IF EXISTS `beauty_parlor`.`category` ;
 
 CREATE TABLE IF NOT EXISTS `beauty_parlor`.`category` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(64) CHARACTER SET 'utf8mb4' NOT NULL,
-  `description` VARCHAR(1000) CHARACTER SET 'utf8mb4' NOT NULL,
+  `name` VARCHAR(256) CHARACTER SET 'utf8mb4' NOT NULL,
+  `description` VARCHAR(6000) CHARACTER SET 'utf8mb4' NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
   UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE)
@@ -91,8 +91,8 @@ DROP TABLE IF EXISTS `beauty_parlor`.`procedure` ;
 CREATE TABLE IF NOT EXISTS `beauty_parlor`.`procedure` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `category_id` INT NOT NULL,
-  `name` VARCHAR(64) CHARACTER SET 'utf8mb4' NOT NULL,
-  `description` TEXT(1000) CHARACTER SET 'utf8mb4' NOT NULL,
+  `name` VARCHAR(256) CHARACTER SET 'utf8mb4' NOT NULL,
+  `description` TEXT(6000) CHARACTER SET 'utf8mb4' NOT NULL,
   `elapsed_time` TINYINT NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
@@ -173,7 +173,7 @@ CREATE TABLE IF NOT EXISTS `beauty_parlor`.`score` (
   `user_id` INT,
   `value` TINYINT NOT NULL,
   `appointment_id` INT NOT NULL,
-  `comment` TEXT(200) CHARACTER SET 'utf8mb4' NULL,
+  `comment` TEXT(1000) CHARACTER SET 'utf8mb4' NULL,
   `date` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,

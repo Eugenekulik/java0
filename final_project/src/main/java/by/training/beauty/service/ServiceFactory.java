@@ -1,5 +1,7 @@
 package by.training.beauty.service;
 
+import by.training.beauty.dao.mysql.TransactionFactoryImpl;
+import by.training.beauty.dao.spec.TransactionFactory;
 import by.training.beauty.service.validator.UserValidator;
 
 public class ServiceFactory {
@@ -13,6 +15,18 @@ public class ServiceFactory {
     private final UserService userService = new UserService();
     private final ScoreService scoreService = new ScoreService();
     private final RoleService roleService = new RoleService();
+
+    public CategoryService getCategoryService() {
+        return categoryService;
+    }
+
+    private final CategoryService categoryService = new CategoryService();
+
+    public TransactionFactory getTransactionFactory() {
+        return transactionFactory;
+    }
+
+    private final TransactionFactory transactionFactory = new TransactionFactoryImpl();
 
 
     public static ServiceFactory getInstance(){

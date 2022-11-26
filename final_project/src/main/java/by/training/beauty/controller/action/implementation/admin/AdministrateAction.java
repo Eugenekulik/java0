@@ -32,11 +32,23 @@ public class AdministrateAction implements Action {
     private static final String TAB = "tab";
 
     private static final Logger LOGGER  = LogManager.getLogger(AdministrateAction.class);
+
+
+    /**
+     * This method decides redirect or forward this request to result page.
+     * @return true
+     */
     @Override
     public boolean isRedirect() {
         return false;
     }
 
+
+    /**
+     * This method decides to allow this action.
+     * @param request HttpServletRequest
+     * @return boolean, true if allowed, else false.
+     */
     @Override
     public boolean isAllowed(HttpServletRequest request) {
         List<Role> roles = (List<Role>) request.getSession().getAttribute("roles");
@@ -46,9 +58,13 @@ public class AdministrateAction implements Action {
     }
 
 
+    /**
+     * This method is main and execute action.
+     * @param request HttpServletRequest
+     * @return page String
+     */
     @Override
     public String execute(HttpServletRequest request) {
-
         if (request.getParameter(TAB) != null) {
             request.getSession().setAttribute(ACTIVE_TAB, request.getParameter(TAB));
         } else if (request.getSession().getAttribute(ACTIVE_TAB) == null) {

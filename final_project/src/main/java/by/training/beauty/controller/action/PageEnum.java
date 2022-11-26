@@ -11,11 +11,13 @@ public enum PageEnum {
 
     //Client
     APPOINTMENT("/WEB-INF/jsp/appointment.jsp"),
-    APPOINTMENT_ADD("/WEB-INF/jsp/appointment_add.jsp"),
+    APPOINTMENT_CREATE_FORM("/WEB-INF/jsp/appointment_create_form.jsp"),
 
     //Admin
     ADMINISTRATE("/WEB-INF/jsp/administrate.jsp"),
     ADMINISTRATE_SCHEDULE_ADD("/WEB-INF/jsp/schedule_add.jsp"),
+    PROCEDURE_FORM_CREATE("/WEB-INF/jsp/procedure_create_form.jsp"),
+    PROCEDURE_FORM_UPDATE("/WEB-INF/jsp/procedure_update_form.jsp"),
 
     //Employee
     SCHEDULE("/WEB-INF/jsp/schedule.jsp");

@@ -103,7 +103,7 @@ public class AdministrateProcedureAction implements Action {
             Procedure procedure = new Procedure();
             procedure.setName(request.getParameter("name"));
             procedure.setDescription(request.getParameter("description"));
-            procedure.setCategoryId(Integer.parseInt(request.getParameter("categorySelect")));
+            procedure.setCategoryId(Integer.parseInt(request.getParameter("category")));
             procedure.setElapsedTime(Integer.parseInt(request.getParameter("elapsedTime")));
             procedureService.addProcedure(procedure);
             return true;

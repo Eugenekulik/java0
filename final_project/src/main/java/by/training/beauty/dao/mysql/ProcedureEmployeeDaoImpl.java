@@ -374,14 +374,14 @@ public class ProcedureEmployeeDaoImpl implements ProcedureEmployeeDao {
     }
 
     @Override
-    public ProcedureEmployee findByProcedureEmployee(Procedure procedure, User employee) throws DaoException {
+    public ProcedureEmployee findByProcedureEmployee(int procedureId, int employeeId) throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         ProcedureEmployee procedureEmployee = null;
         try {
             statement = connection.prepareStatement(SQL_FIND_BY_PROCEDURE_EMPLOYEE);
-            statement.setInt(1, procedure.getId());
-            statement.setInt(2, employee.getId());
+            statement.setInt(1, procedureId);
+            statement.setInt(2, employeeId);
             statement.execute();
             resultSet = statement.getResultSet();
             while(resultSet.next()){

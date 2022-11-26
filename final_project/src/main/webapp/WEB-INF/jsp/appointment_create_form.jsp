@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <c:url value="/main.css" var="path"/>
     <link href="${path}" rel="stylesheet">
-    <title>procedure</title>
+    <title>appointment creation</title>
 </head>
 <body>
 <c:import url="fragment/header.jsp"/>
@@ -15,13 +15,13 @@
     <div class="h1 violet">${procedure.name}</div>
     <form class="form-group" name="dateForm" method="post" action="<c:url value="/appointment.html"/>">
         <div>
-            <input class="form-control" class="date" type="date" name="dateSelect" value="${selectedDate}"/>
+            <input class="form-control" class="date" type="date" name="date" value="${date}"/>
         </div>
         <div>
-            <select class="form-control" id="employeeSelect" name="employeeSelect">
+            <select class="form-control" name="employee">
                 <c:forEach items="${employeeList}" var="elem">
                     <option value="${elem.id}"
-                            <c:if test="${selectedEmployee == elem.id}">selected</c:if>
+                            <c:if test="${employee == elem.id}">selected</c:if>
                             role="option">${elem.name}</option>
                 </c:forEach>
             </select>
@@ -34,9 +34,9 @@
     </form>
     <div>
         <form name="timeForm" class="form-group" method="post" action="<c:url value="/appointment.html"/>">
-            <select class="form-control" id="timeSelect" name="timeSelect">
-                <c:forEach items="${schedules}" var="elem">
-                    <option value="${elem}" role="option">${elem}</option>
+            <select class="form-control" name="time">
+                <c:forEach items="${schedules}" var="schedule">
+                    <option value="${schedule}" role="option">${schedule}</option>
                 </c:forEach>
             </select>
             <input type="hidden" name="method" value="create">

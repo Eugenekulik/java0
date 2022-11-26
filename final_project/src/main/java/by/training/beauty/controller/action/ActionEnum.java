@@ -7,7 +7,7 @@ import by.training.beauty.controller.action.implementation.common.*;
 public enum ActionEnum {
 
     //Common
-    EMPTY(EmptyAction.class),
+    ERROR(ErrorAction.class),
     LOGIN(LoginAction.class),
     LOGIN_FORM(LoginFormAction.class),
     REGISTRATION(RegistrationAction.class),
@@ -22,6 +22,7 @@ public enum ActionEnum {
     ADMINISTRATE_APPOINTMENT(AdministrateAppointmentAction.class),
     ADMINISTRATE_PROCEDURE(AdministrateProcedureAction.class),
     ADMINISTRATE_SCHEDULE(AdministrateScheduleAction.class),
+    PROCEDURE_FORM(ProcedureFormAction.class),
 
 
 

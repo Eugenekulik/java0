@@ -1,6 +1,6 @@
 package by.training.beauty.controller.action;
 
-import by.training.beauty.controller.action.implementation.common.EmptyAction;
+import by.training.beauty.controller.action.implementation.common.ErrorAction;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -24,7 +24,7 @@ public class ActionFactory {
         Action action = null;
         String commandType = (String) request.getAttribute("action");
         if (commandType == null) {
-            return new EmptyAction();
+            return new ErrorAction();
         }
         commandType = commandType.toUpperCase(Locale.ROOT);
         try {
@@ -38,7 +38,7 @@ public class ActionFactory {
             e.printStackTrace();
         }
         if(action == null){
-            return new EmptyAction();
+            return new ErrorAction();
         }
         return action;
     }

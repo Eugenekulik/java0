@@ -25,10 +25,10 @@ import java.util.stream.Collectors;
 
 public class AppointmentAction implements Action {
     private static final Logger LOGGER = LogManager.getLogger(AppointmentAction.class);
-
+    private boolean redirect = false;
     @Override
     public boolean isRedirect() {
-        return false;
+        return redirect;
     }
 
     @Override
@@ -116,66 +116,81 @@ public class AppointmentAction implements Action {
 
 
     private String create(HttpServletRequest request){
-        if (request.getParameter("timeSelect") != null) {
-            AppointmentService appointmentService =
-                    ServiceFactory.getInstance().getAppointmentService();
-            try {
-                User client = (User) request.getSession().getAttribute("user");
-                Procedure procedure = (Procedure) request.getSession().getAttribute("procedure");
-                Integer employee = (Integer) request.getSession().getAttribute("selectedEmployee");
-                LocalDate localDate = LocalDate.parse((String) request.getSession().getAttribute("selectedDate"));
-                LocalTime localTime = LocalTime.parse(request.getParameter("timeSelect"));
-                Appointment appointment = new Appointment();
-                appointment.setUserId(client.getId());
-                appointment.setDate(LocalDateTime.of(localDate, localTime));
-                if (appointmentService.addAppointment(appointment, procedure, employee)) {
-                    request.getSession().removeAttribute("selectedDate");
-                    request.getSession().removeAttribute("selectedEmployee");
-                    request.getSession().removeAttribute("procedure");
-                    return PageEnum.APPOINTMENT.getPage();
-                } else {
-                    request.getSession().setAttribute("error", "an error occured while adding appointment");
-                    return PageEnum.ERROR.getPage();
-                }
-            } catch (ServiceException e) {
-                LOGGER.error("it is impossible to add appointment");
-                request.getSession().setAttribute("error", "an error occurred while adding appointment");
-                return PageEnum.ERROR.getPage();
-            }
-        }
-        Procedure procedure = (Procedure) request.getSession().getAttribute("procedure");
-        if (procedure == null) {
+        if (request.getSession().getAttribute("procedure") == null) {
             request.setAttribute("error", "Sorry, server error! " +
                     "We will try to solve this problem");
             return PageEnum.ERROR.getPage();
         }
+        if (request.getParameter("time") != null) {
+            return createFinal(request);
+        }
+        return enterEmployeeAndDate(request);
+    }
+
+    private String createFinal(HttpServletRequest request){
+        AppointmentService appointmentService =
+                ServiceFactory.getInstance().getAppointmentService();
+        try {
+            User client = (User) request.getSession().getAttribute("user");
+            Procedure procedure = (Procedure) request.getSession().getAttribute("procedure");
+            int employeeId = (Integer) request.getSession().getAttribute("employee");
+            LocalDate localDate = LocalDate.parse((String) request.getSession().getAttribute("date"));
+            LocalTime localTime = LocalTime.parse(request.getParameter("time"));
+            Appointment appointment = new Appointment();
+            appointment.setUserId(client.getId());
+            appointment.setDate(LocalDateTime.of(localDate, localTime));
+            if (appointmentService.addAppointment(appointment, procedure.getId(), employeeId)) {
+                request.getSession().removeAttribute("date");
+                request.getSession().removeAttribute("employee");
+                request.getSession().removeAttribute("procedure");
+                return PageEnum.APPOINTMENT.getPage();
+            } else {
+                request.getSession().setAttribute("error", "an error occured while adding appointment");
+                return PageEnum.ERROR.getPage();
+            }
+        } catch (ServiceException e) {
+            LOGGER.error("it is impossible to add appointment");
+            request.getSession().setAttribute("error", "an error occurred while adding appointment");
+            return PageEnum.ERROR.getPage();
+        }
+    }
+
+    private String enterEmployeeAndDate(HttpServletRequest request){
         UserService userService =
                 ServiceFactory.getInstance().getUserService();
+        Procedure procedure = (Procedure) request.getSession().getAttribute("procedure");
         try {
             List<User> employeeList = userService.employeesByProcedure(procedure);
             request.getSession().setAttribute("employeeList", employeeList);
-            Integer selectedEmployee = Integer.parseInt(request.getParameter("employeeSelect"));
-            if (selectedEmployee == null) {
-                return PageEnum.APPOINTMENT_ADD.getPage();
+            Integer employee = null;
+            try{
+                employee = Integer.parseInt(request.getParameter("employee"));
+            } catch (NumberFormatException e){};
+            if (employee == null) {
+                request.setAttribute("error", "choose employee");
+                return PageEnum.APPOINTMENT_CREATE_FORM.getPage();
             }
-            request.getSession().setAttribute("selectedEmployee", selectedEmployee);
-            String dateString = request.getParameter("dateSelect");
-            if (dateString.equals("")) {
-                return PageEnum.APPOINTMENT_ADD.getPage();
+            request.getSession().setAttribute("employee", employee);
+            String dateString = request.getParameter("date");
+            if (dateString == null || dateString.equals("")) {
+                return PageEnum.APPOINTMENT_CREATE_FORM.getPage();
             }
-            request.getSession().setAttribute("selectedDate", dateString);
+            request.getSession().setAttribute("date", dateString);
             ScheduleService scheduleService =
                     ServiceFactory.getInstance().getScheduleService();
             LocalDate date = LocalDate.parse((String) request.getSession()
-                    .getAttribute("selectedDate"));
-            List<LocalTime> schedules = scheduleService.schedulesByEmployeeDate(selectedEmployee, date);
+                    .getAttribute("date"));
+            List<LocalTime> schedules = scheduleService.schedulesByEmployeeDate(employee, date);
             request.getSession().setAttribute("schedules", schedules);
+            return PageEnum.APPOINTMENT_CREATE_FORM.getPage();
         } catch (ServiceException e) {
             LOGGER.error("service exception", e);
         } catch (NumberFormatException e) {
             LOGGER.warn(e.getMessage());
+            request.getSession().setAttribute("error", "wrong employee");
         }
-        return PageEnum.APPOINTMENT_ADD.getPage();
+        redirect = true;
+        return "/error.html";
     }
 
 }

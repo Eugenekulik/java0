@@ -34,7 +34,7 @@
     <div class="panel table-responsive">
         <c:choose>
             <c:when test="${activeTab == '1'}">
-                <table class="table">
+                <table class="table table-hover">
                     <thead>
                     <tr>
                         <th>№</th>
@@ -48,7 +48,7 @@
                     </thead>
                     <tbody>
                     <c:forEach var="user" items="${users}" varStatus="status">
-                        <tr>
+                        <tr onclick="document.getElementById('btn-user-update-${user.id}').click()">
                             <td>${(paginationPage -1)*10 + status.index + 1}</td>
                             <td>${user.name}</td>
                             <td>${user.login}</td>
@@ -57,7 +57,7 @@
                                 ${role.name},
                             </c:forEach></td>
                             <td>
-                                <button type="button" class="btn btn-warning user-modal-btn"
+                                <button id="btn-user-update-${user.id}" type="button" class="btn btn-warning user-modal-btn"
                                         data-id="${user.id}" data-name="${user.name}"
                                         data-roles="${user.roles}" data-toggle="modal"
                                         data-phone="${user.phone}" data-target="#user-modal">
@@ -110,7 +110,7 @@
                 </ul>
             </c:when>
             <c:when test="${activeTab == '2'}">
-                <table class="table">
+                <table class="table table-hover">
                     <thead>
                     <tr>
                         <th>№</th>
@@ -126,7 +126,7 @@
                     </thead>
                     <tbody>
                     <c:forEach var="appointment" items="${appointments}" varStatus="status">
-                        <tr>
+                        <tr onclick="document.getElementById('btn-appointment-update-${appointment.id}').click()">
                             <td>${(paginationPage - 1)*10 + status.index + 1}</td>
                             <td>${appointment.client}</td>
                             <td>${appointment.procedure}</td>
@@ -135,7 +135,7 @@
                             <td>${appointment.date}</td>
                             <td>${appointment.status}</td>
                             <td>
-                                <button type="button" class="btn btn-warning appointment-modal-btn" data-toggle="modal"
+                                <button id="btn-appointment-update-${appointment.id}" type="button" class="btn btn-warning appointment-modal-btn" data-toggle="modal"
                                         data-target="#appointment-modal"
                                         data-id="<c:out value="${appointment.id}"/>"
                                         data-status="<c:out value="${appointment.status}"/>"
@@ -144,12 +144,14 @@
                                 </button>
                             </td>
                             <td>
+                                <c:if test="${appointment.status == 1 || appointment.status == 2}">
                                 <form method="post" action="<c:url
                                     value="/administrate/appointment.html?paginationPage=${paginationPage}"/>">
                                     <input type="hidden" value="delete" name="method">
                                     <input type="hidden" value="${appointment.id}" name="appointmentId">
                                     <button class="btn btn-danger" type="submit">${text['label.cancel']}</button>
                                 </form>
+                                </c:if>
                             </td>
                         </tr>
                     </c:forEach>
@@ -206,7 +208,12 @@
                             <td>${procedure.category}</td>
                             <td>${procedure.elapsedTime}${text["time.minute"]}</td>
                             <td>
-                                <button type="button" class="btn btn-warning procedure-modal-btn"
+                                <form action="<c:url value="/procedure/form.html"/>" method="get">
+                                    <input type="hidden" name="id" value="${procedure.id}">
+                                    <input type="hidden" name="method" value="update">
+                                    <input type="submit" value="${text['label.update']}" class="btn btn-warning">
+                                </form>
+                                <%--<button type="button" class="btn btn-warning procedure-modal-btn"
                                         data-toggle="modal"
                                         data-target="#procedure-update-modal"
                                         data-id="${procedure.id}"
@@ -214,7 +221,7 @@
                                         data-description="${procedure.description}"
                                         data-time="${procedure.elapsedTime}">
                                         ${text['label.update']}
-                                </button>
+                                </button>--%>
                             </td>
                             <td>
                                 <form method="post" action="<c:url
@@ -230,10 +237,10 @@
                     </c:forEach>
                     </tbody>
                 </table>
-                <button type="button" class="btn btn-success procedure-modal-btn" data-toggle="modal"
-                        data-target="#procedure-create-modal">
-                        ${text['label.add']}
-                </button>
+                <form action="<c:url value="/procedure/form.html"/>" method="get">
+                    <input type="hidden" name="method" value="create">
+                    <input type="submit" class="btn btn-success" value="${text['label.add']}">
+                </form>
                 <ul class="pagination">
                     <c:if test="${paginationPage>1}">
                         <li class="page-item">
@@ -417,74 +424,6 @@
 </div>
 
 
-<!--Modal window for update procedure-->
-<div class="modal" id="procedure-update-modal">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="h3">Change appointment with id: <span id="procedureId"></span></div>
-                <button type="button" class="btn-close" data-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <form action="<c:url value="/administrate/procedure.html?paginationPage=${paginationPage}"/>" method="post">
-                    <input id="procedureName" maxlength="50" minlength="4" pattern="([А-ЯЁа-яё ]+)"
-                           class="main-color-bg-f form-control" type="text" name="procedureName" value=""
-                           placeholder="${text['procedure.name']}"/>
-                    <br/>
-                    <textarea rows="7" id="procedureDescription" maxlength="500"
-                              class="main-color-bg-f form-control" type="text" name="procedureDescription" value=""
-                              placeholder="${text['procedure.description']}"></textarea>
-                    <br/>
-                    <input id="procedureElapsedTime" maxlength="500"
-                           class="main-color-bg-f form-control" type="number" name="procedureElapsedTime" value=""
-                           placeholder="${text['procedure.elapsedTime']}"/>
-                    <br/>
-                    <input type="hidden" name="procedureId" id="hProcedureId" value="">
-                    <input type="hidden" name="method" value="update">
-                    <input class="btn-success" type="submit" value="${text['label.update']}">
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<!--Modal window for create procedure-->
-<div class="modal" id="procedure-create-modal">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="h3">Form to create new procedure</div>
-                <button type="button" class="btn-close" data-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <form action="<c:url value="/administrate/procedure.html"/>" method="post">
-                    <input maxlength="50" minlength="4" pattern="([А-ЯЁа-яё ]+)"
-                           class="main-color-bg-f form-control" type="text" name="procedureName" value=""/>
-                    <br/>
-                    <textarea rows="7" maxlength="500"
-                              class="main-color-bg-f form-control" type="text" name="procedureDescription"
-                              value=""></textarea>
-                    <br/>
-                    <input maxlength="500"
-                           class="main-color-bg-f form-control" type="number" name="procedureElapsedTime" value=""
-                    />
-                    <br/>
-                    <input type="hidden" name="procedureId" value="">
-                    <input type="hidden" name="method" value="create">
-                    <input class="btn-success" type="submit">
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <script>
     $(".user-modal-btn").click(
         function () {
@@ -509,19 +448,6 @@
             for (let i = 0; i < select.length; i++) {
                 if (select[i].value === appointmentStatus) select[i].selected = true;
             }
-        });
-    $(".procedure-modal-btn").click(
-        function () {
-            var procedureId = $(this).attr('data-id');
-            var procedureName = $(this).attr('data-name');
-            var procedureDescription = $(this).attr('data-description');
-            var procedureTime = $(this).attr('data-time');
-
-            $("#procedureId").html(procedureId)
-            $("#hProcedureId").attr('value', procedureId);
-            $("#procedureName").attr('value', procedureName);
-            $("#procedureDescription").text(procedureDescription);
-            $("#procedureElapsedTime").attr('value', procedureTime);
         });
 </script>
 </body>

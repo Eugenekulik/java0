@@ -60,7 +60,7 @@ public class AppointmentServiceTest {
         procedure.setId(1);
         User employee = new User();
         try {
-            appointmentService.addAppointment(expected, procedure, 3);
+            appointmentService.addAppointment(expected, procedure.getId(), 3);
         } catch (ServiceException e) {LOGGER.error("it is impossible to delete user");}
         try {
             PooledConnection connection = ConnectionPool.getInstance().getConnection();
