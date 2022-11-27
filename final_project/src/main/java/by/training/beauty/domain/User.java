@@ -24,6 +24,13 @@ public class User extends Entity{
 
     private List<Role> roles = new ArrayList<>();
     public User(){}
+    public User(Builder builder){
+        this.setId(builder.id);
+        this.setName(builder.name);
+        this.setLogin(builder.login);
+        this.setPassword(builder.password);
+        this.setPhone(builder.phone);
+    }
 
 
     public String getPhone() {
@@ -91,5 +98,50 @@ public class User extends Entity{
     public String toString(){
         return "id: " + getId() + " name: " + name +
                 " login: " + login;
+    }
+
+    public static class Builder{
+        private int id;
+        private String name;
+        private String login;
+        private String password;
+        private String phone;
+        private List<Role> roles = new ArrayList<>();
+
+        public Builder(){}
+
+        public Builder setId(int id){
+            this.id = id;
+            return this;
+        }
+
+        public Builder setName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder setLogin(String login) {
+            this.login = login;
+            return this;
+        }
+
+        public Builder setPassword(String password) {
+            this.password = password;
+            return this;
+        }
+
+        public Builder setPhone(String phone) {
+            this.phone = phone;
+            return this;
+        }
+
+        public Builder addRole(Role role){
+            roles.add(role);
+            return this;
+        }
+
+        public User build(){
+            return new User(this);
+        }
     }
 }

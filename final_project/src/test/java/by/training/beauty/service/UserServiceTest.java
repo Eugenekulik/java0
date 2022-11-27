@@ -180,6 +180,6 @@ public class UserServiceTest {
                 statement.executeUpdate(s);
             }
             ConnectionPool.getInstance().destroy();
-        } catch (SQLException |DaoException|IOException e) {LOGGER.error(e);}
+        } catch (SQLException |DaoException|IOException e) {e.printStackTrace();}
     }
 }

@@ -1,6 +1,5 @@
 package by.training.beauty.service;
 
-import by.training.beauty.dao.mysql.TransactionFactoryImpl;
 import by.training.beauty.dao.spec.*;
 import by.training.beauty.domain.*;
 import by.training.beauty.dao.DaoException;
@@ -74,7 +73,7 @@ public class AppointmentService {
             UserDao userDao = transaction.createDao("userDao");
             if (user != null) {
                 List<Appointment> appointments
-                        = appointmentDao.getUsersAppointment(user);
+                        = appointmentDao.getUserAppointments(user.getId());
                 Set<ProcedureEmployee> procedureEmployeeList =
                     appointments.stream().map(appointment -> {
                         try {
@@ -161,13 +160,13 @@ public class AppointmentService {
             appointment.setStatus(1);
             AppointmentDao appointmentDao
                     = transaction.createDao(APPOINTMENT_DAO);
-            int isSuccess = appointmentDao.create(appointment);
-            if (isSuccess != 0) {
+            Appointment result = appointmentDao.create(appointment);
+            if (result != null) {
                 User employee = userDao.findById(employeeId);
                 ScheduleDao scheduleDao = transaction.createDao("scheduleDao");
                 Schedule schedule = scheduleDao
                         .findByEmployeeDate(appointment.getDate(), employee);
-                schedule.setAppointmentId(isSuccess);
+                schedule.setAppointmentId(result.getId());
                 scheduleDao.update(schedule);
             }
             transaction.commit();

@@ -6,8 +6,6 @@ import by.training.beauty.dao.pool.PooledConnection;
 import by.training.beauty.dao.spec.AppointmentDao;
 import by.training.beauty.dao.spec.Transaction;
 import by.training.beauty.domain.Appointment;
-import by.training.beauty.domain.ProcedureEmployee;
-import by.training.beauty.service.ServiceFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.assertj.core.api.Assertions;
@@ -20,11 +18,14 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.Scanner;
 
 public class AppointmentDaoImplTest {
 
@@ -45,17 +46,17 @@ public class AppointmentDaoImplTest {
             transactionFactory = new TransactionFactoryImpl();
         } catch (IOException | URISyntaxException e) {
             LOGGER.error("It is impossible to load properties", e);
-        } catch (
-                DaoException e) {
+        } catch (DaoException e) {
             LOGGER.error("It is impossible to init connection pool to database", e);
         }
     }
 
 
     @Test
-    public void testFindAll(){
+    public void testFindAll() {
+        Transaction transaction = null;
         try {
-            Transaction transaction = transactionFactory.createTransaction();
+            transaction = transactionFactory.createTransaction();
             AppointmentDao appointmentDao = transaction.createDao(DaoEnum.APPOINTMENT.getDao());
             List<Appointment> appointments = appointmentDao.findall();
             Assertions.assertThat(appointments).isNotEmpty();
@@ -70,13 +71,21 @@ public class AppointmentDaoImplTest {
                     .build());
         } catch (DaoException e) {
             e.printStackTrace();
+            try {
+                if (transaction != null) {
+                    transaction.rollback();
+                }
+            } catch (DaoException e1) {
+                e.printStackTrace();
+            }
         }
     }
 
     @Test
-    public void testFindByID_Return_True(){
-        try{
-            Transaction transaction = transactionFactory.createTransaction();
+    public void testFindByID_Return_True() {
+        Transaction transaction = null;
+        try {
+            transaction = transactionFactory.createTransaction();
             AppointmentDao appointmentDao = transaction.createDao(DaoEnum.APPOINTMENT.getDao());
             Appointment actual = appointmentDao.findById(1);
             Assertions.assertThat(actual).usingRecursiveComparison().isEqualTo(new Appointment.Builder()
@@ -87,31 +96,46 @@ public class AppointmentDaoImplTest {
                     .setStatus(1)
                     .setPrice(50)
                     .build());
-        } catch (DaoException e){
+        } catch (DaoException e) {
             e.printStackTrace();
+            try {
+                if (transaction != null) {
+                    transaction.rollback();
+                }
+            } catch (DaoException e1) {
+                e.printStackTrace();
+            }
         }
     }
 
     @Test
-    public void testFindById_Return_Null(){
-        try{
-            Transaction transaction = transactionFactory.createTransaction();
+    public void testFindById_Return_Null() {
+        Transaction transaction = null;
+        try {
+            transaction = transactionFactory.createTransaction();
             AppointmentDao appointmentDao = transaction.createDao(DaoEnum.APPOINTMENT.getDao());
             Appointment actual = appointmentDao.findById(4);
             Assertions.assertThat(actual).isNull();
             transaction.commit();
-        } catch (DaoException e){
+        } catch (DaoException e) {
             e.printStackTrace();
+            try {
+                if (transaction != null) {
+                    transaction.rollback();
+                }
+            } catch (DaoException e1) {
+                e.printStackTrace();
+            }
         }
     }
 
     @Test
-    public void testFindInterval(){
-
-        try{
-            Transaction transaction = transactionFactory.createTransaction();
+    public void testFindInterval() {
+        Transaction transaction = null;
+        try {
+            transaction = transactionFactory.createTransaction();
             AppointmentDao appointmentDao = transaction.createDao(DaoEnum.APPOINTMENT.getDao());
-            List<Appointment> appointments = appointmentDao.findInterval(1,2);
+            List<Appointment> appointments = appointmentDao.findInterval(1, 2);
             Assertions.assertThat(appointments.size()).isEqualTo(2);
             Assertions.assertThat(appointments).usingRecursiveFieldByFieldElementComparator()
                     .doesNotContain(new Appointment.Builder()
@@ -122,17 +146,25 @@ public class AppointmentDaoImplTest {
                             .setStatus(1)
                             .setPrice(50)
                             .build());
-        } catch (DaoException e){
+        } catch (DaoException e) {
             e.printStackTrace();
+            try {
+                if (transaction != null) {
+                    transaction.rollback();
+                }
+            } catch (DaoException e1) {
+                e.printStackTrace();
+            }
         }
     }
 
     @Test
-    public void testUpdate_Return_True(){
-        try{
-            Transaction transaction = transactionFactory.createTransaction();
+    public void testUpdate_Return_True() {
+        Transaction transaction = null;
+        try {
+            transaction = transactionFactory.createTransaction();
             AppointmentDao appointmentDao = transaction.createDao(DaoEnum.APPOINTMENT.getDao());
-            Appointment expected =new Appointment.Builder()
+            Appointment expected = new Appointment.Builder()
                     .setId(1)
                     .setUserId(3)
                     .setProcedureEmployeeId(2)
@@ -142,73 +174,271 @@ public class AppointmentDaoImplTest {
                     .build();
 
             Assertions.assertThat(appointmentDao.update(expected)).isTrue();
-        } catch (DaoException e){
+            transaction.commit();
+        } catch (DaoException e) {
             e.printStackTrace();
+            try {
+                if (transaction != null) {
+                    transaction.rollback();
+                }
+            } catch (DaoException e1) {
+                e.printStackTrace();
+            }
         }
     }
 
     @Test
-    public void testCancel_Return_True(){
-        try{
-            Transaction transaction = transactionFactory.createTransaction();
+    public void testCancel_Return_True() {
+        Transaction transaction = null;
+        try {
+            transaction = transactionFactory.createTransaction();
             AppointmentDao appointmentDao = transaction.createDao(DaoEnum.APPOINTMENT.getDao());
             Assertions.assertThat(appointmentDao.cancel(3)).isTrue();
             transaction.commit();
         } catch (DaoException e) {
             e.printStackTrace();
+            try {
+                if (transaction != null) {
+                    transaction.rollback();
+                }
+            } catch (DaoException e1) {
+                e.printStackTrace();
+            }
         }
     }
 
     @Test
-    public void testCancel_Return_False(){
-        try{
-            Transaction transaction = transactionFactory.createTransaction();
+    public void testCancel_Return_False() {
+        Transaction transaction = null;
+        try {
+            transaction = transactionFactory.createTransaction();
             AppointmentDao appointmentDao = transaction.createDao(DaoEnum.APPOINTMENT.getDao());
             Assertions.assertThat(appointmentDao.cancel(4)).isFalse();
             transaction.commit();
         } catch (DaoException e) {
             e.printStackTrace();
+            try {
+                if (transaction != null) {
+                    transaction.rollback();
+                }
+            } catch (DaoException e1) {
+                e.printStackTrace();
+            }
         }
     }
 
     @Test
-    public void testGetEmployeeAppointments_Return_One_Appointment(){
-        try{
-            Transaction transaction = transactionFactory.createTransaction();
+    public void testGetEmployeeAppointments_Return_Appointments() {
+        Transaction transaction = null;
+        try {
+            transaction = transactionFactory.createTransaction();
             AppointmentDao appointmentDao = transaction.createDao(DaoEnum.APPOINTMENT.getDao());
             List<Appointment> appointments = appointmentDao.getEmployeeAppointments(1);
             Assertions.assertThat(appointments.size()).isEqualTo(1);
             Assertions.assertThat(appointments).usingRecursiveFieldByFieldElementComparator()
-                            .contains(new Appointment.Builder()
-                                    .setId(2)
-                                    .setUserId(3)
-                                    .setProcedureEmployeeId(1)
-                                    .setDate(LocalDateTime.parse("2021-12-01 11:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
-                                    .setStatus(1)
-                                    .setPrice(30)
-                                    .build());
+                    .contains(new Appointment.Builder()
+                            .setId(2)
+                            .setUserId(3)
+                            .setProcedureEmployeeId(1)
+                            .setDate(LocalDateTime.parse("2021-12-01 11:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+                            .setStatus(1)
+                            .setPrice(30)
+                            .build());
             transaction.commit();
         } catch (DaoException e) {
             e.printStackTrace();
+            try {
+                if (transaction != null) {
+                    transaction.rollback();
+                }
+            } catch (DaoException e1) {
+                e.printStackTrace();
+            }
         }
     }
 
     @Test
-    public void testGetEmployeeAppointments_Return_Empty_List(){
-        try{
-            Transaction transaction = transactionFactory.createTransaction();
+    public void testGetEmployeeAppointments_Return_Empty_List() {
+        Transaction transaction = null;
+        try {
+            transaction = transactionFactory.createTransaction();
             AppointmentDao appointmentDao = transaction.createDao(DaoEnum.APPOINTMENT.getDao());
             List<Appointment> appointments = appointmentDao.getEmployeeAppointments(3);
             Assertions.assertThat(appointments).isEmpty();
             transaction.commit();
-        } catch (DaoException e){
+        } catch (DaoException e) {
             e.printStackTrace();
+            try {
+                if (transaction != null) {
+                    transaction.rollback();
+                }
+            } catch (DaoException e1) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    @Test
+    public void testGetUserAppointment_Return_Appointment() {
+        Transaction transaction = null;
+        try {
+            transaction = transactionFactory.createTransaction();
+            AppointmentDao appointmentDao = transaction.createDao(DaoEnum.APPOINTMENT.getDao());
+            List<Appointment> appointments = appointmentDao.getUserAppointments(3);
+            Assertions.assertThat(appointments.size()).isEqualTo(3);
+            Assertions.assertThat(appointments).usingRecursiveFieldByFieldElementComparator()
+                    .contains(new Appointment.Builder()
+                            .setId(2)
+                            .setUserId(3)
+                            .setProcedureEmployeeId(1)
+                            .setDate(LocalDateTime.parse("2021-12-01 11:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+                            .setStatus(1)
+                            .setPrice(30)
+                            .build());
+            transaction.commit();
+        } catch (DaoException e) {
+            e.printStackTrace();
+            try {
+                if (transaction != null) {
+                    transaction.rollback();
+                }
+            } catch (DaoException e1) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Test
+    public void testGetUserAppointments_Return_Empty_List() {
+        Transaction transaction = null;
+        try {
+            transaction = transactionFactory.createTransaction();
+            AppointmentDao appointmentDao = transaction.createDao(DaoEnum.APPOINTMENT.getDao());
+            List<Appointment> appointments = appointmentDao.getUserAppointments(4);
+            Assertions.assertThat(appointments).isEmpty();
+            transaction.commit();
+        } catch (DaoException e) {
+            e.printStackTrace();
+            try {
+                if (transaction != null) {
+                    transaction.rollback();
+                }
+            } catch (DaoException e1) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Test(priority = 1)
+    public void testDelete_Return_True() {
+        Transaction transaction = null;
+        try {
+            transaction = transactionFactory.createTransaction();
+            AppointmentDao appointmentDao = transaction.createDao(DaoEnum.APPOINTMENT.getDao());
+            Assertions.assertThat(appointmentDao.delete(2)).isTrue();
+            transaction.commit();
+        } catch (DaoException e) {
+            e.printStackTrace();
+            try {
+                if (transaction != null) {
+                    transaction.rollback();
+                }
+            } catch (DaoException e1) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Test
+    public void testDelete_Return_False() {
+        Transaction transaction = null;
+        try {
+            transaction = transactionFactory.createTransaction();
+            AppointmentDao appointmentDao = transaction.createDao(DaoEnum.APPOINTMENT.getDao());
+            Assertions.assertThat(appointmentDao.delete(4)).isFalse();
+            transaction.commit();
+        } catch (DaoException e) {
+            e.printStackTrace();
+            try {
+                if (transaction != null) {
+                    transaction.rollback();
+                }
+            } catch (DaoException e1) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Test(priority = 2)
+    public void testCreate_Return_Appointment() {
+        Transaction transaction = null;
+        try {
+            transaction = transactionFactory.createTransaction();
+            AppointmentDao appointmentDao = transaction.createDao(DaoEnum.APPOINTMENT.getDao());
+            Appointment appointment = new Appointment.Builder()
+                    .setUserId(3)
+                    .setProcedureEmployeeId(1)
+                    .setDate(LocalDateTime.parse("2021-12-01 11:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+                    .setStatus(1)
+                    .setPrice(30)
+                    .build();
+            Assertions.assertThat(appointmentDao.create(appointment))
+                    .usingRecursiveComparison().ignoringFields("id")
+                    .isEqualTo(appointment);
+            transaction.commit();
+        } catch (DaoException e) {
+            e.printStackTrace();
+            try {
+                if (transaction != null) {
+                    transaction.rollback();
+                }
+            } catch (DaoException e1) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    @Test
+    public void testCount(){
+        Transaction transaction = null;
+        try {
+            transaction = transactionFactory.createTransaction();
+            AppointmentDao appointmentDao = transaction.createDao(DaoEnum.APPOINTMENT.getDao());
+            Assertions.assertThat(appointmentDao.count()).isEqualTo(3);
+            transaction.commit();
+        } catch (DaoException e) {
+            e.printStackTrace();
+            try {
+                if (transaction != null) {
+                    transaction.rollback();
+                }
+            } catch (DaoException e1) {
+                e.printStackTrace();
+            }
         }
     }
 
     @AfterClass
-    public void destroy(){
-        ConnectionPool.getInstance().destroy();
+    public void destroy() {
+        try {
+            URL resource = getClass().getClassLoader().getResource("init_test.sql");
+            Scanner scanner = new Scanner(new FileReader(resource.getFile()));
+            scanner.useDelimiter(";");
+            List<String> queries = new ArrayList<>();
+            while (scanner.hasNext()) {
+                queries.add(scanner.next() + ";");
+            }
+            PooledConnection connection = ConnectionPool.getInstance().getConnection();
+            Statement statement = connection.createStatement();
+            for (String s : queries) {
+                statement.executeUpdate(s);
+            }
+            ConnectionPool.getInstance().destroy();
+        } catch (SQLException | DaoException | IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

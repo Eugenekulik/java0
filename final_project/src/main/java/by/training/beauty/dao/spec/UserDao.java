@@ -9,14 +9,6 @@ import java.util.List;
  * This interface extends Dao for User.
  */
 public interface UserDao extends Dao<User>{
-    /**
-     * This method find user by login and password if existed, else return null.
-     * @param login user login
-     * @param password user password
-     * @return User
-     * @throws DaoException
-     */
-    User findByLogin(String login, String password) throws DaoException;
 
     /**
      * This method find user by login if existed, else return null;

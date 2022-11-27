@@ -288,7 +288,7 @@ public class RoleDaoImpl implements RoleDao {
     }
 
     @Override
-    public int create(Role role) throws DaoException {
+    public Role create(Role role) throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
@@ -296,11 +296,11 @@ public class RoleDaoImpl implements RoleDao {
             statement.setString(1,role.getName());
             statement.executeUpdate();
             resultSet = statement.getGeneratedKeys();
-            int id = 0;
             while(resultSet.next()){
-                id = resultSet.getInt(1);
+                role.setId(resultSet.getInt("GENERATED_KEY"));
+                return role;
             }
-            return id;
+            return null;
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
             throw new DaoException();

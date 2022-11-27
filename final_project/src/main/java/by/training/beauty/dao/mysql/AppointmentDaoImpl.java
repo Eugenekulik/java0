@@ -1,7 +1,5 @@
 package by.training.beauty.dao.mysql;
 
-import by.training.beauty.domain.ProcedureEmployee;
-import by.training.beauty.domain.User;
 import by.training.beauty.dao.DaoException;
 import by.training.beauty.dao.spec.AppointmentDao;
 import by.training.beauty.domain.Appointment;
@@ -225,7 +223,7 @@ public class AppointmentDaoImpl implements AppointmentDao {
     }
 
     @Override
-    public int create(Appointment appointment) throws DaoException {
+    public Appointment create(Appointment appointment) throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
@@ -238,9 +236,10 @@ public class AppointmentDaoImpl implements AppointmentDao {
             statement.executeUpdate();
             resultSet = statement.getGeneratedKeys();
             while(resultSet.next()){
-                return resultSet.getInt("GENERATED_KEY");
+                appointment.setId(resultSet.getInt("GENERATED_KEY"));
+                return appointment;
             }
-            return 0;
+            return null;
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
             throw new DaoException();
@@ -291,13 +290,13 @@ public class AppointmentDaoImpl implements AppointmentDao {
     }
 
     @Override
-    public List<Appointment> getUsersAppointment(User user) throws DaoException {
+    public List<Appointment> getUserAppointments(int userId) throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         List<Appointment> appointments = new ArrayList<>();
         try {
             statement = connection.prepareStatement(SQL_FIND_BY_USER);
-            statement.setInt(1,user.getId());
+            statement.setInt(1,userId);
             statement.execute();
             resultSet = statement.getResultSet();
             while (resultSet.next()){

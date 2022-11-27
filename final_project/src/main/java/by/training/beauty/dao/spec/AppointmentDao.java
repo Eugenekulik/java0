@@ -2,8 +2,6 @@ package by.training.beauty.dao.spec;
 
 import by.training.beauty.dao.DaoException;
 import by.training.beauty.domain.Appointment;
-import by.training.beauty.domain.ProcedureEmployee;
-import by.training.beauty.domain.User;
 
 import java.util.List;
 
@@ -18,11 +16,11 @@ import java.util.List;
 public interface AppointmentDao extends Dao<Appointment> {
     /**
      * This method allows getting appointment list for special user.
-     * @param user User, which appointment we want to get.
-     * @return List of appointment special user.
+     *
+     * @param userId@return List of appointment special user.
      * @throws DaoException
      */
-    List<Appointment> getUsersAppointment(User user) throws DaoException;
+    List<Appointment> getUserAppointments(int userId) throws DaoException;
     List<Appointment> getEmployeeAppointments(int procedureEmployeeId) throws DaoException;
 
     boolean cancel(int id) throws DaoException;

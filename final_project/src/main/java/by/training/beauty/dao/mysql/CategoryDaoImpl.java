@@ -6,10 +6,7 @@ import by.training.beauty.domain.Category;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -211,17 +208,21 @@ public class CategoryDaoImpl implements CategoryDao {
     }
 
     @Override
-    public int create(Category category) throws DaoException {
+    public Category create(Category category) throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-            statement = connection.prepareStatement(SQL_CREATE);
+            statement = connection.prepareStatement(SQL_CREATE, Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, category.getId());
             statement.setString(2,category.getName());
             statement.setString(3,category.getDescription());
             statement.executeUpdate();
             resultSet = statement.getGeneratedKeys();
-            return resultSet.getInt("id");
+            while(resultSet.next()){
+                category.setId(resultSet.getInt("GENERATED_KEY"));
+                return category;
+            }
+            return null;
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
             throw new DaoException();

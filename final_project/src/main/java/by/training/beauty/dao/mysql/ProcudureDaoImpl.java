@@ -211,7 +211,7 @@ public class ProcudureDaoImpl implements ProcedureDao {
     }
 
     @Override
-    public int create(Procedure procedure) throws DaoException {
+    public Procedure create(Procedure procedure) throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
@@ -223,9 +223,10 @@ public class ProcudureDaoImpl implements ProcedureDao {
             statement.executeUpdate();
             resultSet = statement.getGeneratedKeys();
             while(resultSet.next()){
-                return resultSet.getInt("GENERATED_KEY");
+                procedure.setId(resultSet.getInt("GENERATED_KEY"));
+                return procedure;
             }
-            return 0;
+            return null;
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
             throw new DaoException();

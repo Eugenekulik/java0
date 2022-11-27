@@ -197,7 +197,7 @@ public class ScheduleDaoImpl implements ScheduleDao {
     }
 
     @Override
-    public int create(Schedule schedule) throws DaoException {
+    public Schedule create(Schedule schedule) throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
@@ -207,9 +207,10 @@ public class ScheduleDaoImpl implements ScheduleDao {
             statement.executeUpdate();
             resultSet = statement.getGeneratedKeys();
             while(resultSet.next()){
-                return resultSet.getInt("GENERATED_KEY");
+                schedule.setId(resultSet.getInt("GENERATED_KEY"));
+                return schedule;
             }
-            return 0;
+            return null;
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
             throw new DaoException();

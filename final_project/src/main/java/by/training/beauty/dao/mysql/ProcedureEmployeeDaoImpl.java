@@ -8,10 +8,7 @@ import by.training.beauty.domain.ProcedureEmployee;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -228,18 +225,22 @@ public class ProcedureEmployeeDaoImpl implements ProcedureEmployeeDao {
     }
 
     @Override
-    public int create(ProcedureEmployee procedureEmployee) throws DaoException {
+    public ProcedureEmployee create(ProcedureEmployee procedureEmployee) throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-            statement = connection.prepareStatement(SQL_CREATE);
+            statement = connection.prepareStatement(SQL_CREATE, Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, procedureEmployee.getEmployeeId());
             statement.setInt(2, procedureEmployee.getProcedureId());
             statement.setDouble(3, procedureEmployee.getPrice());
             statement.setDouble(4, procedureEmployee.getRating());
             statement.executeUpdate();
             resultSet = statement.getGeneratedKeys();
-            return resultSet.getInt("id");
+            while (resultSet.next()){
+                procedureEmployee.setId(resultSet.getInt("GENERATED_KEY"));
+                return procedureEmployee;
+            }
+            return null;
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
             throw new DaoException();

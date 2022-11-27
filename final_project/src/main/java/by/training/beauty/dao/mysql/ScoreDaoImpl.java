@@ -218,7 +218,7 @@ public class ScoreDaoImpl implements ScoreDao {
     }
 
     @Override
-    public int create(Score score) throws DaoException {
+    public Score create(Score score) throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
@@ -230,7 +230,11 @@ public class ScoreDaoImpl implements ScoreDao {
             statement.setTimestamp(5, Timestamp.valueOf(score.getDate()));
             statement.executeUpdate();
             resultSet = statement.getGeneratedKeys();
-            return 1;
+            while (resultSet.next()){
+                score.setId(resultSet.getInt("GENERATED_KEY"));
+                return score;
+            }
+            return null;
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
             throw new DaoException();

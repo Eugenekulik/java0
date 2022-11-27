@@ -50,10 +50,9 @@ public class UserService {
             RoleDao roleDao = transaction.createDao(DaoEnum.ROLE.getDao());
             UserDao userDao = transaction.createDao(USER_DAO);
             String hexPassword = hexPassword(password);
-            User user = userDao.findByLogin(login, hexPassword);
-            if(user!=null){
-                roleDao.findByUser(user).stream().forEach(user::addRole);
-            }
+            User user = userDao.findByLogin(login);
+            if(user == null || !user.getPassword().equals(hexPassword))return null;
+            roleDao.findByUser(user).stream().forEach(user::addRole);
             transaction.commit();
             return user;
         } catch (DaoException e) {
