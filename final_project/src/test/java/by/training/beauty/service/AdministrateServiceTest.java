@@ -42,15 +42,16 @@ public class AdministrateServiceTest {
     }
 
     @Test
-    public void testGetPagecount() {
-        AdministrateService administrateService = new AdministrateService();
+    public void testGetPageCount() {
+        AdministrateService administrateService =
+                ServiceFactory.getInstance().getAdministrateService();
         try {
             int[] actual = {administrateService.getPagecount(1),
                     administrateService.getPagecount(2),
                     administrateService.getPagecount(3),
                     administrateService.getPagecount(4),};
-            int[] expeted = {1, 1, 1, 1};
-            assertEquals(actual, expeted);
+            int[] expected = {1, 1, 1, 1};
+            assertEquals(actual, expected);
         } catch (ServiceException e) {
             LOGGER.error("it is impossible to get pageCount");
         }
@@ -58,9 +59,11 @@ public class AdministrateServiceTest {
 
     @Test
     public void testAdministrateUsers() {
-        AdministrateService administrateService = new AdministrateService();
         try {
-            List<User> users = administrateService.administrateUsers(1);
+            List<User> users = ServiceFactory
+                    .getInstance()
+                    .getAdministrateService()
+                    .administrateUsers(1);
             assertEquals(users.size(), 3);
         } catch (ServiceException e) {
             LOGGER.error("it is impossible to get user list");
@@ -68,9 +71,11 @@ public class AdministrateServiceTest {
     }
     @Test
     public void testAdministrateAppointments() {
-        AdministrateService administrateService = new AdministrateService();
         try {
-            List<AppointmentDto> appointmentDtoList = administrateService.administrateAppointments(1);
+            List<AppointmentDto> appointmentDtoList = ServiceFactory
+                    .getInstance()
+                    .getAdministrateService()
+                    .administrateAppointments(1);
             assertEquals(appointmentDtoList.size(), 3);
         } catch (ServiceException e) {
             LOGGER.error("it is impossible to get user list");
@@ -79,9 +84,11 @@ public class AdministrateServiceTest {
 
     @Test
     public void testAdministrateProcedures() {
-        AdministrateService administrateService = new AdministrateService();
         try {
-            List<ProcedureDto> procedureDtoList = administrateService.administrateProcedures(1);
+            List<ProcedureDto> procedureDtoList = ServiceFactory
+                    .getInstance()
+                    .getAdministrateService()
+                    .administrateProcedures(1);
             assertEquals(procedureDtoList.size(), 6);
         } catch (ServiceException e) {
             LOGGER.error("it is impossible to get user list");
@@ -89,10 +96,12 @@ public class AdministrateServiceTest {
     }
 
     @Test
-    public void testAdministrateschedules() {
-        AdministrateService administrateService = new AdministrateService();
+    public void testAdministrateSchedules() {
         try {
-            List<ScheduleDto> scheduleDtoList = administrateService.administrateSchedules(1);
+            List<ScheduleDto> scheduleDtoList = ServiceFactory
+                    .getInstance()
+                    .getAdministrateService()
+                    .administrateSchedules(1);
             assertEquals(scheduleDtoList.size(), 3);
         } catch (ServiceException e) {
             LOGGER.error("it is impossible to get user list");

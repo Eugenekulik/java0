@@ -45,11 +45,13 @@ public class ScheduleServiceTest {
 
     @Test(priority = 1)
     public void testSchedulesByEmployee() {
-        ScheduleService scheduleService = new ScheduleService();
         LocalDate localDate = LocalDate.parse("2021-12-01");
         int employeeId = 3;
         try {
-            List<LocalTime> schedules = scheduleService.schedulesByEmployeeDate(employeeId, localDate);
+            List<LocalTime> schedules = ServiceFactory
+                    .getInstance()
+                    .getScheduleService()
+                    .schedulesByEmployeeDate(employeeId, localDate);
             assertEquals(schedules.size(),3);
         } catch (ServiceException e) {
             LOGGER.error(String.format("it is impossible to get schedules " +
@@ -61,9 +63,11 @@ public class ScheduleServiceTest {
     public void testAddschedule() {
         LocalDate date = LocalDate.parse("2021-12-02");
         int employeeId = 2;
-        ScheduleService scheduleService = new ScheduleService();
         try {
-            scheduleService.addSchedule(employeeId, date);
+            ServiceFactory
+                    .getInstance()
+                    .getScheduleService()
+                    .addSchedule(employeeId, date);
             try {
                 PooledConnection connection = ConnectionPool.getInstance().getConnection();
                 ScheduleDao scheduleDao = new ScheduleDaoImpl();
@@ -79,9 +83,11 @@ public class ScheduleServiceTest {
 
     @Test(priority = 3)
     public void testDeleteschedule() {
-        ScheduleService scheduleService = new ScheduleService();
         try {
-            scheduleService.deleteschedule(1);
+            ServiceFactory
+                    .getInstance()
+                    .getScheduleService()
+                    .deleteschedule(1);
             try {
                 PooledConnection connection = ConnectionPool.getInstance().getConnection();
                 ScheduleDao scheduleDao = new ScheduleDaoImpl();

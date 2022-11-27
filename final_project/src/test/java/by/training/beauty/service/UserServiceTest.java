@@ -48,9 +48,11 @@ public class UserServiceTest {
 
     @Test
     public void testLogin() {
-        UserService userService = new UserService();
         try {
-            User user = userService.login("thirduser","thirduser");
+            User user = ServiceFactory
+                    .getInstance()
+                    .getUserService()
+                    .login("thirduser","thirduser");
             assertNotNull(user);
         } catch (ServiceException e){
             LOGGER.error("it is impossible to authorizate",e);
@@ -67,9 +69,11 @@ public class UserServiceTest {
 
     @Test(dataProvider = "invalidLogin")
     public void testLoginInvalid(String login, String password){
-        UserService userService = new UserService();
         try {
-            User user = userService.login(login,password);
+            User user = ServiceFactory
+                    .getInstance()
+                    .getUserService()
+                    .login(login,password);
             assertNull(user);
         } catch (ServiceException e){
             LOGGER.error("it is impossible to authorizate",e);
@@ -78,14 +82,16 @@ public class UserServiceTest {
 
     @Test
     public void testRegistrate() {
-        UserService userService =  new UserService();
         User user = new User();
         user.setName("new user");
         user.setLogin("newuser");
         user.setPassword("password");
         user.setPhone("+375337748378");
         try {
-            User actual = userService.registrate(user);
+            User actual = ServiceFactory
+                    .getInstance()
+                    .getUserService()
+                    .registrate(user);
             assertNotNull(actual);
         } catch (ServiceException e) {
             LOGGER.error("it is impossible to registrate user",e);
@@ -94,14 +100,16 @@ public class UserServiceTest {
 
     @Test
     public void testRegistrateInvalid() {
-        UserService userService =  new UserService();
         User user = new User();
         user.setName("new user");
         user.setLogin("thirduser"); //user with this login exist
         user.setPassword("password");
         user.setPhone("+375337748378");
         try {
-            User actual = userService.registrate(user);
+            User actual = ServiceFactory
+                    .getInstance()
+                    .getUserService()
+                    .registrate(user);
             assertNull(actual);
         } catch (ServiceException e) {
             LOGGER.error("an error occurred while registering the user",e);
@@ -110,9 +118,11 @@ public class UserServiceTest {
 
     @Test(priority = 1)
     public void testDeleteUser() {
-        UserService userService = new UserService();
         try {
-            userService.deleteUser(3);
+            ServiceFactory
+                    .getInstance()
+                    .getUserService()
+                    .deleteUser(3);
             try {
                 PooledConnection connection = ConnectionPool.getInstance().getConnection();
                 UserDao userDao = new UserDaoImpl();
@@ -130,14 +140,16 @@ public class UserServiceTest {
 
     @Test
     public void testUpdateUser() {
-        UserService userService = new UserService();
         User user = new User();
         user.setId(3);
         user.addRole(new Role("employee"));
         user.setPhone("+375293333333");
         user.setName("thirduserUpdate");
         try {
-            userService.updateUser(user);
+            ServiceFactory
+                    .getInstance()
+                    .getUserService()
+                    .updateUser(user);
             try {
                 PooledConnection connection = ConnectionPool.getInstance().getConnection();
                 UserDao userDao = new UserDaoImpl();
@@ -167,8 +179,7 @@ public class UserServiceTest {
             for (String s:queries) {
                 statement.executeUpdate(s);
             }
-            ConnectionPoolService connectionPoolService = new ConnectionPoolService();
-            connectionPoolService.destroy();
+            ConnectionPool.getInstance().destroy();
         } catch (SQLException |DaoException|IOException e) {LOGGER.error(e);}
     }
 }

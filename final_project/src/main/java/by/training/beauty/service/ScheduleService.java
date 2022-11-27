@@ -2,7 +2,6 @@ package by.training.beauty.service;
 
 import by.training.beauty.dao.*;
 import by.training.beauty.dao.mysql.DaoEnum;
-import by.training.beauty.dao.mysql.TransactionFactoryImpl;
 import by.training.beauty.dao.spec.*;
 import by.training.beauty.domain.*;
 import org.apache.logging.log4j.LogManager;
@@ -27,6 +26,11 @@ public class ScheduleService {
 
     private static final Logger LOGGER
             = LogManager.getLogger(ScheduleService.class);
+    private TransactionFactory transactionFactory;
+
+    public ScheduleService(TransactionFactory transactionFactory) {
+        this.transactionFactory = transactionFactory;
+    }
 
     /**
      * This method allows you to get all free time in the schedule on a specific date
@@ -36,14 +40,11 @@ public class ScheduleService {
      * @return
      * @throws ServiceException
      */
-    public List<LocalTime> schedulesByEmployeeDate(int selectedEmployee,
-                                                   LocalDate date)
+    public List<LocalTime> schedulesByEmployeeDate(int selectedEmployee, LocalDate date)
             throws ServiceException {
         List<Schedule> schedules;
-        TransactionFactory transactionFactory;
         Transaction transaction = null;
         try {
-            transactionFactory = new TransactionFactoryImpl();
             transaction = transactionFactory.createTransaction();
             ScheduleDao scheduleDao = transaction.createDao(SCHEDULE_DAO);
             schedules = scheduleDao.findByEmployee(selectedEmployee);
@@ -74,10 +75,8 @@ public class ScheduleService {
      */
     public void addSchedule(int employeeId, LocalDate date)
             throws ServiceException {
-        TransactionFactory transactionFactory;
         Transaction transaction = null;
         try {
-            transactionFactory = new TransactionFactoryImpl();
             transaction = transactionFactory.createTransaction();
             ScheduleDao scheduleDao = transaction.createDao(SCHEDULE_DAO);
             List<LocalTime> times = List.of(LocalTime.parse("09:00:00"),
@@ -111,10 +110,8 @@ public class ScheduleService {
      * @throws ServiceException
      */
     public void deleteschedule(Integer id) throws ServiceException {
-        TransactionFactory transactionFactory = null;
         Transaction transaction = null;
         try {
-            transactionFactory = new TransactionFactoryImpl();
             transaction = transactionFactory.createTransaction();
             ScheduleDao scheduleDao = transaction.createDao(SCHEDULE_DAO);
             if (id != null) {
@@ -145,10 +142,8 @@ public class ScheduleService {
     public List<Entity> getSchedulesByEmployee(User employee)
             throws ServiceException {
         List<Entity> schedules = new ArrayList<>();
-        TransactionFactory transactionFactory = null;
         Transaction transaction = null;
         try {
-            transactionFactory = new TransactionFactoryImpl();
             transaction = transactionFactory.createTransaction();
             ScheduleDao scheduleDao = transaction.createDao(SCHEDULE_DAO);
             AppointmentDao appointmentDao
@@ -159,7 +154,7 @@ public class ScheduleService {
                     = procedureEmployeeDao.findByEmployee(employee);
             List<Appointment> appointments = new ArrayList<>();
             for (ProcedureEmployee temp:procedureEmployeeList) {
-                appointments.addAll(appointmentDao.getEmployeeAppointment(temp));
+                appointments.addAll(appointmentDao.getEmployeeAppointments(temp.getId()));
             }
             schedules.addAll(scheduleDao.findByEmployee(employee.getId()));
             schedules.addAll(appointments);
@@ -178,10 +173,8 @@ public class ScheduleService {
     }
 
     public void archive() {
-        TransactionFactory transactionFactory = null;
         Transaction transaction = null;
         try{
-            transactionFactory = new TransactionFactoryImpl();
             transaction = transactionFactory.createTransaction();
             ScheduleDao scheduleDao = transaction.createDao(DaoEnum.SCHEDULE.getDao());
             scheduleDao.archive();

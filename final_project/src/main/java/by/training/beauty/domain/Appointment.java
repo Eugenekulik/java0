@@ -21,6 +21,17 @@ public class Appointment extends Entity{
     private int status;
     private LocalDateTime date;
 
+
+    public Appointment(){}
+    public Appointment(Builder builder) {
+        setId(builder.id);
+        setUserId(builder.userId);
+        setDate(builder.date);
+        setPrice(builder.price);
+        setProcedureEmployeeId(builder.procedureEmployeeId);
+        setStatus(builder.status);
+    }
+
     public int getProcedureEmployeeId() {
         return procedureEmployeeId;
     }
@@ -61,6 +72,7 @@ public class Appointment extends Entity{
         this.date = date;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -79,5 +91,45 @@ public class Appointment extends Entity{
         return "id: " + getId() + "procedureEmployeeId: " + procedureEmployeeId +
                 "userId: " + userId + "date: "  + date +
                         " status: " + status + "price: " + price;
+    }
+
+
+    public static class Builder{
+        private int id;
+        private int userId;
+        private int procedureEmployeeId;
+        private int status;
+        private double price;
+        private LocalDateTime date;
+
+        public Builder(){
+        }
+        public Builder setId(int id){
+            this.id = id;
+            return this;
+        }
+        public Builder setUserId(int userId){
+            this.userId = userId;
+            return this;
+        }
+        public Builder setProcedureEmployeeId(int procedureEmployeeId){
+            this.procedureEmployeeId = procedureEmployeeId;
+            return this;
+        }
+        public Builder setPrice(double price){
+            this.price = price;
+            return this;
+        }
+        public Builder setStatus(int status){
+            this.status = status;
+            return this;
+        }
+        public Builder setDate(LocalDateTime date){
+            this.date = date;
+            return this;
+        }
+        public Appointment build(){
+            return new Appointment(this);
+        }
     }
 }

@@ -14,13 +14,16 @@ import java.util.List;
 
 public class RoleService{
     private static final Logger LOGGER = LogManager.getLogger(RoleService.class);
+    private TransactionFactory transactionFactory;
+
+    public RoleService(TransactionFactory transactionFactory) {
+        this.transactionFactory = transactionFactory;
+    }
 
 
     public List<Role> getAllRoles() throws ServiceException {
-        TransactionFactory transactionFactory = null;
         Transaction transaction = null;
         try {
-            transactionFactory = new TransactionFactoryImpl();
             transaction = transactionFactory.createTransaction();
             RoleDao roleDao = transaction.createDao(DaoEnum.ROLE.getDao());
             List<Role> roles = roleDao.findall();

@@ -24,6 +24,11 @@ public class ProcedureService {
 
     private static final Logger LOGGER
             = LogManager.getLogger(ProcedureService.class);
+    private TransactionFactory transactionFactory;
+
+    public ProcedureService(TransactionFactory transactionFactory) {
+        this.transactionFactory = transactionFactory;
+    }
 
     /**
      * This method allows you to get all procedures.
@@ -32,7 +37,6 @@ public class ProcedureService {
      */
     public List<Procedure> getProcedures() throws ServiceException {
         List<Procedure> procedures;
-        TransactionFactory transactionFactory = new TransactionFactoryImpl();
         Transaction transaction = null;
         try {
             transaction = transactionFactory.createTransaction();
@@ -60,7 +64,6 @@ public class ProcedureService {
      */
     public Procedure getProcedureById(int id) throws ServiceException {
         Procedure procedure;
-        TransactionFactory transactionFactory = new TransactionFactoryImpl();
         Transaction transaction = null;
         try {
             transaction = transactionFactory.createTransaction();
@@ -87,7 +90,6 @@ public class ProcedureService {
      */
     public List<Category> getCategories() throws ServiceException {
         List<Category> categories;
-        TransactionFactory transactionFactory = new TransactionFactoryImpl();
         Transaction transaction = null;
         try {
             transaction = transactionFactory.createTransaction();
@@ -113,10 +115,8 @@ public class ProcedureService {
      * @throws ServiceException
      */
     public void addProcedure(Procedure procedure) throws ServiceException {
-        TransactionFactory transactionFactory = null;
         Transaction transaction = null;
         try {
-            transactionFactory = new TransactionFactoryImpl();
             transaction = transactionFactory.createTransaction();
             ProcedureDao procedureDao = transaction.createDao(PROCEDURE_DAO);
             procedureDao.create(procedure);
@@ -139,10 +139,8 @@ public class ProcedureService {
      * @throws ServiceException
      */
     public void deleteProcedure(Integer id) throws ServiceException {
-        TransactionFactory transactionFactory = null;
         Transaction transaction = null;
         try {
-            transactionFactory = new TransactionFactoryImpl();
             transaction = transactionFactory.createTransaction();
             ProcedureDao procedureDao = transaction.createDao(PROCEDURE_DAO);
             if (id != null) {
@@ -170,10 +168,8 @@ public class ProcedureService {
      * @throws ServiceException
      */
     public void updateProcedure(Procedure procedure) throws ServiceException {
-        TransactionFactory transactionFactory = null;
         Transaction transaction = null;
         try {
-            transactionFactory = new TransactionFactoryImpl();
             transaction = transactionFactory.createTransaction();
             ProcedureDao procedureDao = transaction.createDao(PROCEDURE_DAO);
             procedureDao.update(procedure);

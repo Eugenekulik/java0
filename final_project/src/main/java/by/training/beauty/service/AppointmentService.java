@@ -25,6 +25,11 @@ public class AppointmentService {
 
     private static final Logger LOGGER
             = LogManager.getLogger(AppointmentService.class);
+    private TransactionFactory transactionFactory;
+
+    public AppointmentService(TransactionFactory transactionFactory) {
+        this.transactionFactory = transactionFactory;
+    }
 
     /**
      * This method allows you to delete appointment from the store.
@@ -32,10 +37,8 @@ public class AppointmentService {
      * @throws ServiceException
      */
     public void cancelAppointment(int id) throws ServiceException {
-        TransactionFactory transactionFactory;
         Transaction transaction = null;
         try {
-            transactionFactory = new TransactionFactoryImpl();
             transaction = transactionFactory.createTransaction();
             AppointmentDao appointmentDao
                     = transaction.createDao(APPOINTMENT_DAO);
@@ -60,11 +63,10 @@ public class AppointmentService {
      * @throws ServiceException
      */
     public List<Entity> usersAppointment(User user) throws ServiceException {
-        TransactionFactory factory = new TransactionFactoryImpl();
         Transaction transaction = null;
         List<Entity> entities = null;
         try {
-            transaction = factory.createTransaction();
+            transaction = transactionFactory.createTransaction();
             AppointmentDao appointmentDao = transaction.createDao(APPOINTMENT_DAO);
             ProcedureDao procedureDao = transaction.createDao("procedureDao");
             ProcedureEmployeeDao procedureEmployeeDao =
@@ -139,17 +141,15 @@ public class AppointmentService {
     /**
      * This class allows you to add appointment to the store.
      * @param appointment
-     * @param procedure type of procedure
+     * @param procedureId id of procedure
      * @param employeeId identifier of the employee
      * @return
      * @throws ServiceException
      */
     public boolean addAppointment(Appointment appointment
             ,int procedureId,int employeeId) throws ServiceException {
-        TransactionFactory transactionFactory = null;
         Transaction transaction = null;
         try {
-            transactionFactory = new TransactionFactoryImpl();
             transaction = transactionFactory.createTransaction();
             UserDao userDao = transaction.createDao("userDao");
             ProcedureEmployeeDao procedureEmployeeDao =
@@ -191,10 +191,8 @@ public class AppointmentService {
      */
     public void updateAppointment(Appointment appointment)
             throws ServiceException {
-        TransactionFactory transactionFactory = null;
         Transaction transaction = null;
         try {
-            transactionFactory = new TransactionFactoryImpl();
             transaction = transactionFactory.createTransaction();
             AppointmentDao appointmentDao
                     = transaction.createDao(APPOINTMENT_DAO);
@@ -213,10 +211,8 @@ public class AppointmentService {
     }
 
     public void archive() {
-        TransactionFactory transactionFactory = null;
         Transaction transaction = null;
         try {
-            transactionFactory = new TransactionFactoryImpl();
             transaction = transactionFactory.createTransaction();
             AppointmentDao appointmentDao
                     = transaction.createDao(APPOINTMENT_DAO);

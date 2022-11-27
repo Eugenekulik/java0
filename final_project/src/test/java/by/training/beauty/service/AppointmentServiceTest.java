@@ -11,6 +11,7 @@ import by.training.beauty.domain.Procedure;
 import by.training.beauty.domain.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.mockito.Mockito;
 import org.testng.annotations.*;
 
 import java.io.File;
@@ -49,7 +50,6 @@ public class AppointmentServiceTest {
 
     @Test(priority = 3)
     public void testAddAppointment() {
-        AppointmentService appointmentService = new AppointmentService();
         Appointment expected = new Appointment();
         expected.setUserId(2);
         expected.setStatus(1);
@@ -60,7 +60,10 @@ public class AppointmentServiceTest {
         procedure.setId(1);
         User employee = new User();
         try {
-            appointmentService.addAppointment(expected, procedure.getId(), 3);
+            ServiceFactory
+                    .getInstance()
+                    .getAppointmentService()
+                    .addAppointment(expected, procedure.getId(), 3);
         } catch (ServiceException e) {LOGGER.error("it is impossible to delete user");}
         try {
             PooledConnection connection = ConnectionPool.getInstance().getConnection();
@@ -75,9 +78,11 @@ public class AppointmentServiceTest {
 
     @Test(priority = 2)
     public void testCancelAppointment() {
-        AppointmentService appointmentService = new AppointmentService();
         try {
-            appointmentService.cancelAppointment(1);
+            ServiceFactory
+                    .getInstance()
+                    .getAppointmentService()
+                    .cancelAppointment(1);
         } catch (ServiceException e) {LOGGER.error("it is impossible to delete user");}
         try {
             PooledConnection connection = ConnectionPool.getInstance().getConnection();
@@ -89,11 +94,13 @@ public class AppointmentServiceTest {
     }
     @Test(priority = 1)
     public void testUsersAppointment() {
-        AppointmentService appointmentService = new AppointmentService();
         User user = new User();
         user.setId(3);
         try {
-            List<Entity> entities = appointmentService.usersAppointment(user);
+            List<Entity> entities = ServiceFactory
+                    .getInstance()
+                    .getAppointmentService()
+                    .usersAppointment(user);
             assertEquals(entities.size(), 7);
         } catch (ServiceException e) {
             LOGGER.error("it is impossible to get user's appointments");
@@ -102,7 +109,6 @@ public class AppointmentServiceTest {
 
     @Test
     public void testUpdateAppointment(){
-        AppointmentService appointmentService = new AppointmentService();
         Appointment expected = new Appointment();
         expected.setId(1);
         expected.setProcedureEmployeeId(2);
@@ -110,7 +116,10 @@ public class AppointmentServiceTest {
         expected.setPrice(30.0);
         expected.setDate(LocalDateTime.of(2021,12,1,9,0,0));
         try {
-            appointmentService.updateAppointment(expected);
+            ServiceFactory
+                    .getInstance()
+                    .getAppointmentService()
+                    .updateAppointment(expected);
             try {
                 PooledConnection connection = ConnectionPool.getInstance().getConnection();
                 AppointmentDao appointmentDao = new AppointmentDaoImpl();
@@ -123,6 +132,14 @@ public class AppointmentServiceTest {
         } catch (ServiceException e) {
             LOGGER.error("it is impossible to update appointment",e);
         }
+    }
+
+    @Test
+    public void testArchive(){
+        ServiceFactory
+                .getInstance()
+                .getAppointmentService()
+                .archive();
     }
 
     @AfterClass
@@ -144,4 +161,6 @@ public class AppointmentServiceTest {
             connectionPoolService.destroy();
         } catch (SQLException |DaoException|IOException e) {LOGGER.error(e);}
     }
+
+
 }

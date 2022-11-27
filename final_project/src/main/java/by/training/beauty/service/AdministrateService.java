@@ -18,6 +18,13 @@ import java.util.stream.Collectors;
  * This service class provides administration functionality.
  */
 public class AdministrateService {
+
+    TransactionFactory transactionFactory;
+
+    public AdministrateService(TransactionFactory transactionFactory){
+        this.transactionFactory = transactionFactory;
+    }
+
     //CONSTANTS
     private static final String ROLLBACK_ERROR
             = "it is impossible to rollback transaction";
@@ -34,11 +41,9 @@ public class AdministrateService {
      * @throws ServiceException
      */
     public int getPagecount(int tab) throws ServiceException {
-        TransactionFactory transactionFactory = null;
         Transaction transaction = null;
         int pageCount = 0;
         try {
-            transactionFactory = new TransactionFactoryImpl();
             transaction = transactionFactory.createTransaction();
             switch (tab) {
                 case 1:
@@ -82,11 +87,9 @@ public class AdministrateService {
      * @throws ServiceException
      */
     public List<User> administrateUsers(int paginationPage) throws ServiceException {
-        TransactionFactory transactionFactory = null;
         Transaction transaction = null;
         List<User> users = null;
         try {
-            transactionFactory = new TransactionFactoryImpl();
             transaction = transactionFactory.createTransaction();
             RoleDao roleDao = transaction.createDao(DaoEnum.ROLE.getDao());
             UserDao userDao = transaction.createDao(DaoEnum.USER.getDao());
@@ -116,10 +119,8 @@ public class AdministrateService {
      */
     public List<AppointmentDto> administrateAppointments(int paginationPage)
             throws ServiceException {
-        TransactionFactory transactionFactory = null;
         Transaction transaction = null;
         try {
-            transactionFactory = new TransactionFactoryImpl();
             transaction = transactionFactory.createTransaction();
             CategoryDao categoryDao = transaction.createDao("categoryDao");
             AppointmentDao appointmentDao
@@ -224,10 +225,8 @@ public class AdministrateService {
      */
     public List<ProcedureDto> administrateProcedures(int paginationPage)
             throws ServiceException {
-        TransactionFactory transactionFactory;
         Transaction transaction = null;
         try {
-            transactionFactory = new TransactionFactoryImpl();
             transaction = transactionFactory.createTransaction();
             ProcedureDao procedureDao = transaction.createDao(PROCEDURE_DAO);
             CategoryDao categoryDao = transaction.createDao("categoryDao");
@@ -277,10 +276,8 @@ public class AdministrateService {
      */
     public List<ScheduleDto> administrateSchedules(int paginationPage)
             throws ServiceException {
-        TransactionFactory transactionFactory = null;
         Transaction transaction = null;
         try {
-            transactionFactory = new TransactionFactoryImpl();
             transaction = transactionFactory.createTransaction();
             ScheduleDao scheduleDao = transaction.createDao("scheduleDao");
             UserDao userDao = transaction.createDao(USER_DAO);

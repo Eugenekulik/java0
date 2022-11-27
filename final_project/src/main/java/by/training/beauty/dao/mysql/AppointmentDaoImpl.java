@@ -333,13 +333,13 @@ public class AppointmentDaoImpl implements AppointmentDao {
     }
 
     @Override
-    public List<Appointment> getEmployeeAppointment(ProcedureEmployee procedureEmployee) throws DaoException {
+    public List<Appointment> getEmployeeAppointments(int procedureEmployeeId) throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         List<Appointment> appointments = new ArrayList<>();
         try {
             statement = connection.prepareStatement(SQL_FIND_BY_EMPLOYEE);
-            statement.setInt(1,procedureEmployee.getId());
+            statement.setInt(1,procedureEmployeeId);
             statement.execute();
             resultSet = statement.getResultSet();
             while (resultSet.next()){

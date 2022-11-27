@@ -30,6 +30,11 @@ public class UserService {
             = "it is impossible to rollback transaction";
 
     private static final Logger LOGGER = LogManager.getLogger(UserService.class);
+    private TransactionFactory transactionFactory;
+
+    public UserService(TransactionFactory transactionFactory) {
+        this.transactionFactory = transactionFactory;
+    }
 
     /**
      * Authorization.
@@ -39,19 +44,18 @@ public class UserService {
      * @throws ServiceException
      */
     public User login(String login, String password) throws ServiceException {
-        User user = null;
-        TransactionFactory transactionFactory = new TransactionFactoryImpl();
         Transaction transaction = null;
         try {
             transaction = transactionFactory.createTransaction();
             RoleDao roleDao = transaction.createDao(DaoEnum.ROLE.getDao());
             UserDao userDao = transaction.createDao(USER_DAO);
             String hexPassword = hexPassword(password);
-            user = userDao.findByLogin(login, hexPassword);
+            User user = userDao.findByLogin(login, hexPassword);
             if(user!=null){
                 roleDao.findByUser(user).stream().forEach(user::addRole);
             }
             transaction.commit();
+            return user;
         } catch (DaoException e) {
             try {
                 if (transaction != null) {
@@ -62,7 +66,6 @@ public class UserService {
             }
             throw new ServiceException();
         }
-        return user;
     }
 
     /**
@@ -82,7 +85,6 @@ public class UserService {
                 || userValidator.phoneValidator(user.getPhone()))) {
             return null;
         }
-        TransactionFactory transactionFactory = new TransactionFactoryImpl();
         Transaction transaction = null;
         try {
             transaction = transactionFactory.createTransaction();
@@ -139,10 +141,8 @@ public class UserService {
      * @throws ServiceException
      */
     public void deleteUser(Integer id) throws ServiceException {
-        TransactionFactory transactionFactory = null;
         Transaction transaction = null;
         try {
-            transactionFactory = new TransactionFactoryImpl();
             transaction = transactionFactory.createTransaction();
             UserDao userDao = transaction.createDao(USER_DAO);
             if (id != null) {
@@ -169,10 +169,8 @@ public class UserService {
      * @throws ServiceException
      */
     public void updateUser(User user) throws ServiceException {
-        TransactionFactory transactionFactory = null;
         Transaction transaction = null;
         try {
-            transactionFactory = new TransactionFactoryImpl();
             transaction = transactionFactory.createTransaction();
             UserDao userDao = transaction.createDao(DaoEnum.USER.getDao());
             RoleDao roleDao = transaction.createDao(DaoEnum.ROLE.getDao());
@@ -202,11 +200,9 @@ public class UserService {
      */
     public List<User> employeesByProcedure(Procedure procedure)
             throws ServiceException {
-        List<User> employeeList = new ArrayList<>();
-        TransactionFactory transactionFactory = null;
+        List<User> employeeList;
         Transaction transaction = null;
         try {
-            transactionFactory = new TransactionFactoryImpl();
             transaction = transactionFactory.createTransaction();
             UserDao userDao = transaction.createDao("userDao");
             ProcedureEmployeeDao procedureEmployeeDao
@@ -239,10 +235,8 @@ public class UserService {
      */
     public List<User> employeeList() throws ServiceException {
         List<User> employeeList;
-        TransactionFactory transactionFactory;
         Transaction transaction = null;
         try {
-            transactionFactory = new TransactionFactoryImpl();
             transaction = transactionFactory.createTransaction();
             UserDao userDao = transaction.createDao("userDao");
             employeeList = userDao.findEmployees();
@@ -261,11 +255,9 @@ public class UserService {
     }
 
     public User findById(int id){
-        TransactionFactory transactionFactory = null;
         Transaction transaction = null;
         User user = null;
         try {
-            transactionFactory = new TransactionFactoryImpl();
             transaction = transactionFactory.createTransaction();
             UserDao userDao = transaction.createDao("userDao");
             user  = userDao.findById(id);

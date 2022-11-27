@@ -45,9 +45,11 @@ public class ProcedureServiceTest {
     }
     @Test
     public void testGetProcedures() {
-        ProcedureService procedureService = new ProcedureService();
         try {
-            List<Procedure> procedures = procedureService.getProcedures();
+            List<Procedure> procedures = ServiceFactory
+                    .getInstance()
+                    .getProcedureService()
+                    .getProcedures();
             assertEquals(procedures.size(), 6);
         } catch (ServiceException e) {
             LOGGER.error("it is impossible to get procedures",e);
@@ -56,10 +58,12 @@ public class ProcedureServiceTest {
 
     @Test
     public void testGetProcedureById() {
-        ProcedureService procedureService =  new ProcedureService();
         int id  = 1;
         try {
-            Procedure procedure = procedureService.getProcedureById(id);
+            Procedure procedure = ServiceFactory
+                    .getInstance()
+                    .getProcedureService()
+                    .getProcedureById(id);
             assertEquals(procedure.getName(),"Лазерное омоложение");
         } catch (ServiceException e) {
             LOGGER.error(String.format("it is impossible to get procedure by id: %s",id),e);
@@ -68,9 +72,11 @@ public class ProcedureServiceTest {
 
     @Test
     public void testGetCategories() {
-        ProcedureService procedureService = new ProcedureService();
         try {
-            List<Category> categories = procedureService.getCategories();
+            List<Category> categories = ServiceFactory
+                    .getInstance()
+                    .getProcedureService()
+                    .getCategories();
             assertEquals(categories.size(), 6);
         } catch (ServiceException e) {
             LOGGER.error("it is impossible to get categories",e);
@@ -80,13 +86,15 @@ public class ProcedureServiceTest {
     @Test(priority = 1)
     public void testAddProcedure() {
         Procedure procedure = new Procedure();
-        ProcedureService procedureService = new ProcedureService();
         procedure.setName("Лазерный карбоновый пилинг");
         procedure.setDescription("Лазерный карбоновый пилинг");
         procedure.setElapsedTime(60);
         procedure.setCategoryId(1);
         try {
-            procedureService.addProcedure(procedure);
+            ServiceFactory
+                    .getInstance()
+                    .getProcedureService()
+                    .addProcedure(procedure);
             try {
                 PooledConnection connection = ConnectionPool.getInstance().getConnection();
                 ProcedureDao procedureDao = new ProcudureDaoImpl();
@@ -103,9 +111,11 @@ public class ProcedureServiceTest {
 
     @Test(priority = 2)
     public void testDeleteProcedure() {
-        ProcedureService procedureService = new ProcedureService();
         try {
-            procedureService.deleteProcedure(1);
+            ServiceFactory
+                    .getInstance()
+                    .getProcedureService()
+                    .deleteProcedure(1);
             try {
                 PooledConnection connection = ConnectionPool.getInstance().getConnection();
                 ProcedureDao procedureDao = new ProcudureDaoImpl();
@@ -122,7 +132,6 @@ public class ProcedureServiceTest {
 
     @Test(priority = 1)
     public void testUpdateProcedure(){
-        ProcedureService procedureService = new ProcedureService();
         Procedure procedure = new Procedure();
         procedure.setId(1);
         procedure.setCategoryId(1);
@@ -130,7 +139,10 @@ public class ProcedureServiceTest {
         procedure.setName("change");
         procedure.setDescription("change");
         try {
-            procedureService.updateProcedure(procedure);
+            ServiceFactory
+                    .getInstance()
+                    .getProcedureService()
+                    .updateProcedure(procedure);
             try {
                 PooledConnection connection = ConnectionPool.getInstance().getConnection();
                 ProcedureDao procedureDao = new ProcudureDaoImpl();

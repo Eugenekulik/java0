@@ -1085,3 +1085,155 @@ Caused by: by.training.beauty.dao.DaoException
 	at by.training.beauty.dao.mysql.UserDaoImpl.delete(UserDaoImpl.java:215) ~[classes/:?]
 	at by.training.beauty.service.UserService.deleteUser(UserService.java:149) ~[classes/:?]
 	... 26 more
+2022:11:331:16:21:35.439 [by.training.beauty.dao.mysql.AppointmentDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.AppointmentDaoImpl - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '3 where appointment.date < now' at line 1
+2022:11:331:16:21:35.994 [by.training.beauty.dao.mysql.ScheduleDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.ScheduleDaoImpl - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.id = 1' at line 1
+2022:11:331:16:21:35.995 [by.training.beauty.service.ScheduleServiceTest  -----+`  t] ERROR by.training.beauty.service.ScheduleServiceTest - an error occurred while getting schedule
+2022:11:331:16:21:36.199 [by.training.beauty.dao.mysql.UserDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Cannot delete or update a parent row: a foreign key constraint fails
+2022:11:331:16:21:36.201 [by.training.beauty.service.UserServiceTest  -----+`  t] ERROR by.training.beauty.service.AdministrateServiceTest - it is impossible to delete user
+by.training.beauty.service.ServiceException: by.training.beauty.dao.DaoException
+	at by.training.beauty.service.UserService.deleteUser(UserService.java:162) ~[classes/:?]
+	at by.training.beauty.service.UserServiceTest.testDeleteUser(UserServiceTest.java:125) ~[test-classes/:?]
+	at jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:577) ~[?:?]
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128) ~[testng-7.4.0.jar:7.4.0]
+	at java.util.ArrayList.forEach(ArrayList.java:1511) [?:?]
+	at org.testng.TestRunner.privateRun(TestRunner.java:794) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestRunner.run(TestRunner.java:596) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:377) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:371) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:332) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.run(SuiteRunner.java:276) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1212) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1134) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuites(TestNG.java:1063) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.run(TestNG.java:1031) [testng-7.4.0.jar:7.4.0]
+	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:66) [testng-rt.jar:?]
+	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:109) [testng-rt.jar:?]
+Caused by: by.training.beauty.dao.DaoException
+	at by.training.beauty.dao.mysql.UserDaoImpl.delete(UserDaoImpl.java:215) ~[classes/:?]
+	at by.training.beauty.service.UserService.deleteUser(UserService.java:149) ~[classes/:?]
+	... 26 more
+2022:11:331:16:22:30.573 [by.training.beauty.dao.mysql.AppointmentDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.AppointmentDaoImpl - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '3 where appointment.date < now' at line 1
+2022:11:331:16:22:30.843 [by.training.beauty.dao.mysql.ScheduleDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.ScheduleDaoImpl - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.id = 1' at line 1
+2022:11:331:16:22:30.844 [by.training.beauty.service.ScheduleServiceTest  -----+`  t] ERROR by.training.beauty.service.ScheduleServiceTest - an error occurred while getting schedule
+2022:11:331:16:22:31.000 [by.training.beauty.dao.mysql.UserDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Cannot delete or update a parent row: a foreign key constraint fails
+2022:11:331:16:22:31.003 [by.training.beauty.service.UserServiceTest  -----+`  t] ERROR by.training.beauty.service.AdministrateServiceTest - it is impossible to delete user
+by.training.beauty.service.ServiceException: by.training.beauty.dao.DaoException
+	at by.training.beauty.service.UserService.deleteUser(UserService.java:162) ~[classes/:?]
+	at by.training.beauty.service.UserServiceTest.testDeleteUser(UserServiceTest.java:125) ~[test-classes/:?]
+	at jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:577) ~[?:?]
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128) ~[testng-7.4.0.jar:7.4.0]
+	at java.util.ArrayList.forEach(ArrayList.java:1511) [?:?]
+	at org.testng.TestRunner.privateRun(TestRunner.java:794) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestRunner.run(TestRunner.java:596) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:377) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:371) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:332) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.run(SuiteRunner.java:276) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1212) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1134) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuites(TestNG.java:1063) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.run(TestNG.java:1031) [testng-7.4.0.jar:7.4.0]
+	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:66) [testng-rt.jar:?]
+	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:109) [testng-rt.jar:?]
+Caused by: by.training.beauty.dao.DaoException
+	at by.training.beauty.dao.mysql.UserDaoImpl.delete(UserDaoImpl.java:215) ~[classes/:?]
+	at by.training.beauty.service.UserService.deleteUser(UserService.java:149) ~[classes/:?]
+	... 26 more
+2022:11:331:17:07:49.949 [by.training.beauty.dao.pool.ConnectionPool  -----+`  t] ERROR by.training.beauty.dao.pool.ConnectionPool - The limit of number of databse connections is exceeded
+2022:11:331:17:39:44.494 [by.training.beauty.dao.pool.ConnectionPool  -----+`  t] ERROR by.training.beauty.dao.pool.ConnectionPool - The limit of number of databse connections is exceeded
+2022:11:331:17:51:40.086 [by.training.beauty.dao.pool.ConnectionPool  -----+`  t] ERROR by.training.beauty.dao.pool.ConnectionPool - The limit of number of databse connections is exceeded
+2022:11:331:17:52:24.999 [by.training.beauty.dao.pool.ConnectionPool  -----+`  t] ERROR by.training.beauty.dao.pool.ConnectionPool - The limit of number of databse connections is exceeded
+2022:11:331:17:57:36.048 [by.training.beauty.dao.mysql.AppointmentDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.AppointmentDaoImpl - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '3 where appointment.date < now' at line 1
+2022:11:331:17:57:36.481 [by.training.beauty.dao.mysql.UserDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Cannot delete or update a parent row: a foreign key constraint fails
+2022:11:331:17:57:36.487 [by.training.beauty.service.UserServiceTest  -----+`  t] ERROR by.training.beauty.service.AdministrateServiceTest - it is impossible to delete user
+by.training.beauty.service.ServiceException: by.training.beauty.dao.DaoException
+	at by.training.beauty.service.UserService.deleteUser(UserService.java:162) ~[classes/:?]
+	at by.training.beauty.service.UserServiceTest.testDeleteUser(UserServiceTest.java:125) ~[test-classes/:?]
+	at jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:577) ~[?:?]
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128) ~[testng-7.4.0.jar:7.4.0]
+	at java.util.ArrayList.forEach(ArrayList.java:1511) [?:?]
+	at org.testng.TestRunner.privateRun(TestRunner.java:794) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestRunner.run(TestRunner.java:596) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:377) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:371) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:332) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.run(SuiteRunner.java:276) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1212) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1134) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuites(TestNG.java:1063) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.run(TestNG.java:1031) [testng-7.4.0.jar:7.4.0]
+	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:66) [testng-rt.jar:?]
+	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:109) [testng-rt.jar:?]
+Caused by: by.training.beauty.dao.DaoException
+	at by.training.beauty.dao.mysql.UserDaoImpl.delete(UserDaoImpl.java:215) ~[classes/:?]
+	at by.training.beauty.service.UserService.deleteUser(UserService.java:149) ~[classes/:?]
+	... 26 more
+2022:11:331:17:57:36.641 [by.training.beauty.dao.mysql.ScheduleDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.ScheduleDaoImpl - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.id = 1' at line 1
+2022:11:331:17:57:36.641 [by.training.beauty.service.ScheduleServiceTest  -----+`  t] ERROR by.training.beauty.service.ScheduleServiceTest - an error occurred while getting schedule
+2022:11:331:17:59:14.465 [by.training.beauty.dao.mysql.AppointmentDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.AppointmentDaoImpl - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '3 where appointment.date < now' at line 1
+2022:11:331:17:59:15.048 [by.training.beauty.dao.mysql.ScheduleDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.ScheduleDaoImpl - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.id = 1' at line 1
+2022:11:331:17:59:15.048 [by.training.beauty.service.ScheduleServiceTest  -----+`  t] ERROR by.training.beauty.service.ScheduleServiceTest - an error occurred while getting schedule
+2022:11:331:17:59:15.184 [by.training.beauty.dao.mysql.UserDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Cannot delete or update a parent row: a foreign key constraint fails
+2022:11:331:17:59:15.187 [by.training.beauty.service.UserServiceTest  -----+`  t] ERROR by.training.beauty.service.AdministrateServiceTest - it is impossible to delete user
+by.training.beauty.service.ServiceException: by.training.beauty.dao.DaoException
+	at by.training.beauty.service.UserService.deleteUser(UserService.java:162) ~[classes/:?]
+	at by.training.beauty.service.UserServiceTest.testDeleteUser(UserServiceTest.java:125) ~[test-classes/:?]
+	at jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:577) ~[?:?]
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128) ~[testng-7.4.0.jar:7.4.0]
+	at java.util.ArrayList.forEach(ArrayList.java:1511) [?:?]
+	at org.testng.TestRunner.privateRun(TestRunner.java:794) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestRunner.run(TestRunner.java:596) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:377) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:371) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:332) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.run(SuiteRunner.java:276) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1212) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1134) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuites(TestNG.java:1063) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.run(TestNG.java:1031) [testng-7.4.0.jar:7.4.0]
+	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:66) [testng-rt.jar:?]
+	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:109) [testng-rt.jar:?]
+Caused by: by.training.beauty.dao.DaoException
+	at by.training.beauty.dao.mysql.UserDaoImpl.delete(UserDaoImpl.java:215) ~[classes/:?]
+	at by.training.beauty.service.UserService.deleteUser(UserService.java:149) ~[classes/:?]
+	... 26 more

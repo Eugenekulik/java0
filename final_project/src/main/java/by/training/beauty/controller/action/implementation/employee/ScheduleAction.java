@@ -5,6 +5,7 @@ import by.training.beauty.controller.action.PageEnum;
 import by.training.beauty.domain.*;
 import by.training.beauty.service.ScheduleService;
 import by.training.beauty.service.ServiceException;
+import by.training.beauty.service.ServiceFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -43,9 +44,11 @@ public class ScheduleAction implements Action {
         int pageCount  = 0;
         int paginationPage = 0;
         User employee = (User) request.getSession().getAttribute("user");
-        ScheduleService scheduleService = new ScheduleService();
         try {
-            List<Entity> entities = scheduleService.getSchedulesByEmployee(employee);
+            List<Entity> entities = ServiceFactory
+                    .getInstance()
+                    .getScheduleService()
+                    .getSchedulesByEmployee(employee);
             List<Schedule> schedules = entities.stream()
                     .filter(Schedule.class::isInstance)
                     .map(Schedule.class::cast)
