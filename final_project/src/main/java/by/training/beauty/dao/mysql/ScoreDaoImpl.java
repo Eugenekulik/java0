@@ -2,7 +2,6 @@ package by.training.beauty.dao.mysql;
 
 import by.training.beauty.dao.DaoException;
 import by.training.beauty.dao.spec.ScoreDao;
-import by.training.beauty.domain.Appointment;
 import by.training.beauty.domain.Score;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -288,13 +287,13 @@ public class ScoreDaoImpl implements ScoreDao {
     }
 
     @Override
-    public List<Score> findByAppointment(Appointment appointment) throws DaoException {
+    public List<Score> findByAppointment(int appointmentId) throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         List<Score> scores = new ArrayList<>();
         try {
             statement = connection.prepareStatement(SQL_FIND_BY_APPOINTMENT);
-            statement.setInt(1,appointment.getId());
+            statement.setInt(1, appointmentId);
             statement.execute();
             resultSet = statement.getResultSet();
             while(resultSet.next()){

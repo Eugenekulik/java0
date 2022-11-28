@@ -1,8 +1,10 @@
-package by.training.beauty.service;
+package by.training.beauty.service.implementation;
 
 import by.training.beauty.dao.spec.*;
 import by.training.beauty.domain.*;
 import by.training.beauty.dao.DaoException;
+import by.training.beauty.service.spec.AppointmentService;
+import by.training.beauty.service.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -14,7 +16,7 @@ import java.util.stream.Collectors;
 /**
  * This service allows to do some activities with appointments.
  */
-public class AppointmentService {
+public class AppointmentServiceImpl implements AppointmentService {
     //CONSTANTS
     private static final String APPOINTMENT_DAO = "appointmentDao";
     private static final String PROCEDURE_EMPLOYEE_DAO
@@ -26,7 +28,7 @@ public class AppointmentService {
             = LogManager.getLogger(AppointmentService.class);
     private TransactionFactory transactionFactory;
 
-    public AppointmentService(TransactionFactory transactionFactory) {
+    public AppointmentServiceImpl(TransactionFactory transactionFactory) {
         this.transactionFactory = transactionFactory;
     }
 
@@ -35,7 +37,7 @@ public class AppointmentService {
      * @param id identifier of appointment.
      * @throws ServiceException
      */
-    public void cancelAppointment(int id) throws ServiceException {
+    @Override public void cancelAppointment(int id) throws ServiceException {
         Transaction transaction = null;
         try {
             transaction = transactionFactory.createTransaction();
@@ -61,7 +63,7 @@ public class AppointmentService {
      * @return List of user's appointments.
      * @throws ServiceException
      */
-    public List<Entity> usersAppointment(User user) throws ServiceException {
+    @Override public List<Entity> usersAppointment(User user) throws ServiceException {
         Transaction transaction = null;
         List<Entity> entities = null;
         try {
@@ -145,7 +147,7 @@ public class AppointmentService {
      * @return
      * @throws ServiceException
      */
-    public boolean addAppointment(Appointment appointment
+    @Override public boolean addAppointment(Appointment appointment
             ,int procedureId,int employeeId) throws ServiceException {
         Transaction transaction = null;
         try {
@@ -165,7 +167,7 @@ public class AppointmentService {
                 User employee = userDao.findById(employeeId);
                 ScheduleDao scheduleDao = transaction.createDao("scheduleDao");
                 Schedule schedule = scheduleDao
-                        .findByEmployeeDate(appointment.getDate(), employee);
+                        .findByEmployeeDate(appointment.getDate(), employee.getId());
                 schedule.setAppointmentId(result.getId());
                 scheduleDao.update(schedule);
             }
@@ -188,7 +190,7 @@ public class AppointmentService {
      * @param appointment
      * @throws ServiceException
      */
-    public void updateAppointment(Appointment appointment)
+    @Override public void updateAppointment(Appointment appointment)
             throws ServiceException {
         Transaction transaction = null;
         try {
@@ -209,7 +211,7 @@ public class AppointmentService {
         }
     }
 
-    public void archive() {
+    @Override public void archive() {
         Transaction transaction = null;
         try {
             transaction = transactionFactory.createTransaction();

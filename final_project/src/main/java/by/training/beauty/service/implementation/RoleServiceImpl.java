@@ -1,27 +1,28 @@
-package by.training.beauty.service;
+package by.training.beauty.service.implementation;
 
 import by.training.beauty.dao.*;
 import by.training.beauty.dao.mysql.DaoEnum;
-import by.training.beauty.dao.mysql.TransactionFactoryImpl;
 import by.training.beauty.dao.spec.RoleDao;
 import by.training.beauty.dao.spec.Transaction;
 import by.training.beauty.dao.spec.TransactionFactory;
 import by.training.beauty.domain.Role;
+import by.training.beauty.service.spec.RoleService;
+import by.training.beauty.service.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
-public class RoleService{
+public class RoleServiceImpl implements RoleService {
     private static final Logger LOGGER = LogManager.getLogger(RoleService.class);
     private TransactionFactory transactionFactory;
 
-    public RoleService(TransactionFactory transactionFactory) {
+    public RoleServiceImpl(TransactionFactory transactionFactory) {
         this.transactionFactory = transactionFactory;
     }
 
 
-    public List<Role> getAllRoles() throws ServiceException {
+    @Override public List<Role> getAllRoles() throws ServiceException {
         Transaction transaction = null;
         try {
             transaction = transactionFactory.createTransaction();

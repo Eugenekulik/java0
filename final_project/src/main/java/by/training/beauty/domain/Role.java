@@ -3,6 +3,12 @@ package by.training.beauty.domain;
 import java.util.Objects;
 
 public class Role extends Entity{
+    private String name;
+
+    public Role(int id, String name){
+        setId(id);
+        this.name = name;
+    }
     public Role(String name) {
         this.name = name;
     }
@@ -16,7 +22,7 @@ public class Role extends Entity{
         this.name = name;
     }
 
-    private String name;
+
 
 
     @Override
@@ -30,5 +36,8 @@ public class Role extends Entity{
     @Override
     public int hashCode() {
         return Objects.hash(name);
+    }
+
+    public static class Builder {
     }
 }

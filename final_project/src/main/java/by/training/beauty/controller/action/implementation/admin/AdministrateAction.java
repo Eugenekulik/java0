@@ -6,7 +6,7 @@ import by.training.beauty.domain.*;
 import by.training.beauty.dto.AppointmentDto;
 import by.training.beauty.dto.ProcedureDto;
 import by.training.beauty.dto.ScheduleDto;
-import by.training.beauty.service.AdministrateService;
+import by.training.beauty.service.implementation.AdministrateServiceImpl;
 import by.training.beauty.service.ServiceException;
 import by.training.beauty.service.ServiceFactory;
 import org.apache.logging.log4j.LogManager;
@@ -23,7 +23,7 @@ import java.util.List;
  * the specific method of AdministrateService is called.
  *
  * @see Action
- * @see AdministrateService
+ * @see AdministrateServiceImpl
  */
 
 public class AdministrateAction implements Action {

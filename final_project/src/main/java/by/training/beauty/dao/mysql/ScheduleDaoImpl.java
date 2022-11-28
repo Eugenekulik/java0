@@ -1,10 +1,8 @@
 package by.training.beauty.dao.mysql;
 
 import by.training.beauty.dao.spec.ScheduleDao;
-import by.training.beauty.domain.Appointment;
 import by.training.beauty.domain.Schedule;
 import by.training.beauty.dao.DaoException;
-import by.training.beauty.domain.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,11 +21,6 @@ public class ScheduleDaoImpl implements ScheduleDao {
             "SELECT schedule.id, schedule.employee_id, schedule.date, schedule.appointment_id " +
             "FROM schedule " +
             "WHERE schedule.id>0 LIMIT ?, ?;";
-    private static final String SQL_FIND_BY_APPOINTMENT =
-            "SELECT schedule.id, schedule.employee_id, schedule.date, " +
-            "schedule.appointment_id " +
-            "FROM schedule " +
-            "WHERE schedule.appointment_id = ?;";
     private static final String SQL_ARCHIVE =
             "DELETE FROM schedule " +
             "where schedule.date < now() and schedule.appointment_id is null";
@@ -48,7 +41,7 @@ public class ScheduleDaoImpl implements ScheduleDao {
             "FROM schedule;";
     private static final String SQL_FIND_BY_ID =
             "SELECT schedule.id, schedule.employee_id, schedule.date, schedule.appointment_id " +
-            "FROM schedule" +
+            "FROM schedule " +
             "WHERE schedule.id = ?;";
     private static final String SQL_DELETE =
             "DELETE FROM schedule WHERE schedule.id = ?;";
@@ -239,7 +232,9 @@ public class ScheduleDaoImpl implements ScheduleDao {
             statement = connection.prepareStatement(SQL_UPDATE);
             statement.setInt(1, schedule.getEmployeeId());
             statement.setTimestamp(2, Timestamp.valueOf(schedule.getDate()));
-            statement.setInt(3, schedule.getAppointmentId());
+            if(schedule.getAppointmentId() != 0)
+                statement.setInt(3, schedule.getAppointmentId());
+            else statement.setNull(3,Types.INTEGER);
             statement.setInt(4, schedule.getId());
             return statement.executeUpdate() != 0;
         } catch (SQLException e) {
@@ -301,14 +296,14 @@ public class ScheduleDaoImpl implements ScheduleDao {
     }
 
     @Override
-    public Schedule findByEmployeeDate(LocalDateTime date, User employee) throws DaoException {
+    public Schedule findByEmployeeDate(LocalDateTime date, int employeeId) throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         Schedule schedule = new Schedule();
         try {
             statement = connection.prepareStatement(SQL_FIND_BY_EMPLOYEE_DATE);
             statement.setTimestamp(1, Timestamp.valueOf(date));
-            statement.setInt(2, employee.getId());
+            statement.setInt(2, employeeId);
             statement.execute();
             resultSet = statement.getResultSet();
             while(resultSet.next()){
@@ -339,43 +334,6 @@ public class ScheduleDaoImpl implements ScheduleDao {
         }
     }
 
-    @Override
-    public Schedule findByAppointment(Appointment appointment) throws DaoException {
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        Schedule schedule = new Schedule();
-        try {
-            statement = connection.prepareStatement(SQL_FIND_BY_APPOINTMENT);
-            statement.setInt(1,appointment.getId());
-            statement.execute();
-            resultSet = statement.getResultSet();
-            while(resultSet.next()){
-                schedule.setId(resultSet.getInt("schedule.id"));
-                schedule.setEmployeeId(resultSet.getInt("schedule.employee_id"));
-                schedule.setDate(resultSet.getTimestamp("schedule.date").toLocalDateTime());
-                schedule.setAppointmentId(resultSet.getInt("schedule.appointment_id"));
-            }
-            return schedule;
-        } catch (SQLException e) {
-            LOGGER.error(e.getMessage());
-            throw new DaoException();
-        } finally {
-            try {
-                if (resultSet != null) {
-                    resultSet.close();
-                }
-            } catch (SQLException e) {
-                LOGGER.error(e.getMessage());
-            }
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-            } catch (SQLException e) {
-                LOGGER.error(e.getMessage());
-            }
-        }
-    }
 
     @Override
     public void archive() throws DaoException {

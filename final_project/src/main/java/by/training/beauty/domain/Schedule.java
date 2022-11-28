@@ -15,6 +15,15 @@ public class Schedule extends Entity{
     private LocalDateTime date;
     private int appointmentId;
 
+
+    public Schedule(){}
+    public Schedule(Builder builder) {
+        setId(builder.id);
+        setAppointmentId(builder.appointmentId);
+        setEmployeeId(builder.employeeId);
+        setDate(builder.date);
+    }
+
     @Override
     public int hashCode() {
         return getId();
@@ -57,5 +66,36 @@ public class Schedule extends Entity{
 
     public void setAppointmentId(int appointmentId) {
         this.appointmentId = appointmentId;
+    }
+
+    public static class Builder{
+        private int id;
+        private int employeeId;
+        private LocalDateTime date;
+        private int appointmentId;
+
+
+        public Builder setId(int id) {
+            this.id = id;
+            return this;
+        }
+        public Builder setEmployeeId(int employeeId) {
+            this.employeeId = employeeId;
+            return this;
+        }
+
+        public Builder setDate(LocalDateTime date) {
+            this.date = date;
+            return this;
+        }
+
+        public Builder setAppointmentId(int appointmentId) {
+            this.appointmentId = appointmentId;
+            return this;
+        }
+
+        public Schedule build(){
+            return new Schedule(this);
+        }
     }
 }

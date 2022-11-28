@@ -1,9 +1,7 @@
 package by.training.beauty.dao.spec;
 
 import by.training.beauty.dao.DaoException;
-import by.training.beauty.domain.Appointment;
 import by.training.beauty.domain.Schedule;
-import by.training.beauty.domain.User;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -29,21 +27,13 @@ public interface ScheduleDao extends Dao<Schedule>{
     /**
      * This method allows getting schedule by datetime for concrete employee.
      * @param time LocalDateTime
+     * @param employeeId
      * @return Schedule
      * @throws DaoException
      */
-    Schedule findByEmployeeDate(LocalDateTime time, User employee) throws DaoException;
+    Schedule findByEmployeeDate(LocalDateTime time, int employeeId) throws DaoException;
 
 
-    /**
-     * This method find schedule for concrete appointment.
-     * @param appointment
-     * @return
-     * @throws DaoException
-     * @see DaoException
-     * @see Dao
-     */
-    Schedule findByAppointment(Appointment appointment) throws  DaoException;
 
 
     /**

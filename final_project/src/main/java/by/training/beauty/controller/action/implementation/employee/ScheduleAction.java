@@ -3,7 +3,7 @@ package by.training.beauty.controller.action.implementation.employee;
 import by.training.beauty.controller.action.Action;
 import by.training.beauty.controller.action.PageEnum;
 import by.training.beauty.domain.*;
-import by.training.beauty.service.ScheduleService;
+import by.training.beauty.service.spec.ScheduleService;
 import by.training.beauty.service.ServiceException;
 import by.training.beauty.service.ServiceFactory;
 import org.apache.logging.log4j.LogManager;

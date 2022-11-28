@@ -1,13 +1,14 @@
-package by.training.beauty.service;
+package by.training.beauty.service.implementation;
 
 import by.training.beauty.dao.*;
 import by.training.beauty.dao.mysql.DaoEnum;
-import by.training.beauty.dao.mysql.TransactionFactoryImpl;
 import by.training.beauty.dao.spec.*;
 import by.training.beauty.domain.*;
 import by.training.beauty.dto.AppointmentDto;
 import by.training.beauty.dto.ProcedureDto;
 import by.training.beauty.dto.ScheduleDto;
+import by.training.beauty.service.spec.AdministrateService;
+import by.training.beauty.service.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,11 +18,11 @@ import java.util.stream.Collectors;
 /**
  * This service class provides administration functionality.
  */
-public class AdministrateService {
+public class AdministrateServiceImpl implements AdministrateService {
 
     TransactionFactory transactionFactory;
 
-    public AdministrateService(TransactionFactory transactionFactory){
+    public AdministrateServiceImpl(TransactionFactory transactionFactory){
         this.transactionFactory = transactionFactory;
     }
 
@@ -32,7 +33,7 @@ public class AdministrateService {
     private static final String PROCEDURE_DAO = "procedureDao";
 
     private static final Logger LOGGER
-            = LogManager.getLogger(AdministrateService.class);
+            = LogManager.getLogger(AdministrateServiceImpl.class);
 
     /**
      * This method allows you to get the number of pages.
@@ -40,6 +41,7 @@ public class AdministrateService {
      * @return int number of pages.
      * @throws ServiceException
      */
+    @Override
     public int getPagecount(int tab) throws ServiceException {
         Transaction transaction = null;
         int pageCount = 0;
@@ -86,6 +88,7 @@ public class AdministrateService {
      * @return List of users
      * @throws ServiceException
      */
+    @Override
     public List<User> administrateUsers(int paginationPage) throws ServiceException {
         Transaction transaction = null;
         List<User> users = null;
@@ -95,7 +98,7 @@ public class AdministrateService {
             UserDao userDao = transaction.createDao(DaoEnum.USER.getDao());
             users = userDao.findInterval((paginationPage - 1) * 10, 10);
             for (User user : users) {
-                roleDao.findByUser(user).stream().forEach(user::addRole);
+                roleDao.findByUser(user.getId()).stream().forEach(user::addRole);
             }
             transaction.commit();
         } catch (DaoException e) {
@@ -117,6 +120,7 @@ public class AdministrateService {
      * @return List of appointments
      * @throws ServiceException
      */
+    @Override
     public List<AppointmentDto> administrateAppointments(int paginationPage)
             throws ServiceException {
         Transaction transaction = null;
@@ -223,6 +227,7 @@ public class AdministrateService {
      * @return List of procedures
      * @throws ServiceException
      */
+    @Override
     public List<ProcedureDto> administrateProcedures(int paginationPage)
             throws ServiceException {
         Transaction transaction = null;
@@ -274,6 +279,7 @@ public class AdministrateService {
      * @return List of schedules
      * @throws ServiceException
      */
+    @Override
     public List<ScheduleDto> administrateSchedules(int paginationPage)
             throws ServiceException {
         Transaction transaction = null;

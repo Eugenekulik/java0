@@ -2,6 +2,8 @@ package by.training.beauty.service;
 
 import by.training.beauty.dao.mysql.TransactionFactoryImpl;
 import by.training.beauty.dao.spec.TransactionFactory;
+import by.training.beauty.service.implementation.*;
+import by.training.beauty.service.spec.*;
 import by.training.beauty.service.validator.UserValidator;
 
 public class ServiceFactory {
@@ -9,15 +11,15 @@ public class ServiceFactory {
     private final TransactionFactory transactionFactory = new TransactionFactoryImpl();
 
     private final UserValidator userValidator = new UserValidator();
-    private final AdministrateService administrateService = new AdministrateService(transactionFactory);
-    private final AppointmentService appointmentService = new AppointmentService(transactionFactory);
-    private final ConnectionPoolService connectionPoolService = new ConnectionPoolService();
-    private final ScheduleService scheduleService = new ScheduleService(transactionFactory);
-    private final ProcedureService procedureService = new ProcedureService(transactionFactory);
-    private final UserService userService = new UserService(transactionFactory);
-    private final ScoreService scoreService = new ScoreService(transactionFactory);
-    private final RoleService roleService = new RoleService(transactionFactory);
-    private final CategoryService categoryService = new CategoryService(transactionFactory);
+    private final AdministrateService administrateService = new AdministrateServiceImpl(transactionFactory);
+    private final AppointmentService appointmentService = new AppointmentServiceImpl(transactionFactory);
+    private final ConnectionPoolService connectionPoolService = new ConnectionPoolServiceImpl();
+    private final ScheduleService scheduleService = new ScheduleServiceImpl(transactionFactory);
+    private final ProcedureService procedureService = new ProcedureServiceImpl(transactionFactory);
+    private final UserService userService = new UserServiceImpl(transactionFactory);
+    private final ScoreService scoreService = new ScoreServiceImpl(transactionFactory);
+    private final RoleService roleService = new RoleServiceImpl(transactionFactory);
+    private final CategoryService categoryService = new CategoryServiceImpl(transactionFactory);
 
 
     public static ServiceFactory getInstance(){

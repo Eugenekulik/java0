@@ -1,4 +1,4 @@
-package by.training.beauty.service;
+package by.training.beauty.service.implementation;
 
 import by.training.beauty.dao.*;
 import by.training.beauty.dao.mysql.DaoEnum;
@@ -7,21 +7,22 @@ import by.training.beauty.domain.Appointment;
 import by.training.beauty.domain.Procedure;
 import by.training.beauty.domain.ProcedureEmployee;
 import by.training.beauty.domain.Score;
+import by.training.beauty.service.spec.ScoreService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ScoreService {
+public class ScoreServiceImpl implements ScoreService {
     private static final Logger LOGGER = LogManager.getLogger(ScoreService.class);
     private TransactionFactory transactionFactory;
 
-    public ScoreService(TransactionFactory transactionFactory) {
+    public ScoreServiceImpl(TransactionFactory transactionFactory) {
         this.transactionFactory = transactionFactory;
     }
 
-    public boolean addScore(Score score) {
+    @Override public boolean addScore(Score score) {
         Transaction transaction = null;
         try {
             transaction = transactionFactory.createTransaction();
@@ -41,7 +42,7 @@ public class ScoreService {
         return false;
     }
 
-    public List<Score> getScoreByProcedure(Procedure procedure) {
+    @Override public List<Score> getScoreByProcedure(Procedure procedure) {
         Transaction transaction = null;
         List<Score> scores = new ArrayList<>();
         try {
@@ -56,7 +57,7 @@ public class ScoreService {
                 appointments.addAll(appointmentDao.getEmployeeAppointments(temp.getId()));
             }
             for (Appointment temp : appointments) {
-                scores.addAll(scoreDao.findByAppointment(temp));
+                scores.addAll(scoreDao.findByAppointment(temp.getId()));
             }
             transaction.commit();
         } catch (DaoException e) {
@@ -71,7 +72,7 @@ public class ScoreService {
         return scores;
     }
 
-    public boolean deleteScore(int id) {
+    @Override public boolean deleteScore(int id) {
         Transaction transaction = null;
         try{
            transaction = transactionFactory.createTransaction();

@@ -3,8 +3,9 @@ package by.training.beauty.controller;
 import by.training.beauty.controller.action.ActionFactory;
 import by.training.beauty.controller.action.Action;
 import by.training.beauty.controller.action.PageEnum;
-import by.training.beauty.service.ConnectionPoolService;
-import by.training.beauty.service.EmployeeWorkTimeScheduler;
+import by.training.beauty.service.implementation.EmployeeWorkTimeSchedulerImpl;
+import by.training.beauty.service.spec.ConnectionPoolService;
+import by.training.beauty.service.spec.EmployeeWorkTimeScheduler;
 import by.training.beauty.service.ServiceFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -73,7 +74,7 @@ public class Controller extends HttpServlet {
         ConnectionPoolService connectionPoolService =
                 ServiceFactory.getInstance().getConnectionPoolService();
         connectionPoolService.init();
-        EmployeeWorkTimeScheduler scheduler = new EmployeeWorkTimeScheduler();
+        EmployeeWorkTimeScheduler scheduler = new EmployeeWorkTimeSchedulerImpl();
         scheduler.init();
     }
 

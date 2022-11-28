@@ -1,4 +1,4 @@
-package by.training.beauty.service;
+package by.training.beauty.service.implementation;
 
 import by.training.beauty.dao.DaoException;
 import by.training.beauty.dao.spec.UserDao;
@@ -7,6 +7,8 @@ import by.training.beauty.dao.pool.ConnectionPool;
 import by.training.beauty.dao.pool.PooledConnection;
 import by.training.beauty.domain.Role;
 import by.training.beauty.domain.User;
+import by.training.beauty.service.ServiceException;
+import by.training.beauty.service.ServiceFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.annotations.AfterClass;
@@ -28,8 +30,8 @@ import java.util.Scanner;
 
 import static org.testng.Assert.*;
 
-public class UserServiceTest {
-    private static final Logger LOGGER = LogManager.getLogger(AdministrateServiceTest.class);
+public class UserServiceImplTest {
+    private static final Logger LOGGER = LogManager.getLogger(AdministrateServiceImplTest.class);
 
     @BeforeClass
     public void init() {

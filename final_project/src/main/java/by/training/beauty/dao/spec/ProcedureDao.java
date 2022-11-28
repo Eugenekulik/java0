@@ -19,4 +19,6 @@ public interface ProcedureDao extends Dao<Procedure>{
      * @throws DaoException
      */
     Procedure findByName(String name) throws DaoException;
+
+    Procedure findByProcedureEmployee(int procedureEmplyeeId) throws DaoException;
 }

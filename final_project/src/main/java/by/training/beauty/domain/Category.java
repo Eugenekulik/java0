@@ -14,6 +14,15 @@ public class Category extends Entity{
     private String name;
     private String description;
 
+    public Category() {
+    }
+
+    public Category(Builder builder) {
+        setId(builder.id);
+        setName(builder.name);
+        setDescription(builder.description);
+    }
+
     public String getName() {
         return name;
     }
@@ -46,5 +55,31 @@ public class Category extends Entity{
     @Override
     public String toString(){
         return "id: " + getId() + "name: " + name;
+    }
+
+    public static class Builder {
+        private int id;
+        private String name;
+        private String description;
+
+        public Builder setId(int id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder setName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder setDescription(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Category build(){
+            return new Category(this);
+        }
+
     }
 }

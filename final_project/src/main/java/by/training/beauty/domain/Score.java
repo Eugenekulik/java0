@@ -19,7 +19,17 @@ public class Score extends Entity {
     private int appointmentId;
     private String comment;
     private LocalDateTime date;
-    private byte value;
+    private int value;
+
+    public Score(){}
+    public Score(Builder builder) {
+        setId(builder.id);
+        setUserId(builder.userId);
+        setAppointmentId(builder.appointmentId);
+        setComment(builder.comment);
+        setDate(builder.date);
+        setValue(builder.value);
+    }
 
     public int getUserId() {
         return userId;
@@ -53,11 +63,11 @@ public class Score extends Entity {
         this.date = date;
     }
 
-    public byte getValue() {
+    public int getValue() {
         return value;
     }
 
-    public void setValue(byte value) {
+    public void setValue(int value) {
         this.value = value;
     }
 
@@ -78,5 +88,48 @@ public class Score extends Entity {
     public String toString() {
         return "id: " + getId() + "user_id: " +
                 userId + "appointment_id: " + appointmentId + "date: " + date;
+    }
+
+    public static class Builder {
+        private int id;
+        private int userId;
+        private int appointmentId;
+        private String comment;
+        private LocalDateTime date;
+        private int value;
+
+        public Builder setId(int id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder setUserId(int userId) {
+            this.userId = userId;
+            return this;
+        }
+
+        public Builder setAppointmentId(int appointmentId) {
+            this.appointmentId = appointmentId;
+            return this;
+        }
+
+        public Builder setComment(String comment) {
+            this.comment = comment;
+            return this;
+        }
+
+        public Builder setDate(LocalDateTime date) {
+            this.date = date;
+            return this;
+        }
+
+        public Builder setValue(int value) {
+            this.value = value;
+            return this;
+        }
+
+        public Score build(){
+            return new Score(this);
+        }
     }
 }

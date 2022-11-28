@@ -28,8 +28,8 @@ public class CategoryDaoImpl implements CategoryDao {
     private static final String SQL_DELETE = "DELETE FROM category WHERE category.id = ?;";
     private static final String SQL_CREATE = "INSERT INTO category(category.id, " +
             "category.name, category.description) VALUES (?, ?, ?);";
-    private static final String SQL_UPDATE = "UPDATE category SET category.name, " +
-            "category.description WHERE category.id = ?";
+    private static final String SQL_UPDATE = "UPDATE category SET category.name = ?, " +
+            "category.description = ? WHERE category.id = ?";
 
 
     @Override
@@ -249,7 +249,9 @@ public class CategoryDaoImpl implements CategoryDao {
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(SQL_UPDATE);
-            statement.setInt(1,category.getId());
+            statement.setString(1, category.getName());
+            statement.setString(2, category.getDescription());
+            statement.setInt(3,category.getId());
             return statement.executeUpdate() != 0;
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());

@@ -1,13 +1,15 @@
-package by.training.beauty.service;
+package by.training.beauty.service.implementation;
 
 import by.training.beauty.dao.*;
 import by.training.beauty.dao.mysql.DaoEnum;
-import by.training.beauty.dao.mysql.TransactionFactoryImpl;
 import by.training.beauty.dao.spec.*;
 import by.training.beauty.domain.Procedure;
 import by.training.beauty.domain.ProcedureEmployee;
 import by.training.beauty.domain.Role;
 import by.training.beauty.domain.User;
+import by.training.beauty.service.ServiceException;
+import by.training.beauty.service.ServiceFactory;
+import by.training.beauty.service.spec.UserService;
 import by.training.beauty.service.validator.UserValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,7 +17,6 @@ import org.apache.logging.log4j.Logger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -23,7 +24,7 @@ import java.util.stream.Collectors;
 /**
  * This service allows you to do some activities with users.
  */
-public class UserService {
+public class UserServiceImpl implements UserService {
     //CONSTANTS
     private static final String USER_DAO = "userDao";
     private static final String ROLLBACK_ERROR
@@ -32,7 +33,7 @@ public class UserService {
     private static final Logger LOGGER = LogManager.getLogger(UserService.class);
     private TransactionFactory transactionFactory;
 
-    public UserService(TransactionFactory transactionFactory) {
+    public UserServiceImpl(TransactionFactory transactionFactory) {
         this.transactionFactory = transactionFactory;
     }
 
@@ -43,7 +44,7 @@ public class UserService {
      * @return User if success, else null.
      * @throws ServiceException
      */
-    public User login(String login, String password) throws ServiceException {
+    @Override public User login(String login, String password) throws ServiceException {
         Transaction transaction = null;
         try {
             transaction = transactionFactory.createTransaction();
@@ -52,7 +53,7 @@ public class UserService {
             String hexPassword = hexPassword(password);
             User user = userDao.findByLogin(login);
             if(user == null || !user.getPassword().equals(hexPassword))return null;
-            roleDao.findByUser(user).stream().forEach(user::addRole);
+            roleDao.findByUser(user.getId()).stream().forEach(user::addRole);
             transaction.commit();
             return user;
         } catch (DaoException e) {
@@ -73,7 +74,7 @@ public class UserService {
      * @return  user if success, else null.
      * @throws ServiceException
      */
-    public User registrate(User user) throws ServiceException {
+    @Override public User registrate(User user) throws ServiceException {
         user.setPassword(hexPassword(user.getPassword()));
         user.addRole(new Role("client"));
         UserValidator userValidator =
@@ -109,37 +110,11 @@ public class UserService {
     }
 
     /**
-     * This method hash password(sha-256).
-     * @param password user password.
-     * @return hash-password.
-     */
-    private String hexPassword(String password) {
-        MessageDigest digest = null;
-        byte[] passwordbytes = null;
-        try {
-            digest = MessageDigest.getInstance("SHA-256");
-            passwordbytes = digest.digest(
-                    password.getBytes(StandardCharsets.UTF_8));
-        } catch (NoSuchAlgorithmException e) {
-            LOGGER.error(e);
-        }
-        StringBuilder hexPassword = new StringBuilder(2 * passwordbytes.length);
-        for (int i = 0; i < passwordbytes.length; i++) {
-            String hex = Integer.toHexString(0xff & passwordbytes[i]);
-            if (hex.length() == 1) {
-                hexPassword.append('0');
-            }
-            hexPassword.append(hex);
-        }
-        return hexPassword.toString();
-    }
-
-    /**
      * This method allows you to delete user from the store.
      * @param id identifier of user.
      * @throws ServiceException
      */
-    public void deleteUser(Integer id) throws ServiceException {
+    @Override public void deleteUser(Integer id) throws ServiceException {
         Transaction transaction = null;
         try {
             transaction = transactionFactory.createTransaction();
@@ -163,11 +138,38 @@ public class UserService {
     }
 
     /**
+     * This method hash password(sha-256).
+     *
+     * @param password user password.
+     * @return hash-password.
+     */
+    private String hexPassword(String password) {
+        MessageDigest digest = null;
+        byte[] passwordbytes = null;
+        try {
+            digest = MessageDigest.getInstance("SHA-256");
+            passwordbytes = digest.digest(
+                    password.getBytes(StandardCharsets.UTF_8));
+        } catch (NoSuchAlgorithmException e) {
+            UserServiceImpl.LOGGER.error(e);
+        }
+        StringBuilder hexPassword = new StringBuilder(2 * passwordbytes.length);
+        for (int i = 0; i < passwordbytes.length; i++) {
+            String hex = Integer.toHexString(0xff & passwordbytes[i]);
+            if (hex.length() == 1) {
+                hexPassword.append('0');
+            }
+            hexPassword.append(hex);
+        }
+        return hexPassword.toString();
+    }
+
+    /**
      * This method allows you to update information about user.
      * @param user new user with old id.
      * @throws ServiceException
      */
-    public void updateUser(User user) throws ServiceException {
+    @Override public void updateUser(User user) throws ServiceException {
         Transaction transaction = null;
         try {
             transaction = transactionFactory.createTransaction();
@@ -197,7 +199,7 @@ public class UserService {
      * @return List of users which roles are employee.
      * @throws ServiceException
      */
-    public List<User> employeesByProcedure(Procedure procedure)
+    @Override public List<User> employeesByProcedure(Procedure procedure)
             throws ServiceException {
         List<User> employeeList;
         Transaction transaction = null;
@@ -232,7 +234,7 @@ public class UserService {
      * @return List of users which roles are employee
      * @throws ServiceException
      */
-    public List<User> employeeList() throws ServiceException {
+    @Override public List<User> employeeList() throws ServiceException {
         List<User> employeeList;
         Transaction transaction = null;
         try {
@@ -253,7 +255,7 @@ public class UserService {
         return employeeList;
     }
 
-    public User findById(int id){
+    @Override public User findById(int id){
         Transaction transaction = null;
         User user = null;
         try {

@@ -1,9 +1,11 @@
-package by.training.beauty.service;
+package by.training.beauty.service.implementation;
 
 import by.training.beauty.dao.*;
 import by.training.beauty.dao.mysql.DaoEnum;
 import by.training.beauty.dao.spec.*;
 import by.training.beauty.domain.*;
+import by.training.beauty.service.spec.ScheduleService;
+import by.training.beauty.service.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,7 +20,7 @@ import java.util.stream.Collectors;
 /**
  * This service allows to do some activities with schedules.
  */
-public class ScheduleService {
+public class ScheduleServiceImpl implements ScheduleService {
     //CONSTANTS
     private static final String SCHEDULE_DAO = "scheduleDao";
     private static final String ROLLBACK_ERROR
@@ -28,7 +30,7 @@ public class ScheduleService {
             = LogManager.getLogger(ScheduleService.class);
     private TransactionFactory transactionFactory;
 
-    public ScheduleService(TransactionFactory transactionFactory) {
+    public ScheduleServiceImpl(TransactionFactory transactionFactory) {
         this.transactionFactory = transactionFactory;
     }
 
@@ -40,7 +42,7 @@ public class ScheduleService {
      * @return
      * @throws ServiceException
      */
-    public List<LocalTime> schedulesByEmployeeDate(int selectedEmployee, LocalDate date)
+    @Override public List<LocalTime> schedulesByEmployeeDate(int selectedEmployee, LocalDate date)
             throws ServiceException {
         List<Schedule> schedules;
         Transaction transaction = null;
@@ -73,7 +75,7 @@ public class ScheduleService {
      * @param date
      * @throws ServiceException
      */
-    public void addSchedule(int employeeId, LocalDate date)
+    @Override public void addSchedule(int employeeId, LocalDate date)
             throws ServiceException {
         Transaction transaction = null;
         try {
@@ -109,7 +111,7 @@ public class ScheduleService {
      * @param id identifier of the schedule
      * @throws ServiceException
      */
-    public void deleteschedule(Integer id) throws ServiceException {
+    @Override public void deleteschedule(Integer id) throws ServiceException {
         Transaction transaction = null;
         try {
             transaction = transactionFactory.createTransaction();
@@ -139,7 +141,7 @@ public class ScheduleService {
      * @return
      * @throws ServiceException
      */
-    public List<Entity> getSchedulesByEmployee(User employee)
+    @Override public List<Entity> getSchedulesByEmployee(User employee)
             throws ServiceException {
         List<Entity> schedules = new ArrayList<>();
         Transaction transaction = null;
@@ -172,7 +174,7 @@ public class ScheduleService {
         }
     }
 
-    public void archive() {
+    @Override public void archive() {
         Transaction transaction = null;
         try{
             transaction = transactionFactory.createTransaction();

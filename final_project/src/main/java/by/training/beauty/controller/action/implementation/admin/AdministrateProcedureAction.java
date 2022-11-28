@@ -3,7 +3,7 @@ package by.training.beauty.controller.action.implementation.admin;
 import by.training.beauty.controller.action.Action;
 import by.training.beauty.domain.Procedure;
 import by.training.beauty.domain.Role;
-import by.training.beauty.service.ProcedureService;
+import by.training.beauty.service.spec.ProcedureService;
 import by.training.beauty.service.ServiceException;
 import by.training.beauty.service.ServiceFactory;
 import org.apache.logging.log4j.LogManager;

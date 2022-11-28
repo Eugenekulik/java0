@@ -171,19 +171,19 @@ DROP TABLE IF EXISTS `test`.`score` ;
 CREATE TABLE IF NOT EXISTS `test`.`score` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT,
-  `value` TINYINT NOT NULL,
+  `value` INT NOT NULL,
   `appointment_id` INT NOT NULL,
-  `comment` TEXT(200) CHARACTER SET 'utf8mb4' NULL,
+  `comment` TEXT(200) CHARACTER SET 'utf8mb4',
   `date` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
   INDEX `_idx` (`user_id` ASC) VISIBLE,
-  CONSTRAINT `user`
+  CONSTRAINT `user_id_to_score`
     FOREIGN KEY (`user_id`)
     REFERENCES `test`.`user` (`id`)
     ON DELETE SET NULL
     ON UPDATE CASCADE ,
-  CONSTRAINT `appointment`
+  CONSTRAINT `appointment_id_to_score`
     FOREIGN KEY (`appointment_id`)
     REFERENCES `test`.`appointment` (`id`)
     ON DELETE CASCADE
@@ -205,29 +205,17 @@ CREATE TABLE IF NOT EXISTS `test`.`schedule` (
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
   CONSTRAINT `un_schedule` UNIQUE (`employee_id`,`date`),
   INDEX `employee_idx` (`employee_id` ASC) VISIBLE,
-  CONSTRAINT `employee`
+  CONSTRAINT `employee_to_schedule`
     FOREIGN KEY (`employee_id`)
     REFERENCES `test`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `appointment_id`
+  CONSTRAINT `appointment_id_to_schedule`
     FOREIGN KEY (`appointment_id`)
     REFERENCES `test`.`appointment` (`id`)
     ON DELETE SET NULL
     ON UPDATE CASCADE )
 ENGINE = InnoDB;
-
-CREATE DEFINER = CURRENT_USER TRIGGER `test`.`score_AFTER_INSERT` AFTER INSERT ON `score` FOR EACH ROW
-BEGIN
-    set @idr = (select procedure_employee_id
-    from score inner join appointment on score.appointment_id = appointment_id
-    where score.id = new.id);
-    update procedure_employee set procedure_employee.rating =
-                                      (select avg(value)
-                                       from score inner join appointment on score.appointment_id = appointment_id
-                                       where procedure_employee.id = procedure_employee_id)
-    where procedure_employee.id = @idr;
-END;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

@@ -1,8 +1,9 @@
-package by.training.beauty.service;
+package by.training.beauty.service.implementation;
 
 
 import by.training.beauty.dao.pool.ConnectionPool;
 import by.training.beauty.dao.DaoException;
+import by.training.beauty.service.spec.ConnectionPoolService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -16,7 +17,7 @@ import java.util.Properties;
 /**
  * This class allows work with connection pool.
  */
-public class ConnectionPoolService {
+public class ConnectionPoolServiceImpl implements ConnectionPoolService {
     private static final Logger LOGGER
             = LogManager.getLogger(ConnectionPoolService.class);
 
@@ -24,7 +25,7 @@ public class ConnectionPoolService {
      * This method initialize connection pool with properties
      * which are stored in the file "connection.properties".
      */
-    public void init(){
+    @Override public void init(){
         Properties properties = new Properties();
         FileReader fileReader = null;
         try {
@@ -59,7 +60,7 @@ public class ConnectionPoolService {
     /**
      * This method allows destroy connection pool.
      */
-    public void destroy(){
+    @Override public void destroy(){
         ConnectionPool.getInstance().destroy();
     }
 }

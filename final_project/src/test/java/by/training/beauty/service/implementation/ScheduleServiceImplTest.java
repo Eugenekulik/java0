@@ -1,4 +1,4 @@
-package by.training.beauty.service;
+package by.training.beauty.service.implementation;
 
 import by.training.beauty.dao.DaoException;
 import by.training.beauty.dao.spec.ScheduleDao;
@@ -6,6 +6,9 @@ import by.training.beauty.dao.mysql.ScheduleDaoImpl;
 import by.training.beauty.dao.pool.ConnectionPool;
 import by.training.beauty.dao.pool.PooledConnection;
 import by.training.beauty.domain.Schedule;
+import by.training.beauty.service.ServiceException;
+import by.training.beauty.service.ServiceFactory;
+import by.training.beauty.service.spec.ConnectionPoolService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.annotations.*;
@@ -26,8 +29,8 @@ import java.util.Scanner;
 
 import static org.testng.Assert.*;
 
-public class ScheduleServiceTest {
-    private static final Logger LOGGER = LogManager.getLogger(ScheduleServiceTest.class);
+public class ScheduleServiceImplTest {
+    private static final Logger LOGGER = LogManager.getLogger(ScheduleServiceImplTest.class);
     @BeforeClass
     public void init(){
         Properties properties = new Properties();
@@ -52,7 +55,7 @@ public class ScheduleServiceTest {
                     .getInstance()
                     .getScheduleService()
                     .schedulesByEmployeeDate(employeeId, localDate);
-            assertEquals(schedules.size(),3);
+            assertEquals(schedules.size(),2);
         } catch (ServiceException e) {
             LOGGER.error(String.format("it is impossible to get schedules " +
                     "by employee with id: %d",employeeId),e);
@@ -73,7 +76,7 @@ public class ScheduleServiceTest {
                 ScheduleDao scheduleDao = new ScheduleDaoImpl();
                 scheduleDao.setConnection(connection);
                 List<Schedule> actual  = scheduleDao.findByEmployee(3);
-                assertEquals(actual.size(),3);
+                assertEquals(actual.size(),2);
                 connection.close();
             } catch (DaoException e) {LOGGER.error(e);}
         } catch (ServiceException e) {
@@ -119,7 +122,7 @@ public class ScheduleServiceTest {
                 statement.executeUpdate(s);
             }
             connection.close();
-            ConnectionPoolService connectionPoolService = new ConnectionPoolService();
+            ConnectionPoolService connectionPoolService = new ConnectionPoolServiceImpl();
             connectionPoolService.destroy();
         } catch (SQLException |DaoException|IOException e) {LOGGER.error(e);}
     }

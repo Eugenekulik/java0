@@ -1,13 +1,14 @@
-package by.training.beauty.service;
+package by.training.beauty.service.implementation;
 
 import by.training.beauty.dao.spec.CategoryDao;
 import by.training.beauty.dao.spec.ProcedureDao;
 import by.training.beauty.dao.spec.Transaction;
 import by.training.beauty.dao.spec.TransactionFactory;
-import by.training.beauty.dao.mysql.TransactionFactoryImpl;
 import by.training.beauty.domain.Category;
 import by.training.beauty.domain.Procedure;
 import by.training.beauty.dao.DaoException;
+import by.training.beauty.service.spec.ProcedureService;
+import by.training.beauty.service.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -16,7 +17,7 @@ import java.util.List;
 /**
  * This service allows you to do some activities with procedures.
  */
-public class ProcedureService {
+public class ProcedureServiceImpl implements ProcedureService {
     //CONSTANTS
     private static final String PROCEDURE_DAO = "procedureDao";
     private static final String ROLLBACK_ERROR
@@ -26,7 +27,7 @@ public class ProcedureService {
             = LogManager.getLogger(ProcedureService.class);
     private TransactionFactory transactionFactory;
 
-    public ProcedureService(TransactionFactory transactionFactory) {
+    public ProcedureServiceImpl(TransactionFactory transactionFactory) {
         this.transactionFactory = transactionFactory;
     }
 
@@ -35,7 +36,7 @@ public class ProcedureService {
      * @return List of procedures
      * @throws ServiceException
      */
-    public List<Procedure> getProcedures() throws ServiceException {
+    @Override public List<Procedure> getProcedures() throws ServiceException {
         List<Procedure> procedures;
         Transaction transaction = null;
         try {
@@ -62,7 +63,7 @@ public class ProcedureService {
      * @return Procedure
      * @throws ServiceException
      */
-    public Procedure getProcedureById(int id) throws ServiceException {
+    @Override public Procedure getProcedureById(int id) throws ServiceException {
         Procedure procedure;
         Transaction transaction = null;
         try {
@@ -88,7 +89,7 @@ public class ProcedureService {
      * @return List of categories.
      * @throws ServiceException
      */
-    public List<Category> getCategories() throws ServiceException {
+    @Override public List<Category> getCategories() throws ServiceException {
         List<Category> categories;
         Transaction transaction = null;
         try {
@@ -114,7 +115,7 @@ public class ProcedureService {
      * @param procedure
      * @throws ServiceException
      */
-    public void addProcedure(Procedure procedure) throws ServiceException {
+    @Override public void addProcedure(Procedure procedure) throws ServiceException {
         Transaction transaction = null;
         try {
             transaction = transactionFactory.createTransaction();
@@ -138,7 +139,7 @@ public class ProcedureService {
      * @param id identifier of the procedure.
      * @throws ServiceException
      */
-    public void deleteProcedure(Integer id) throws ServiceException {
+    @Override public void deleteProcedure(Integer id) throws ServiceException {
         Transaction transaction = null;
         try {
             transaction = transactionFactory.createTransaction();
@@ -167,7 +168,7 @@ public class ProcedureService {
      * @param procedure new procedure with old id.
      * @throws ServiceException
      */
-    public void updateProcedure(Procedure procedure) throws ServiceException {
+    @Override public void updateProcedure(Procedure procedure) throws ServiceException {
         Transaction transaction = null;
         try {
             transaction = transactionFactory.createTransaction();

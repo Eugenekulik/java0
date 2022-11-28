@@ -4,7 +4,7 @@ import by.training.beauty.controller.action.Action;
 import by.training.beauty.domain.Role;
 import by.training.beauty.domain.Score;
 import by.training.beauty.domain.User;
-import by.training.beauty.service.ScoreService;
+import by.training.beauty.service.spec.ScoreService;
 import by.training.beauty.service.ServiceFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

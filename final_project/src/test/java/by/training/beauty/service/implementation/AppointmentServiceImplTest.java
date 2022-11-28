@@ -1,4 +1,4 @@
-package by.training.beauty.service;
+package by.training.beauty.service.implementation;
 
 import by.training.beauty.dao.spec.AppointmentDao;
 import by.training.beauty.dao.DaoException;
@@ -9,9 +9,11 @@ import by.training.beauty.domain.Appointment;
 import by.training.beauty.domain.Entity;
 import by.training.beauty.domain.Procedure;
 import by.training.beauty.domain.User;
+import by.training.beauty.service.ServiceException;
+import by.training.beauty.service.ServiceFactory;
+import by.training.beauty.service.spec.ConnectionPoolService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.mockito.Mockito;
 import org.testng.annotations.*;
 
 import java.io.File;
@@ -31,8 +33,8 @@ import java.util.Scanner;
 
 import static org.testng.Assert.*;
 
-public class AppointmentServiceTest {
-    private static final Logger LOGGER = LogManager.getLogger(AppointmentServiceTest.class);
+public class AppointmentServiceImplTest {
+    private static final Logger LOGGER = LogManager.getLogger(AppointmentServiceImplTest.class);
     @BeforeClass
     public void init(){
         Properties properties = new Properties();
@@ -157,7 +159,7 @@ public class AppointmentServiceTest {
             for (String s:queries) {
                 statement.executeUpdate(s);
             }
-            ConnectionPoolService connectionPoolService = new ConnectionPoolService();
+            ConnectionPoolService connectionPoolService = new ConnectionPoolServiceImpl();
             connectionPoolService.destroy();
         } catch (SQLException |DaoException|IOException e) {LOGGER.error(e);}
     }

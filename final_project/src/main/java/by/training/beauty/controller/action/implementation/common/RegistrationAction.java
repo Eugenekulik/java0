@@ -4,7 +4,7 @@ import by.training.beauty.controller.action.Action;
 import by.training.beauty.domain.User;
 import by.training.beauty.service.ServiceException;
 import by.training.beauty.service.ServiceFactory;
-import by.training.beauty.service.UserService;
+import by.training.beauty.service.spec.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

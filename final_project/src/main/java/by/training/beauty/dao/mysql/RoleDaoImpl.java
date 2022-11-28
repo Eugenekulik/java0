@@ -195,13 +195,13 @@ public class RoleDaoImpl implements RoleDao {
         }
     }
     @Override
-    public List<Role> findByUser(User user) throws DaoException {
+    public List<Role> findByUser(int userId) throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         List<Role> roles = new ArrayList<>();
         try {
             statement = connection.prepareStatement(SQL_FIND_BY_USER);
-            statement.setInt(1,user.getId());
+            statement.setInt(1,userId);
             statement.execute();
             resultSet = statement.getResultSet();
             while (resultSet.next()){

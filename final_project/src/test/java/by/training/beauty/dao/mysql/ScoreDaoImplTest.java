@@ -3,11 +3,10 @@ package by.training.beauty.dao.mysql;
 import by.training.beauty.dao.DaoException;
 import by.training.beauty.dao.pool.ConnectionPool;
 import by.training.beauty.dao.pool.PooledConnection;
-import by.training.beauty.dao.spec.ProcedureDao;
+import by.training.beauty.dao.spec.ScoreDao;
 import by.training.beauty.dao.spec.Transaction;
-import by.training.beauty.dao.spec.UserDao;
-import by.training.beauty.domain.Procedure;
-import by.training.beauty.domain.User;
+import by.training.beauty.domain.Schedule;
+import by.training.beauty.domain.Score;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.assertj.core.api.Assertions;
@@ -22,6 +21,8 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -29,9 +30,8 @@ import java.util.Scanner;
 
 import static org.testng.Assert.*;
 
-public class ProcudureDaoImplTest {
-
-    private static final Logger LOGGER = LogManager.getLogger(ProcudureDaoImplTest.class);
+public class ScoreDaoImplTest {
+    private static final Logger LOGGER = LogManager.getLogger(ScoreDaoImplTest.class);
 
 
     TransactionFactoryImpl transactionFactory;
@@ -53,211 +53,60 @@ public class ProcudureDaoImplTest {
         }
     }
 
-
     @Test
     public void testCount() {
         Transaction transaction = null;
         try {
             transaction = transactionFactory.createTransaction();
-            ProcedureDao procedureDao = transaction.createDao(DaoEnum.PROCEDURE.getDao());
-            Assertions.assertThat(procedureDao.count()).isEqualTo(6);
+            ScoreDao scoreDao = transaction.createDao(DaoEnum.SCORE.getDao());
+            Assertions.assertThat(scoreDao.count()).isEqualTo(1);
             transaction.commit();
         } catch (DaoException e) {
             e.printStackTrace();
             try {
-                if (transaction != null) {
-                    transaction.rollback();
-                }
+                if (transaction != null) transaction.rollback();
             } catch (DaoException e1) {
-                e.printStackTrace();
+                e1.printStackTrace();
             }
         }
     }
 
     @Test(priority = 1)
-    public void testCreate_Return_Procedure() {
+    public void testCreate_Return_Schedule() {
         Transaction transaction = null;
         try {
             transaction = transactionFactory.createTransaction();
-            ProcedureDao procedureDao = transaction.createDao(DaoEnum.PROCEDURE.getDao());
-            Assertions.assertThat(procedureDao.create(new Procedure.Builder()
-                        .setName("newProcedure")
-                        .setDescription("newProcedure")
-                        .setElapsedTime(60)
-                        .setCategoryId(1)
-                        .build()))
-                    .isNotNull();
+            ScoreDao scoreDao = transaction.createDao(DaoEnum.SCORE.getDao());
+            Assertions.assertThat(scoreDao.create(new Score.Builder()
+                    .setUserId(2)
+                    .setDate(LocalDateTime.now())
+                    .setValue(5)
+                    .setAppointmentId(2)
+                    .setComment("good job")
+                    .build())).isNotNull();
             transaction.commit();
         } catch (DaoException e) {
             e.printStackTrace();
             try {
-                if (transaction != null) {
-                    transaction.rollback();
-                }
+                if (transaction != null) transaction.rollback();
             } catch (DaoException e1) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-
-    @Test(priority = 2)
-    public void testDelete_Return_True(){
-        Transaction transaction = null;
-        try {
-            transaction = transactionFactory.createTransaction();
-            ProcedureDao procedureDao = transaction.createDao(DaoEnum.PROCEDURE.getDao());
-            Assertions.assertThat(procedureDao.delete(3)).isTrue();
-            transaction.commit();
-        } catch (DaoException e) {
-            e.printStackTrace();
-            try {
-                if (transaction != null) {
-                    transaction.rollback();
-                }
-            } catch (DaoException e1) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-
-    @Test
-    public void testFindAll(){
-        Transaction transaction = null;
-        try {
-            transaction = transactionFactory.createTransaction();
-            ProcedureDao procedureDao = transaction.createDao(DaoEnum.PROCEDURE.getDao());
-            Assertions.assertThat(procedureDao.findall().size()).isEqualTo(6);
-            transaction.commit();
-        } catch (DaoException e) {
-            e.printStackTrace();
-            try {
-                if (transaction != null) {
-                    transaction.rollback();
-                }
-            } catch (DaoException e1) {
-                e.printStackTrace();
+                e1.printStackTrace();
             }
         }
     }
 
     @Test
-    public void testFindById_Return_Procedure(){
+    public void testDelete_Return_False() throws DaoException {
         Transaction transaction = null;
         try {
             transaction = transactionFactory.createTransaction();
-            ProcedureDao procedureDao = transaction.createDao(DaoEnum.PROCEDURE.getDao());
-            Assertions.assertThat(procedureDao.findById(1))
-                    .usingRecursiveComparison().ignoringFields("description")
-                    .isEqualTo(new Procedure.Builder()
-                            .setId(1)
-                            .setName("Лазерное омоложение")
-                            .setElapsedTime(60)
-                            .setCategoryId(1)
-                            .build());
+            ScoreDao scoreDao = transaction.createDao(DaoEnum.SCORE.getDao());
+            Assertions.assertThat(scoreDao.delete(4)).isFalse();
             transaction.commit();
         } catch (DaoException e) {
             e.printStackTrace();
             try {
-                if (transaction != null) {
-                    transaction.rollback();
-                }
-            } catch (DaoException e1) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    @Test
-    public void testFindById_Return_Null(){
-        Transaction transaction = null;
-        try {
-            transaction = transactionFactory.createTransaction();
-            ProcedureDao procedureDao = transaction.createDao(DaoEnum.PROCEDURE.getDao());
-            Assertions.assertThat(procedureDao.findById(7)).isNull();
-            transaction.commit();
-        } catch (DaoException e) {
-            e.printStackTrace();
-            try {
-                if (transaction != null) {
-                    transaction.rollback();
-                }
-            } catch (DaoException e1) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    @Test
-    public void testFindByName_Return_Procedure(){
-        Transaction transaction = null;
-        try {
-            transaction = transactionFactory.createTransaction();
-            ProcedureDao procedureDao = transaction.createDao(DaoEnum.PROCEDURE.getDao());
-            Assertions.assertThat(procedureDao.findByName("Лазерное омоложение"))
-                    .usingRecursiveComparison().ignoringFields("description")
-                    .isEqualTo(new Procedure.Builder()
-                            .setId(1)
-                            .setName("Лазерное омоложение")
-                            .setElapsedTime(60)
-                            .setCategoryId(1)
-                            .build());
-            transaction.commit();
-        } catch (DaoException e) {
-            e.printStackTrace();
-            try {
-                if (transaction != null) {
-                    transaction.rollback();
-                }
-            } catch (DaoException e1) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    @Test
-    public void testFindByName_Return_Null(){
-        Transaction transaction = null;
-        try {
-            transaction = transactionFactory.createTransaction();
-            ProcedureDao procedureDao = transaction.createDao(DaoEnum.PROCEDURE.getDao());
-            Assertions.assertThat(procedureDao.findByName("jddfjkfdf")).isNull();
-            transaction.commit();
-        } catch (DaoException e) {
-            e.printStackTrace();
-            try {
-                if (transaction != null) {
-                    transaction.rollback();
-                }
-            } catch (DaoException e1) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    @Test
-    public void testFindInterval(){
-        Transaction transaction = null;
-        try {
-            transaction = transactionFactory.createTransaction();
-            ProcedureDao procedureDao = transaction.createDao(DaoEnum.PROCEDURE.getDao());
-            List<Procedure> procedures = procedureDao.findInterval(2,3);
-            Assertions.assertThat(procedures.size()).isEqualTo(3);
-            Assertions.assertThat(procedures)
-                    .usingRecursiveFieldByFieldElementComparatorIgnoringFields("description")
-                    .doesNotContain(new Procedure.Builder()
-                            .setId(1)
-                            .setName("Лазерное омоложение")
-                            .setElapsedTime(60)
-                            .setCategoryId(1)
-                            .build());
-            transaction.commit();
-        } catch (DaoException e){
-            try {
-                if (transaction != null) {
-                    transaction.rollback();
-                }
+                if (transaction != null) transaction.rollback();
             } catch (DaoException e1) {
                 e1.printStackTrace();
             }
@@ -265,29 +114,160 @@ public class ProcudureDaoImplTest {
     }
 
     @Test(priority = 3)
-    public void testUpdate(){
+    public void testDelete_Return_True() {
         Transaction transaction = null;
         try {
             transaction = transactionFactory.createTransaction();
-            ProcedureDao procedureDao = transaction.createDao(DaoEnum.PROCEDURE.getDao());
-            Assertions.assertThat(procedureDao.update(new Procedure.Builder()
-                            .setId(1)
-                            .setName("Лазерное")
-                            .setElapsedTime(45)
-                            .setDescription("лазерное")
-                            .setCategoryId(2)
-                            .build())).isTrue();
+            ScoreDao scoreDao = transaction.createDao(DaoEnum.SCORE.getDao());
+            Assertions.assertThat(scoreDao.delete(1)).isTrue();
             transaction.commit();
-        } catch (DaoException e){
+        } catch (DaoException e) {
+            e.printStackTrace();
             try {
-                if (transaction != null) {
-                    transaction.rollback();
-                }
+                if (transaction != null) transaction.rollback();
             } catch (DaoException e1) {
                 e1.printStackTrace();
             }
         }
     }
+
+    @Test
+    public void testFindAll() {
+        Transaction transaction = null;
+        try {
+            transaction = transactionFactory.createTransaction();
+            ScoreDao scoreDao = transaction.createDao(DaoEnum.SCORE.getDao());
+            Assertions.assertThat(scoreDao.findall().size()).isEqualTo(1);
+            transaction.commit();
+        } catch (DaoException e) {
+            e.printStackTrace();
+            try {
+                if (transaction != null) transaction.rollback();
+            } catch (DaoException e1) {
+                e1.printStackTrace();
+            }
+        }
+    }
+
+    @Test
+    public void testFindById_Return_Schedule() {
+        Transaction transaction = null;
+        try {
+            transaction = transactionFactory.createTransaction();
+            ScoreDao scoreDao = transaction.createDao(DaoEnum.SCORE.getDao());
+            Assertions.assertThat(scoreDao.findById(1))
+                    .usingRecursiveComparison()
+                    .ignoringFields("date")
+                    .isEqualTo(new Score.Builder()
+                            .setId(1)
+                            .setAppointmentId(1)
+                            .setComment("хорошая работа")
+                            .setValue(5)
+                            .setUserId(2)
+                            .build());
+            transaction.commit();
+        } catch (DaoException e) {
+            e.printStackTrace();
+            try {
+                if (transaction != null) transaction.rollback();
+            } catch (DaoException e1) {
+                e1.printStackTrace();
+            }
+        }
+    }
+
+
+    @Test
+    public void testFindById_Return_Null() {
+        Transaction transaction = null;
+        try {
+            transaction = transactionFactory.createTransaction();
+            ScoreDao scoreDao = transaction.createDao(DaoEnum.SCORE.getDao());
+            Assertions.assertThat(scoreDao.findById(4)).isNull();
+            transaction.commit();
+        } catch (DaoException e) {
+            e.printStackTrace();
+            try {
+                if (transaction != null) transaction.rollback();
+            } catch (DaoException e1) {
+                e1.printStackTrace();
+            }
+        }
+    }
+
+    @Test
+    public void testFindByAppointment() {
+        Transaction transaction = null;
+        try {
+            transaction = transactionFactory.createTransaction();
+            ScoreDao scoreDao = transaction.createDao(DaoEnum.SCORE.getDao());
+            Assertions.assertThat(scoreDao.findByAppointment(1))
+                    .usingRecursiveFieldByFieldElementComparatorIgnoringFields("date")
+                    .contains(new Score.Builder()
+                            .setId(1)
+                            .setAppointmentId(1)
+                            .setComment("хорошая работа")
+                            .setValue(5)
+                            .setUserId(2)
+                            .build())
+                    .size().isEqualTo(1);
+            transaction.commit();
+        } catch (DaoException e) {
+            e.printStackTrace();
+            try {
+                if (transaction != null) transaction.rollback();
+            } catch (DaoException e1) {
+                e1.printStackTrace();
+            }
+        }
+    }
+
+
+
+    @Test
+    public void testFindInterval() {
+        Transaction transaction = null;
+        try {
+            transaction = transactionFactory.createTransaction();
+            ScoreDao scoreDao = transaction.createDao(DaoEnum.SCORE.getDao());
+            Assertions.assertThat(scoreDao.findInterval(1, 1))
+                    .size().isEqualTo(0);
+            transaction.commit();
+        } catch (DaoException e) {
+            e.printStackTrace();
+            try {
+                if (transaction != null) transaction.rollback();
+            } catch (DaoException e1) {
+                e1.printStackTrace();
+            }
+        }
+    }
+
+
+    @Test(priority = 2)
+    public void testUpdate() {
+        Transaction transaction = null;
+        try {
+            transaction = transactionFactory.createTransaction();
+            ScoreDao scoreDao = transaction.createDao(DaoEnum.SCORE.getDao());
+            Assertions.assertThat(scoreDao.update(new Score.Builder()
+                    .setId(1)
+                    .setAppointmentId(1)
+                    .setComment("хорошая работа")
+                    .setValue(4)
+                    .setUserId(2)
+                    .build())).isTrue();
+            transaction.commit();
+        } catch (DaoException e) {
+            e.printStackTrace();
+            try {
+                if (transaction != null) transaction.rollback();
+            } catch (DaoException e1) {
+                e1.printStackTrace();
+            }
+        }
+    }
+
 
     @AfterClass
     public void destroy() {

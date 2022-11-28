@@ -4,6 +4,9 @@ import by.training.beauty.controller.action.Action;
 import by.training.beauty.controller.action.PageEnum;
 import by.training.beauty.domain.*;
 import by.training.beauty.service.*;
+import by.training.beauty.service.spec.AppointmentService;
+import by.training.beauty.service.spec.ScheduleService;
+import by.training.beauty.service.spec.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

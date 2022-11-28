@@ -36,7 +36,7 @@ public class TransactionImpl implements Transaction {
                 dao =  (T)new CategoryDaoImpl();
                 break;
             case "procedureDao":
-                dao =  (T)new ProcudureDaoImpl();
+                dao =  (T)new ProcedureDaoImpl();
                 break;
             case "procedureEmployeeDao":
                 dao = (T)new ProcedureEmployeeDaoImpl();

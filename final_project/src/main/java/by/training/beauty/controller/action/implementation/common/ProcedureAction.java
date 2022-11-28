@@ -7,6 +7,9 @@ import by.training.beauty.domain.Score;
 import by.training.beauty.domain.User;
 import by.training.beauty.service.*;
 import by.training.beauty.domain.Procedure;
+import by.training.beauty.service.spec.ProcedureService;
+import by.training.beauty.service.spec.ScoreService;
+import by.training.beauty.service.spec.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

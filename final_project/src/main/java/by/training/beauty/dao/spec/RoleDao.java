@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface RoleDao extends Dao<Role>{
 
-    List<Role> findByUser(User user) throws DaoException;
+    List<Role> findByUser(int userId) throws DaoException;
     boolean updateRolesForUser(User user)throws DaoException;
 }

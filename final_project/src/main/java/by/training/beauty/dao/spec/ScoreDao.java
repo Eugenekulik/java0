@@ -1,7 +1,6 @@
 package by.training.beauty.dao.spec;
 
 import by.training.beauty.dao.DaoException;
-import by.training.beauty.domain.Appointment;
 import by.training.beauty.domain.Score;
 
 import java.util.List;
@@ -14,5 +13,5 @@ import java.util.List;
  */
 
 public interface ScoreDao extends Dao<Score> {
-    public List<Score> findByAppointment(Appointment appointment) throws DaoException;
+    public List<Score> findByAppointment(int appointmentId) throws DaoException;
 }

@@ -1,12 +1,15 @@
-package by.training.beauty.service;
+package by.training.beauty.service.implementation;
 
 import by.training.beauty.dao.DaoException;
 import by.training.beauty.dao.spec.ProcedureDao;
-import by.training.beauty.dao.mysql.ProcudureDaoImpl;
+import by.training.beauty.dao.mysql.ProcedureDaoImpl;
 import by.training.beauty.dao.pool.ConnectionPool;
 import by.training.beauty.dao.pool.PooledConnection;
 import by.training.beauty.domain.Category;
 import by.training.beauty.domain.Procedure;
+import by.training.beauty.service.ServiceException;
+import by.training.beauty.service.ServiceFactory;
+import by.training.beauty.service.spec.ConnectionPoolService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.annotations.AfterClass;
@@ -27,8 +30,8 @@ import java.util.Scanner;
 
 import static org.testng.Assert.*;
 
-public class ProcedureServiceTest {
-    private static final Logger LOGGER = LogManager.getLogger(ProcedureServiceTest.class);
+public class ProcedureServiceImplTest {
+    private static final Logger LOGGER = LogManager.getLogger(ProcedureServiceImplTest.class);
     @BeforeClass
     public void init(){
         Properties properties = new Properties();
@@ -77,7 +80,7 @@ public class ProcedureServiceTest {
                     .getInstance()
                     .getProcedureService()
                     .getCategories();
-            assertEquals(categories.size(), 6);
+            assertEquals(categories.size(), 7);
         } catch (ServiceException e) {
             LOGGER.error("it is impossible to get categories",e);
         }
@@ -97,7 +100,7 @@ public class ProcedureServiceTest {
                     .addProcedure(procedure);
             try {
                 PooledConnection connection = ConnectionPool.getInstance().getConnection();
-                ProcedureDao procedureDao = new ProcudureDaoImpl();
+                ProcedureDao procedureDao = new ProcedureDaoImpl();
                 procedureDao.setConnection(connection);
                 procedure = procedureDao.findByName("Лазерный карбоновый пилинг");
                 assertNotNull(procedure);
@@ -118,7 +121,7 @@ public class ProcedureServiceTest {
                     .deleteProcedure(1);
             try {
                 PooledConnection connection = ConnectionPool.getInstance().getConnection();
-                ProcedureDao procedureDao = new ProcudureDaoImpl();
+                ProcedureDao procedureDao = new ProcedureDaoImpl();
                 procedureDao.setConnection(connection);
                 Procedure procedure = procedureDao.findById(1);
                 assertNull(procedure);
@@ -145,7 +148,7 @@ public class ProcedureServiceTest {
                     .updateProcedure(procedure);
             try {
                 PooledConnection connection = ConnectionPool.getInstance().getConnection();
-                ProcedureDao procedureDao = new ProcudureDaoImpl();
+                ProcedureDao procedureDao = new ProcedureDaoImpl();
                 procedureDao.setConnection(connection);
                 procedure = procedureDao.findById(1);
                 assertEquals(procedure.getName(), "change");
@@ -172,7 +175,7 @@ public class ProcedureServiceTest {
                 statement.executeUpdate(s);
             }
             connection.close();
-            ConnectionPoolService connectionPoolService = new ConnectionPoolService();
+            ConnectionPoolService connectionPoolService = new ConnectionPoolServiceImpl();
             connectionPoolService.destroy();
         } catch (SQLException | DaoException | IOException e) {LOGGER.error(e);}
     }

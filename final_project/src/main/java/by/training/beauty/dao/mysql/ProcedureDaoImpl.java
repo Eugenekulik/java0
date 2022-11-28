@@ -14,11 +14,18 @@ import java.util.List;
  * This class implement ProcedureDao for database MySQL.
  */
 
-public class ProcudureDaoImpl implements ProcedureDao {
-    private static final Logger LOGGER = LogManager.getLogger(ProcudureDaoImpl.class);
+public class ProcedureDaoImpl implements ProcedureDao {
+    private static final Logger LOGGER = LogManager.getLogger(ProcedureDaoImpl.class);
+    private static final String SQL_FIND_BY_PROCEDURE_EMPLOYEE =
+            "SELECT `procedure`.id, `procedure`.category_id, `procedure`.name, " +
+            "`procedure`.description, `procedure`.elapsed_time " +
+            "FROM `procedure` LEFT JOIN procedure_emplyee " +
+            "ON `procedure`.id = procedure_employee.procedure_id " +
+            "WHERE procedure_employee.id = ?";
     private Connection connection;
-    private static final String SQL_FIND_INTERVAL = "SELECT `procedure`.id, `procedure`.category_id, " +
-            "`procedure`.name, `procedure`.description, `procedure`.elapsed_time " +
+    private static final String SQL_FIND_INTERVAL =
+            "SELECT `procedure`.id, `procedure`.category_id, `procedure`.name, " +
+            "`procedure`.description, `procedure`.elapsed_time " +
             "FROM `procedure` WHERE `procedure`.id>0 LIMIT ?, ?;";
     private static final String SQL_CREATE = "INSERT INTO `procedure`(`procedure`.category_id, " +
             "`procedure`.name, `procedure`.description, `procedure`.elapsed_time) VALUES(?,?,?,?);";
@@ -285,6 +292,46 @@ public class ProcudureDaoImpl implements ProcedureDao {
         try {
             statement = connection.prepareStatement(SQL_FIND_BY_NAME);
             statement.setString(1,name);
+            statement.execute();
+            resultSet = statement.getResultSet();
+            if (resultSet.next()){
+                procedure = new Procedure();
+                procedure.setId(resultSet.getInt("procedure.id"));
+                procedure.setCategoryId(resultSet.getInt("procedure.id"));
+                procedure.setName(resultSet.getString("procedure.name"));
+                procedure.setDescription(resultSet.getString("procedure.description"));
+                procedure.setElapsedTime(resultSet.getInt("procedure.elapsed_time"));
+            }
+            return procedure;
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+            throw new DaoException();
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (SQLException e) {
+                LOGGER.error(e.getMessage());
+            }
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                LOGGER.error(e.getMessage());
+            }
+        }
+    }
+
+    @Override
+    public Procedure findByProcedureEmployee(int procedureEmplyeeId) throws DaoException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        Procedure procedure = null;
+        try {
+            statement = connection.prepareStatement(SQL_FIND_BY_PROCEDURE_EMPLOYEE);
+            statement.setInt(1,procedureEmplyeeId);
             statement.execute();
             resultSet = statement.getResultSet();
             if (resultSet.next()){
