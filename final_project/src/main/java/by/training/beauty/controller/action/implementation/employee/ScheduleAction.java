@@ -1,3 +1,4 @@
+/*
 package by.training.beauty.controller.action.implementation.employee;
 
 import by.training.beauty.controller.action.Action;
@@ -11,18 +12,21 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+*/
 /**
  * This class implement interface Action
  * and allows getting schedule for employee.
  *
  * @see Action
  * @see ScheduleService
- */
+ *//*
+
 
 public class ScheduleAction implements Action {
     private static final Logger LOGGER = LogManager.getLogger(ScheduleAction.class);
@@ -45,27 +49,15 @@ public class ScheduleAction implements Action {
         int paginationPage = 0;
         User employee = (User) request.getSession().getAttribute("user");
         try {
-            List<Entity> entities = ServiceFactory
+            List<Schedule> schedules = ServiceFactory
                     .getInstance()
                     .getScheduleService()
                     .getSchedulesByEmployee(employee);
-            List<Schedule> schedules = entities.stream()
-                    .filter(Schedule.class::isInstance)
-                    .map(Schedule.class::cast)
-                    .sorted((o1, o2) -> o1.getDate().compareTo(o2.getDate()))
-                            .collect(Collectors.toList());
-            List<Appointment> appointments = entities.stream()
-                    .filter(Appointment.class::isInstance)
-                            .map(Appointment.class::cast)
-                    .sorted((o1, o2) -> o1.getDate().compareTo(o2.getDate()))
-                                    .collect(Collectors.toList());
             Set<LocalDate>  dates = new HashSet<>();
             dates.addAll(schedules.stream()
                     .map(schedule -> schedule.getDate().toLocalDate())
                     .collect(Collectors.toSet()));
-            dates.addAll(appointments.stream()
-                    .map(appointment -> appointment.getDate().toLocalDate())
-                    .collect(Collectors.toSet()));
+            dates.addAll());
             try {
                 paginationPage = Integer.parseInt(request.getParameter("paginationPage"));
             } catch (NumberFormatException e) {
@@ -83,3 +75,5 @@ public class ScheduleAction implements Action {
     }
 
 }
+*/
+// TODO: 28.11.2022 fix this action

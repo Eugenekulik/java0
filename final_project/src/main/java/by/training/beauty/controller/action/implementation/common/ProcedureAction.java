@@ -71,7 +71,7 @@ public class ProcedureAction implements Action {
             request.setAttribute("categories",categories);
             request.setAttribute("procedureList", procedureList);
             request.getSession().setAttribute("procedure", procedure);
-            if(!scores.isEmpty()) request.setAttribute("scores", scores);
+            request.setAttribute("scores", scores);
             request.getSession().setAttribute("users", users);
             page = PageEnum.PROCEDURE.getPage();
         } catch (ServiceException e) {

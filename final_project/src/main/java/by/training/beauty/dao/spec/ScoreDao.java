@@ -13,5 +13,5 @@ import java.util.List;
  */
 
 public interface ScoreDao extends Dao<Score> {
-    public List<Score> findByAppointment(int appointmentId) throws DaoException;
+    public List<Score> findByProcedure(int appointmentId) throws DaoException;
 }

@@ -1,6 +1,7 @@
 package by.training.beauty.dao.spec;
 
 import by.training.beauty.dao.DaoException;
+import by.training.beauty.domain.Appointment;
 import by.training.beauty.domain.Procedure;
 
 /**
@@ -20,5 +21,5 @@ public interface ProcedureDao extends Dao<Procedure>{
      */
     Procedure findByName(String name) throws DaoException;
 
-    Procedure findByProcedureEmployee(int procedureEmplyeeId) throws DaoException;
+    Procedure findByAppointment(int appointmentId) throws DaoException;
 }

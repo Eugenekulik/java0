@@ -7,7 +7,6 @@ import java.util.Objects;
  * This class extends Entity and represents bean.
  * It represents the appointment which client can do.
  * it has fields:
- * procedureEmployeeId - the id of entity ProcedureEmployee;
  * userId - the id of the user who submitted the entry;
  * price - price of work;
  * status - what is the state of appointment(1 - in processing, 2 - active, 3 - archive, 4 - cancelled);
@@ -15,7 +14,8 @@ import java.util.Objects;
  */
 
 public class Appointment extends Entity{
-    private int procedureEmployeeId;
+    private Procedure procedure;
+    private User employee;
     private int userId;
     private double price;
     private int status;
@@ -28,18 +28,29 @@ public class Appointment extends Entity{
         setUserId(builder.userId);
         setDate(builder.date);
         setPrice(builder.price);
-        setProcedureEmployeeId(builder.procedureEmployeeId);
         setStatus(builder.status);
+        setProcedure(builder.procedure);
+        setEmployee(builder.employee);
     }
 
-    public int getProcedureEmployeeId() {
-        return procedureEmployeeId;
+
+    public Procedure getProcedure() {
+        return procedure;
     }
 
-    public void setProcedureEmployeeId(int procedureEmployeeId) {
-        this.procedureEmployeeId = procedureEmployeeId;
+    public Appointment setProcedure(Procedure procedure) {
+        this.procedure = procedure;
+        return this;
     }
 
+    public User getEmployee() {
+        return employee;
+    }
+
+    public Appointment setEmployee(User employee) {
+        this.employee = employee;
+        return this;
+    }
     public int getUserId() {
         return userId;
     }
@@ -88,7 +99,7 @@ public class Appointment extends Entity{
 
     @Override
     public String toString() {
-        return "id: " + getId() + "procedureEmployeeId: " + procedureEmployeeId +
+        return "id: " + getId() +
                 "userId: " + userId + "date: "  + date +
                         " status: " + status + "price: " + price;
     }
@@ -97,12 +108,22 @@ public class Appointment extends Entity{
     public static class Builder{
         private int id;
         private int userId;
-        private int procedureEmployeeId;
         private int status;
         private double price;
         private LocalDateTime date;
+        private Procedure procedure;
+        private User employee;
 
-        public Builder(){
+
+
+        public Builder setProcedure(Procedure procedure) {
+            this.procedure = procedure;
+            return this;
+        }
+
+        public Builder setEmployee(User employee) {
+            this.employee = employee;
+            return this;
         }
         public Builder setId(int id){
             this.id = id;
@@ -110,10 +131,6 @@ public class Appointment extends Entity{
         }
         public Builder setUserId(int userId){
             this.userId = userId;
-            return this;
-        }
-        public Builder setProcedureEmployeeId(int procedureEmployeeId){
-            this.procedureEmployeeId = procedureEmployeeId;
             return this;
         }
         public Builder setPrice(double price){

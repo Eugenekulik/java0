@@ -4,7 +4,6 @@ import by.training.beauty.dao.*;
 import by.training.beauty.dao.mysql.DaoEnum;
 import by.training.beauty.dao.spec.*;
 import by.training.beauty.domain.Procedure;
-import by.training.beauty.domain.ProcedureEmployee;
 import by.training.beauty.domain.Role;
 import by.training.beauty.domain.User;
 import by.training.beauty.service.ServiceException;
@@ -201,22 +200,14 @@ public class UserServiceImpl implements UserService {
      */
     @Override public List<User> employeesByProcedure(Procedure procedure)
             throws ServiceException {
-        List<User> employeeList;
+        List<User> employees;
         Transaction transaction = null;
         try {
             transaction = transactionFactory.createTransaction();
             UserDao userDao = transaction.createDao("userDao");
-            ProcedureEmployeeDao procedureEmployeeDao
-                    = transaction.createDao("procedureEmployeeDao");
-            Set<Integer> employeeIdSet = procedureEmployeeDao.
-                    findByProcedure(procedure).stream().
-                    map(ProcedureEmployee::getEmployeeId)
-                    .collect(Collectors.toSet());
-            employeeList = userDao.findEmployees();
+            employees = userDao.findEmployeesByProcedure(procedure.getId());
             transaction.commit();
-            return employeeList.stream()
-                    .filter(user -> employeeIdSet.contains(user.getId())).
-                    collect(Collectors.toList());
+            return employees;
         } catch (DaoException e) {
             try {
                 if(transaction != null) {

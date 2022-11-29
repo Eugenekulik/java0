@@ -1,6 +1,7 @@
 package by.training.beauty.dao.spec;
 
 import by.training.beauty.dao.DaoException;
+import by.training.beauty.domain.Role;
 import by.training.beauty.domain.User;
 
 import java.util.List;
@@ -33,4 +34,9 @@ public interface UserDao extends Dao<User>{
      * @throws DaoException
      */
     User findByName(String name) throws DaoException;
+
+
+    List<User> findEmployeesByProcedure(int procedureId)throws DaoException;
+
+    User findEmployeeByAppointment(int procedureEmployeeId) throws DaoException;
 }

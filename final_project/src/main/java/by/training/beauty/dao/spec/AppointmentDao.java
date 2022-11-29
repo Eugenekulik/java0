@@ -29,4 +29,5 @@ public interface AppointmentDao extends Dao<Appointment> {
      * This method archiving complete appointments.
      */
     void archive() throws DaoException;
+
 }

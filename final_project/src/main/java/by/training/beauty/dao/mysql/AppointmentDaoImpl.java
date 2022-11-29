@@ -16,29 +16,50 @@ import java.util.List;
 
 public class AppointmentDaoImpl implements AppointmentDao {
     private static final Logger LOGGER = LogManager.getLogger(AppointmentDaoImpl.class);
-    private static final String SQL_FIND_INTERVAL = "SELECT appointment.id, appointment.user_id, " +
-            "appointment.procedure_employee_id, appointment.date, appointment.status, " +
-            "appointment.price FROM appointment WHERE appointment.id>0 LIMIT ?, ?;";
-    private static final String SQL_CANCEL = "UPDATE appointment set status = 4 WHERE appointment.id = ?;";
-    private static final String SQL_ARCHIVE = "UPDATE appointment set status 3 where appointment.date < now";
     private Connection connection;
-    private static final String SQL_FIND_BY_USER = "SELECT appointment.id, appointment.user_id, " +
-            "appointment.procedure_employee_id, appointment.date, appointment.status, " +
+
+
+
+    private static final String SQL_FIND_INTERVAL =
+            "SELECT appointment.id, appointment.user_id, " +
+            "appointment.date, appointment.status, " +
+            "appointment.price FROM appointment WHERE appointment.id>0 LIMIT ?, ?;";
+    private static final String SQL_CANCEL =
+            "UPDATE appointment set status = 4 WHERE appointment.id = ?;";
+    private static final String SQL_ARCHIVE =
+            "UPDATE appointment set status 3 where appointment.date < now";
+    private static final String SQL_FIND_BY_USER =
+            "SELECT appointment.id, appointment.user_id, " +
+            "appointment.date, appointment.status, " +
             "appointment.price FROM appointment WHERE appointment.user_id = ?;";
-    private static final String SQL_FIND_BY_EMPLOYEE = "SELECT appointment.id, appointment.user_id, " +
+    private static final String SQL_FIND_BY_EMPLOYEE =
+            "SELECT appointment.id, appointment.user_id, " +
+            "appointment.date, appointment.status, appointment.price " +
+            "FROM appointment LEFT JOIN procedure_employee " +
+            "ON appointment.procedure_employee_id = procedure_employee.id " +
+            "WHERE procedure_employee.employee_id = ?;";
+    private static final String SQL_CREATE_1 =
+            "SELECT procedure_employee.id as id, procedure_employee.price as price " +
+            "FROM procedure_employee LEFT JOIN `procedure` " +
+            "ON `procedure`.id = procedure_employee.procedure_id " +
+            "WHERE `procedure`.id = ? and procedure_employee.employee_id = ?;";
+    private static final String SQL_CREATE_2 =
+            "INSERT INTO appointment(appointment.user_id, " +
             "appointment.procedure_employee_id, appointment.date, appointment.status, " +
-            "appointment.price FROM appointment WHERE appointment.procedure_employee_id = ?;";
-    private static final String SQL_CREATE = "INSERT INTO appointment(appointment.user_id, " +
-            "appointment.procedure_employee_id, appointment.date, appointment.status, " +
-            "appointment.price) VALUES(?,?,?,?,?);";
-    private static final String SQL_FIND_ALL = "SELECT appointment.id, appointment.user_id, " +
+            "appointment.price) " +
+            "VALUES(?,?,?,?,?);";
+    private static final String SQL_FIND_ALL =
+            "SELECT appointment.id, appointment.user_id, " +
             "appointment.procedure_employee_id, appointment.date, appointment.status, " +
             "appointment.price FROM appointment;";
-    private static final String SQL_FIND_BY_ID = "SELECT appointment.id, appointment.user_id, " +
+    private static final String SQL_FIND_BY_ID =
+            "SELECT appointment.id, appointment.user_id, " +
             "appointment.procedure_employee_id, appointment.date, appointment.status, " +
             "appointment.price FROM appointment WHERE appointment.id = ?;";
-    private static final String SQL_DELETE = "DELETE FROM appointment WHERE appointment.id = ?;";
-    private static final String SQL_UPDATE = "UPDATE appointment SET appointment.status = ?," +
+    private static final String SQL_DELETE =
+            "DELETE FROM appointment WHERE appointment.id = ?;";
+    private static final String SQL_UPDATE =
+            "UPDATE appointment SET appointment.status = ?," +
             "appointment.price = ? WHERE appointment.id = ?;";
 
     @Override
@@ -54,7 +75,6 @@ public class AppointmentDaoImpl implements AppointmentDao {
                 Appointment appointment = new Appointment();
                 appointment.setId(resultSet.getInt("appointment.id"));
                 appointment.setUserId(resultSet.getInt("appointment.user_id"));
-                appointment.setProcedureEmployeeId(resultSet.getInt("appointment.procedure_employee_id"));
                 appointment.setDate(resultSet.getTimestamp("appointment.date").toLocalDateTime());
                 appointment.setStatus(resultSet.getInt("appointment.status"));
                 appointment.setPrice(resultSet.getDouble("appointment.price"));
@@ -97,7 +117,6 @@ public class AppointmentDaoImpl implements AppointmentDao {
                 Appointment appointment = new Appointment();
                 appointment.setId(resultSet.getInt("appointment.id"));
                 appointment.setUserId(resultSet.getInt("appointment.user_id"));
-                appointment.setProcedureEmployeeId(resultSet.getInt("appointment.procedure_employee_id"));
                 appointment.setDate(resultSet.getTimestamp("appointment.date").toLocalDateTime());
                 appointment.setStatus(resultSet.getInt("appointment.status"));
                 appointment.setPrice(resultSet.getDouble("appointment.price"));
@@ -174,7 +193,6 @@ public class AppointmentDaoImpl implements AppointmentDao {
                 appointment = new Appointment();
                 appointment.setId(resultSet.getInt("appointment.id"));
                 appointment.setUserId(resultSet.getInt("appointment.user_id"));
-                appointment.setProcedureEmployeeId(resultSet.getInt("appointment.procedure_employee_id"));
                 appointment.setDate(resultSet.getTimestamp("appointment.date").toLocalDateTime());
                 appointment.setStatus(resultSet.getInt("appointment.status"));
                 appointment.setPrice(resultSet.getDouble("appointment.price"));
@@ -225,19 +243,31 @@ public class AppointmentDaoImpl implements AppointmentDao {
     @Override
     public Appointment create(Appointment appointment) throws DaoException {
         PreparedStatement statement = null;
+        PreparedStatement statement1 = null;
         ResultSet resultSet = null;
+        ResultSet resultSet1 = null;
         try {
-            statement = connection.prepareStatement(SQL_CREATE, Statement.RETURN_GENERATED_KEYS);
-            statement.setInt(1, appointment.getUserId());
-            statement.setInt(2, appointment.getProcedureEmployeeId());
-            statement.setTimestamp(3, Timestamp.valueOf(appointment.getDate()));
-            statement.setInt(4, appointment.getStatus());
-            statement.setDouble(5, appointment.getPrice());
-            statement.executeUpdate();
-            resultSet = statement.getGeneratedKeys();
-            while(resultSet.next()){
-                appointment.setId(resultSet.getInt("GENERATED_KEY"));
-                return appointment;
+            statement1 = connection.prepareStatement(SQL_CREATE_1);
+            statement1.setInt(1,appointment.getProcedure().getId());
+            statement1.setInt(2, appointment.getEmployee().getId());
+            statement1.execute();
+            resultSet1 = statement1.getResultSet();
+            if(resultSet1.next()){
+                int procedureEmployeeId = resultSet1.getInt("id");
+                double price = resultSet1.getDouble("price");
+                if(procedureEmployeeId == 0 || price == 0)return null;
+                statement = connection.prepareStatement(SQL_CREATE_2, Statement.RETURN_GENERATED_KEYS);
+                statement.setInt(1, appointment.getUserId());
+                statement.setInt(2,procedureEmployeeId);
+                statement.setTimestamp(3, Timestamp.valueOf(appointment.getDate()));
+                statement.setInt(4, appointment.getStatus());
+                statement.setDouble(5,price);
+                statement.executeUpdate();
+                resultSet = statement.getGeneratedKeys();
+                while(resultSet.next()){
+                    appointment.setId(resultSet.getInt("GENERATED_KEY"));
+                    return appointment;
+                }
             }
             return null;
         } catch (SQLException e) {
@@ -248,12 +278,18 @@ public class AppointmentDaoImpl implements AppointmentDao {
                 if (statement != null) {
                     statement.close();
                 }
+                if(statement1 != null){
+                    statement1.close();
+                }
             } catch (SQLException e) {
                 LOGGER.error(e.getMessage());
             }
             try {
                 if(resultSet != null){
                     resultSet.close();
+                }
+                if(resultSet1 != null){
+                    resultSet1.close();
                 }
             } catch (SQLException e) {
                 LOGGER.error(e.getMessage());
@@ -303,7 +339,6 @@ public class AppointmentDaoImpl implements AppointmentDao {
                 Appointment appointment = new Appointment();
                 appointment.setId(resultSet.getInt("appointment.id"));
                 appointment.setUserId(resultSet.getInt("appointment.user_id"));
-                appointment.setProcedureEmployeeId(resultSet.getInt("appointment.procedure_employee_id"));
                 appointment.setDate(resultSet.getTimestamp("appointment.date").toLocalDateTime());
                 appointment.setStatus(resultSet.getInt("appointment.status"));
                 appointment.setPrice(resultSet.getDouble("appointment.price"));
@@ -332,20 +367,19 @@ public class AppointmentDaoImpl implements AppointmentDao {
     }
 
     @Override
-    public List<Appointment> getEmployeeAppointments(int procedureEmployeeId) throws DaoException {
+    public List<Appointment> getEmployeeAppointments(int employeeId) throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         List<Appointment> appointments = new ArrayList<>();
         try {
             statement = connection.prepareStatement(SQL_FIND_BY_EMPLOYEE);
-            statement.setInt(1,procedureEmployeeId);
+            statement.setInt(1,employeeId);
             statement.execute();
             resultSet = statement.getResultSet();
             while (resultSet.next()){
                 Appointment appointment = new Appointment();
                 appointment.setId(resultSet.getInt("appointment.id"));
                 appointment.setUserId(resultSet.getInt("appointment.user_id"));
-                appointment.setProcedureEmployeeId(resultSet.getInt("appointment.procedure_employee_id"));
                 appointment.setDate(resultSet.getTimestamp("appointment.date").toLocalDateTime());
                 appointment.setStatus(resultSet.getInt("appointment.status"));
                 appointment.setPrice(resultSet.getDouble("appointment.price"));
@@ -413,4 +447,5 @@ public class AppointmentDaoImpl implements AppointmentDao {
             }
         }
     }
+
 }

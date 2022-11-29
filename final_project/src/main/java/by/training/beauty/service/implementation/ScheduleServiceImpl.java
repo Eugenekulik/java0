@@ -111,7 +111,7 @@ public class ScheduleServiceImpl implements ScheduleService {
      * @param id identifier of the schedule
      * @throws ServiceException
      */
-    @Override public void deleteschedule(Integer id) throws ServiceException {
+    @Override public void deleteSchedule(Integer id) throws ServiceException {
         Transaction transaction = null;
         try {
             transaction = transactionFactory.createTransaction();
@@ -135,44 +135,6 @@ public class ScheduleServiceImpl implements ScheduleService {
         }
     }
 
-    /**
-     * This method allows you to get all schedules for a specific employee.
-     * @param employee
-     * @return
-     * @throws ServiceException
-     */
-    @Override public List<Entity> getSchedulesByEmployee(User employee)
-            throws ServiceException {
-        List<Entity> schedules = new ArrayList<>();
-        Transaction transaction = null;
-        try {
-            transaction = transactionFactory.createTransaction();
-            ScheduleDao scheduleDao = transaction.createDao(SCHEDULE_DAO);
-            AppointmentDao appointmentDao
-                    = transaction.createDao("appointmentDao");
-            ProcedureEmployeeDao procedureEmployeeDao =
-                    transaction.createDao("procedureEmployeeDao");
-            List<ProcedureEmployee> procedureEmployeeList
-                    = procedureEmployeeDao.findByEmployee(employee);
-            List<Appointment> appointments = new ArrayList<>();
-            for (ProcedureEmployee temp:procedureEmployeeList) {
-                appointments.addAll(appointmentDao.getEmployeeAppointments(temp.getId()));
-            }
-            schedules.addAll(scheduleDao.findByEmployee(employee.getId()));
-            schedules.addAll(appointments);
-            transaction.commit();
-            return schedules;
-        } catch (DaoException e) {
-            try {
-                if(transaction != null) {
-                    transaction.rollback();
-                }
-            } catch (DaoException e1) {
-                LOGGER.error(ROLLBACK_ERROR);
-            }
-            throw new ServiceException(e);
-        }
-    }
 
     @Override public void archive() {
         Transaction transaction = null;

@@ -103,3 +103,13 @@ VALUES (3, 1, 20, 0),
        (4, 4, 20, 0),
        (4, 5, 20, 0),
        (4, 6, 20, 0);
+
+
+INSERT INTO appointment(id, user_id, procedure_employee_id, date, status, price)
+values (1,2,3,'2021-12-01 10:00:00',3,30);
+
+INSERT INTO schedule(id, employee_id, date, appointment_id)
+VALUES (1,3,'2021-12-01 10:00:00',1);
+
+INSERT INTO score(id, user_id, value, appointment_id, comment, date)
+VALUES (1,2,5,1,'отличное обслуживание','2021-12-01 11:00:00');

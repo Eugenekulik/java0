@@ -59,7 +59,7 @@ public class AdministrateScheduleAction implements Action {
             try {
                 ScheduleService scheduleService =
                         ServiceFactory.getInstance().getScheduleService();
-                scheduleService.deleteschedule(id);
+                scheduleService.deleteSchedule(id);
                 return true;
             } catch (ServiceException e) {
                 LOGGER.warn(String.format("it is impossible to delete schedule by id: %d", id));

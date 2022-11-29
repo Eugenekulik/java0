@@ -5,7 +5,6 @@ import by.training.beauty.dao.mysql.DaoEnum;
 import by.training.beauty.dao.spec.*;
 import by.training.beauty.domain.Appointment;
 import by.training.beauty.domain.Procedure;
-import by.training.beauty.domain.ProcedureEmployee;
 import by.training.beauty.domain.Score;
 import by.training.beauty.service.spec.ScoreService;
 import org.apache.logging.log4j.LogManager;
@@ -48,17 +47,7 @@ public class ScoreServiceImpl implements ScoreService {
         try {
             transaction = transactionFactory.createTransaction();
             ScoreDao scoreDao = transaction.createDao("scoreDao");
-            ProcedureEmployeeDao procedureEmployeeDao =
-                    transaction.createDao("procedureEmployeeDao");
-            AppointmentDao appointmentDao = transaction.createDao("appointmentDao");
-            List<ProcedureEmployee> procedureEmployeeList = procedureEmployeeDao.findByProcedure(procedure);
-            List<Appointment> appointments = new ArrayList<>();
-            for (ProcedureEmployee temp : procedureEmployeeList) {
-                appointments.addAll(appointmentDao.getEmployeeAppointments(temp.getId()));
-            }
-            for (Appointment temp : appointments) {
-                scores.addAll(scoreDao.findByAppointment(temp.getId()));
-            }
+            scores.addAll(scoreDao.findByProcedure(procedure.getId()));
             transaction.commit();
         } catch (DaoException e) {
             try {

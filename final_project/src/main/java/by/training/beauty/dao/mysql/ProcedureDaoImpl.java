@@ -2,6 +2,7 @@ package by.training.beauty.dao.mysql;
 
 import by.training.beauty.dao.DaoException;
 import by.training.beauty.dao.spec.ProcedureDao;
+import by.training.beauty.domain.Appointment;
 import by.training.beauty.domain.Procedure;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,6 +23,14 @@ public class ProcedureDaoImpl implements ProcedureDao {
             "FROM `procedure` LEFT JOIN procedure_emplyee " +
             "ON `procedure`.id = procedure_employee.procedure_id " +
             "WHERE procedure_employee.id = ?";
+    private static final String SQL_FIND_BY_APPOINTMENT =
+            "SELECT `procedure`.id, `procedure`.category_id, `procedure`.name, " +
+                    "`procedure`.description, `procedure`.elapsed_time " +
+                    "FROM `procedure` RIGHT JOIN " +
+                    "(SELECT procedure_employee.procedure_id FROM procedure_employee LEFT JOIN appointment " +
+                    "ON appointment.procedure_employee_id = procedure_employee.id " +
+                    "WHERE appointment.id = ?) as PE " +
+                    "ON `procedure`.id = PE.procedure_id;";
     private Connection connection;
     private static final String SQL_FIND_INTERVAL =
             "SELECT `procedure`.id, `procedure`.category_id, `procedure`.name, " +
@@ -325,13 +334,13 @@ public class ProcedureDaoImpl implements ProcedureDao {
     }
 
     @Override
-    public Procedure findByProcedureEmployee(int procedureEmplyeeId) throws DaoException {
+    public Procedure findByAppointment(int appointmentId) throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         Procedure procedure = null;
         try {
-            statement = connection.prepareStatement(SQL_FIND_BY_PROCEDURE_EMPLOYEE);
-            statement.setInt(1,procedureEmplyeeId);
+            statement = connection.prepareStatement(SQL_FIND_BY_APPOINTMENT);
+            statement.setInt(1, appointmentId);
             statement.execute();
             resultSet = statement.getResultSet();
             if (resultSet.next()){

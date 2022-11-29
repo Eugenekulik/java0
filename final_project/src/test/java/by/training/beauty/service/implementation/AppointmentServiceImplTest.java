@@ -50,7 +50,7 @@ public class AppointmentServiceImplTest {
         }
     }
 
-    @Test(priority = 3)
+   /* @Test(priority = 3)
     public void testAddAppointment() {
         Appointment expected = new Appointment();
         expected.setUserId(2);
@@ -76,7 +76,7 @@ public class AppointmentServiceImplTest {
                     .filter(appointment -> appointment.getDate().equals(expected.getDate())).findFirst().get();
             assertNotNull(actual);
         } catch (DaoException e) {LOGGER.error(e);}
-    }
+    }*/
 
     @Test(priority = 2)
     public void testCancelAppointment() {
@@ -94,7 +94,7 @@ public class AppointmentServiceImplTest {
             assertEquals(actual.getStatus(),4);
         } catch (DaoException e) {LOGGER.error(e);}
     }
-    @Test(priority = 1)
+  /*  @Test(priority = 1)
     public void testUsersAppointment() {
         User user = new User();
         user.setId(3);
@@ -107,9 +107,9 @@ public class AppointmentServiceImplTest {
         } catch (ServiceException e) {
             LOGGER.error("it is impossible to get user's appointments");
         }
-    }
+    }*/
 
-    @Test
+   /* @Test
     public void testUpdateAppointment(){
         Appointment expected = new Appointment();
         expected.setId(1);
@@ -134,7 +134,7 @@ public class AppointmentServiceImplTest {
         } catch (ServiceException e) {
             LOGGER.error("it is impossible to update appointment",e);
         }
-    }
+    }*/
 
     @Test
     public void testArchive(){

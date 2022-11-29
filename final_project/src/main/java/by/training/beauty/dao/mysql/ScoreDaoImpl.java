@@ -16,9 +16,17 @@ import java.util.List;
 
 public class ScoreDaoImpl implements ScoreDao {
     private static final Logger LOGGER = LogManager.getLogger(ScoreDaoImpl.class);
-    private static final String SQL_FIND_BY_APPOINTMENT = "SELECT score.id, score.user_id, " +
-            "score.value, score.appointment_id, score.comment, " +
-            "score.date FROM score WHERE score.appointment_id = ?;";
+    private static final String SQL_FIND_BY_PROCEDURE =
+            "SELECT score.id, score.user_id,score.value, score.appointment_id, " +
+            "score.comment, score.date " +
+            "FROM score LEFT JOIN (SELECT appointment.id " +
+            "FROM appointment LEFT JOIN (SELECT procedure_employee.id " +
+            "FROM procedure_employee " +
+            "LEFT JOIN `procedure` ON procedure_employee.procedure_id = `procedure`.id " +
+            "WHERE procedure.id = ?) as PE ON appointment.procedure_employee_id = PE.id " +
+            "WHERE PE.id is not null) as AP " +
+            "ON AP.id = score.appointment_id " +
+            "WHERE AP.id is not null;";
     private Connection connection;
     private static final String SQL_CREATE = "INSERT INTO score(score.user_id, " +
             "score.value , score.appointment_id , score.comment, " +
@@ -52,7 +60,7 @@ public class ScoreDaoImpl implements ScoreDao {
                 score.setUserId(resultSet.getInt("score.user_id"));
                 score.setValue(resultSet.getByte("score.value"));
                 score.setAppointmentId(resultSet.getInt("score.appointment_id"));
-                score.setComment(resultSet.getString("scpre.comment"));
+                score.setComment(resultSet.getString("score.comment"));
                 score.setDate(resultSet.getTimestamp("score.date").toLocalDateTime());
                 scores.add(score);
             }
@@ -170,7 +178,7 @@ public class ScoreDaoImpl implements ScoreDao {
                 score.setUserId(resultSet.getInt("score.user_id"));
                 score.setValue(resultSet.getByte("score.value"));
                 score.setAppointmentId(resultSet.getInt("score.appointment_id"));
-                score.setComment(resultSet.getString("scpre.comment"));
+                score.setComment(resultSet.getString("score.comment"));
                 score.setDate(resultSet.getTimestamp("score.date").toLocalDateTime());
             }
             return score;
@@ -287,13 +295,13 @@ public class ScoreDaoImpl implements ScoreDao {
     }
 
     @Override
-    public List<Score> findByAppointment(int appointmentId) throws DaoException {
+    public List<Score> findByProcedure(int procedureId) throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         List<Score> scores = new ArrayList<>();
         try {
-            statement = connection.prepareStatement(SQL_FIND_BY_APPOINTMENT);
-            statement.setInt(1, appointmentId);
+            statement = connection.prepareStatement(SQL_FIND_BY_PROCEDURE);
+            statement.setInt(1, procedureId);
             statement.execute();
             resultSet = statement.getResultSet();
             while(resultSet.next()){

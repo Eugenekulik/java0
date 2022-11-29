@@ -38,9 +38,6 @@ public class TransactionImpl implements Transaction {
             case "procedureDao":
                 dao =  (T)new ProcedureDaoImpl();
                 break;
-            case "procedureEmployeeDao":
-                dao = (T)new ProcedureEmployeeDaoImpl();
-                break;
             case "scoreDao":
                 dao = (T)new ScoreDaoImpl();
                 break;

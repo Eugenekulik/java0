@@ -1,26 +1,24 @@
 package by.training.beauty.service.implementation;
 
+import by.training.beauty.dao.mysql.DaoEnum;
 import by.training.beauty.dao.spec.*;
 import by.training.beauty.domain.*;
 import by.training.beauty.dao.DaoException;
+import by.training.beauty.dto.AppointmentDto;
 import by.training.beauty.service.spec.AppointmentService;
 import by.training.beauty.service.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * This service allows to do some activities with appointments.
  */
 public class AppointmentServiceImpl implements AppointmentService {
     //CONSTANTS
-    private static final String APPOINTMENT_DAO = "appointmentDao";
-    private static final String PROCEDURE_EMPLOYEE_DAO
-            = "procedureEmployeeDao";
     private static final String ROLLBACK_ERROR
             = "it is impossible to rollback transaction";
 
@@ -42,7 +40,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         try {
             transaction = transactionFactory.createTransaction();
             AppointmentDao appointmentDao
-                    = transaction.createDao(APPOINTMENT_DAO);
+                    = transaction.createDao(DaoEnum.APPOINTMENT.getDao());
             appointmentDao.cancel(id);
             transaction.commit();
         } catch (DaoException e) {
@@ -63,66 +61,21 @@ public class AppointmentServiceImpl implements AppointmentService {
      * @return List of user's appointments.
      * @throws ServiceException
      */
-    @Override public List<Entity> usersAppointment(User user) throws ServiceException {
+    @Override public List<Appointment> usersAppointment(User user) throws ServiceException {
         Transaction transaction = null;
-        List<Entity> entities = null;
         try {
             transaction = transactionFactory.createTransaction();
-            AppointmentDao appointmentDao = transaction.createDao(APPOINTMENT_DAO);
-            ProcedureDao procedureDao = transaction.createDao("procedureDao");
-            ProcedureEmployeeDao procedureEmployeeDao =
-                    transaction.createDao(PROCEDURE_EMPLOYEE_DAO);
-            UserDao userDao = transaction.createDao("userDao");
+            AppointmentDao appointmentDao = transaction.createDao(DaoEnum.APPOINTMENT.getDao());
+            ProcedureDao procedureDao = transaction.createDao(DaoEnum.PROCEDURE.getDao());
+            UserDao userDao = transaction.createDao(DaoEnum.USER.getDao());
             if (user != null) {
                 List<Appointment> appointments
                         = appointmentDao.getUserAppointments(user.getId());
-                Set<ProcedureEmployee> procedureEmployeeList =
-                    appointments.stream().map(appointment -> {
-                        try {
-                            return procedureEmployeeDao
-                                    .findById(appointment
-                                            .getProcedureEmployeeId());
-                        } catch (DaoException e) {
-                            LOGGER.warn("an error occured while getting " +
-                                    "procedureAppointment by id: {}",
-                                    appointment.getProcedureEmployeeId());
-                        }
-                        return null;
-                    }).collect(Collectors.toSet());
-                Set<Procedure> procedures = procedureEmployeeList.stream()
-                        .map(procedureEmployee -> {
-                            try {
-                                Procedure procedure = procedureDao
-                                        .findById(procedureEmployee
-                                                .getProcedureId());
-                                procedure.setId(procedureEmployee.getId());
-                                return procedure;
-                            } catch (DaoException e) {
-                                LOGGER.warn("an error occured " +
-                                        "while getting procedure by id: {}",
-                                        procedureEmployee.getProcedureId());
-                            }
-                            return null;
-                        }).collect(Collectors.toSet());
-                Set<User> emloyees = procedureEmployeeList.stream()
-                        .map(procedureEmployee -> {
-                            try {
-                                User employee = userDao
-                                        .findById(procedureEmployee
-                                                .getEmployeeId());
-                                employee.setId(procedureEmployee.getId());
-                                return employee;
-                            } catch (DaoException e) {
-                                LOGGER.warn("an error ocured " +
-                                        "while getting employee by id: {}",
-                                        procedureEmployee.getEmployeeId());
-                            }
-                            return null;
-                        }).collect(Collectors.toSet());
-                entities = new ArrayList<>();
-                entities.addAll(appointments);
-                entities.addAll(emloyees);
-                entities.addAll(procedures);
+                for (Appointment appointment:appointments) {
+                    appointment.setEmployee(userDao.findEmployeeByAppointment(appointment.getId()));
+                    appointment.setProcedure(procedureDao.findByAppointment(appointment.getId()));
+                }
+                return appointments;
             }
             transaction.commit();
 
@@ -136,7 +89,7 @@ public class AppointmentServiceImpl implements AppointmentService {
             }
             throw new ServiceException(e);
         }
-        return entities;
+        return Collections.EMPTY_LIST;
     }
 
     /**
@@ -153,15 +106,11 @@ public class AppointmentServiceImpl implements AppointmentService {
         try {
             transaction = transactionFactory.createTransaction();
             UserDao userDao = transaction.createDao("userDao");
-            ProcedureEmployeeDao procedureEmployeeDao =
-                    transaction.createDao(PROCEDURE_EMPLOYEE_DAO);
-            ProcedureEmployee procedureEmployee = procedureEmployeeDao
-                    .findByProcedureEmployee(procedureId, employeeId);
-            appointment.setProcedureEmployeeId(procedureEmployee.getId());
-            appointment.setPrice(procedureEmployee.getPrice());
+            appointment.setEmployee(new User.Builder().setId(employeeId).build());
+            appointment.setProcedure(new Procedure.Builder().setId(procedureId).build());
             appointment.setStatus(1);
             AppointmentDao appointmentDao
-                    = transaction.createDao(APPOINTMENT_DAO);
+                    = transaction.createDao(DaoEnum.APPOINTMENT.getDao());
             Appointment result = appointmentDao.create(appointment);
             if (result != null) {
                 User employee = userDao.findById(employeeId);
@@ -196,7 +145,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         try {
             transaction = transactionFactory.createTransaction();
             AppointmentDao appointmentDao
-                    = transaction.createDao(APPOINTMENT_DAO);
+                    = transaction.createDao(DaoEnum.APPOINTMENT.getDao());
             appointmentDao.update(appointment);
             transaction.commit();
         } catch (DaoException e) {
@@ -216,7 +165,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         try {
             transaction = transactionFactory.createTransaction();
             AppointmentDao appointmentDao
-                    = transaction.createDao(APPOINTMENT_DAO);
+                    = transaction.createDao(DaoEnum.APPOINTMENT.getDao());
             appointmentDao.archive();
             transaction.commit();
         } catch (DaoException e) {

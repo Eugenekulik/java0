@@ -126,85 +126,27 @@ public class AdministrateServiceImpl implements AdministrateService {
         Transaction transaction = null;
         try {
             transaction = transactionFactory.createTransaction();
-            CategoryDao categoryDao = transaction.createDao("categoryDao");
+            CategoryDao categoryDao = transaction.createDao(DaoEnum.CATEGORY.getDao());
             AppointmentDao appointmentDao
-                    = transaction.createDao("appointmentDao");
-            ProcedureEmployeeDao procedureEmployeeDao =
-                    transaction.createDao("procedureEmployeeDao");
+                    = transaction.createDao(DaoEnum.APPOINTMENT.getDao());
             UserDao userDao = transaction.createDao(USER_DAO);
             ProcedureDao procedureDao = transaction.createDao(PROCEDURE_DAO);
             List<Appointment> appointments = appointmentDao
                     .findInterval((paginationPage - 1) * 10, 10);
-            Set<ProcedureEmployee> procedureEmployeeList
-                    = appointments.stream().map(appointment -> {
-                        try {
-                            return procedureEmployeeDao
-                                    .findById(appointment.getProcedureEmployeeId());
-                        } catch (DaoException e) {
-                            LOGGER.warn(String.format("an error occurred while " +
-                                            "getting procedureEmployee by id: %d"
-                                    , appointment.getProcedureEmployeeId()));
-                        }
-                        return null;
-                    }).filter(Objects::nonNull)
-                    .collect(Collectors.toSet());
-            Set<Procedure> procedures = procedureEmployeeList.stream()
-                    .map(procedureEmployee -> {
-                        try {
-                            Procedure procedure = procedureDao
-                                .findById(procedureEmployee.getProcedureId());
-                            return procedure;
-                        } catch (DaoException e) {
-                            LOGGER.warn(String.format("an error occured " +
-                                    "while getting procedure by id: %d",
-                                    procedureEmployee.getProcedureId()));
-                        }
-                        return null;
-                    }).filter(Objects::nonNull)
-                    .collect(Collectors.toSet());
-            Set<User> employees = procedureEmployeeList.stream()
-                    .map(procedureEmployee -> {
-                        try {
-                            return userDao.findById(procedureEmployee.getEmployeeId());
-                        } catch (DaoException e) {
-                            LOGGER.warn(String.format("an error ocured " +
-                                            "while getting employee by id: %d",
-                                    procedureEmployee.getEmployeeId()));
-                        }
-                        return null;
-                    }).filter(Objects::nonNull)
-                    .collect(Collectors.toSet());
-            Set<User> clients = appointments.stream().map(appointment -> {
-                try {
-                    return userDao.findById(appointment.getUserId());
-                } catch (DaoException e) {
-                    LOGGER.warn("an error occurred " +
-                                    "while getting client by id: {}",
-                            appointment.getUserId());
-                }
-                return null;
-            }).filter(Objects::nonNull).collect(Collectors.toSet());
+            for (Appointment appointment: appointments) {
+                appointment.setProcedure(procedureDao.findByAppointment(appointment.getId()));
+                appointment.setEmployee(userDao.findEmployeeByAppointment(appointment.getId()));
+            }
             List<AppointmentDto> appointmentDtoList = new ArrayList<>();
-
             appointments.stream().forEach(appointment -> {
                 AppointmentDto appointmentDto = new AppointmentDto();
                 appointmentDto.setId(appointment.getId());
                 appointmentDto.setStatus(appointment.getStatus());
                 appointmentDto.setDate(appointment.getDate());
                 appointmentDto.setPrice(appointment.getPrice());
-                appointmentDto.setClient(clients.stream()
-                        .filter(client -> client.getId() == appointment.getUserId())
-                        .findAny().get().getName());
-                appointmentDto.setEmployee(employees.stream()
-                        .filter(employee -> employee.getId() == procedureEmployeeList.stream()
-                                .filter(procedureEmployee -> procedureEmployee.getId() == appointment.getProcedureEmployeeId())
-                                .findAny().get().getEmployeeId())
-                        .findAny().get().getName());
-                appointmentDto.setProcedure(procedures.stream()
-                        .filter(procedure -> procedure.getId() == procedureEmployeeList.stream()
-                                .filter(procedureEmployee -> procedureEmployee.getId() == appointment.getProcedureEmployeeId())
-                                .findAny().get().getProcedureId())
-                        .findAny().get().getName());
+                appointmentDto.setEmployee(appointment.getEmployee().getName());
+                appointmentDto.setProcedure(appointment.getProcedure().getName());
+                appointmentDto.setClient("" + appointment.getUserId());
                 appointmentDtoList.add(appointmentDto);
             });
             transaction.commit();
@@ -277,7 +219,6 @@ public class AdministrateServiceImpl implements AdministrateService {
      * This method return entities required for schedule administration.
      * @param paginationPage page number
      * @return List of schedules
-     * @throws ServiceException
      */
     @Override
     public List<ScheduleDto> administrateSchedules(int paginationPage)

@@ -52,13 +52,13 @@
                             </c:if></c:forEach>
 
                         <!--/////////////////////////////////////////////////////////////////-->
-                        <c:forEach var="role" items="${roles}">
+                        <%--<c:forEach var="role" items="${roles}">
                             <c:if test="${role.name == 'employee'}">
                                 <li class="nav-item">
                                     <a class="nav-link dark-blue" href="<c:url value="/schedule.html"/>"
                                        role="button">${text["header.schedule"]}</a>
                                 </li>
-                            </c:if></c:forEach>
+                            </c:if></c:forEach>--%>
                     </ul>
                 </li>
                 <li class="flex-fill">

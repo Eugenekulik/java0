@@ -5,7 +5,6 @@ import by.training.beauty.dao.mysql.*;
 import by.training.beauty.dao.pool.ConnectionPool;
 import by.training.beauty.dao.spec.*;
 import by.training.beauty.domain.Appointment;
-import by.training.beauty.domain.ProcedureEmployee;
 import by.training.beauty.domain.Role;
 import by.training.beauty.domain.User;
 import by.training.beauty.dto.AppointmentDto;
@@ -18,7 +17,6 @@ import by.training.beauty.service.spec.ConnectionPoolService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.assertj.core.api.Assertions;
-import org.mockito.Mockito;
 import org.testng.annotations.*;
 
 import java.io.File;
@@ -45,11 +43,10 @@ public class AdministrateServiceImplTest {
         AppointmentDao appointmentDao = mock(AppointmentDaoImpl.class);
         RoleDao roleDao = mock(RoleDaoImpl.class);
         CategoryDao categoryDao = mock(CategoryDaoImpl.class);
-        ProcedureEmployeeDao procedureEmployeeDao = mock(ProcedureEmployeeDaoImpl.class);
         try {
             when(roleDao.findByUser(anyInt()))
                     .thenReturn(List.of(new Role(2,"client")));
-            when(userDao.findInterval(anyInt(),10))
+            when(userDao.findInterval(anyInt(),eq(10)))
                     .thenReturn(List.of(new User.Builder()
                             .setName("name")
                             .setId(1)
@@ -61,7 +58,6 @@ public class AdministrateServiceImplTest {
                             .setId(1)
                             .setStatus(1)
                             .setUserId(1)
-                            .setProcedureEmployeeId(1)
                             .setPrice(30)
                             .build()));
             when(scheduleDao.count()).thenReturn(45);

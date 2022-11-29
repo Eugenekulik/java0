@@ -90,7 +90,7 @@ public class ScheduleServiceImplTest {
             ServiceFactory
                     .getInstance()
                     .getScheduleService()
-                    .deleteschedule(1);
+                    .deleteSchedule(1);
             try {
                 PooledConnection connection = ConnectionPool.getInstance().getConnection();
                 ScheduleDao scheduleDao = new ScheduleDaoImpl();

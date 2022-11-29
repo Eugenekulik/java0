@@ -41,14 +41,10 @@
                 <tr>
                     <c:if test="${elem.status == tab || elem.status == 4 && tab == 3}">
                         <td>
-                            <c:forEach var="proc" items="${procedures}">
-                                <c:if test="${proc.id == elem.procedureEmployeeId}">${proc.name}</c:if>
-                            </c:forEach>
+                            ${elem.procedure.name}
                         </td>
                         <td>
-                            <c:forEach var="empl" items="${employees}">
-                                <c:if test="${empl.id == elem.procedureEmployeeId}">${empl.name}</c:if>
-                            </c:forEach>
+                            ${elem.employee.name}
                         </td>
                         <td>${elem.price}BYN</td>
                         <td>${elem.date}</td>

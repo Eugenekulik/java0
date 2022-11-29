@@ -5,7 +5,6 @@ import by.training.beauty.dao.pool.ConnectionPool;
 import by.training.beauty.dao.pool.PooledConnection;
 import by.training.beauty.dao.spec.ScoreDao;
 import by.training.beauty.dao.spec.Transaction;
-import by.training.beauty.domain.Schedule;
 import by.training.beauty.domain.Score;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,8 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.Scanner;
-
-import static org.testng.Assert.*;
 
 public class ScoreDaoImplTest {
     private static final Logger LOGGER = LogManager.getLogger(ScoreDaoImplTest.class);
@@ -196,12 +193,12 @@ public class ScoreDaoImplTest {
     }
 
     @Test
-    public void testFindByAppointment() {
+    public void testFindByProcedure() {
         Transaction transaction = null;
         try {
             transaction = transactionFactory.createTransaction();
             ScoreDao scoreDao = transaction.createDao(DaoEnum.SCORE.getDao());
-            Assertions.assertThat(scoreDao.findByAppointment(1))
+            Assertions.assertThat(scoreDao.findByProcedure(3))
                     .usingRecursiveFieldByFieldElementComparatorIgnoringFields("date")
                     .contains(new Score.Builder()
                             .setId(1)
@@ -254,6 +251,8 @@ public class ScoreDaoImplTest {
                     .setId(1)
                     .setAppointmentId(1)
                     .setComment("хорошая работа")
+                    .setDate(LocalDateTime.parse("2021-12-01 15:00:00",
+                            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                     .setValue(4)
                     .setUserId(2)
                     .build())).isTrue();

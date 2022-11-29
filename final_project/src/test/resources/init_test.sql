@@ -91,9 +91,9 @@ VALUES (1, 3, 1, 30, 0),
         (2, 3, 3, 50, 0);
 
 INSERT INTO test.appointment(id, user_id, procedure_employee_id, date, status, price)
-VALUES (1, 3, 2, '2021-12-01 09:00:00', 1, 50),
-        (2, 3, 1, '2021-12-01 11:00:00', 1, 30),
-        (3, 3, 2, '2021-12-01 12:00:00', 1, 50);
+VALUES (1, 2, 2, '2021-12-01 09:00:00', 1, 50),
+        (2, 2, 1, '2021-12-01 11:00:00', 1, 30),
+        (3, 2, 2, '2021-12-01 12:00:00', 1, 50);
 
 
 insert into test.schedule (id, employee_id, date, appointment_id)

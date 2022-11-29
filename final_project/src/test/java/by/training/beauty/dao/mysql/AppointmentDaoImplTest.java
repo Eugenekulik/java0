@@ -6,6 +6,8 @@ import by.training.beauty.dao.pool.PooledConnection;
 import by.training.beauty.dao.spec.AppointmentDao;
 import by.training.beauty.dao.spec.Transaction;
 import by.training.beauty.domain.Appointment;
+import by.training.beauty.domain.Procedure;
+import by.training.beauty.domain.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.assertj.core.api.Assertions;
@@ -63,8 +65,7 @@ public class AppointmentDaoImplTest {
             Assertions.assertThat(appointments.size()).isEqualTo(3);
             Assertions.assertThat(appointments).usingRecursiveFieldByFieldElementComparator().contains(new Appointment.Builder()
                     .setId(1)
-                    .setUserId(3)
-                    .setProcedureEmployeeId(2)
+                    .setUserId(2)
                     .setDate(LocalDateTime.parse("2021-12-01 09:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                     .setStatus(1)
                     .setPrice(50)
@@ -90,8 +91,7 @@ public class AppointmentDaoImplTest {
             Appointment actual = appointmentDao.findById(1);
             Assertions.assertThat(actual).usingRecursiveComparison().isEqualTo(new Appointment.Builder()
                     .setId(1)
-                    .setUserId(3)
-                    .setProcedureEmployeeId(2)
+                    .setUserId(2)
                     .setDate(LocalDateTime.parse("2021-12-01 09:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                     .setStatus(1)
                     .setPrice(50)
@@ -141,7 +141,6 @@ public class AppointmentDaoImplTest {
                     .doesNotContain(new Appointment.Builder()
                             .setId(1)
                             .setUserId(3)
-                            .setProcedureEmployeeId(2)
                             .setDate(LocalDateTime.parse("2021-12-01 09:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                             .setStatus(1)
                             .setPrice(50)
@@ -167,7 +166,6 @@ public class AppointmentDaoImplTest {
             Appointment expected = new Appointment.Builder()
                     .setId(1)
                     .setUserId(3)
-                    .setProcedureEmployeeId(2)
                     .setDate(LocalDateTime.parse("2021-12-01 10:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                     .setStatus(3)
                     .setPrice(40)
@@ -233,13 +231,13 @@ public class AppointmentDaoImplTest {
         try {
             transaction = transactionFactory.createTransaction();
             AppointmentDao appointmentDao = transaction.createDao(DaoEnum.APPOINTMENT.getDao());
-            List<Appointment> appointments = appointmentDao.getEmployeeAppointments(1);
-            Assertions.assertThat(appointments.size()).isEqualTo(1);
-            Assertions.assertThat(appointments).usingRecursiveFieldByFieldElementComparator()
+            List<Appointment> appointments = appointmentDao.getEmployeeAppointments(3);
+            Assertions.assertThat(appointments.size()).isEqualTo(3);
+            Assertions.assertThat(appointments)
+                    .usingRecursiveFieldByFieldElementComparatorIgnoringFields("procedure","employee")
                     .contains(new Appointment.Builder()
                             .setId(2)
-                            .setUserId(3)
-                            .setProcedureEmployeeId(1)
+                            .setUserId(2)
                             .setDate(LocalDateTime.parse("2021-12-01 11:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                             .setStatus(1)
                             .setPrice(30)
@@ -263,7 +261,7 @@ public class AppointmentDaoImplTest {
         try {
             transaction = transactionFactory.createTransaction();
             AppointmentDao appointmentDao = transaction.createDao(DaoEnum.APPOINTMENT.getDao());
-            List<Appointment> appointments = appointmentDao.getEmployeeAppointments(3);
+            List<Appointment> appointments = appointmentDao.getEmployeeAppointments(2);
             Assertions.assertThat(appointments).isEmpty();
             transaction.commit();
         } catch (DaoException e) {
@@ -285,13 +283,12 @@ public class AppointmentDaoImplTest {
         try {
             transaction = transactionFactory.createTransaction();
             AppointmentDao appointmentDao = transaction.createDao(DaoEnum.APPOINTMENT.getDao());
-            List<Appointment> appointments = appointmentDao.getUserAppointments(3);
+            List<Appointment> appointments = appointmentDao.getUserAppointments(2);
             Assertions.assertThat(appointments.size()).isEqualTo(3);
             Assertions.assertThat(appointments).usingRecursiveFieldByFieldElementComparator()
                     .contains(new Appointment.Builder()
                             .setId(2)
-                            .setUserId(3)
-                            .setProcedureEmployeeId(1)
+                            .setUserId(2)
                             .setDate(LocalDateTime.parse("2021-12-01 11:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                             .setStatus(1)
                             .setPrice(30)
@@ -376,17 +373,19 @@ public class AppointmentDaoImplTest {
         try {
             transaction = transactionFactory.createTransaction();
             AppointmentDao appointmentDao = transaction.createDao(DaoEnum.APPOINTMENT.getDao());
-            Appointment appointment = new Appointment.Builder()
+            Appointment expected = new Appointment.Builder()
                     .setUserId(3)
-                    .setProcedureEmployeeId(1)
                     .setDate(LocalDateTime.parse("2021-12-01 11:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                     .setStatus(1)
                     .setPrice(30)
+                    .setProcedure(new Procedure.Builder().setId(1).build())
+                    .setEmployee(new User.Builder().setId(3).build())
                     .build();
-            Assertions.assertThat(appointmentDao.create(appointment))
-                    .usingRecursiveComparison().ignoringFields("id")
-                    .isEqualTo(appointment);
+            Appointment actual = appointmentDao.create(expected);
             transaction.commit();
+            Assertions.assertThat(actual)
+                    .usingRecursiveComparison().ignoringFields("id","procedure","employee")
+                    .isEqualTo(expected);
         } catch (DaoException e) {
             e.printStackTrace();
             try {

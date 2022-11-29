@@ -90,22 +90,8 @@ public class AppointmentAction implements Action {
             AppointmentService appointmentService =
                     ServiceFactory.getInstance().getAppointmentService();
             User user = (User) request.getSession().getAttribute("user");
-            List<Entity> entities = appointmentService.usersAppointment(user);
-            List<Appointment> appointments = entities.stream()
-                    .filter(Appointment.class::isInstance)
-                    .map(Appointment.class::cast)
-                    .collect(Collectors.toList());
-            List<User> employees = entities.stream()
-                    .filter(User.class::isInstance)
-                    .map(User.class::cast)
-                    .collect(Collectors.toList());
-            List<Procedure> procedures = entities.stream()
-                    .filter(Procedure.class::isInstance)
-                    .map(Procedure.class::cast)
-                    .collect(Collectors.toList());
+            List<Appointment> appointments = appointmentService.usersAppointment(user);
             request.getSession().removeAttribute("tab");
-            request.getSession().setAttribute("procedures",procedures);
-            request.getSession().setAttribute("employees", employees);
             request.getSession().setAttribute("appointments", appointments);
             Integer tab = 1;
             tab = Integer.parseInt(request.getParameter("tab"));

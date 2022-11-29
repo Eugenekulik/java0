@@ -16,6 +16,19 @@ import java.util.List;
 
 public class UserDaoImpl implements UserDao {
     private static final Logger LOGGER = LogManager.getLogger(UserDaoImpl.class);
+    private static final String SQL_FIND_EMPLOYEES_BY_PROCEDURE =
+            "SELECT user.id, user.name, user.login, user.password, user.phone FROM user " +
+            "RIGHT JOIN (SELECT procedure_employee.id, procedure_employee.employee_id " +
+            "FROM procedure_employee LEFT JOIN `procedure` " +
+            "ON procedure_employee.procedure_id = `procedure`.id " +
+            "WHERE `procedure`.id = ?) as PE " +
+            "ON PE.employee_id = user.id;";
+    private static final String SQL_FIND_BY_APPOINTMENT =
+            "SELECT user.id, user.login, user.password, user.name, user.phone " +
+            "FROM user RIGHT JOIN (SELECT procedure_employee.employee_id FROM procedure_employee " +
+            "LEFT JOIN appointment ON appointment.procedure_employee_id = procedure_employee.id " +
+            "WHERE appointment.id = ?) as PE " +
+            "ON user.id = PE.employee_id;";
     private Connection connection;
     private static final String SQL_CREATE =
             "INSERT INTO user(user.login, user.password, user.name, user.phone) " +
@@ -34,9 +47,6 @@ public class UserDaoImpl implements UserDao {
     private static final String SQL_UPDATE =
             "UPDATE user SET user.login = ?, user.password = ?, user.name = ?, user.phone = ? " +
                     "WHERE user.id = ?;";
-    private static final String SQL_READ_BY_LOGIN_PASSWORD =
-            "SELECT user.id, user.login, user.password, user.name, user.phone " +
-                    "FROM user WHERE user.login = ? AND user.password = ?;";
     private static final String SQL_READ_BY_LOGIN =
             "SELECT user.id, user.login, user.password, user.name, user.phone " +
                     "FROM user WHERE user.login = ?;";
@@ -383,6 +393,88 @@ public class UserDaoImpl implements UserDao {
             statement.execute();
             resultSet = statement.getResultSet();
             while (resultSet.next()) {
+                user = new User.Builder()
+                        .setId(resultSet.getInt("user.id"))
+                        .setLogin(resultSet.getString("user.login"))
+                        .setPassword(resultSet.getString("user.password"))
+                        .setName(resultSet.getString("user.name"))
+                        .setPhone(resultSet.getString("user.phone"))
+                        .build();
+            }
+            return user;
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+            throw new DaoException();
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (SQLException e) {
+                LOGGER.error(e.getMessage());
+            }
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                LOGGER.error(e.getMessage());
+            }
+        }
+    }
+
+    @Override
+    public List<User> findEmployeesByProcedure(int procedureId) throws DaoException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        List<User> users = new ArrayList<>();
+        try {
+            statement = connection.prepareStatement(SQL_FIND_EMPLOYEES_BY_PROCEDURE);
+            statement.setInt(1,procedureId);
+            statement.execute();
+            resultSet = statement.getResultSet();
+            while (resultSet.next()) {
+                User user = new User();
+                user.setId(resultSet.getInt("user.id"));
+                user.setLogin(resultSet.getString("user.login"));
+                user.setPassword(resultSet.getString("user.password"));
+                user.setName(resultSet.getString("user.name"));
+                user.setPhone(resultSet.getString("user.phone"));
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+            throw new DaoException();
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (SQLException e) {
+                LOGGER.error(e.getMessage());
+            }
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                LOGGER.error(e.getMessage());
+            }
+        }
+        return users;
+    }
+
+    @Override
+    public User findEmployeeByAppointment(int appointmentId) throws DaoException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        User user = null;
+        try {
+            statement = connection.prepareStatement(SQL_FIND_BY_APPOINTMENT);
+            statement.setInt(1, appointmentId);
+            statement.execute();
+            resultSet = statement.getResultSet();
+            if(resultSet.next()) {
                 user = new User.Builder()
                         .setId(resultSet.getInt("user.id"))
                         .setLogin(resultSet.getString("user.login"))
