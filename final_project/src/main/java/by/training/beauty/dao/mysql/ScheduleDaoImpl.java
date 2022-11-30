@@ -336,11 +336,12 @@ public class ScheduleDaoImpl implements ScheduleDao {
 
 
     @Override
-    public void archive() throws DaoException {
+    public boolean archive() throws DaoException {
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(SQL_ARCHIVE);
             statement.executeUpdate();
+            return true;
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
             throw new DaoException();

@@ -63,7 +63,7 @@ public class ProcedureAction implements Action {
             }
             Procedure procedure = procedureService.getProcedureById(current);
             List<Category> categories = procedureService.getCategories();
-            List<Score> scores = scoreService.getScoreByProcedure(procedure);
+            List<Score> scores = scoreService.getScoresByProcedure(procedure);
             List<User> users = new ArrayList<>();
             users.addAll(scores.stream()
                     .map(score -> userService.findById(score.getUserId()))

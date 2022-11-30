@@ -4,9 +4,7 @@ import by.training.beauty.dao.DaoException;
 import by.training.beauty.dao.mysql.*;
 import by.training.beauty.dao.pool.ConnectionPool;
 import by.training.beauty.dao.spec.*;
-import by.training.beauty.domain.Appointment;
-import by.training.beauty.domain.Role;
-import by.training.beauty.domain.User;
+import by.training.beauty.domain.*;
 import by.training.beauty.dto.AppointmentDto;
 import by.training.beauty.dto.ProcedureDto;
 import by.training.beauty.dto.ScheduleDto;
@@ -24,6 +22,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Properties;
 
@@ -44,15 +43,58 @@ public class AdministrateServiceImplTest {
         RoleDao roleDao = mock(RoleDaoImpl.class);
         CategoryDao categoryDao = mock(CategoryDaoImpl.class);
         try {
+
+//Configure mock roleDao
             when(roleDao.findByUser(anyInt()))
                     .thenReturn(List.of(new Role(2,"client")));
+
+//Configure mock procedureDao
+            when(procedureDao.count()).thenReturn(45);
+            when(procedureDao.findByAppointment(1))
+                    .thenReturn(new Procedure.Builder()
+                            .setId(1).setName("name")
+                            .setDescription("description")
+                            .setCategoryId(1)
+                            .setElapsedTime(60)
+                            .build());
+            when(procedureDao.findInterval(0,10))
+                    .thenReturn(List.of(new Procedure.Builder()
+                            .setId(1).setName("name")
+                            .setDescription("description")
+                            .setCategoryId(1)
+                            .setElapsedTime(60)
+                            .build()));
+
+
+//Configure mock userDao
+            when(userDao.count()).thenReturn(45);
             when(userDao.findInterval(anyInt(),eq(10)))
                     .thenReturn(List.of(new User.Builder()
-                            .setName("name")
+                            .setName("client")
                             .setId(1)
-                            .setLogin("login")
+                            .setLogin("client")
                             .setPassword("password")
                             .setPhone("+375290000000").build()));
+            when(userDao.findEmployeeByAppointment(1))
+                    .thenReturn(new User.Builder()
+                            .setId(2)
+                            .setLogin("employee")
+                            .setPassword("password")
+                            .setName("employee")
+                            .setPhone("+375291111111")
+                            .build());
+            when(userDao.findEmployees())
+                    .thenReturn(List.of(new User.Builder()
+                            .setId(2)
+                            .setLogin("employee")
+                            .setPassword("password")
+                            .setName("employee")
+                            .setPhone("+375291111111")
+                            .build()));
+
+
+//Configure mock appointmentDao
+            when(appointmentDao.count()).thenReturn(45);
             when(appointmentDao.findInterval(0,10))
                     .thenReturn(List.of(new Appointment.Builder()
                             .setId(1)
@@ -60,10 +102,28 @@ public class AdministrateServiceImplTest {
                             .setUserId(1)
                             .setPrice(30)
                             .build()));
+
+
+//Configure mock scheduleDao
             when(scheduleDao.count()).thenReturn(45);
-            when(userDao.count()).thenReturn(45);
-            when(appointmentDao.count()).thenReturn(45);
-            when(procedureDao.count()).thenReturn(45);
+            when(scheduleDao.findInterval(0,10))
+                    .thenReturn(List.of(new Schedule.Builder()
+                            .setId(1)
+                            .setAppointmentId(1)
+                            .setEmployeeId(2)
+                            .build()));
+
+
+//Configure mock categoryDao
+            when(categoryDao.findById(1))
+                    .thenReturn(new Category.Builder()
+                            .setId(1)
+                            .setName("category")
+                            .setDescription("description")
+                            .build());
+
+
+//Configure mock transaction
             when(transaction.createDao(DaoEnum.CATEGORY.getDao())).thenReturn(categoryDao);
             when(transaction.createDao(DaoEnum.ROLE.getDao())).thenReturn(roleDao);
             when(transaction.createDao(DaoEnum.USER.getDao())).thenReturn(userDao);
@@ -73,17 +133,6 @@ public class AdministrateServiceImplTest {
             when(transactionFactory.createTransaction()).thenReturn(transaction);
         } catch (DaoException e) {
             e.printStackTrace();
-        }
-        Properties properties = new Properties();
-        try {
-            URL resource = getClass().getClassLoader().getResource("connection.properties");
-            properties.load(new FileReader(new File(resource.toURI())));
-            ConnectionPool.getInstance().init(properties.getProperty("db.driver"), properties.getProperty("db.url"),
-                    properties.getProperty("user"), properties.getProperty("password"), 1, 4, 30);
-        } catch (IOException | URISyntaxException e) {
-            LOGGER.error("It is impossible to load properties", e);
-        } catch (DaoException e) {
-            LOGGER.error("It is impossible to init connection pool to database", e);
         }
     }
 
@@ -110,9 +159,9 @@ public class AdministrateServiceImplTest {
             Assertions.assertThat(users)
                     .usingRecursiveFieldByFieldElementComparatorIgnoringFields("roles")
                     .contains(new User.Builder()
-                            .setName("name")
+                            .setName("client")
                             .setId(1)
-                            .setLogin("login")
+                            .setLogin("client")
                             .setPassword("password")
                             .setPhone("+375290000000")
                             .build())
@@ -127,11 +176,19 @@ public class AdministrateServiceImplTest {
     @Test
     public void testAdministrateAppointments() {
         try {
-            List<AppointmentDto> appointmentDtoList = ServiceFactory
-                    .getInstance()
-                    .getAdministrateService()
+            AppointmentDto appointmentDto = new AppointmentDto();
+            appointmentDto.setId(1);
+            appointmentDto.setProcedure("name");
+            appointmentDto.setEmployee("employee");
+            appointmentDto.setStatus(1);
+            appointmentDto.setPrice(30);
+            appointmentDto.setClient("" + 1);
+            List<AppointmentDto> appointmentDtoList = new AdministrateServiceImpl(transactionFactory)
                     .administrateAppointments(1);
-            assertEquals(appointmentDtoList.size(), 3);
+            Assertions.assertThat(appointmentDtoList)
+                    .usingRecursiveFieldByFieldElementComparator()
+                    .contains(appointmentDto)
+                    .size().isEqualTo(1);
         } catch (ServiceException e) {
             e.printStackTrace();
         }
@@ -140,11 +197,18 @@ public class AdministrateServiceImplTest {
     @Test
     public void testAdministrateProcedures() {
         try {
-            List<ProcedureDto> procedureDtoList = ServiceFactory
-                    .getInstance()
-                    .getAdministrateService()
+            ProcedureDto procedureDto = new ProcedureDto();
+            procedureDto.setId(1);
+            procedureDto.setCategory("category");
+            procedureDto.setName("name");
+            procedureDto.setDescription("description");
+            procedureDto.setElapsedTime(60);
+            List<ProcedureDto> procedureDtoList = new AdministrateServiceImpl(transactionFactory)
                     .administrateProcedures(1);
-            assertEquals(procedureDtoList.size(), 6);
+            Assertions.assertThat(procedureDtoList)
+                    .usingRecursiveFieldByFieldElementComparator()
+                    .contains(procedureDto)
+                    .size().isEqualTo(1);
         } catch (ServiceException e) {
             LOGGER.error("it is impossible to get user list");
         }
@@ -165,7 +229,5 @@ public class AdministrateServiceImplTest {
 
     @AfterClass
     public void destroy(){
-        ConnectionPoolService connectionPoolService = new ConnectionPoolServiceImpl();
-        connectionPoolService.destroy();
     }
 }

@@ -68,7 +68,7 @@ public class ScoreAction implements Action {
         }
         score.setAppointmentId(appointmentId);
         ScoreService scoreService = ServiceFactory.getInstance().getScoreService();
-        return scoreService.addScore(score);
+        return scoreService.addScore(score)!=null;
     }
 
     private boolean delete(HttpServletRequest request){

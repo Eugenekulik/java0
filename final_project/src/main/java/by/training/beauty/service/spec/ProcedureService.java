@@ -13,9 +13,9 @@ public interface ProcedureService {
 
     List<Category> getCategories() throws ServiceException;
 
-    void addProcedure(Procedure procedure) throws ServiceException;
+    boolean addProcedure(Procedure procedure) throws ServiceException;
 
-    void deleteProcedure(Integer id) throws ServiceException;
+    boolean deleteProcedure(int id) throws ServiceException;
 
-    void updateProcedure(Procedure procedure) throws ServiceException;
+    boolean updateProcedure(Procedure procedure) throws ServiceException;
 }

@@ -37,6 +37,7 @@ public interface ScheduleDao extends Dao<Schedule>{
 
     /**
      * This method should delete schedules that have not been used and whose time has passed.
+     * @return
      */
-    void archive() throws DaoException;
+    boolean archive() throws DaoException;
 }

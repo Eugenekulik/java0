@@ -50,7 +50,7 @@ public class RegistrationAction implements Action {
             user.setPassword(request.getParameter("password"));
             user.setName(request.getParameter("name"));
             user.setPhone(request.getParameter("phone"));
-            user = userService.registrate(user);
+            user = userService.registration(user);
             if(user != null) {
                 HttpSession session = request.getSession();
                 session.setAttribute("user", user);

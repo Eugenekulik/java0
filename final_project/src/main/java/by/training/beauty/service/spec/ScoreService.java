@@ -6,9 +6,9 @@ import by.training.beauty.domain.Score;
 import java.util.List;
 
 public interface ScoreService {
-    boolean addScore(Score score);
+    Score addScore(Score score);
 
-    List<Score> getScoreByProcedure(Procedure procedure);
+    List<Score> getScoresByProcedure(Procedure procedure);
 
     boolean deleteScore(int id);
 }

@@ -5,7 +5,6 @@ public enum DaoEnum {
     USER("userDao"),
     PROCEDURE("procedureDao"),
     SCORE("scoreDao"),
-    PROCEDURE_EMPLOYEE("procedureEmployeeDao"),
     APPOINTMENT("appointmentDao"),
     SCHEDULE("scheduleDao"),
     CATEGORY("categoryDao");

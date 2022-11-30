@@ -1,19 +1,19 @@
 package by.training.beauty.service.implementation;
 
-import by.training.beauty.dao.spec.AppointmentDao;
+import by.training.beauty.dao.mysql.*;
+import by.training.beauty.dao.spec.*;
 import by.training.beauty.dao.DaoException;
-import by.training.beauty.dao.mysql.AppointmentDaoImpl;
 import by.training.beauty.dao.pool.ConnectionPool;
 import by.training.beauty.dao.pool.PooledConnection;
-import by.training.beauty.domain.Appointment;
-import by.training.beauty.domain.Entity;
-import by.training.beauty.domain.Procedure;
-import by.training.beauty.domain.User;
+import by.training.beauty.domain.*;
 import by.training.beauty.service.ServiceException;
 import by.training.beauty.service.ServiceFactory;
+import by.training.beauty.service.spec.AppointmentService;
 import by.training.beauty.service.spec.ConnectionPoolService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.assertj.core.api.Assertions;
+import org.mockito.Mockito;
 import org.testng.annotations.*;
 
 import java.io.File;
@@ -31,137 +31,170 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Scanner;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.*;
 import static org.testng.Assert.*;
 
 public class AppointmentServiceImplTest {
     private static final Logger LOGGER = LogManager.getLogger(AppointmentServiceImplTest.class);
+    private TransactionFactory transactionFactory;
     @BeforeClass
     public void init(){
-        Properties properties = new Properties();
-        try {
-            URL resource = getClass().getClassLoader().getResource("connection.properties");
-            properties.load(new FileReader(new File(resource.toURI())));
-            ConnectionPool.getInstance().init(properties.getProperty("db.driver"), properties.getProperty("db.url"),
-                    properties.getProperty("user"), properties.getProperty("password"), 1, 4, 30);
-        } catch (IOException | URISyntaxException e) {
-            LOGGER.error("It is impossible to load properties", e);
-        } catch (DaoException e) {
-            LOGGER.error("It is impossible to init connection pool to database", e);
+        transactionFactory = mock(TransactionFactory.class);
+        Transaction transaction = mock(Transaction.class);
+        UserDao userDao = mock(UserDao.class);
+        AppointmentDao appointmentDao = mock(AppointmentDao.class);
+        ScheduleDao scheduleDao = mock(ScheduleDao.class);
+        ProcedureDao procedureDao = mock(ProcedureDao.class);
+        try{
+//Configure mock appointmentDao
+            when(appointmentDao.create(new Appointment.Builder()
+                    .setUserId(1)
+                    .setPrice(30)
+                    .setStatus(1)
+                    .build()))
+                    .thenReturn(new Appointment.Builder()
+                            .setId(1)
+                            .setUserId(1)
+                            .setPrice(30)
+                            .setStatus(1)
+                            .build());
+            when(appointmentDao.cancel(1)).thenReturn(true);
+            when(appointmentDao.getUserAppointments(1))
+                    .thenReturn(List.of(new Appointment.Builder()
+                            .setId(1)
+                            .setPrice(20)
+                            .setStatus(1)
+                            .setUserId(1)
+                            .build()));
+            when(appointmentDao.update(any())).thenReturn(true);
+            doNothing().when(appointmentDao).archive();
+
+
+//Configure mock scheduleDao
+            when(scheduleDao.findByEmployeeDate(any(),eq(1)))
+                    .thenReturn(new Schedule.Builder()
+                            .setId(1)
+                            .setAppointmentId(1)
+                            .setEmployeeId(2)
+                            .build());
+            when(scheduleDao.update(any())).thenReturn(true);
+
+
+//Configure mock scheduleDao
+            when(userDao.findEmployeeByAppointment(1))
+                    .thenReturn(new User.Builder()
+                            .setId(2)
+                            .setName("employee")
+                            .setLogin("employee")
+                            .setPassword("password")
+                            .setPhone("+375291111111")
+                            .build());
+            when(procedureDao.findByAppointment(1))
+                    .thenReturn(new Procedure.Builder()
+                            .setId(1)
+                            .setCategoryId(1)
+                            .setElapsedTime(60)
+                            .setName("procedure")
+                            .setDescription("description")
+                            .build());
+
+            when(transaction.createDao(DaoEnum.SCHEDULE.getDao())).thenReturn(scheduleDao);
+            when(transaction.createDao(DaoEnum.USER.getDao())).thenReturn(userDao);
+            when(transaction.createDao(DaoEnum.APPOINTMENT.getDao())).thenReturn(appointmentDao);
+            when(transaction.createDao(DaoEnum.PROCEDURE.getDao())).thenReturn(procedureDao);
+            when(transactionFactory.createTransaction()).thenReturn(transaction);
+        } catch (Exception e){
+            e.printStackTrace();
         }
     }
 
-   /* @Test(priority = 3)
+    @Test
     public void testAddAppointment() {
-        Appointment expected = new Appointment();
-        expected.setUserId(2);
-        expected.setStatus(1);
-        expected.setPrice(20.0);
-        expected.setDate(LocalDateTime.of(LocalDate.parse("2021-12-01"), LocalTime.parse("10:00:00")));
-        expected.setProcedureEmployeeId(2);
-        Procedure procedure = new Procedure();
-        procedure.setId(1);
-        User employee = new User();
-        try {
-            ServiceFactory
-                    .getInstance()
-                    .getAppointmentService()
-                    .addAppointment(expected, procedure.getId(), 3);
-        } catch (ServiceException e) {LOGGER.error("it is impossible to delete user");}
-        try {
-            PooledConnection connection = ConnectionPool.getInstance().getConnection();
-            AppointmentDao appointmentDao = new AppointmentDaoImpl();
-            appointmentDao.setConnection(connection);
-            List<Appointment> appointments  = appointmentDao.findall();
-            Appointment actual  = appointments.stream()
-                    .filter(appointment -> appointment.getDate().equals(expected.getDate())).findFirst().get();
-            assertNotNull(actual);
-        } catch (DaoException e) {LOGGER.error(e);}
-    }*/
+        Appointment expected = new Appointment.Builder()
+                .setId(1)
+                .setUserId(1)
+                .setPrice(30)
+                .setStatus(1)
+                .build();
+        AppointmentService appointmentService = new AppointmentServiceImpl(transactionFactory);
+        try{
+            Assertions.assertThat(appointmentService
+                    .addAppointment(expected,1,2))
+                    .isTrue();
+        } catch (ServiceException e){
+            e.printStackTrace();
+        }
 
-    @Test(priority = 2)
+    }
+
+    @Test
     public void testCancelAppointment() {
         try {
-            ServiceFactory
-                    .getInstance()
-                    .getAppointmentService()
-                    .cancelAppointment(1);
-        } catch (ServiceException e) {LOGGER.error("it is impossible to delete user");}
-        try {
-            PooledConnection connection = ConnectionPool.getInstance().getConnection();
-            AppointmentDao appointmentDao = new AppointmentDaoImpl();
-            appointmentDao.setConnection(connection);
-            Appointment actual  = appointmentDao.findById(1);
-            assertEquals(actual.getStatus(),4);
-        } catch (DaoException e) {LOGGER.error(e);}
+            AppointmentService appointmentService = new AppointmentServiceImpl(transactionFactory);
+            Assertions.assertThat(appointmentService.cancelAppointment(1)).isTrue();
+        } catch (ServiceException e) {e.printStackTrace();}
     }
-  /*  @Test(priority = 1)
-    public void testUsersAppointment() {
-        User user = new User();
-        user.setId(3);
-        try {
-            List<Entity> entities = ServiceFactory
-                    .getInstance()
-                    .getAppointmentService()
-                    .usersAppointment(user);
-            assertEquals(entities.size(), 7);
-        } catch (ServiceException e) {
-            LOGGER.error("it is impossible to get user's appointments");
-        }
-    }*/
 
-   /* @Test
-    public void testUpdateAppointment(){
-        Appointment expected = new Appointment();
-        expected.setId(1);
-        expected.setProcedureEmployeeId(2);
-        expected.setStatus(2);
-        expected.setPrice(30.0);
-        expected.setDate(LocalDateTime.of(2021,12,1,9,0,0));
+
+    @Test
+    public void testUsersAppointment() {
         try {
-            ServiceFactory
-                    .getInstance()
-                    .getAppointmentService()
-                    .updateAppointment(expected);
-            try {
-                PooledConnection connection = ConnectionPool.getInstance().getConnection();
-                AppointmentDao appointmentDao = new AppointmentDaoImpl();
-                appointmentDao.setConnection(connection);
-                Appointment actual = appointmentDao.findById(1);
-                assertEquals(actual.getStatus(),expected.getStatus());
-            } catch (DaoException e) {
-                LOGGER.error("an error occurred while getting appointment");
-            }
-        } catch (ServiceException e) {
-            LOGGER.error("it is impossible to update appointment",e);
+            Appointment expected = new Appointment.Builder()
+                    .setId(1)
+                    .setPrice(20)
+                    .setStatus(1)
+                    .setUserId(1)
+                    .setEmployee(new User.Builder()
+                            .setId(2)
+                            .setName("employee")
+                            .setLogin("employee")
+                            .setPassword("password")
+                            .setPhone("+375291111111")
+                            .build())
+                    .setProcedure(new Procedure.Builder()
+                            .setId(1)
+                            .setCategoryId(1)
+                            .setElapsedTime(60)
+                            .setName("procedure")
+                            .setDescription("description")
+                            .build())
+                    .build();
+            AppointmentService appointmentService = new AppointmentServiceImpl(transactionFactory);
+            List<Appointment> appointments = appointmentService.usersAppointment(1);
+            Assertions.assertThat(appointments)
+                    .usingRecursiveFieldByFieldElementComparator()
+                    .contains(expected)
+                    .size().isEqualTo(1);
+        } catch (ServiceException e){
+            e.printStackTrace();
         }
-    }*/
+    }
+
+   @Test
+    public void testUpdateAppointment(){
+        try{
+            AppointmentService appointmentService = new AppointmentServiceImpl(transactionFactory);
+            Assertions.assertThat(appointmentService.updateAppointment(new Appointment())).isTrue();
+        } catch (ServiceException e){
+            e.printStackTrace();
+        }
+    }
 
     @Test
     public void testArchive(){
-        ServiceFactory
-                .getInstance()
-                .getAppointmentService()
-                .archive();
+        AppointmentService appointmentService = new AppointmentServiceImpl(transactionFactory);
+        appointmentService.archive();
+        try {
+            verify(((AppointmentDao) transactionFactory.createTransaction().createDao(DaoEnum.APPOINTMENT.getDao())),times(1)).archive();
+        } catch (DaoException e) {
+            e.printStackTrace();
+        }
     }
 
     @AfterClass
     public void destroy(){
-        try {
-            URL resource = getClass().getClassLoader().getResource("init_test.sql");
-            Scanner scanner = new Scanner(new FileReader(resource.getFile()));
-            scanner.useDelimiter(";");
-            List<String> queries = new ArrayList<>();
-            while (scanner.hasNext()){
-                queries.add(scanner.next() + ";");
-            }
-            PooledConnection connection = ConnectionPool.getInstance().getConnection();
-            Statement statement = connection.createStatement();
-            for (String s:queries) {
-                statement.executeUpdate(s);
-            }
-            ConnectionPoolService connectionPoolService = new ConnectionPoolServiceImpl();
-            connectionPoolService.destroy();
-        } catch (SQLException |DaoException|IOException e) {LOGGER.error(e);}
     }
 
 

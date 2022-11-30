@@ -4,19 +4,16 @@ import by.training.beauty.domain.Procedure;
 import by.training.beauty.domain.User;
 import by.training.beauty.service.ServiceException;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 public interface UserService {
     User login(String login, String password) throws ServiceException;
 
-    User registrate(User user) throws ServiceException;
+    User registration(User user) throws ServiceException;
 
-    void deleteUser(Integer id) throws ServiceException;
+    boolean deleteUser(int id) throws ServiceException;
 
-    void updateUser(User user) throws ServiceException;
+    boolean updateUser(User user) throws ServiceException;
 
     List<User> employeesByProcedure(Procedure procedure)
             throws ServiceException;

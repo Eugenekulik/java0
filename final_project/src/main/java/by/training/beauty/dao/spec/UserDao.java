@@ -38,5 +38,5 @@ public interface UserDao extends Dao<User>{
 
     List<User> findEmployeesByProcedure(int procedureId)throws DaoException;
 
-    User findEmployeeByAppointment(int procedureEmployeeId) throws DaoException;
+    User findEmployeeByAppointment(int appointmentId) throws DaoException;
 }

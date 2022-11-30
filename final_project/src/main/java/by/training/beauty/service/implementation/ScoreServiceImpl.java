@@ -3,7 +3,6 @@ package by.training.beauty.service.implementation;
 import by.training.beauty.dao.*;
 import by.training.beauty.dao.mysql.DaoEnum;
 import by.training.beauty.dao.spec.*;
-import by.training.beauty.domain.Appointment;
 import by.training.beauty.domain.Procedure;
 import by.training.beauty.domain.Score;
 import by.training.beauty.service.spec.ScoreService;
@@ -21,14 +20,14 @@ public class ScoreServiceImpl implements ScoreService {
         this.transactionFactory = transactionFactory;
     }
 
-    @Override public boolean addScore(Score score) {
+    @Override public Score addScore(Score score) {
         Transaction transaction = null;
         try {
             transaction = transactionFactory.createTransaction();
             ScoreDao scoreDao = transaction.createDao("scoreDao");
-            scoreDao.create(score);
+            score = scoreDao.create(score);
             transaction.commit();
-            return true;
+            return score;
         } catch (DaoException e) {
             try {
                 if (transaction != null) {
@@ -38,10 +37,10 @@ public class ScoreServiceImpl implements ScoreService {
                 LOGGER.error("It is impossible to rollback transaction");
             }
         }
-        return false;
+        return null;
     }
 
-    @Override public List<Score> getScoreByProcedure(Procedure procedure) {
+    @Override public List<Score> getScoresByProcedure(Procedure procedure) {
         Transaction transaction = null;
         List<Score> scores = new ArrayList<>();
         try {
@@ -66,9 +65,9 @@ public class ScoreServiceImpl implements ScoreService {
         try{
            transaction = transactionFactory.createTransaction();
            ScoreDao scoreDao = transaction.createDao(DaoEnum.SCORE.getDao());
-           scoreDao.delete(id);
+           boolean result = scoreDao.delete(id);
            transaction.commit();
-           return true;
+           return result;
         } catch (DaoException e){
             LOGGER.error(()->"Error occured while trying to delete score: " + e.getMessage());
             try {

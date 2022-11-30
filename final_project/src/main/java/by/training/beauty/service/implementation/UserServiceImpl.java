@@ -17,8 +17,6 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * This service allows you to do some activities with users.
@@ -48,7 +46,7 @@ public class UserServiceImpl implements UserService {
         try {
             transaction = transactionFactory.createTransaction();
             RoleDao roleDao = transaction.createDao(DaoEnum.ROLE.getDao());
-            UserDao userDao = transaction.createDao(USER_DAO);
+            UserDao userDao = transaction.createDao(DaoEnum.USER.getDao());
             String hexPassword = hexPassword(password);
             User user = userDao.findByLogin(login);
             if(user == null || !user.getPassword().equals(hexPassword))return null;
@@ -73,9 +71,8 @@ public class UserServiceImpl implements UserService {
      * @return  user if success, else null.
      * @throws ServiceException
      */
-    @Override public User registrate(User user) throws ServiceException {
+    @Override public User registration(User user) throws ServiceException {
         user.setPassword(hexPassword(user.getPassword()));
-        user.addRole(new Role("client"));
         UserValidator userValidator =
                 ServiceFactory.getInstance().getUserValidator();
         if (!(userValidator.loginValidator(user.getLogin())
@@ -87,10 +84,13 @@ public class UserServiceImpl implements UserService {
         Transaction transaction = null;
         try {
             transaction = transactionFactory.createTransaction();
-            UserDao userDao = transaction.createDao(USER_DAO);
+            UserDao userDao = transaction.createDao(DaoEnum.USER.getDao());
+            RoleDao roleDao = transaction.createDao(DaoEnum.ROLE.getDao());
             User temp = userDao.findByLogin(user.getLogin());
             if (temp == null) {
-                userDao.create(user);
+                user = userDao.create(user);
+                user.addRole(new Role("client"));
+                roleDao.updateRolesForUser(user);
                 transaction.commit();
                 return user;
             } else {
@@ -112,18 +112,16 @@ public class UserServiceImpl implements UserService {
      * This method allows you to delete user from the store.
      * @param id identifier of user.
      * @throws ServiceException
+     * @return
      */
-    @Override public void deleteUser(Integer id) throws ServiceException {
+    @Override public boolean deleteUser(int id) throws ServiceException {
         Transaction transaction = null;
         try {
             transaction = transactionFactory.createTransaction();
             UserDao userDao = transaction.createDao(USER_DAO);
-            if (id != null) {
-                userDao.delete(id);
-            } else {
-                LOGGER.warn("an error occurred while delete user by id: {}", id);
-            }
+            boolean result = userDao.delete(id);
             transaction.commit();
+            return result;
         } catch (DaoException e) {
             try {
                 if (transaction != null) {
@@ -167,19 +165,25 @@ public class UserServiceImpl implements UserService {
      * This method allows you to update information about user.
      * @param user new user with old id.
      * @throws ServiceException
+     * @return
      */
-    @Override public void updateUser(User user) throws ServiceException {
+    @Override public boolean updateUser(User user) throws ServiceException {
         Transaction transaction = null;
         try {
             transaction = transactionFactory.createTransaction();
             UserDao userDao = transaction.createDao(DaoEnum.USER.getDao());
             RoleDao roleDao = transaction.createDao(DaoEnum.ROLE.getDao());
             User actual = userDao.findById(user.getId());
-            actual.setName(user.getName());
-            actual.setPhone(user.getPhone());
-            roleDao.updateRolesForUser(user);
-            userDao.update(actual);
+            boolean result;
+            if(actual != null) {
+                actual.setName(user.getName());
+                actual.setPhone(user.getPhone());
+                roleDao.updateRolesForUser(user);
+                userDao.update(actual);
+                result = true;
+            } else result = false;
             transaction.commit();
+            return result;
         } catch (DaoException e) {
             try {
                 if (transaction != null) {

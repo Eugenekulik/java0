@@ -90,7 +90,7 @@ public class AppointmentAction implements Action {
             AppointmentService appointmentService =
                     ServiceFactory.getInstance().getAppointmentService();
             User user = (User) request.getSession().getAttribute("user");
-            List<Appointment> appointments = appointmentService.usersAppointment(user);
+            List<Appointment> appointments = appointmentService.usersAppointment(user.getId());
             request.getSession().removeAttribute("tab");
             request.getSession().setAttribute("appointments", appointments);
             Integer tab = 1;

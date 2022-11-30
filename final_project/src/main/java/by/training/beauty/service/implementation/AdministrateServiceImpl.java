@@ -190,7 +190,7 @@ public class AdministrateServiceImpl implements AdministrateService {
                 return null;
             }).filter(Objects::nonNull).collect(Collectors.toSet());
             List<ProcedureDto> procedureDtoList = new ArrayList<>();
-            procedures.stream().forEach(procedure -> {
+            for (Procedure procedure:procedures) {
                 ProcedureDto procedureDto = new ProcedureDto();
                 procedureDto.setId(procedure.getId());
                 procedureDto.setDescription(procedure.getDescription());
@@ -200,7 +200,7 @@ public class AdministrateServiceImpl implements AdministrateService {
                         .filter(category -> category.getId() == procedure.getCategoryId())
                         .findFirst().get().getName());
                 procedureDtoList.add(procedureDto);
-            });
+            }
             transaction.commit();
             return procedureDtoList;
         } catch (DaoException e) {

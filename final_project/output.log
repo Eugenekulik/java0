@@ -1927,3 +1927,155 @@ Caused by: by.training.beauty.dao.DaoException
 2022:11:333:14:15:01.013 [by.training.beauty.dao.mysql.UserDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Duplicate entry 'firstuser' for key 'user.login'
 2022:11:333:14:15:01.019 [by.training.beauty.dao.mysql.UserDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Cannot delete or update a parent row: a foreign key constraint fails
 2022:11:333:14:15:01.411 [by.training.beauty.dao.mysql.RoleDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.RoleDaoImpl - Duplicate entry 'admin' for key 'role.name'
+2022:11:333:19:02:59.792 [by.training.beauty.dao.mysql.RoleDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.RoleDaoImpl - Duplicate entry 'admin' for key 'role.name'
+2022:11:333:19:03:00.218 [by.training.beauty.dao.mysql.UserDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Duplicate entry 'firstUser' for key 'user.login'
+2022:11:333:19:03:00.263 [by.training.beauty.dao.mysql.UserDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Duplicate entry 'firstuser' for key 'user.login'
+2022:11:333:19:03:00.277 [by.training.beauty.dao.mysql.UserDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Cannot delete or update a parent row: a foreign key constraint fails
+2022:11:333:19:03:00.465 [by.training.beauty.dao.mysql.UserDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Cannot delete or update a parent row: a foreign key constraint fails
+2022:11:333:19:03:00.468 [by.training.beauty.service.implementation.UserServiceImplTest  -----+`  t] ERROR by.training.beauty.service.implementation.AdministrateServiceImplTest - it is impossible to delete user
+by.training.beauty.service.ServiceException: by.training.beauty.dao.DaoException
+	at by.training.beauty.service.implementation.UserServiceImpl.deleteUser(UserServiceImpl.java:135) ~[classes/:?]
+	at by.training.beauty.service.implementation.UserServiceImplTest.testDeleteUser(UserServiceImplTest.java:127) ~[test-classes/:?]
+	at jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:577) ~[?:?]
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128) ~[testng-7.4.0.jar:7.4.0]
+	at java.util.ArrayList.forEach(ArrayList.java:1511) [?:?]
+	at org.testng.TestRunner.privateRun(TestRunner.java:794) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestRunner.run(TestRunner.java:596) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:377) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:371) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:332) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.run(SuiteRunner.java:276) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1212) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1134) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuites(TestNG.java:1063) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.run(TestNG.java:1031) [testng-7.4.0.jar:7.4.0]
+	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:66) [testng-rt.jar:?]
+	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:109) [testng-rt.jar:?]
+Caused by: by.training.beauty.dao.DaoException
+	at by.training.beauty.dao.mysql.UserDaoImpl.delete(UserDaoImpl.java:228) ~[classes/:?]
+	at by.training.beauty.service.implementation.UserServiceImpl.deleteUser(UserServiceImpl.java:122) ~[classes/:?]
+	... 26 more
+2022:11:333:19:03:00.932 [by.training.beauty.dao.mysql.CategoryDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.CategoryDaoImpl - Duplicate entry 'Аппаратная косметология' for key 'category.name_UNIQUE'
+2022:11:333:19:03:00.936 [by.training.beauty.dao.mysql.CategoryDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.CategoryDaoImpl - Cannot delete or update a parent row: a foreign key constraint fails
+2022:11:333:19:04:15.182 [by.training.beauty.dao.pool.ConnectionPool  -----+`  t] ERROR by.training.beauty.dao.pool.ConnectionPool - The limit of number of databse connections is exceeded
+2022:11:333:19:04:15.186 [by.training.beauty.service.implementation.AdministrateServiceImplTest  -----+`  t] ERROR by.training.beauty.service.implementation.AdministrateServiceImplTest - it is impossible to get user list
+2022:11:333:19:04:16.353 [by.training.beauty.dao.mysql.RoleDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.RoleDaoImpl - Duplicate entry 'admin' for key 'role.name'
+2022:11:333:19:04:16.788 [by.training.beauty.dao.mysql.CategoryDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.CategoryDaoImpl - Duplicate entry 'Аппаратная косметология' for key 'category.name_UNIQUE'
+2022:11:333:19:04:16.792 [by.training.beauty.dao.mysql.CategoryDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.CategoryDaoImpl - Cannot delete or update a parent row: a foreign key constraint fails
+2022:11:333:19:04:17.017 [by.training.beauty.dao.mysql.UserDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Cannot delete or update a parent row: a foreign key constraint fails
+2022:11:333:19:04:17.020 [by.training.beauty.service.implementation.UserServiceImplTest  -----+`  t] ERROR by.training.beauty.service.implementation.AdministrateServiceImplTest - it is impossible to delete user
+by.training.beauty.service.ServiceException: by.training.beauty.dao.DaoException
+	at by.training.beauty.service.implementation.UserServiceImpl.deleteUser(UserServiceImpl.java:135) ~[classes/:?]
+	at by.training.beauty.service.implementation.UserServiceImplTest.testDeleteUser(UserServiceImplTest.java:127) ~[test-classes/:?]
+	at jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:577) ~[?:?]
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128) ~[testng-7.4.0.jar:7.4.0]
+	at java.util.ArrayList.forEach(ArrayList.java:1511) [?:?]
+	at org.testng.TestRunner.privateRun(TestRunner.java:794) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestRunner.run(TestRunner.java:596) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:377) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:371) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:332) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.run(SuiteRunner.java:276) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1212) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1134) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuites(TestNG.java:1063) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.run(TestNG.java:1031) [testng-7.4.0.jar:7.4.0]
+	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:66) [testng-rt.jar:?]
+	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:109) [testng-rt.jar:?]
+Caused by: by.training.beauty.dao.DaoException
+	at by.training.beauty.dao.mysql.UserDaoImpl.delete(UserDaoImpl.java:228) ~[classes/:?]
+	at by.training.beauty.service.implementation.UserServiceImpl.deleteUser(UserServiceImpl.java:122) ~[classes/:?]
+	... 26 more
+2022:11:333:19:04:17.120 [by.training.beauty.dao.mysql.UserDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Duplicate entry 'firstUser' for key 'user.login'
+2022:11:333:19:04:17.152 [by.training.beauty.dao.mysql.UserDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Duplicate entry 'firstuser' for key 'user.login'
+2022:11:333:19:04:17.156 [by.training.beauty.dao.mysql.UserDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Cannot delete or update a parent row: a foreign key constraint fails
+2022:11:333:20:08:52.870 [by.training.beauty.dao.pool.ConnectionPool  -----+`  t] ERROR by.training.beauty.dao.pool.ConnectionPool - The limit of number of databse connections is exceeded
+2022:11:333:20:08:52.879 [by.training.beauty.service.implementation.ProcedureServiceImplTest  -----+`  t] ERROR by.training.beauty.service.implementation.ProcedureServiceImplTest - by.training.beauty.dao.DaoException
+2022:11:333:20:10:17.112 [by.training.beauty.dao.pool.ConnectionPool  -----+`  t] ERROR by.training.beauty.dao.pool.ConnectionPool - The limit of number of databse connections is exceeded
+2022:11:333:20:10:17.118 [by.training.beauty.service.implementation.ProcedureServiceImplTest  -----+`  t] ERROR by.training.beauty.service.implementation.ProcedureServiceImplTest - by.training.beauty.dao.DaoException
+2022:11:333:20:11:35.137 [by.training.beauty.dao.pool.ConnectionPool  -----+`  t] ERROR by.training.beauty.dao.pool.ConnectionPool - The limit of number of databse connections is exceeded
+2022:11:333:20:11:35.143 [by.training.beauty.service.implementation.ProcedureServiceImplTest  -----+`  t] ERROR by.training.beauty.service.implementation.ProcedureServiceImplTest - by.training.beauty.dao.DaoException
+2022:11:333:20:19:16.671 [by.training.beauty.dao.pool.ConnectionPool  -----+`  t] ERROR by.training.beauty.dao.pool.ConnectionPool - The limit of number of databse connections is exceeded
+2022:11:333:20:19:16.674 [by.training.beauty.service.implementation.AdministrateServiceImplTest  -----+`  t] ERROR by.training.beauty.service.implementation.AdministrateServiceImplTest - it is impossible to get user list
+2022:11:333:20:19:17.694 [by.training.beauty.dao.mysql.CategoryDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.CategoryDaoImpl - Duplicate entry 'Аппаратная косметология' for key 'category.name_UNIQUE'
+2022:11:333:20:19:17.705 [by.training.beauty.dao.mysql.CategoryDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.CategoryDaoImpl - Cannot delete or update a parent row: a foreign key constraint fails
+2022:11:333:20:19:18.216 [by.training.beauty.dao.mysql.UserDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Duplicate entry 'firstUser' for key 'user.login'
+2022:11:333:20:19:18.251 [by.training.beauty.dao.mysql.UserDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Duplicate entry 'firstuser' for key 'user.login'
+2022:11:333:20:19:18.256 [by.training.beauty.dao.mysql.UserDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Cannot delete or update a parent row: a foreign key constraint fails
+2022:11:333:20:19:18.452 [by.training.beauty.dao.mysql.UserDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Cannot delete or update a parent row: a foreign key constraint fails
+2022:11:333:20:19:18.455 [by.training.beauty.service.implementation.UserServiceImplTest  -----+`  t] ERROR by.training.beauty.service.implementation.AdministrateServiceImplTest - it is impossible to delete user
+by.training.beauty.service.ServiceException: by.training.beauty.dao.DaoException
+	at by.training.beauty.service.implementation.UserServiceImpl.deleteUser(UserServiceImpl.java:135) ~[classes/:?]
+	at by.training.beauty.service.implementation.UserServiceImplTest.testDeleteUser(UserServiceImplTest.java:127) ~[test-classes/:?]
+	at jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:577) ~[?:?]
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146) ~[testng-7.4.0.jar:7.4.0]
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128) ~[testng-7.4.0.jar:7.4.0]
+	at java.util.ArrayList.forEach(ArrayList.java:1511) [?:?]
+	at org.testng.TestRunner.privateRun(TestRunner.java:794) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestRunner.run(TestRunner.java:596) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:377) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:371) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:332) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunner.run(SuiteRunner.java:276) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53) [testng-7.4.0.jar:7.4.0]
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1212) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1134) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.runSuites(TestNG.java:1063) [testng-7.4.0.jar:7.4.0]
+	at org.testng.TestNG.run(TestNG.java:1031) [testng-7.4.0.jar:7.4.0]
+	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:66) [testng-rt.jar:?]
+	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:109) [testng-rt.jar:?]
+Caused by: by.training.beauty.dao.DaoException
+	at by.training.beauty.dao.mysql.UserDaoImpl.delete(UserDaoImpl.java:228) ~[classes/:?]
+	at by.training.beauty.service.implementation.UserServiceImpl.deleteUser(UserServiceImpl.java:122) ~[classes/:?]
+	... 26 more
+2022:11:333:20:19:18.714 [by.training.beauty.dao.mysql.RoleDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.RoleDaoImpl - Duplicate entry 'admin' for key 'role.name'
+2022:11:333:21:48:55.520 [by.training.beauty.dao.pool.ConnectionPool  -----+`  t] ERROR by.training.beauty.dao.pool.ConnectionPool - The limit of number of databse connections is exceeded
+2022:11:333:21:48:55.535 [by.training.beauty.service.implementation.ScheduleServiceImplTest  -----+`  t] ERROR by.training.beauty.service.implementation.ScheduleServiceImplTest - by.training.beauty.dao.DaoException
+2022:11:333:21:51:47.255 [by.training.beauty.dao.pool.ConnectionPool  -----+`  t] ERROR by.training.beauty.dao.pool.ConnectionPool - The limit of number of databse connections is exceeded
+2022:11:333:21:51:47.261 [by.training.beauty.service.implementation.ScheduleServiceImplTest  -----+`  t] ERROR by.training.beauty.service.implementation.ScheduleServiceImplTest - by.training.beauty.dao.DaoException
+2022:11:333:21:59:48.878 [by.training.beauty.dao.pool.ConnectionPool  -----+`  t] ERROR by.training.beauty.dao.pool.ConnectionPool - The limit of number of databse connections is exceeded
+2022:11:333:21:59:48.884 [by.training.beauty.service.implementation.ScheduleServiceImplTest  -----+`  t] ERROR by.training.beauty.service.implementation.ScheduleServiceImplTest - by.training.beauty.dao.DaoException
+2022:11:334:14:15:29.441 [by.training.beauty.dao.pool.ConnectionPool  -----+`  t] ERROR by.training.beauty.dao.pool.ConnectionPool - The limit of number of databse connections is exceeded
+2022:11:334:14:15:29.446 [by.training.beauty.service.implementation.AdministrateServiceImplTest  -----+`  t] ERROR by.training.beauty.service.implementation.AdministrateServiceImplTest - it is impossible to get user list
+2022:11:334:14:15:30.522 [by.training.beauty.dao.mysql.CategoryDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.CategoryDaoImpl - Duplicate entry 'Аппаратная косметология' for key 'category.name_UNIQUE'
+2022:11:334:14:15:30.531 [by.training.beauty.dao.mysql.CategoryDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.CategoryDaoImpl - Cannot delete or update a parent row: a foreign key constraint fails
+2022:11:334:14:15:31.257 [by.training.beauty.dao.mysql.RoleDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.RoleDaoImpl - Duplicate entry 'admin' for key 'role.name'
+2022:11:334:14:15:31.424 [by.training.beauty.dao.mysql.UserDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Duplicate entry 'firstUser' for key 'user.login'
+2022:11:334:14:15:31.464 [by.training.beauty.dao.mysql.UserDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Duplicate entry 'firstuser' for key 'user.login'
+2022:11:334:14:15:31.470 [by.training.beauty.dao.mysql.UserDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Cannot delete or update a parent row: a foreign key constraint fails
+2022:11:334:14:21:45.020 [by.training.beauty.dao.pool.ConnectionPool  -----+`  t] ERROR by.training.beauty.dao.pool.ConnectionPool - The limit of number of databse connections is exceeded
+2022:11:334:14:21:45.025 [by.training.beauty.service.implementation.AdministrateServiceImplTest  -----+`  t] ERROR by.training.beauty.service.implementation.AdministrateServiceImplTest - it is impossible to get user list
+2022:11:334:14:21:46.062 [by.training.beauty.dao.mysql.RoleDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.RoleDaoImpl - Duplicate entry 'admin' for key 'role.name'
+2022:11:334:14:21:46.228 [by.training.beauty.dao.mysql.CategoryDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.CategoryDaoImpl - Duplicate entry 'Аппаратная косметология' for key 'category.name_UNIQUE'
+2022:11:334:14:21:46.234 [by.training.beauty.dao.mysql.CategoryDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.CategoryDaoImpl - Cannot delete or update a parent row: a foreign key constraint fails
+2022:11:334:14:21:46.387 [by.training.beauty.dao.mysql.UserDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Duplicate entry 'firstUser' for key 'user.login'
+2022:11:334:14:21:46.420 [by.training.beauty.dao.mysql.UserDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Duplicate entry 'firstuser' for key 'user.login'
+2022:11:334:14:21:46.426 [by.training.beauty.dao.mysql.UserDaoImpl  -----+`  t] ERROR by.training.beauty.dao.mysql.UserDaoImpl - Cannot delete or update a parent row: a foreign key constraint fails

@@ -12,7 +12,6 @@ import org.apache.logging.log4j.Logger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -74,8 +73,9 @@ public class ScheduleServiceImpl implements ScheduleService {
      * @param employeeId
      * @param date
      * @throws ServiceException
+     * @return
      */
-    @Override public void addSchedule(int employeeId, LocalDate date)
+    @Override public boolean addSchedule(int employeeId, LocalDate date)
             throws ServiceException {
         Transaction transaction = null;
         try {
@@ -94,6 +94,7 @@ public class ScheduleServiceImpl implements ScheduleService {
                 scheduleDao.create(schedule);
             }
             transaction.commit();
+            return true;
         } catch (DaoException e) {
             try {
                 if(transaction != null) {
@@ -110,19 +111,16 @@ public class ScheduleServiceImpl implements ScheduleService {
      * This method allows you to delete schedule from the store by id.
      * @param id identifier of the schedule
      * @throws ServiceException
+     * @return
      */
-    @Override public void deleteSchedule(Integer id) throws ServiceException {
+    @Override public boolean deleteSchedule(int id) throws ServiceException {
         Transaction transaction = null;
         try {
             transaction = transactionFactory.createTransaction();
             ScheduleDao scheduleDao = transaction.createDao(SCHEDULE_DAO);
-            if (id != null) {
-                scheduleDao.delete(id);
-            } else {
-                LOGGER.warn("an error occurred while " +
-                        "delete schedule by id: {}", id);
-            }
+            boolean result = scheduleDao.delete(id);
             transaction.commit();
+            return result;
         } catch (DaoException e) {
             try {
                 if(transaction != null) {
@@ -136,15 +134,17 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
 
-    @Override public void archive() {
+    @Override public boolean archive() {
         Transaction transaction = null;
         try{
             transaction = transactionFactory.createTransaction();
             ScheduleDao scheduleDao = transaction.createDao(DaoEnum.SCHEDULE.getDao());
             scheduleDao.archive();
             transaction.commit();
+            return true;
         } catch (DaoException e) {
             e.printStackTrace();
         }
+        return false;
     }
 }

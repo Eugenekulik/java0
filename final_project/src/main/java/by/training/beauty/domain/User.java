@@ -30,6 +30,7 @@ public class User extends Entity{
         this.setLogin(builder.login);
         this.setPassword(builder.password);
         this.setPhone(builder.phone);
+        this.roles = builder.roles;
     }
 
 

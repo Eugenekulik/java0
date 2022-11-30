@@ -1,187 +1,237 @@
 package by.training.beauty.service.implementation;
 
 import by.training.beauty.dao.DaoException;
+import by.training.beauty.dao.mysql.DaoEnum;
+import by.training.beauty.dao.spec.RoleDao;
+import by.training.beauty.dao.spec.Transaction;
+import by.training.beauty.dao.spec.TransactionFactory;
 import by.training.beauty.dao.spec.UserDao;
 import by.training.beauty.dao.mysql.UserDaoImpl;
 import by.training.beauty.dao.pool.ConnectionPool;
 import by.training.beauty.dao.pool.PooledConnection;
+import by.training.beauty.domain.Procedure;
 import by.training.beauty.domain.Role;
 import by.training.beauty.domain.User;
 import by.training.beauty.service.ServiceException;
 import by.training.beauty.service.ServiceFactory;
+import by.training.beauty.service.spec.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.assertj.core.api.Assertions;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
-import java.util.Scanner;
 
+import java.util.List;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import static org.testng.Assert.*;
 
 public class UserServiceImplTest {
     private static final Logger LOGGER = LogManager.getLogger(AdministrateServiceImplTest.class);
 
+    TransactionFactory transactionFactory;
+
+
     @BeforeClass
     public void init() {
-        Properties properties = new Properties();
+        transactionFactory = mock(TransactionFactory.class);
+        Transaction transaction = mock(Transaction.class);
+        UserDao userDao = mock(UserDao.class);
+        RoleDao roleDao = mock(RoleDao.class);
         try {
-            URL resource = getClass().getClassLoader().getResource("connection.properties");
-            properties.load(new FileReader(new File(resource.toURI())));
-            ConnectionPool.getInstance().init(properties.getProperty("db.driver"), properties.getProperty("db.url"),
-                    properties.getProperty("user"), properties.getProperty("password"), 1, 4, 30);
-        } catch (IOException | URISyntaxException e) {
-            LOGGER.error("It is impossible to load properties", e);
+// Configure mock userDao
+            when(userDao.findByLogin(anyString()))
+                    .thenReturn(new User.Builder()
+                            .setId(1)
+                            .setLogin("client")
+                            // password = clientuser
+                            .setPassword("c56207bc713c9529e4e6e2ca7958d30cee4ddd9e5c4b53dd9d3132dd56816e08")
+                            .setPhone("+375290000000")
+                            .setName("client")
+                            .build());
+            when(userDao.findByLogin("newUser")).thenReturn(null);
+            when(userDao.create(any())).thenReturn(new User.Builder()
+                    .setId(1)
+                    .setName("new user")
+                    .setLogin("newUser")
+                    .setPassword("5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8")
+                    .setPhone("+375337748378")
+                    .build());
+            when(userDao.findById(1))
+                    .thenReturn(new User());
+            when(userDao.update(any())).thenReturn(true);
+            when(userDao.findById(2)).thenReturn(null);
+            when(userDao.delete(1)).thenReturn(true);
+            when(userDao.delete(2)).thenReturn(false);
+            when(userDao.findEmployeesByProcedure(1))
+                    .thenReturn(List.of(new User.Builder()
+                            .setId(2).build()));
+            when(userDao.findEmployees())
+                    .thenReturn(List.of(new User.Builder().setId(2).build()));
+
+
+// Configure mock roleDao
+            when(roleDao.findByUser(1))
+                    .thenReturn(List.of(new Role(1, "client")));
+            when(roleDao.updateRolesForUser(any()))
+                    .thenReturn(true);
+
+
+// Configure mock transaction
+            when(transaction.createDao(DaoEnum.USER.getDao())).thenReturn(userDao);
+            when(transaction.createDao(DaoEnum.ROLE.getDao())).thenReturn(roleDao);
+            when(transactionFactory.createTransaction()).thenReturn(transaction);
         } catch (DaoException e) {
-            LOGGER.error("It is impossible to init connection pool to database", e);
+            e.printStackTrace();
         }
     }
 
     @Test
     public void testLogin() {
         try {
-            User user = ServiceFactory
-                    .getInstance()
-                    .getUserService()
-                    .login("thirduser","thirduser");
-            assertNotNull(user);
-        } catch (ServiceException e){
-            LOGGER.error("it is impossible to authorizate",e);
+            UserService userService = new UserServiceImpl(transactionFactory);
+            Assertions.assertThat(userService.login("client", "clientuser"))
+                    .usingRecursiveComparison()
+                    .isEqualTo(new User.Builder()
+                            .setId(1)
+                            .setLogin("client")
+                            .setName("client")
+                            .setPhone("+375290000000")
+                            .setPassword("c56207bc713c9529e4e6e2ca7958d30cee4ddd9e5c4b53dd9d3132dd56816e08")
+                            .addRole(new Role(1, "client"))
+                            .build());
+        } catch (ServiceException e) {
+            LOGGER.error("it is impossible to authorizate", e);
         }
     }
 
-    @DataProvider(name = "invalidLogin")
-    public Object[][] createLoginPassword(){
-        return new Object[][]{
-                {"thiruser","thirduser"},
-                {"thirduser","thiruser"},
-        };
-    }
 
-    @Test(dataProvider = "invalidLogin")
-    public void testLoginInvalid(String login, String password){
+    @Test
+    public void testRegistration() {
+
         try {
-            User user = ServiceFactory
-                    .getInstance()
-                    .getUserService()
-                    .login(login,password);
-            assertNull(user);
-        } catch (ServiceException e){
-            LOGGER.error("it is impossible to authorizate",e);
+            UserService userService = new UserServiceImpl(transactionFactory);
+            User actual = userService.registration(new User.Builder()
+                    .setName("new user")
+                    .setLogin("newUser")
+                    .setPassword("password")
+                    .setPhone("+375337748378")
+                    .build());
+            User expected = new User.Builder()
+                    .setId(1)
+                    .setName("new user")
+                    .setLogin("newUser")
+                    .setPassword("5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8")
+                    .setPhone("+375337748378")
+                    .addRole(new Role("client"))
+                    .build();
+            Assertions.assertThat(actual).usingRecursiveComparison().isEqualTo(expected);
+        } catch (ServiceException e) {
+            LOGGER.error("it is impossible to registrate user", e);
         }
     }
 
     @Test
-    public void testRegistrate() {
-        User user = new User();
-        user.setName("new user");
-        user.setLogin("newuser");
-        user.setPassword("password");
-        user.setPhone("+375337748378");
+    public void testRegistration_false() {
         try {
-            User actual = ServiceFactory
-                    .getInstance()
-                    .getUserService()
-                    .registrate(user);
-            assertNotNull(actual);
+            UserService userService = new UserServiceImpl(transactionFactory);
+            Assertions.assertThat(userService.registration(new User.Builder()
+                    .setPassword("password")
+                    .setLogin("client")
+                    .build())).isNull();
         } catch (ServiceException e) {
-            LOGGER.error("it is impossible to registrate user",e);
+            LOGGER.error("an error occurred while registering the user", e);
         }
     }
 
     @Test
-    public void testRegistrateInvalid() {
-        User user = new User();
-        user.setName("new user");
-        user.setLogin("thirduser"); //user with this login exist
-        user.setPassword("password");
-        user.setPhone("+375337748378");
+    public void testDeleteUser_Return_True() {
         try {
-            User actual = ServiceFactory
-                    .getInstance()
-                    .getUserService()
-                    .registrate(user);
-            assertNull(actual);
+            UserService userService = new UserServiceImpl(transactionFactory);
+            Assertions.assertThat(userService.deleteUser(1)).isTrue();
         } catch (ServiceException e) {
-            LOGGER.error("an error occurred while registering the user",e);
-        }
-    }
-
-    @Test(priority = 1)
-    public void testDeleteUser() {
-        try {
-            ServiceFactory
-                    .getInstance()
-                    .getUserService()
-                    .deleteUser(3);
-            try {
-                PooledConnection connection = ConnectionPool.getInstance().getConnection();
-                UserDao userDao = new UserDaoImpl();
-                userDao.setConnection(connection);
-                User user = userDao.findById(3);
-                assertNull(user);
-                connection.close();
-            } catch (DaoException e) {
-                LOGGER.error("an error occurred while getting user",e);
-            }
-        } catch (ServiceException e) {
-            LOGGER.error("it is impossible to delete user",e );
+            LOGGER.error("it is impossible to delete user", e);
         }
     }
 
     @Test
-    public void testUpdateUser() {
-        User user = new User();
-        user.setId(3);
-        user.addRole(new Role("employee"));
-        user.setPhone("+375293333333");
-        user.setName("thirduserUpdate");
+    public void testDeleteUser_Return_False() {
         try {
-            ServiceFactory
-                    .getInstance()
-                    .getUserService()
-                    .updateUser(user);
-            try {
-                PooledConnection connection = ConnectionPool.getInstance().getConnection();
-                UserDao userDao = new UserDaoImpl();
-                userDao.setConnection(connection);
-                User actual = userDao.findById(3);
-                assertEquals(actual.getName(),user.getName());
-                connection.close();
-            } catch (DaoException e) {
-                LOGGER.error("an error occurred while getting user", e);
-            }
+            UserService userService = new UserServiceImpl(transactionFactory);
+            Assertions.assertThat(userService.deleteUser(2)).isFalse();
+        } catch (ServiceException e) {
+            LOGGER.error("it is impossible to delete user", e);
+        }
+    }
+
+    @Test
+    public void testUpdateUser_Return_True() {
+        try {
+            UserService userService = new UserServiceImpl(transactionFactory);
+            Assertions.assertThat(userService.updateUser(new User.Builder()
+                    .setId(1)
+                    .build())).isTrue();
         } catch (ServiceException e) {
             LOGGER.error("it is impossible to update user", e);
         }
     }
-    @AfterClass
-    public void destroy(){
+
+    @Test
+    public void testUpdateUser_Return_False() {
         try {
-            URL resource = getClass().getClassLoader().getResource("init_test.sql");
-            Scanner scanner = new Scanner(new FileReader(resource.getFile()));
-            scanner.useDelimiter(";");
-            List<String> queries = new ArrayList<>();
-            while (scanner.hasNext()){
-                queries.add(scanner.next() + ";");
-            }
-            PooledConnection connection = ConnectionPool.getInstance().getConnection();
-            Statement statement = connection.createStatement();
-            for (String s:queries) {
-                statement.executeUpdate(s);
-            }
-            ConnectionPool.getInstance().destroy();
-        } catch (SQLException |DaoException|IOException e) {e.printStackTrace();}
+            UserService userService = new UserServiceImpl(transactionFactory);
+            Assertions.assertThat(userService.updateUser(new User.Builder()
+                    .setId(2)
+                    .build())).isFalse();
+        } catch (ServiceException e) {
+            LOGGER.error("it is impossible to update user", e);
+        }
+    }
+
+
+    @Test
+    public void testFindById_Return_User() {
+        UserService userService = new UserServiceImpl(transactionFactory);
+        Assertions.assertThat(userService.findById(1)).isNotNull();
+
+    }
+
+    @Test
+    public void testFindById_Return_Null() {
+        UserService userService = new UserServiceImpl(transactionFactory);
+        Assertions.assertThat(userService.findById(2)).isNull();
+    }
+
+
+    @Test
+    public void testEmployeesByProcedure(){
+        try {
+            UserService userService = new UserServiceImpl(transactionFactory);
+            Assertions.assertThat(userService.employeesByProcedure(new Procedure.Builder()
+                    .setId(1).build()))
+                    .usingRecursiveFieldByFieldElementComparator()
+                    .contains(new User.Builder().setId(2).build())
+                    .size().isEqualTo(1);
+        } catch (ServiceException e) {
+            LOGGER.error("it is impossible to update user", e);
+        }
+    }
+
+    @Test
+    public void testEmployeesList(){
+        try {
+            UserService userService = new UserServiceImpl(transactionFactory);
+            Assertions.assertThat(userService.employeeList())
+                    .usingRecursiveFieldByFieldElementComparator()
+                    .contains(new User.Builder().setId(2).build())
+                    .size().isEqualTo(1);
+        } catch (ServiceException e) {
+            LOGGER.error("it is impossible to update user", e);
+        }
     }
 }

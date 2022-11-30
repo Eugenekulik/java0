@@ -1,17 +1,25 @@
 package by.training.beauty.service.implementation;
 
 import by.training.beauty.dao.DaoException;
+import by.training.beauty.dao.mysql.DaoEnum;
+import by.training.beauty.dao.mysql.TransactionFactoryImpl;
+import by.training.beauty.dao.spec.CategoryDao;
 import by.training.beauty.dao.spec.ProcedureDao;
 import by.training.beauty.dao.mysql.ProcedureDaoImpl;
 import by.training.beauty.dao.pool.ConnectionPool;
 import by.training.beauty.dao.pool.PooledConnection;
+import by.training.beauty.dao.spec.Transaction;
+import by.training.beauty.dao.spec.TransactionFactory;
 import by.training.beauty.domain.Category;
 import by.training.beauty.domain.Procedure;
 import by.training.beauty.service.ServiceException;
 import by.training.beauty.service.ServiceFactory;
 import by.training.beauty.service.spec.ConnectionPoolService;
+import by.training.beauty.service.spec.ProcedureService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.assertj.core.api.Assertions;
+import org.mockito.Mockito;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -28,61 +36,108 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Scanner;
 
+import static org.mockito.Mockito.*;
 import static org.testng.Assert.*;
 
 public class ProcedureServiceImplTest {
     private static final Logger LOGGER = LogManager.getLogger(ProcedureServiceImplTest.class);
+    TransactionFactory transactionFactory;
+
     @BeforeClass
     public void init(){
-        Properties properties = new Properties();
-        try {
-            URL resource = getClass().getClassLoader().getResource("connection.properties");
-            properties.load(new FileReader(new File(resource.toURI())));
-            ConnectionPool.getInstance().init(properties.getProperty("db.driver"), properties.getProperty("db.url"),
-                    properties.getProperty("user"), properties.getProperty("password"), 1, 4, 30);
-        } catch (IOException | URISyntaxException e) {
-            LOGGER.error("It is impossible to load properties", e);
-        } catch (DaoException e) {
-            LOGGER.error("It is impossible to init connection pool to database", e);
+        Transaction transaction = mock(Transaction.class);
+        transactionFactory = mock(TransactionFactoryImpl.class);
+        ProcedureDao procedureDao = mock(ProcedureDao.class);
+        CategoryDao categoryDao = mock(CategoryDao.class);
+        try{
+
+// Configure mock procedureDao
+            when(procedureDao.findall())
+                    .thenReturn(List.of(new Procedure.Builder()
+                            .setId(1)
+                            .setName("procedure")
+                            .setElapsedTime(60)
+                            .setCategoryId(1)
+                            .setDescription("description")
+                            .build()));
+            when(procedureDao.findById(1)).thenReturn(new Procedure.Builder()
+                    .setId(1)
+                    .setName("procedure")
+                    .setElapsedTime(60)
+                    .setCategoryId(1)
+                    .setDescription("description")
+                    .build());
+            when(procedureDao.create(any())).thenReturn(new Procedure());
+            when(procedureDao.delete(anyInt())).thenReturn(true);
+            when(procedureDao.update(any())).thenReturn(true);
+
+
+//Configure mock categoryDao
+            when(categoryDao.findall())
+                    .thenReturn(List.of(new Category.Builder()
+                            .setId(1)
+                            .setName("category")
+                            .setDescription("description")
+                            .build()));
+
+
+            when(transaction.createDao(DaoEnum.CATEGORY.getDao())).thenReturn(categoryDao);
+            when(transaction.createDao(DaoEnum.PROCEDURE.getDao())).thenReturn(procedureDao);
+            when(transactionFactory.createTransaction()).thenReturn(transaction);
+        } catch (DaoException e){
+            e.printStackTrace();
         }
     }
     @Test
     public void testGetProcedures() {
         try {
-            List<Procedure> procedures = ServiceFactory
-                    .getInstance()
-                    .getProcedureService()
-                    .getProcedures();
-            assertEquals(procedures.size(), 6);
+            ProcedureService procedureService = new ProcedureServiceImpl(transactionFactory);
+            Assertions.assertThat(procedureService.getProcedures())
+                    .usingRecursiveFieldByFieldElementComparator()
+                    .contains(new Procedure.Builder()
+                            .setId(1)
+                            .setName("procedure")
+                            .setElapsedTime(60)
+                            .setCategoryId(1)
+                            .setDescription("description")
+                            .build())
+                    .size().isEqualTo(1);
         } catch (ServiceException e) {
-            LOGGER.error("it is impossible to get procedures",e);
+            e.printStackTrace();
         }
     }
 
     @Test
     public void testGetProcedureById() {
-        int id  = 1;
         try {
-            Procedure procedure = ServiceFactory
-                    .getInstance()
-                    .getProcedureService()
-                    .getProcedureById(id);
-            assertEquals(procedure.getName(),"Лазерное омоложение");
+            ProcedureService procedureService = new ProcedureServiceImpl(transactionFactory);
+            Assertions.assertThat(procedureService.getProcedureById(1))
+                    .usingRecursiveComparison().isEqualTo(new Procedure.Builder()
+                            .setId(1)
+                            .setName("procedure")
+                            .setElapsedTime(60)
+                            .setCategoryId(1)
+                            .setDescription("description")
+                            .build());
         } catch (ServiceException e) {
-            LOGGER.error(String.format("it is impossible to get procedure by id: %s",id),e);
+            e.printStackTrace();
         }
     }
 
     @Test
     public void testGetCategories() {
         try {
-            List<Category> categories = ServiceFactory
-                    .getInstance()
-                    .getProcedureService()
-                    .getCategories();
-            assertEquals(categories.size(), 7);
+            ProcedureService procedureService = new ProcedureServiceImpl(transactionFactory);
+            Assertions.assertThat(procedureService.getCategories())
+                    .usingRecursiveFieldByFieldElementComparator()
+                    .contains(new Category.Builder()
+                            .setId(1)
+                            .setName("category")
+                            .setDescription("description")
+                            .build())
+                    .size().isEqualTo(1);
         } catch (ServiceException e) {
-            LOGGER.error("it is impossible to get categories",e);
+            e.printStackTrace();
         }
     }
 
@@ -94,42 +149,23 @@ public class ProcedureServiceImplTest {
         procedure.setElapsedTime(60);
         procedure.setCategoryId(1);
         try {
-            ServiceFactory
-                    .getInstance()
-                    .getProcedureService()
-                    .addProcedure(procedure);
-            try {
-                PooledConnection connection = ConnectionPool.getInstance().getConnection();
-                ProcedureDao procedureDao = new ProcedureDaoImpl();
-                procedureDao.setConnection(connection);
-                procedure = procedureDao.findByName("Лазерный карбоновый пилинг");
-                assertNotNull(procedure);
-            } catch (DaoException e) {
-                LOGGER.error("an error occurred while getting procedure",e);
-            }
-        } catch (ServiceException e) {
-            LOGGER.error("it is impossible to add procedure",e);
+            ProcedureService procedureService = new ProcedureServiceImpl(transactionFactory);
+            Assertions.assertThat(procedureService.addProcedure(procedure)).isTrue();
+            verify(((ProcedureDao)transactionFactory
+                    .createTransaction()
+                    .createDao(DaoEnum.PROCEDURE.getDao())), times(1)).create(any());
+        } catch (ServiceException|DaoException e) {
+            e.printStackTrace();
         }
     }
 
-    @Test(priority = 2)
+   @Test(priority = 2)
     public void testDeleteProcedure() {
         try {
-            ServiceFactory
-                    .getInstance()
-                    .getProcedureService()
-                    .deleteProcedure(1);
-            try {
-                PooledConnection connection = ConnectionPool.getInstance().getConnection();
-                ProcedureDao procedureDao = new ProcedureDaoImpl();
-                procedureDao.setConnection(connection);
-                Procedure procedure = procedureDao.findById(1);
-                assertNull(procedure);
-            } catch (DaoException e) {
-                LOGGER.error("an error occurred while getting procedure");
-            }
+            ProcedureService procedureService = new ProcedureServiceImpl(transactionFactory);
+            Assertions.assertThat(procedureService.deleteProcedure(1)).isTrue();
         } catch (ServiceException e){
-            LOGGER.error(String.format("it is impossible to delete procedure by id: %d", 1),e);
+            e.printStackTrace();
         }
     }
 
@@ -142,41 +178,13 @@ public class ProcedureServiceImplTest {
         procedure.setName("change");
         procedure.setDescription("change");
         try {
-            ServiceFactory
-                    .getInstance()
-                    .getProcedureService()
-                    .updateProcedure(procedure);
-            try {
-                PooledConnection connection = ConnectionPool.getInstance().getConnection();
-                ProcedureDao procedureDao = new ProcedureDaoImpl();
-                procedureDao.setConnection(connection);
-                procedure = procedureDao.findById(1);
-                assertEquals(procedure.getName(), "change");
-            } catch (DaoException e) {
-                LOGGER.error("an error occurred while getting procedure");
-            }
+            ProcedureService procedureService = new ProcedureServiceImpl(transactionFactory);
+            Assertions.assertThat(procedureService.updateProcedure(procedure)).isTrue();
         } catch (ServiceException e){
-            LOGGER.error("it is impossible to update procedure",e);
+            e.printStackTrace();
         }
     }
     @AfterClass
     public void destroy(){
-        try {
-            URL resource = getClass().getClassLoader().getResource("init_test.sql");
-            Scanner scanner = new Scanner(new FileReader(resource.getFile()));
-            scanner.useDelimiter(";");
-            List<String> queries = new ArrayList<>();
-            while (scanner.hasNext()){
-                queries.add(scanner.next() + ";");
-            }
-            PooledConnection connection = ConnectionPool.getInstance().getConnection();
-            Statement statement = connection.createStatement();
-            for (String s:queries) {
-                statement.executeUpdate(s);
-            }
-            connection.close();
-            ConnectionPoolService connectionPoolService = new ConnectionPoolServiceImpl();
-            connectionPoolService.destroy();
-        } catch (SQLException | DaoException | IOException e) {LOGGER.error(e);}
     }
 }

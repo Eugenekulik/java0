@@ -114,14 +114,16 @@ public class ProcedureServiceImpl implements ProcedureService {
      * This method allows you to add procedure to the store.
      * @param procedure
      * @throws ServiceException
+     * @return
      */
-    @Override public void addProcedure(Procedure procedure) throws ServiceException {
+    @Override public boolean addProcedure(Procedure procedure) throws ServiceException {
         Transaction transaction = null;
         try {
             transaction = transactionFactory.createTransaction();
             ProcedureDao procedureDao = transaction.createDao(PROCEDURE_DAO);
-            procedureDao.create(procedure);
+            Procedure result = procedureDao.create(procedure);
             transaction.commit();
+            return result != null;
         } catch (DaoException e) {
             try {
                 if(transaction != null) {
@@ -138,19 +140,16 @@ public class ProcedureServiceImpl implements ProcedureService {
      * This method allows you to delete procedure from the  store.
      * @param id identifier of the procedure.
      * @throws ServiceException
+     * @return
      */
-    @Override public void deleteProcedure(Integer id) throws ServiceException {
+    @Override public boolean deleteProcedure(int id) throws ServiceException {
         Transaction transaction = null;
         try {
             transaction = transactionFactory.createTransaction();
             ProcedureDao procedureDao = transaction.createDao(PROCEDURE_DAO);
-            if (id != null) {
-                procedureDao.delete(id);
-            } else {
-                LOGGER.warn("an error occurred " +
-                        "while delete procedure by id: {}", id);
-            }
+            boolean result = procedureDao.delete(id);
             transaction.commit();
+            return result;
         } catch (DaoException e) {
             try {
                 if(transaction != null) {
@@ -167,14 +166,16 @@ public class ProcedureServiceImpl implements ProcedureService {
      * This method allows you to update information about specific procedure.
      * @param procedure new procedure with old id.
      * @throws ServiceException
+     * @return
      */
-    @Override public void updateProcedure(Procedure procedure) throws ServiceException {
+    @Override public boolean updateProcedure(Procedure procedure) throws ServiceException {
         Transaction transaction = null;
         try {
             transaction = transactionFactory.createTransaction();
             ProcedureDao procedureDao = transaction.createDao(PROCEDURE_DAO);
-            procedureDao.update(procedure);
+            boolean result = procedureDao.update(procedure);
             transaction.commit();
+            return result;
         } catch (DaoException e) {
             try {
                 if(transaction != null) {
